@@ -1,4 +1,4 @@
-package fr.simplon.controllers;
+package fr.simplon.controller;
 
 public class ServiceRhController {
 
