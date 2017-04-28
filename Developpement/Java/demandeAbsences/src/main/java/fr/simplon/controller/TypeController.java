@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.simplon.domain.Type;
+import fr.simplon.common.ResponseError;
+import fr.simplon.domain.TypeAbsence;
 import fr.simplon.services.TypeService;
 
 /**
@@ -36,11 +37,11 @@ public class TypeController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> listTypes(@RequestParam(value="searchnew", defaultValue="") String searchnew) {
-		Iterable<Type> listType;
+		Iterable<TypeAbsence> listType = null;
 		try {
 			listType = typeService.listTypes(searchnew);
 		} catch (Exception e) {
-			return AjaxResponseError.getErrorMessage(AjaxResponseError.ERROR_EXEC, e.getMessage());
+			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(listType);
 	}
@@ -53,14 +54,14 @@ public class TypeController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getType(@PathVariable("id") Long id) {
-		Type type = null;
+		TypeAbsence type = null;
 		try {
 			type = typeService.getType(id);
 		} catch (Exception e) {
-			return AjaxResponseError.getErrorMessage(AjaxResponseError.ERROR_EXEC, e.getMessage());
+			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
 		}
 		if (type == null) {
-			return AjaxResponseError.getErrorMessage(AjaxResponseError.ERROR_NOT_FOUND, "Not found");
+			return ResponseError.getErrorMessage(ResponseError.ERROR_NOT_FOUND, "Not found");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(type);
 	}
@@ -73,18 +74,18 @@ public class TypeController {
 	 * @return : réponse de la requête
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> insertType(@Valid @RequestBody Type type , Errors errors) {
+	public ResponseEntity<?> insertType(@Valid @RequestBody TypeAbsence type , Errors errors) {
 
 		// Si erreur de validation, retour erreur 400 (bad request), avec le
 		// message d'erreur
 		if (errors.hasErrors()) {
-			return AjaxResponseError.extractErrorWhenIncompletRequest(errors);
+			return ResponseError.extractErrorWhenIncompletRequest(errors);
 		}
 
 		try {
 			type = typeService.insertType(type);
 		} catch (Exception e) {
-			return AjaxResponseError.getErrorMessage(AjaxResponseError.ERROR_EXEC, e.getMessage());
+			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
 		}
 
 		return ResponseEntity.status(HttpStatus.OK).body(type);
@@ -97,17 +98,17 @@ public class TypeController {
 	 * @return : réponse de la requête
 	 */
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<?> updateType(@Valid @RequestBody Type type, Errors errors) {
+	public ResponseEntity<?> updateType(@Valid @RequestBody TypeAbsence type, Errors errors) {
 		// Si erreur de validation, retour erreur 400 (bad request), avec le
 		// message d'erreur
 		if (errors.hasErrors()) {
-			return AjaxResponseError.extractErrorWhenIncompletRequest(errors);
+			return ResponseError.extractErrorWhenIncompletRequest(errors);
 		}
 
 		try {
 			typeService.updateType(type);
 		} catch (Exception e) {
-			return AjaxResponseError.getErrorMessage(AjaxResponseError.ERROR_EXEC, e.getMessage());
+			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(type);
 	}
@@ -124,7 +125,7 @@ public class TypeController {
 		try {
 			typeService.deleteType(id);
 		} catch (Exception e) {
-			return AjaxResponseError.getErrorMessage(AjaxResponseError.ERROR_EXEC, e.getMessage());
+			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
 		}
 
 		return ResponseEntity.noContent().build();

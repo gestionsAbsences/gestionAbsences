@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.simplon.dao.TypeDao;
-import fr.simplon.domain.Type;
+import fr.simplon.domain.TypeAbsence;
 
 /**
  * service gérant le type
@@ -25,7 +25,7 @@ public class TypeService {
 	@Autowired
 	private TypeDao dao;
 
-	public Iterable<Type> listTypes(String search, String searchNew) throws Exception {
+	public Iterable<TypeAbsence> listTypes(String searchNew) throws Exception {
 		try {
 			if (! "".equals(searchNew))
 				return dao.findNewTypes(searchNew);
@@ -37,8 +37,8 @@ public class TypeService {
 		}
 	}
 
-	public Type getType(Long id) throws Exception {
-		Type type = null;
+	public TypeAbsence getType(Long id) throws Exception {
+		TypeAbsence type = null;
 		try {
 			type = dao.findOne(id);
 		} catch (Exception e) {
@@ -48,10 +48,9 @@ public class TypeService {
 		return type;
 	}
 
-	public Type insertType(Type type) throws Exception {
+	public TypeAbsence insertType(TypeAbsence type) throws Exception {
 		try {
 			type.setId(new Long(0));
-			type.setLastUpdate(new Timestamp(System.currentTimeMillis()));
 			type = dao.save(type);
 		} catch (Exception e) {
 			log.error("Hibrnate Error !: insertType", e);
@@ -60,9 +59,8 @@ public class TypeService {
 		return type;
 	}
 
-	public void updateType(Type type) throws Exception {
+	public void updateType(TypeAbsence type) throws Exception {
 		try {
-			type.setLastUpdate(new Timestamp(System.currentTimeMillis()));
 			dao.save(type);
 		} catch (Exception e) {
 			log.error("Hibrnate Error !: updateType", e);
