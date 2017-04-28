@@ -10,8 +10,13 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+/**
+ * entity Service RH
+ * 
+ */
+
 @Entity
-@Table(name="ServiceRH")
+@Table(name="servicerh")
 public class ServiceRh {
 	
 	@Id
