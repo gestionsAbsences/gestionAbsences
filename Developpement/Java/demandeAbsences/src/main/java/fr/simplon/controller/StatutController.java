@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.simplon.common.ResponseError;
 import fr.simplon.domain.Statut;
 import fr.simplon.services.StatutService;
 
