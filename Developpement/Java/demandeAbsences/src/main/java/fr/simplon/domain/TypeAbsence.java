@@ -7,29 +7,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * entity Type
  */
 @Entity
-@Table(name = "Type")
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+@Table(name = "type")
 public class TypeAbsence {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 
-	// NotBlanck est un validateur d'hibernate
-	// Il indique que la propriete nom doit être renseignée
 	@Column(name = "nom")
 	@NotBlank(message = "nom can't empty!")
+	@Length(min = 1, message = "La chaîne doit avoir au moins 2 caractères")
 	private String nom;
+
+
+	public TypeAbsence() {
+	}
 
 
 	public TypeAbsence(Long id, String nom) {

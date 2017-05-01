@@ -1,11 +1,18 @@
 package fr.simplon.controller;
 
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.simplon.common.ResponseError;
+import fr.simplon.domain.ServiceRh;
 import fr.simplon.domain.TypeAbsence;
 import fr.simplon.services.TypeService;
 
@@ -22,6 +30,7 @@ import fr.simplon.services.TypeService;
  * @author simplon
  *
  */
+@CrossOrigin(origins="http://localhost:3000")
 @RestController
 @RequestMapping("/type")
 public class TypeController {
@@ -61,7 +70,7 @@ public class TypeController {
 			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
 		}
 		if (type == null) {
-			return ResponseError.getErrorMessage(ResponseError.ERROR_NOT_FOUND, "Not found");
+			return ResponseError.getErrorMessage(ResponseError.ERROR_NOT_FOUND, "Aucun enregistrement");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(type);
 	}
@@ -74,7 +83,9 @@ public class TypeController {
 	 * @return : réponse de la requête
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> insertType(@Valid @RequestBody TypeAbsence type , Errors errors) {
+//	public ResponseEntity<?> save(@Valid ServiceRh serviceRh, BindingResult result) {}
+//	public ResponseEntity<?> insertType(@Valid @RequestBody TypeAbsence type , Errors errors) {
+	public ResponseEntity<?> save(@Valid TypeAbsence type, BindingResult errors) {
 
 		// Si erreur de validation, retour erreur 400 (bad request), avec le
 		// message d'erreur
@@ -96,21 +107,41 @@ public class TypeController {
 	 * @param type : type
 	 * @param errors : erreurs de validation
 	 * @return : réponse de la requête
+	 * @throws Exception 
 	 */
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<?> updateType(@Valid @RequestBody TypeAbsence type, Errors errors) {
+//	public ResponseEntity<?> update(@Valid ServiceRh serviceRh, BindingResult result) {			
+//	public ResponseEntity<?> updateType(@Valid @RequestBody TypeAbsence type, Errors errors) {
+	public ResponseEntity<?> updateType(@Valid TypeAbsence type, BindingResult result) throws Exception {
 		// Si erreur de validation, retour erreur 400 (bad request), avec le
 		// message d'erreur
-		if (errors.hasErrors()) {
-			return ResponseError.extractErrorWhenIncompletRequest(errors);
-		}
 
-		try {
-			typeService.updateType(type);
-		} catch (Exception e) {
-			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
+		Map<String,Object> map = new HashMap<String,Object>();
+		try{
+			if(result.hasErrors()){
+				for(FieldError error : result.getFieldErrors()){
+					map.put(error.getField(), String.format("message:%s", error.getDefaultMessage()));
+					return ResponseEntity.badRequest().body(map);
+				}
+			} else {
+				type =  typeService.updateType(type);
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(type);
+		} catch( SQLException sqle){
+			return ResponseEntity.badRequest().body(sqle);
+		}
+		return ResponseEntity.ok(type.getNom()+" modifié.");
+
+
+//		if (errors.hasErrors()) {
+//			return ResponseError.extractErrorWhenIncompletRequest(errors);
+//		}
+//
+//		try {
+//			typeService.updateType(type);
+//		} catch (Exception e) {
+//			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
+//		}
+//		return ResponseEntity.status(HttpStatus.OK).body(type);
 	}
 
 	/**

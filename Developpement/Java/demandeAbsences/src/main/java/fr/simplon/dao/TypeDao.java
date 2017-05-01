@@ -2,11 +2,11 @@ package fr.simplon.dao;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import fr.simplon.domain.TypeAbsence;
 
-
-
+@Repository
 public interface TypeDao extends CrudRepository<TypeAbsence, Long> {
 	
 	/**
