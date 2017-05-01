@@ -4,17 +4,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import fr.simplon.domain.TypeAbsence;
+import fr.simplon.domain.Role;
 
 @Repository
-public interface TypeDao extends CrudRepository<TypeAbsence, Long> {
+public interface RoleDao extends CrudRepository<Role, Long> {
 	
 	/**
 	 * exemple de lecture personnalisee dans la base de donnees
-	 * @param name nom
-	 * @return liste de types
+	 * @param name role
+	 * @return liste de roles
 	 */
-	@Query("from TypeAbsence where nom like %?1%")
-	public Iterable<TypeAbsence> findNewTypes(String nom);
+	@Query("from Role where role like %?1%")
+	public Iterable<Role> findNewRoles(String role);
 
 }

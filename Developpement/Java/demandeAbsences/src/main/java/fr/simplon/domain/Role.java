@@ -11,30 +11,30 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * entity Type
+ * entity Role
  */
 @Entity
-@Table(name = "type")
-public class TypeAbsence {
+@Table(name = "role")
+public class Role {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(name = "nom")
-	@NotBlank(message = "nom can't empty!")
+	@Column(name = "role")
+	@NotBlank(message = "role can't empty!")
 	@Length(min = 1, message = "La chaîne doit avoir au moins 2 caractères")
-	private String nom;
+	private String role;
 
 
-	public TypeAbsence() {
+	public Role() {
 	}
 
 
-	public TypeAbsence(Long id, String nom) {
+	public Role(Long id, String role) {
 		super();
 		this.id = id;
-		this.nom = nom;
+		this.role = role;
 	}
 
 
@@ -42,16 +42,16 @@ public class TypeAbsence {
 		return id;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getRole() {
+		return role;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 }

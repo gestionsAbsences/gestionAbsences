@@ -1,7 +1,5 @@
 package fr.simplon.services;
 
-import java.sql.Timestamp;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,13 +57,14 @@ public class TypeService {
 		return type;
 	}
 
-	public void updateType(TypeAbsence type) throws Exception {
+	public TypeAbsence updateType(TypeAbsence type) throws Exception {
 		try {
 			dao.save(type);
 		} catch (Exception e) {
 			log.error("Hibrnate Error !: updateType", e);
 			throw e;
 		}
+		return type;
 	}
 
 	public void deleteType(Long id) throws Exception {

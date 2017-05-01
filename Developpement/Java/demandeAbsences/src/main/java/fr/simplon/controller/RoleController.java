@@ -10,82 +10,79 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.simplon.common.ResponseError;
-import fr.simplon.domain.ServiceRh;
-import fr.simplon.domain.TypeAbsence;
-import fr.simplon.services.TypeService;
+import fr.simplon.domain.Role;
+import fr.simplon.services.RoleService;
 
 /**
- * Controleur REST de la classe Type
+ * Controleur REST de la classe Role
  * @author simplon
  *
  */
 @CrossOrigin(origins="http://localhost:3000")
 @RestController
-@RequestMapping("/type")
-public class TypeController {
+@RequestMapping("/role")
+public class RoleController {
 
 	@Autowired
-	TypeService typeService;
+	RoleService roleService;
 
 	/**
-	 * Liste des types
+	 * Liste des roles
 	 * @param search : critère de recherche
 	 * @param searchnew : 2eme critere de recherche 
-	 * @return liste des types
+	 * @return liste des roles
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> listTypes(@RequestParam(value="searchnew", defaultValue="") String searchnew) {
-		Iterable<TypeAbsence> listType = null;
+	public ResponseEntity<?> listRoles(@RequestParam(value="searchnew", defaultValue="") String searchnew) {
+		Iterable<Role> listRole = null;
 		try {
-			listType = typeService.listTypes(searchnew);
+			listRole = roleService.listRoles(searchnew);
 		} catch (Exception e) {
 			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(listType);
+		return ResponseEntity.status(HttpStatus.OK).body(listRole);
 	}
 
 	/**
-	 * recherche d'un type. note : l'id est dans l'url et non en parametre
+	 * recherche d'un role. note : l'id est dans l'url et non en parametre
 	 * 
-	 * @param id : id du type
-	 * @return : objet type
+	 * @param id : id du role
+	 * @return : objet role
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getType(@PathVariable("id") Long id) {
-		TypeAbsence type = null;
+	public ResponseEntity<?> getRole(@PathVariable("id") Long id) {
+		Role role = null;
 		try {
-			type = typeService.getType(id);
+			role = roleService.getRole(id);
 		} catch (Exception e) {
 			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
 		}
-		if (type == null) {
+		if (role == null) {
 			return ResponseError.getErrorMessage(ResponseError.ERROR_NOT_FOUND, "Aucun enregistrement");
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(type);
+		return ResponseEntity.status(HttpStatus.OK).body(role);
 	}
 
 	/**
-	 * creation d'un type
+	 * creation d'un role
 	 * 
-	 * @param type : type
+	 * @param role : role
 	 * @param errors : erreur de validation
 	 * @return : réponse de la requête
 	 */
 	@RequestMapping(method = RequestMethod.POST)
 //	public ResponseEntity<?> save(@Valid ServiceRh serviceRh, BindingResult result) {}
-//	public ResponseEntity<?> insertType(@Valid @RequestBody TypeAbsence type , Errors errors) {
-	public ResponseEntity<?> save(@Valid TypeAbsence type, BindingResult errors) {
+//	public ResponseEntity<?> insertRole(@Valid @RequestBody Role role , Errors errors) {
+	public ResponseEntity<?> save(@Valid Role role, BindingResult errors) {
 
 		// Si erreur de validation, retour erreur 400 (bad request), avec le
 		// message d'erreur
@@ -94,25 +91,25 @@ public class TypeController {
 		}
 
 		try {
-			type = typeService.insertType(type);
+			role = roleService.insertRole(role);
 		} catch (Exception e) {
 			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
 		}
 
-		return ResponseEntity.status(HttpStatus.OK).body(type);
+		return ResponseEntity.status(HttpStatus.OK).body(role);
 	}
 	
 	/**
 	 * 
-	 * @param type : type
+	 * @param role : role
 	 * @param errors : erreurs de validation
 	 * @return : réponse de la requête
 	 * @throws Exception 
 	 */
 	@RequestMapping(method = RequestMethod.PUT)
 //	public ResponseEntity<?> update(@Valid ServiceRh serviceRh, BindingResult result) {			
-//	public ResponseEntity<?> updateType(@Valid @RequestBody TypeAbsence type, Errors errors) {
-	public ResponseEntity<?> updateType(@Valid TypeAbsence type, BindingResult result) throws Exception {
+//	public ResponseEntity<?> updateRole(@Valid @RequestBody Role role, Errors errors) {
+	public ResponseEntity<?> updateRole(@Valid Role role, BindingResult result) throws Exception {
 		// Si erreur de validation, retour erreur 400 (bad request), avec le
 		// message d'erreur
 
@@ -124,12 +121,12 @@ public class TypeController {
 					return ResponseEntity.badRequest().body(map);
 				}
 			} else {
-				type =  typeService.updateType(type);
+				role =  roleService.updateRole(role);
 		}
 		} catch( SQLException sqle){
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(type.getNom()+" modifié.");
+		return ResponseEntity.ok(role.getRole()+" modifié.");
 
 
 //		if (errors.hasErrors()) {
@@ -137,24 +134,24 @@ public class TypeController {
 //		}
 //
 //		try {
-//			typeService.updateType(type);
+//			roleService.updateRole(role);
 //		} catch (Exception e) {
 //			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
 //		}
-//		return ResponseEntity.status(HttpStatus.OK).body(type);
+//		return ResponseEntity.status(HttpStatus.OK).body(role);
 	}
 
 	/**
-	 * suppression d'un type
+	 * suppression d'un role
 	 * 
-	 * @param id : id du type
+	 * @param id : id du role
 	 * @return : réponse de la requête sans contenu
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteType(@PathVariable("id") Long id) {
+	public ResponseEntity<?> deleteRole(@PathVariable("id") Long id) {
 
 		try {
-			typeService.deleteType(id);
+			roleService.deleteRole(id);
 		} catch (Exception e) {
 			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
 		}
