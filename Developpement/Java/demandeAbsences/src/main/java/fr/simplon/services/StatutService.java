@@ -1,72 +1,150 @@
 package fr.simplon.services;
 
-import java.sql.Timestamp;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.simplon.dao.StatutDao;
 import fr.simplon.domain.Statut;
 
+/**
+ * Classe métier du service Statut
+ * 
+ * @author JGL
+ *
+ */
 @Service
+@Transactional
 public class StatutService {
 
-		
 	@Autowired
-	private StatutDao statutDao;
+	private StatutDao dao;
 	
-
-	public Iterable<Statut> listStatuts(String search) throws Exception {
+	/**
+	 * Liste des services Statut
+	 * @return une liste
+	 * @throws SQLException
+	 */
+	/*
+	 * La methode [findAll] retourne une iteration de la table
+	 * Avec la boucle [for], on la parcours et on retourne une
+	 * liste de la table
+	 */
+	public List<Statut> listeServicesStatut() throws SQLException {
+		List<Statut> resultat = new ArrayList<>();
 		try {
-			if (! "".equals(search))
-				return statutDao.findStatut(search);
-			
-			else
-				return statutDao.findAll();
+			Iterable<Statut> recherche = dao.findAll();
+
+			for (Statut statut : recherche) {
+				Statut st = new Statut();
+				st.setId(statut.getId());
+				st.setNom(statut.getNom());
+				resultat.add(st);
+			}
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listStatut"+ e);
+			System.out.println("Hibernate Error !: listeStatut" + e);
 			throw e;
 		}
+		return resultat;
 	}
 
-	public Statut getStatut(Long id) throws Exception {
-		Statut statut = null;
+	/**
+	 * Recherche d'un service Statut
+	 * @param nom
+	 * @return une liste des services statut en fonction du nom
+	 * @throws SQLException
+	 */
+	/*
+	 * Meme principe que ci-dessus
+	 * une iteration qu'on transforme en liste
+	 */
+	public List<Statut> getStatut(String nom) throws SQLException {
+		List<Statut> resultat = new ArrayList<>();
 		try {
-			statut = statutDao.findOne(id);
+			Iterable<Statut> recherche = dao.findByName(nom);
+	
+			for (Statut statut : recherche) {
+				Statut st = new Statut();
+				st.setId(statut.getId());
+				st.setNom(statut.getNom());
+				resultat.add(st);
+			}
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: getStatut"+ e);
+			System.out.println("Hibernate Error !: listeStatut" + e);
 			throw e;
 		}
-		return statut;
+		return resultat;
 	}
 
-	public Statut insertStatut(Statut statut) throws Exception {
+	/**
+	 * Creation nouveau service Statut
+	 * @param statut
+	 * @return objet
+	 * @throws SQLException
+	 */
+	/*
+	 * Simple methode hibernate pour la creation d'un nouveau service Statut
+	 * J'ai crée un bojet Statut pour avoir le resultat de la creation en retour
+	 */
+	public Statut insertStatut(Statut statut) throws SQLException {
+		Statut creation = new Statut();
 		try {
-			statut.setId(new Long(0));
-			statut = statutDao.save(statut);
+			creation = dao.save(statut);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: insertStatut"+ e);
+			System.out.println("Hibernate Error !: insertStatut" + e);
 			throw e;
 		}
-		return statut;
+		return (Statut) creation;
 	}
 
-	public void updateStatut(Statut statut) throws Exception {
+	/**
+	 * Modification service Statut
+	 * @param statut
+	 * @return Objet
+	 * @throws SQLException
+	 */
+	/*
+	 * Même principe que creation
+	 */
+	public Statut updateStatut(Statut statut) throws SQLException {
+		Statut modif = new Statut();
 		try {
-			statutDao.save(statut);
+			modif = dao.save(statut);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: updateStatut"+ e);
+			System.out.println("Hibernate Error !: updateStatut" + e);
 			throw e;
 		}
+		return (Statut) modif;
 	}
 
-	public void deleteStatut(Long id) throws Exception {
-		try {
-			statutDao.delete(id);
+	/**
+	 * Suppression Service Statut
+	 * @param statut
+	 * @throws SQLException
+	 */
+	/*
+	 * On commence par faire une recherche d'un service statut
+	 * avec la methode [findByName()]
+	 * Et on supprime l'objet par la methode delete
+	 * d'hibernate qui supprime une entité complete.
+	 * Cette methode peut etre appelé à evoluer
+	 */
+	public void deleteStatut(Statut statut) throws SQLException {
+		try{
+			Iterable<Statut> temp = dao.findByName(statut.getNom());
+			Statut st = new Statut();
+			for (Statut service : temp) {
+				
+				st.setId(service.getId());
+				st.setNom(service.getNom());
+			}
+			dao.delete(st);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: deleteStatut"+ e);
+			System.out.println("Hibernate Error !: deleteStatut" + e);
 			throw e;
 		}
 	}

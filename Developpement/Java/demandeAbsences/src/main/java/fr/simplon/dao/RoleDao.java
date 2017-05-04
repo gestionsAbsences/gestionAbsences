@@ -7,14 +7,16 @@ import org.springframework.stereotype.Repository;
 import fr.simplon.domain.Role;
 
 @Repository
-public interface RoleDao extends CrudRepository<Role, Long> {
-	
+public interface RoleDao extends CrudRepository<Role, Long>{
+
 	/**
-	 * exemple de lecture personnalisee dans la base de donnees
-	 * @param name role
-	 * @return liste de roles
+	 * lecture personnalisee dans la base de donnees
+	 * @param role 
+	 * @return nom service
 	 */
-	@Query("from Role where role like %?1%")
-	public Iterable<Role> findNewRoles(String role);
+	@Query("from Role where role = ?1")
+	public Iterable<Role> findByRole(String role);
+
+//	public Iterable<Role> findNewRoles(String role);
 
 }

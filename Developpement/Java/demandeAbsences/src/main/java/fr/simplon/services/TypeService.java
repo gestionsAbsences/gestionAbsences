@@ -1,77 +1,150 @@
 package fr.simplon.services;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.simplon.dao.TypeDao;
 import fr.simplon.domain.TypeAbsence;
 
 /**
- * service gérant le type
- * C'est la couche métier.
+ * Classe métier du service Type
  * 
- * @author simplon
+ * @author JGL
  *
  */
 @Service
+@Transactional
 public class TypeService {
-	
-	private final Logger log = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private TypeDao dao;
-
-	public Iterable<TypeAbsence> listTypes(String searchNew) throws Exception {
+	
+	/**
+	 * Liste des services Type
+	 * @return une liste
+	 * @throws SQLException
+	 */
+	/*
+	 * La methode [findAll] retourne une iteration de la table
+	 * Avec la boucle [for], on la parcours et on retourne une
+	 * liste de la table
+	 */
+	public List<TypeAbsence> listeServicesType() throws SQLException {
+		List<TypeAbsence> resultat = new ArrayList<>();
 		try {
-			if (! "".equals(searchNew))
-				return dao.findNewTypes(searchNew);
-			else
-				return dao.findAll();
+			Iterable<TypeAbsence> recherche = dao.findAll();
+
+			for (TypeAbsence type : recherche) {
+				TypeAbsence tp = new TypeAbsence();
+				tp.setId(type.getId());
+				tp.setNom(type.getNom());
+				resultat.add(tp);
+			}
 		} catch (Exception e) {
-			log.error("Hibrnate Error !: listTypes", e);
+			System.out.println("Hibernate Error !: listeType" + e);
 			throw e;
 		}
+		return resultat;
 	}
 
-	public TypeAbsence getType(Long id) throws Exception {
-		TypeAbsence type = null;
+	/**
+	 * Recherche d'un service Type
+	 * @param nom
+	 * @return une liste des services type en fonction du nom
+	 * @throws SQLException
+	 */
+	/*
+	 * Meme principe que ci-dessus
+	 * une iteration qu'on transforme en liste
+	 */
+	public List<TypeAbsence> getType(String nom) throws SQLException {
+		List<TypeAbsence> resultat = new ArrayList<>();
 		try {
-			type = dao.findOne(id);
+			Iterable<TypeAbsence> recherche = dao.findByName(nom);
+	
+			for (TypeAbsence type : recherche) {
+				TypeAbsence tp = new TypeAbsence();
+				tp.setId(type.getId());
+				tp.setNom(type.getNom());
+				resultat.add(tp);
+			}
 		} catch (Exception e) {
-			log.error("Hibrnate Error !: getType", e);
+			System.out.println("Hibernate Error !: listeType" + e);
 			throw e;
 		}
-		return type;
+		return resultat;
 	}
 
-	public TypeAbsence insertType(TypeAbsence type) throws Exception {
+	/**
+	 * Creation nouveau service Type
+	 * @param type
+	 * @return objet
+	 * @throws SQLException
+	 */
+	/*
+	 * Simple methode hibernate pour la creation d'un nouveau service Type
+	 * J'ai crée un bojet Type pour avoir le resultat de la creation en retour
+	 */
+	public TypeAbsence insertType(TypeAbsence type) throws SQLException {
+		TypeAbsence creation = new TypeAbsence();
 		try {
-			type.setId(new Long(0));
-			type = dao.save(type);
+			creation = dao.save(type);
 		} catch (Exception e) {
-			log.error("Hibrnate Error !: insertType", e);
+			System.out.println("Hibernate Error !: insertType" + e);
 			throw e;
 		}
-		return type;
+		return (TypeAbsence) creation;
 	}
 
-	public TypeAbsence updateType(TypeAbsence type) throws Exception {
+	/**
+	 * Modification service Type
+	 * @param type
+	 * @return Objet
+	 * @throws SQLException
+	 */
+	/*
+	 * Même principe que creation
+	 */
+	public TypeAbsence updateType(TypeAbsence type) throws SQLException {
+		TypeAbsence modif = new TypeAbsence();
 		try {
-			dao.save(type);
+			modif = dao.save(type);
 		} catch (Exception e) {
-			log.error("Hibrnate Error !: updateType", e);
+			System.out.println("Hibernate Error !: updateType" + e);
 			throw e;
 		}
-		return type;
+		return (TypeAbsence) modif;
 	}
 
-	public void deleteType(Long id) throws Exception {
-		try {
-			dao.delete(id);
+	/**
+	 * Suppression Service Type
+	 * @param type
+	 * @throws SQLException
+	 */
+	/*
+	 * On commence par faire une recherche d'un service type
+	 * avec la methode [findByName()]
+	 * Et on supprime l'objet par la methode delete
+	 * d'hibernate qui supprime une entité complete.
+	 * Cette methode peut etre appelé à evoluer
+	 */
+	public void deleteType(TypeAbsence type) throws SQLException {
+		try{
+			Iterable<TypeAbsence> temp = dao.findByName(type.getNom());
+			TypeAbsence tp = new TypeAbsence();
+			for (TypeAbsence service : temp) {
+				
+				tp.setId(service.getId());
+				tp.setNom(service.getNom());
+			}
+			dao.delete(tp);
 		} catch (Exception e) {
-			log.error("Hibrnate Error !: deleteType", e);
+			System.out.println("Hibernate Error !: deleteType" + e);
 			throw e;
 		}
 	}
