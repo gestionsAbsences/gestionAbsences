@@ -7,14 +7,14 @@ import org.springframework.stereotype.Repository;
 import fr.simplon.domain.Equipe;
 
 @Repository
-public interface EquipeDao extends CrudRepository<Equipe, Long> {
+public interface EquipeDao extends CrudRepository<Equipe, Long>{
 	
 	/**
-	 * exemple de lecture personnalisee dans la base de donnees
-	 * @param name nom
-	 * @return liste de equipes
+	 * lecture personnalisee dans la base de donnees
+	 * @param name 
+	 * @return nom service RH
 	 */
-	@Query("from Equipe where nom like %?1%")
-	public Iterable<Equipe> findNewEquipes(String nom);
-
+	@Query("from Equipe where Nom like %?1%")
+	public Iterable<Equipe> findByName(String name);
+	
 }

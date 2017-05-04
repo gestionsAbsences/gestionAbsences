@@ -11,45 +11,37 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * entity Equipe
+ * entity Service RH
+ * 
  */
+
 @Entity
-@Table(name = "equipe")
+@Table(name="equipe")
 public class Equipe {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
+	
 	@Column(name = "nom")
-	@NotBlank(message = "nom can't empty!")
-	@Length(min = 1, message = "La chaîne doit avoir au moins 2 caractères")
+	@NotBlank(message = "Nom obligatoire")
+	@Length(min = 4, message = "La chaîne doit avoir au moins 4 caractères")
 	private String nom;
-
-	@Column(name = "id_Responsable")
-	private Long id_Responsable;
-
-	@Column(name = "id_EquipeMere")
+	
 	private Long id_EquipeMere;
-
-
-	public Equipe() {
+	private Long id_Responsable;
+	
+	public Equipe(){
+		
 	}
 
-	public Equipe(Long id, String nom) {
+	public Equipe(Long id, String nom, Long id_EquipeMere, Long id_Responsable) {
 		super();
 		this.id = id;
 		this.nom = nom;
+		this.id = id_EquipeMere;
+		this.id = id_Responsable;
 	}
-
-	public Equipe(Long id, String nom, Long id_Responsable, Long id_EquipeMere) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.id_Responsable = id_Responsable;
-		this.id_EquipeMere = id_EquipeMere;
-	}
-
 
 	public Long getId() {
 		return id;
@@ -66,13 +58,6 @@ public class Equipe {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public Long getId_Responsable() {
-		return id_Responsable;
-	}
-
-	public void setId_Responsable(Long id_Responsable) {
-		this.id_Responsable = id_Responsable;
-	}
 
 	public Long getId_EquipeMere() {
 		return id_EquipeMere;
@@ -80,6 +65,14 @@ public class Equipe {
 
 	public void setId_EquipeMere(Long id_EquipeMere) {
 		this.id_EquipeMere = id_EquipeMere;
+	}
+
+	public Long getId_Responsable() {
+		return id_Responsable;
+	}
+
+	public void setId_Responsable(Long id_Responsable) {
+		this.id_Responsable = id_Responsable;
 	}
 
 }

@@ -1,118 +1,145 @@
 package fr.simplon.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.simplon.common.ResponseError;
 import fr.simplon.domain.Role;
 import fr.simplon.services.RoleService;
 
 /**
- * Controleur REST de la classe Role
- * @author simplon
- *
+ * CRUD des services ROLE
+ * 
+ * @author JGL
+ * 
  */
-@CrossOrigin(origins="http://localhost:3000")
-@RestController
-@RequestMapping("/role")
-public class RoleController {
 
+/*
+ * Controlleur pour la gestion des services Role
+ * J'ai utilisé le verbe correspondant à l'action 
+ * (get : lecture, post : création, put : mise à jour et delete: supression
+ * url àsaisir dans le navigateur : localhost:8080/role/nomMethode
+ */
+@RestController
+@RequestMapping("role")
+public class RoleController {
+	
 	@Autowired
 	RoleService roleService;
-
+	
 	/**
-	 * Liste des roles
-	 * @param search : critère de recherche
-	 * @param searchnew : 2eme critere de recherche 
-	 * @return liste des roles
-	 */
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> listRoles(@RequestParam(value="searchnew", defaultValue="") String searchnew) {
-		Iterable<Role> listRole = null;
-		try {
-			listRole = roleService.listRoles(searchnew);
-		} catch (Exception e) {
-			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(listRole);
-	}
-
-	/**
-	 * recherche d'un role. note : l'id est dans l'url et non en parametre
+	 * Liste des services role
 	 * 
-	 * @param id : id du role
-	 * @return : objet role
+	 * @return liste des services role
 	 */
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getRole(@PathVariable("id") Long id) {
-		Role role = null;
-		try {
-			role = roleService.getRole(id);
-		} catch (Exception e) {
-			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
-		}
-		if (role == null) {
-			return ResponseError.getErrorMessage(ResponseError.ERROR_NOT_FOUND, "Aucun enregistrement");
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(role);
-	}
-
-	/**
-	 * creation d'un role
-	 * 
-	 * @param role : role
-	 * @param errors : erreur de validation
-	 * @return : réponse de la requête
+	
+	/*
+	 * Affiche la liste des services role
+	 * ResponseEntity permet gérer la réponse envoyée au front
 	 */
-	@RequestMapping(method = RequestMethod.POST)
-//	public ResponseEntity<?> save(@Valid ServiceRh serviceRh, BindingResult result) {}
-//	public ResponseEntity<?> insertRole(@Valid @RequestBody Role role , Errors errors) {
-	public ResponseEntity<?> save(@Valid Role role, BindingResult errors) {
-
-		// Si erreur de validation, retour erreur 400 (bad request), avec le
-		// message d'erreur
-		if (errors.hasErrors()) {
-			return ResponseError.extractErrorWhenIncompletRequest(errors);
-		}
-
+	@GetMapping("listeService")
+	public ResponseEntity<?> findAll() {	
+		List<Role> rol = new ArrayList<Role>();
 		try {
-			role = roleService.insertRole(role);
-		} catch (Exception e) {
-			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
+		rol = (List<Role>) roleService.listeServicesRole();
+		} catch (SQLException sqle) {
+			return ResponseEntity.badRequest().body(sqle);
 		}
-
-		return ResponseEntity.status(HttpStatus.OK).body(role);
+		return ResponseEntity.ok(rol);
 	}
 	
 	/**
 	 * 
-	 * @param role : role
-	 * @param errors : erreurs de validation
-	 * @return : réponse de la requête
-	 * @throws Exception 
+	 * Recherche des services Role par le role
+	 * 
+	 * @param String role
+	 * 
+	 * @return 1 ou  plusieurs entités role 
+	 * 
 	 */
-	@RequestMapping(method = RequestMethod.PUT)
-//	public ResponseEntity<?> update(@Valid ServiceRh serviceRh, BindingResult result) {			
-//	public ResponseEntity<?> updateRole(@Valid @RequestBody Role role, Errors errors) {
-	public ResponseEntity<?> updateRole(@Valid Role role, BindingResult result) throws Exception {
-		// Si erreur de validation, retour erreur 400 (bad request), avec le
-		// message d'erreur
+	
+	/*
+	 * Cette methode recherche un service Rolepar le nom
+	 * Il suffit de rentrer une lettre et la liste des services
+	 * contenant cette lettre sera affichée
+	 */
 
+	@GetMapping("getService")
+	public ResponseEntity<?> findByRole(@RequestParam(value="role", defaultValue="") String role) {	
+		List<Role> rol = new ArrayList<Role>();
+		try {
+			rol = (List<Role>) roleService.getRole(role);
+		} catch (SQLException sqle) {
+			return ResponseEntity.badRequest().body(sqle);
+		}
+		return ResponseEntity.ok(rol);
+	}
+	
+	/**
+	 * Création de nouveaux services Role
+	 * 
+	 * @param email et nom du service Role
+	 * 
+	 * @return enregistrement ou erreur de saisie
+	 * 
+	 */
+	/*
+	 * La 2° ligne permet d'enregistrer les données dans le bean [Role role]
+	 * et de capter le résultat  [BindingResult result]
+	 */
+	@PostMapping(value="/creerService", consumes = "application/json")	
+	public ResponseEntity<?> save(@Valid Role role, BindingResult result) {			
+	/*
+	 * On capture les éventuelles erreurs dans une map 
+	 * sous forme : key, value
+	 * et formatée pour l'affichage
+	 */
+		try{
+			Map<String,Object> map = new HashMap<String,Object>();
+			if(result.hasErrors()){
+				for(FieldError error : result.getFieldErrors()){
+					map.put(error.getField(), String.format("message:%s", error.getDefaultMessage()));
+					return ResponseEntity.badRequest().body(map);
+				}
+			} else {
+		role =  roleService.insertRole(role);
+		}
+		} catch( SQLException sqle){
+			return ResponseEntity.badRequest().body(sqle);
+		}
+		return ResponseEntity.ok(role.getRole()+" créée.");
+	}
+	
+	/**
+	 * Mise à jour d'un service Role
+	 * 
+	 * @param email et nom du service Role
+	 * 
+	 * @return enregistrement ou erreur de saisie
+	 * 
+	 */
+	
+	/*
+	 * La mise à jour suis le même principe que la création
+	 */
+	@PutMapping(value="/updateService")	
+	public ResponseEntity<?> update(@Valid Role role, BindingResult result) {			
 		Map<String,Object> map = new HashMap<String,Object>();
 		try{
 			if(result.hasErrors()){
@@ -121,43 +148,31 @@ public class RoleController {
 					return ResponseEntity.badRequest().body(map);
 				}
 			} else {
-				role =  roleService.updateRole(role);
+		role =  roleService.updateRole(role);
 		}
 		} catch( SQLException sqle){
 			return ResponseEntity.badRequest().body(sqle);
 		}
 		return ResponseEntity.ok(role.getRole()+" modifié.");
-
-
-//		if (errors.hasErrors()) {
-//			return ResponseError.extractErrorWhenIncompletRequest(errors);
-//		}
-//
-//		try {
-//			roleService.updateRole(role);
-//		} catch (Exception e) {
-//			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
-//		}
-//		return ResponseEntity.status(HttpStatus.OK).body(role);
 	}
-
-	/**
-	 * suppression d'un role
-	 * 
-	 * @param id : id du role
-	 * @return : réponse de la requête sans contenu
-	 */
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteRole(@PathVariable("id") Long id) {
-
-		try {
-			roleService.deleteRole(id);
-		} catch (Exception e) {
-			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
-		}
-
-		return ResponseEntity.noContent().build();
-	}
-
 	
+	/**
+	 * Supression d'un service Role
+	 * @param nom
+	 * @return message de suppression
+	 */
+	/*
+	 * La suppression se fait par le nom
+	 * Le reste de l'action est dans la classe Service
+	 */
+	@DeleteMapping("deleteService")
+	public ResponseEntity<?> delete(Role role) {	
+		try {
+			roleService.deleteRole(role);
+		} catch (SQLException sqle) {
+			return ResponseEntity.badRequest().body(sqle);
+		}
+		return ResponseEntity.ok(role.getRole() + " supprimé.");
+	}
+
 }

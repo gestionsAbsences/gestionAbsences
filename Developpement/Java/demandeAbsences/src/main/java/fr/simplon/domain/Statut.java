@@ -7,29 +7,33 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-@Entity
-@Table(name = "Statut")
+/**
+ * entity Service RH
+ * 
+ */
 
+@Entity
+@Table(name="statut")
 public class Statut {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
-	
+
 	@Column(name = "nom")
-	@NotBlank(message = "nom obligatoire!")
+	@NotBlank(message = "Nom obligatoire")
+	@Length(min = 2, message = "La chaîne doit avoir au moins 2 caractères")
 	private String nom;
-
-	@Column(name = "code")
-	@NotBlank(message = "code obligatoire")
-	private int code;
-
 	
+	public Statut(){}
 
-	public Statut() {
+	public Statut(Long id, String nom) {
 		super();
+		this.id = id;
+		this.nom = nom;
 	}
 
 	public Long getId() {
@@ -48,14 +52,4 @@ public class Statut {
 		this.nom = nom;
 	}
 
-	public int getCode() {
-		return code;
-	}
-
-	public void setCode(int code) {
-		this.code = code;
-	}
-	
 }
-
-
