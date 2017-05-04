@@ -21,14 +21,12 @@ public class Statut {
 	@Column(name = "nom")
 	@NotBlank(message = "nom obligatoire!")
 	private String nom;
-
-	@Column(name = "code")
-	@NotBlank(message = "code obligatoire")
-	private int code;
-
 	
-
+	
 	public Statut() {
+	}
+
+	public Statut(Long id, String nom) {
 		super();
 	}
 
@@ -48,14 +46,8 @@ public class Statut {
 		this.nom = nom;
 	}
 
-	public int getCode() {
-		return code;
-	}
-
-	public void setCode(int code) {
-		this.code = code;
-	}
+		}
 	
-}
+
 
 

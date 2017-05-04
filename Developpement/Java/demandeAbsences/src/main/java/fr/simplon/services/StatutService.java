@@ -26,7 +26,7 @@ public class StatutService {
 			else
 				return statutDao.findAll();
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listServiceRh"+ e);
+			System.out.println("Hibernate Error !: listStatut"+ e);
 			throw e;
 		}
 	}
