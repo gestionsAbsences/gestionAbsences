@@ -141,8 +141,8 @@ public class TypeService {
 				
 				tp.setId(service.getId());
 				tp.setNom(service.getNom());
+				dao.delete(tp);
 			}
-			dao.delete(tp);
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: deleteType" + e);
 			throw e;

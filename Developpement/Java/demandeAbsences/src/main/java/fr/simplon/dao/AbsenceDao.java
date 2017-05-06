@@ -2,12 +2,19 @@ package fr.simplon.dao;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import fr.simplon.domain.Absence;
 
-public interface AbsenceDao extends CrudRepository<Absence, Long> {
-
-	@Query("from Absence where absence like %?1%")
-	public Iterable<Absence> findNewAbsences(String nom);
-
+@Repository
+public interface AbsenceDao extends CrudRepository<Absence, Long>{
+	
+	/**
+	 * lecture personnalisee dans la base de donnees
+	 * @param id 
+	 * @return id absence
+	 */
+	@Query("from Absence where id = ?1")
+	public Iterable<Absence> findById(Long id);
+	
 }

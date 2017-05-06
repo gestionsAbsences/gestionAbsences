@@ -141,8 +141,8 @@ public class StatutService {
 				
 				st.setId(service.getId());
 				st.setNom(service.getNom());
+				dao.delete(st);
 			}
-			dao.delete(st);
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: deleteStatut" + e);
 			throw e;

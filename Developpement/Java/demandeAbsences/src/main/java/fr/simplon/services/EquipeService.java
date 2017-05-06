@@ -153,8 +153,8 @@ public class EquipeService {
 				eq.setId_hierarchie(equipe.getId_hierarchie());
 				eq.setId_responsable(equipe.getId_responsable());
 				eq.setNom(service.getNom());
+				dao.delete(eq);
 			}
-			dao.delete(eq);
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: deleteEquipe" + e);
 			throw e;

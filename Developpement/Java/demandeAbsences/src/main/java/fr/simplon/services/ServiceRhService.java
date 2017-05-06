@@ -144,8 +144,8 @@ public class ServiceRhService {
 				rh.setId(service.getId());
 				rh.setEmail(service.getEmail());
 				rh.setNom(service.getNom());
+				rhDao.delete(rh);
 			}
-			rhDao.delete(rh);
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: deleteServiceRh" + e);
 			throw e;

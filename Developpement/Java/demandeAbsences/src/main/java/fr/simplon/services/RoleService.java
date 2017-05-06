@@ -141,8 +141,8 @@ public class RoleService {
 				
 				donnee.setId(service.getId());
 				donnee.setValeur(service.getValeur());
+				dao.delete(donnee);
 			}
-			dao.delete(donnee);
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: deleteRole" + e);
 			throw e;
