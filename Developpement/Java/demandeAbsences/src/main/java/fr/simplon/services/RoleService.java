@@ -39,11 +39,11 @@ public class RoleService {
 		try {
 			Iterable<Role> recherche = dao.findAll();
 
-			for (Role role : recherche) {
-				Role rl = new Role();
-				rl.setId(role.getId());
-				rl.setRole(role.getRole());
-				resultat.add(rl);
+			for (Role element : recherche) {
+				Role donnee = new Role();
+				donnee.setId(element.getId());
+				donnee.setValeur(element.getValeur());
+				resultat.add(donnee);
 			}
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: listeRole" + e);
@@ -62,17 +62,16 @@ public class RoleService {
 	 * Meme principe que ci-dessus
 	 * une iteration qu'on transforme en liste
 	 */
-	public List<Role> getRole(String roleCherche) throws SQLException {
+	public List<Role> getRole(String nom) throws SQLException {
 		List<Role> resultat = new ArrayList<>();
 		try {
-			Iterable<Role> recherche = dao.findByRole(roleCherche);
-//			Iterable<Role> recherche = dao.findByRole(roleCherche);
-	
-			for (Role role : recherche) {
-				Role rl = new Role();
-				rl.setId(role.getId());
-				rl.setRole(role.getRole());
-				resultat.add(rl);
+			Iterable<Role> recherche = dao.findByName(nom);
+
+			for (Role element : recherche) {
+				Role donnee = new Role();
+				donnee.setId(element.getId());
+				donnee.setValeur(element.getValeur());
+				resultat.add(donnee);
 			}
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: listeRole" + e);
@@ -91,10 +90,10 @@ public class RoleService {
 	 * Simple methode hibernate pour la creation d'un nouveau service Role
 	 * J'ai crée un bojet Role pour avoir le resultat de la creation en retour
 	 */
-	public Role insertRole(Role roleCree) throws SQLException {
+	public Role insertRole(Role element) throws SQLException {
 		Role creation = new Role();
 		try {
-			creation = dao.save(roleCree);
+			creation = dao.save(element);
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: insertRole" + e);
 			throw e;
@@ -111,10 +110,10 @@ public class RoleService {
 	/*
 	 * Même principe que creation
 	 */
-	public Role updateRole(Role roleModifie) throws SQLException {
+	public Role updateRole(Role element) throws SQLException {
 		Role modif = new Role();
 		try {
-			modif = dao.save(roleModifie);
+			modif = dao.save(element);
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: updateRole" + e);
 			throw e;
@@ -129,21 +128,21 @@ public class RoleService {
 	 */
 	/*
 	 * On commence par faire une recherche d'un service role
-	 * avec la methode [findByRole()]
+	 * avec la methode [findByName()]
 	 * Et on supprime l'objet par la methode delete
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteRole(Role roleSupprime) throws SQLException {
+	public void deleteRole(Role element) throws SQLException {
 		try{
-			Iterable<Role> temp = dao.findByRole(roleSupprime.getRole());
-			Role rl = new Role();
+			Iterable<Role> temp = dao.findByName(element.getValeur());
+			Role donnee = new Role();
 			for (Role service : temp) {
 				
-				rl.setId(service.getId());
-				rl.setRole(service.getRole());
+				donnee.setId(service.getId());
+				donnee.setValeur(service.getValeur());
 			}
-			dao.delete(rl);
+			dao.delete(donnee);
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: deleteRole" + e);
 			throw e;

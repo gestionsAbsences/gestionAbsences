@@ -55,20 +55,20 @@ public class RoleController {
 	 */
 	@GetMapping("listeService")
 	public ResponseEntity<?> findAll() {	
-		List<Role> rol = new ArrayList<Role>();
+		List<Role> role = new ArrayList<Role>();
 		try {
-		rol = (List<Role>) roleService.listeServicesRole();
+		role = (List<Role>) roleService.listeServicesRole();
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(rol);
+		return ResponseEntity.ok(role);
 	}
 	
 	/**
 	 * 
-	 * Recherche des services Role par le role
+	 * Recherche des services Role par le nom
 	 * 
-	 * @param String role
+	 * @param String nom
 	 * 
 	 * @return 1 ou  plusieurs entités role 
 	 * 
@@ -79,16 +79,16 @@ public class RoleController {
 	 * Il suffit de rentrer une lettre et la liste des services
 	 * contenant cette lettre sera affichée
 	 */
-
+	
 	@GetMapping("getService")
-	public ResponseEntity<?> findByRole(@RequestParam(value="role", defaultValue="") String role) {	
-		List<Role> rol = new ArrayList<Role>();
+	public ResponseEntity<?> findByName(@RequestParam(value="nom", defaultValue="") String nom) {	
+		List<Role> role = new ArrayList<Role>();
 		try {
-			rol = (List<Role>) roleService.getRole(role);
+			role = (List<Role>) roleService.getRole(nom);
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(rol);
+		return ResponseEntity.ok(role);
 	}
 	
 	/**
@@ -123,7 +123,7 @@ public class RoleController {
 		} catch( SQLException sqle){
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(role.getRole()+" créée.");
+		return ResponseEntity.ok(role.getValeur()+" créée.");
 	}
 	
 	/**
@@ -153,16 +153,16 @@ public class RoleController {
 		} catch( SQLException sqle){
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(role.getRole()+" modifié.");
+		return ResponseEntity.ok(role.getValeur()+" modifié.");
 	}
 	
 	/**
 	 * Supression d'un service Role
-	 * @param nom
+	 * @param valeur
 	 * @return message de suppression
 	 */
 	/*
-	 * La suppression se fait par le nom
+	 * La suppression se fait par la valeur
 	 * Le reste de l'action est dans la classe Service
 	 */
 	@DeleteMapping("deleteService")
@@ -172,7 +172,11 @@ public class RoleController {
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(role.getRole() + " supprimé.");
+		return ResponseEntity.ok(role.getValeur() + " supprimé.");
 	}
 
 }
+
+	
+
+

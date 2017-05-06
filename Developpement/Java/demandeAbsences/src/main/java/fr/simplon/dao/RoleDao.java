@@ -8,15 +8,13 @@ import fr.simplon.domain.Role;
 
 @Repository
 public interface RoleDao extends CrudRepository<Role, Long>{
-
+	
 	/**
 	 * lecture personnalisee dans la base de donnees
-	 * @param role 
-	 * @return nom service
+	 * @param name 
+	 * @return nom service RH
 	 */
-	@Query("from Role where role = ?1")
-	public Iterable<Role> findByRole(String role);
-
-//	public Iterable<Role> findNewRoles(String role);
-
+	@Query("from Role where valeur like %?1%")
+	public Iterable<Role> findByName(String name);
+	
 }

@@ -41,10 +41,16 @@ public class EquipeService {
 
 			for (Equipe equipe : recherche) {
 				Equipe eq = new Equipe();
+				Equipe pr = new Equipe();
 				eq.setId(equipe.getId());
-				eq.setId_EquipeMere(equipe.getId_EquipeMere());
-				eq.setId_Responsable(equipe.getId_Responsable());
+				eq.setId_hierarchie(equipe.getId_hierarchie());
+				eq.setId_responsable(equipe.getId_responsable());
 				eq.setNom(equipe.getNom());
+				pr.setId(equipe.getParent().getId());
+				pr.setId_hierarchie(equipe.getParent().getId_hierarchie());
+				pr.setId_responsable(equipe.getParent().getId_responsable());
+				pr.setNom(equipe.getParent().getNom());
+				eq.setParent(pr);
 				resultat.add(eq);
 			}
 		} catch (Exception e) {
@@ -72,8 +78,8 @@ public class EquipeService {
 			for (Equipe equipe : recherche) {
 				Equipe eq = new Equipe();
 				eq.setId(equipe.getId());
-				eq.setId_EquipeMere(equipe.getId_EquipeMere());
-				eq.setId_Responsable(equipe.getId_Responsable());
+				eq.setId_hierarchie(equipe.getId_hierarchie());
+				eq.setId_responsable(equipe.getId_responsable());
 				eq.setNom(equipe.getNom());
 				resultat.add(eq);
 			}
@@ -144,8 +150,8 @@ public class EquipeService {
 			for (Equipe service : temp) {
 				
 				eq.setId(service.getId());
-				eq.setId_EquipeMere(equipe.getId_EquipeMere());
-				eq.setId_Responsable(equipe.getId_Responsable());
+				eq.setId_hierarchie(equipe.getId_hierarchie());
+				eq.setId_responsable(equipe.getId_responsable());
 				eq.setNom(service.getNom());
 			}
 			dao.delete(eq);
