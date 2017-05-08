@@ -43,6 +43,7 @@ public class AbsenceService {
 			Iterable<Absence> recherche = dao.findAll();
 
 			for (Absence absence : recherche) {
+<<<<<<< HEAD
 				Absence ab = new Absence();
 				ab.setId(absence.getId());
 				ab.setDebut(absence.getDebut());
@@ -69,6 +70,17 @@ public class AbsenceService {
 				ab.setRhs(sr);
 
 				resultat.add(ab);
+=======
+				Absence st = new Absence();
+				st.setId(absence.getId());
+				st.setDebut_abs(absence.getDebut_abs());
+				st.setFin_abs(absence.getFin_abs());
+				st.setId_employe(absence.getId_employe());
+				st.setId_type(absence.getId_type());
+				st.setId_statut(absence.getId_statut());
+				st.setId_service_rh(absence.getId_service_rh());
+				resultat.add(st);
+>>>>>>> refs/remotes/origin/master
 			}
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: listeAbsence" + e);
@@ -96,8 +108,8 @@ public class AbsenceService {
 				Absence st = new Absence();
 				TypeAbsence ta = new TypeAbsence();
 				st.setId(absence.getId());
-				st.setDebut(absence.getDebut());
-				st.setFin(absence.getFin());
+				st.setDebut_abs(absence.getDebut_abs());
+				st.setFin_abs(absence.getFin_abs());
 				st.setId_employe(absence.getId_employe());
 				st.setId_type(absence.getId_type());
 				st.setId_statut(absence.getId_statut());
@@ -174,8 +186,8 @@ public class AbsenceService {
 			TypeAbsence ta = new TypeAbsence();
 			for (Absence service : temp) {
 				st.setId(service.getId());
-				st.setDebut(service.getDebut());
-				st.setFin(service.getFin());
+				st.setDebut_abs(service.getDebut_abs());
+				st.setFin_abs(service.getFin_abs());
 				st.setId_employe(service.getId_employe());
 				st.setId_type(service.getId_type());
 				st.setId_statut(service.getId_statut());
