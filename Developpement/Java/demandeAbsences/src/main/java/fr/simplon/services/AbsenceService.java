@@ -42,8 +42,8 @@ public class AbsenceService {
 			for (Absence absence : recherche) {
 				Absence st = new Absence();
 				st.setId(absence.getId());
-				st.setDebut(absence.getDebut());
-				st.setFin(absence.getFin());
+				st.setDebut_abs(absence.getDebut_abs());
+				st.setFin_abs(absence.getFin_abs());
 				st.setId_employe(absence.getId_employe());
 				st.setId_type(absence.getId_type());
 				st.setId_statut(absence.getId_statut());
@@ -75,8 +75,8 @@ public class AbsenceService {
 			for (Absence absence : recherche) {
 				Absence st = new Absence();
 				st.setId(absence.getId());
-				st.setDebut(absence.getDebut());
-				st.setFin(absence.getFin());
+				st.setDebut_abs(absence.getDebut_abs());
+				st.setFin_abs(absence.getFin_abs());
 				st.setId_employe(absence.getId_employe());
 				st.setId_type(absence.getId_type());
 				st.setId_statut(absence.getId_statut());
@@ -149,8 +149,8 @@ public class AbsenceService {
 			Absence st = new Absence();
 			for (Absence service : temp) {
 				st.setId(service.getId());
-				st.setDebut(service.getDebut());
-				st.setFin(service.getFin());
+				st.setDebut_abs(service.getDebut_abs());
+				st.setFin_abs(service.getFin_abs());
 				st.setId_employe(service.getId_employe());
 				st.setId_type(service.getId_type());
 				st.setId_statut(service.getId_statut());
