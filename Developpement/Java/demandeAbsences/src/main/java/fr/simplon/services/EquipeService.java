@@ -74,13 +74,18 @@ public class EquipeService {
 		List<Equipe> resultat = new ArrayList<>();
 		try {
 			Iterable<Equipe> recherche = dao.findByName(nom);
-	
 			for (Equipe equipe : recherche) {
 				Equipe eq = new Equipe();
+				Equipe pr = new Equipe();
 				eq.setId(equipe.getId());
 				eq.setId_hierarchie(equipe.getId_hierarchie());
 				eq.setId_responsable(equipe.getId_responsable());
 				eq.setNom(equipe.getNom());
+				pr.setId(equipe.getParent().getId());
+				pr.setId_hierarchie(equipe.getParent().getId_hierarchie());
+				pr.setId_responsable(equipe.getParent().getId_responsable());
+				pr.setNom(equipe.getParent().getNom());
+				eq.setParent(pr);
 				resultat.add(eq);
 			}
 		} catch (Exception e) {
@@ -148,7 +153,6 @@ public class EquipeService {
 			Iterable<Equipe> temp = dao.findByName(equipe.getNom());
 			Equipe eq = new Equipe();
 			for (Equipe service : temp) {
-				
 				eq.setId(service.getId());
 				eq.setId_hierarchie(equipe.getId_hierarchie());
 				eq.setId_responsable(equipe.getId_responsable());

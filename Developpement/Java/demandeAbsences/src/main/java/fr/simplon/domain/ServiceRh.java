@@ -24,7 +24,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  * 
  */
 
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table(name="service_rh")
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")

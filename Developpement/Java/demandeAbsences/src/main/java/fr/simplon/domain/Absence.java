@@ -20,8 +20,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  * 
  */
 
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-
 @Entity
 @Table(name="absence")
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")

@@ -28,12 +28,12 @@ public class Equipe {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@Column(name = "nom")
 	@NotBlank(message = "Nom obligatoire")
 	@Length(min = 4, message = "La chaîne doit avoir au moins 4 caractères")
 	private String nom;
-	
+
 	private int id_hierarchie;
 	private int id_responsable;
 
