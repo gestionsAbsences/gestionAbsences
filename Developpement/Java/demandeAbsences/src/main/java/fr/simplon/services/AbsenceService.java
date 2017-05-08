@@ -102,6 +102,19 @@ public class AbsenceService {
 				ab.setId_service_rh(absence.getId_service_rh());
 
 				TypeAbsence ta = new TypeAbsence();
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+				st.setId(absence.getId());
+				st.setDebut_abs(absence.getDebut_abs());
+				st.setFin_abs(absence.getFin_abs());
+				st.setId_employe(absence.getId_employe());
+				st.setId_type(absence.getId_type());
+				st.setId_statut(absence.getId_statut());
+				st.setId_service_rh(absence.getId_service_rh());
+>>>>>>> master
+=======
+>>>>>>> e76bc47a8611ce110384cb6b90079df471ce596a
 				ta.setId(absence.getTypes().getId());
 				ta.setNom(absence.getTypes().getNom());
 				ab.setTypes(ta);
@@ -183,6 +196,10 @@ public class AbsenceService {
 			Iterable<Absence> temp = dao.findById(absence.getId());
 			Absence ab = new Absence();
 			for (Absence service : temp) {
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e76bc47a8611ce110384cb6b90079df471ce596a
 				ab.setId(service.getId());
 				ab.setDebut(service.getDebut());
 				ab.setFin(service.getFin());
@@ -191,6 +208,22 @@ public class AbsenceService {
 				ab.setId_statut(service.getId_statut());
 				ab.setId_service_rh(service.getId_service_rh());
 				dao.delete(ab);
+<<<<<<< HEAD
+=======
+				st.setId(service.getId());
+				st.setDebut_abs(service.getDebut_abs());
+				st.setFin_abs(service.getFin_abs());
+				st.setId_employe(service.getId_employe());
+				st.setId_type(service.getId_type());
+				st.setId_statut(service.getId_statut());
+				st.setId_service_rh(service.getId_service_rh());
+				ta.setId(service.getTypes().getId());
+				ta.setNom(service.getTypes().getNom());
+				st.setTypes(ta);
+				dao.delete(st);
+>>>>>>> master
+=======
+>>>>>>> e76bc47a8611ce110384cb6b90079df471ce596a
 			}
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: deleteAbsence" + e);
