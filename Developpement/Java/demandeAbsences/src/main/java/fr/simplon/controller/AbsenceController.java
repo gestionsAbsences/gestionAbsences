@@ -36,6 +36,7 @@ import fr.simplon.services.AbsenceService;
  * (get : lecture, post : création, put : mise à jour et delete: supression
  * url àsaisir dans le navigateur : localhost:8080/absence/nomMethode
  */
+
 @RestController
 @RequestMapping("absence")
 public class AbsenceController {
