@@ -1,40 +1,54 @@
 package fr.simplon.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * entity Service RH
  * 
  */
 
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table(name="service_rh")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class ServiceRh {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@Column(name = "email")
 	@NotBlank(message = "Email obligatoire")
 	@Email(regexp="^[a-zA-Z0-9._-]+@[a-z0-9.-_]{2,}.[a-z]{2,4}$")
 	private String email;
-	
+
 	@Column(name = "nom")
 	@NotBlank(message = "Nom obligatoire")
 	@Length(min = 4, message = "La chaîne doit avoir au moins 4 caractères")
 	private String nom;
-	
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id_service_rh")
+	@JsonBackReference
+	private List<Absence> absences;
+
+
 	public ServiceRh(){
 		
 	}
@@ -68,6 +82,14 @@ public class ServiceRh {
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+
+	public List<Absence> getAbsences() {
+		return absences;
+	}
+
+	public void setAbsences(List<Absence> absences) {
+		this.absences = absences;
 	}
 
 }

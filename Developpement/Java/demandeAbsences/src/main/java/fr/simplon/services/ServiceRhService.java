@@ -38,13 +38,13 @@ public class ServiceRhService {
 		List<ServiceRh> resultat = new ArrayList<>();
 		try {
 			Iterable<ServiceRh> recherche = rhDao.findAll();
-
 			for (ServiceRh serviceRh : recherche) {
-				ServiceRh rh = new ServiceRh();
-				rh.setId(serviceRh.getId());
-				rh.setEmail(serviceRh.getEmail());
-				rh.setNom(serviceRh.getNom());
-				resultat.add(rh);
+//				ServiceRh rh = new ServiceRh();
+//				rh.setId(serviceRh.getId());
+//				rh.setEmail(serviceRh.getEmail());
+//				rh.setNom(serviceRh.getNom());
+//				resultat.add(rh);
+				resultat.add(serviceRh);
 			}
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: listeServiceRh" + e);

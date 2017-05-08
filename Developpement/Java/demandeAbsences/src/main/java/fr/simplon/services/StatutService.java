@@ -38,12 +38,13 @@ public class StatutService {
 		List<Statut> resultat = new ArrayList<>();
 		try {
 			Iterable<Statut> recherche = dao.findAll();
-
 			for (Statut statut : recherche) {
-				Statut st = new Statut();
-				st.setId(statut.getId());
-				st.setNom(statut.getNom());
-				resultat.add(st);
+//				Statut st = new Statut();
+//				st.setId(statut.getId());
+//				st.setNom(statut.getNom());
+//				st.setAbsences(statut.getAbsences());
+//				resultat.add(st);
+				resultat.add(statut);
 			}
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: listeStatut" + e);

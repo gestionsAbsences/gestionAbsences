@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 /**
  * entity Service RH
@@ -37,6 +39,7 @@ public class Equipe {
 
 	@ManyToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="id_hierarchie", insertable = false, updatable = false)
+	@JsonManagedReference
 	private Equipe parent;
 
 

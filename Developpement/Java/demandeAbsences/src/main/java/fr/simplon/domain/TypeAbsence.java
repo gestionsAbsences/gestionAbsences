@@ -1,24 +1,34 @@
 package fr.simplon.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * entity Service RH
  * 
  */
 
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table(name="type")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class TypeAbsence {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -27,7 +37,12 @@ public class TypeAbsence {
 	@NotBlank(message = "Nom obligatoire")
 	@Length(min = 2, message = "La chaîne doit avoir au moins 2 caractères")
 	private String nom;
-	
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id_type")
+	@JsonBackReference
+	private List<Absence> absences;
+
+
 	public TypeAbsence(){
 		
 	}
@@ -51,6 +66,14 @@ public class TypeAbsence {
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+
+	public List<Absence> getAbsences() {
+		return absences;
+	}
+
+	public void setAbsences(List<Absence> absences) {
+		this.absences = absences;
 	}
 
 }

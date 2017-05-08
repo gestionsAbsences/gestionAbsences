@@ -1,19 +1,29 @@
 package fr.simplon.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * entity Service RH
  * 
  */
 
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
 @Entity
 @Table(name="absence")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class Absence {
 
 	@Id
@@ -25,15 +35,31 @@ public class Absence {
 
 	@Column(name = "fin")
 	private String fin;
-	
-	private Long id_employe;
-	private Long id_type;
-	private Long id_statut;
-	private Long id_service_rh;
-	
+
+	private int id_employe;
+	private int id_type;
+	private int id_statut;
+	private int id_service_rh;
+
+	@ManyToOne(cascade={CascadeType.ALL})
+	@JoinColumn(name="id_type", insertable = false, updatable = false)
+	@JsonManagedReference
+	private TypeAbsence types;
+
+	@ManyToOne(cascade={CascadeType.ALL})
+	@JoinColumn(name="id_statut", insertable = false, updatable = false)
+	@JsonManagedReference
+	private Statut statuts;
+
+	@ManyToOne(cascade={CascadeType.ALL})
+	@JoinColumn(name="id_service_rh", insertable = false, updatable = false)
+	@JsonManagedReference
+	private ServiceRh rhs;
+
+
 	public Absence(){}
 
-	public Absence(Long id, String debut, String fin, Long id_employe, Long id_type, Long id_statut, Long id_service_rh) {
+	public Absence(Long id, String debut, String fin, int id_employe, int id_type, int id_statut, int id_service_rh) {
 		super();
 		this.id = id;
 		this.debut = debut;
@@ -68,36 +94,60 @@ public class Absence {
 		this.fin = fin;
 	}
 
-	public Long getId_employe() {
+	public int getId_employe() {
 		return id_employe;
 	}
 
-	public void setId_employe(Long id_employe) {
+	public void setId_employe(int id_employe) {
 		this.id_employe = id_employe;
 	}
 
-	public Long getId_type() {
+	public int getId_type() {
 		return id_type;
 	}
 
-	public void setId_type(Long id_type) {
+	public void setId_type(int id_type) {
 		this.id_type = id_type;
 	}
 
-	public Long getId_statut() {
+	public int getId_statut() {
 		return id_statut;
 	}
 
-	public void setId_statut(Long id_statut) {
+	public void setId_statut(int id_statut) {
 		this.id_statut = id_statut;
 	}
 
-	public Long getId_service_rh() {
+	public int getId_service_rh() {
 		return id_service_rh;
 	}
 
-	public void setId_service_rh(Long id_service_rh) {
+	public void setId_service_rh(int id_service_rh) {
 		this.id_service_rh = id_service_rh;
+	}
+
+	public TypeAbsence getTypes() {
+		return types;
+	}
+
+	public void setTypes(TypeAbsence types) {
+		this.types = types;
+	}
+
+	public Statut getStatuts() {
+		return statuts;
+	}
+
+	public void setStatuts(Statut statuts) {
+		this.statuts = statuts;
+	}
+
+	public ServiceRh getRhs() {
+		return rhs;
+	}
+
+	public void setRhs(ServiceRh rhs) {
+		this.rhs = rhs;
 	}
 
 }

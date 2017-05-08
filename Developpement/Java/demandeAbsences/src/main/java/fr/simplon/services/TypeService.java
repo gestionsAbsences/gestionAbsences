@@ -38,12 +38,13 @@ public class TypeService {
 		List<TypeAbsence> resultat = new ArrayList<>();
 		try {
 			Iterable<TypeAbsence> recherche = dao.findAll();
-
 			for (TypeAbsence type : recherche) {
-				TypeAbsence tp = new TypeAbsence();
-				tp.setId(type.getId());
-				tp.setNom(type.getNom());
-				resultat.add(tp);
+//				TypeAbsence tp = new TypeAbsence();
+//				tp.setId(type.getId());
+//				tp.setNom(type.getNom());
+//				tp.setAbsences(type.getAbsences());
+//				resultat.add(tp);
+				resultat.add(type);
 			}
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: listeType" + e);
