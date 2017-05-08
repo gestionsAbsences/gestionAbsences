@@ -153,133 +153,51 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 USE GestAbsences;
 
 SET AUTOCOMMIT=0;
-INSERT INTO absence VALUES 
-(1,  '2017-02-10', '2017-02-10', 10, 2, 1, 1),
-(2,  '2017-02-24', '2017-02-24', 10, 2, 1, 1),
-(3,  '2017-03-28', '2017-03-30', 10, 3, 1, 1),
-(4,  '2017-04-20', '2017-04-30', 10, 3, 1, 1),
-(5,  '2017-05-09', '2017-06-01', 10, 1, 0, 1),
-(6,  '2017-06-02', '2017-06-04', 10, 3, 0, 1),
-(7,  '2017-06-06', '2017-06-09', 10, 1, 0, 1),
-(8,  '2017-01-02', '2017-01-18', 11, 1, 1, 1),
-(9,  '2017-01-25', '2017-01-26', 11, 4, 1, 1),
-(10, '2017-02-05', '2017-02-05', 11, 2, 1, 1),
-(11, '2017-03-15', '2017-03-30', 11, 1, 1, 1),
-(12, '2017-04-09', '2017-04-14', 11, 4, 0, 1),
-(13, '2017-06-06', '2017-06-09', 11, 1, 1, 1),
-(14, '2017-06-12', '2017-06-16', 11, 2, 0, 1),
-(15, '2017-01-11', '2017-01-12', 12, 3, 1, 1),
-(16, '2017-01-22', '2017-01-26', 12, 2, 1, 1),
-(17, '2017-03-01', '2017-03-22', 12, 1, 1, 1),
-(18, '2017-04-24', '2017-04-28', 12, 3, 0, 1),
-(19, '2017-05-01', '2017-05-22', 12, 1, 0, 1),
-(20, '2017-06-02', '2017-06-02', 12, 4, 0, 1),
-(21, '2017-06-12', '2017-06-16', 12, 2, 1, 1),
-(22, '2017-06-17', '2017-06-23', 12, 3, 0, 1),
-(23, '2017-04-25', '2017-05-07', 13, 1, 1, 1),
-(24, '2017-06-17', '2017-06-23', 13, 3, 1, 1),
-(25, '2017-06-24', '2017-06-30', 13, 4, 0, 1),
-(26, '2017-06-24', '2017-06-30', 14, 4, 1, 1);
+INSERT INTO equipe VALUES (1,'Direction',1,1),(2,'RH',2,2),(3,'Moyens généraux',3,3),(4,'Finance',4,4),(5,'Sce technique',5,5),(6,'Production',6,6),(7,'Commerce',7,7),(8,'Communication',8,8),(9,'Secrétariat',9,1),(10,'Administration',10,1),(11,'Juridique',11,10),(12,'Gouvernance',12,10),(13,'Qualité',13,12),(14,'Stratégie',14,12),(15,'Paye',15,2),(16,'Congés',16,2),(17,'Social',17,2),(18,'Gestion du personnel',18,2),(19,'Vie au travail',19,2),(20,'Assistance sociale',20,17),(21,'Recrutement',21,18),(22,'Discipline',22,18),(23,'Logistique',23,3),(24,'Médecine du travail',24,3),(25,'Gestion client',25,3),(26,'Courrier',26,3),(27,'Restaurant',27,3),(28,'Sécurité',28,25),(29,'Accueil',29,25),(30,'Conciergerie',30,25),(31,'Chauffeur',31,25),(32,'Comptabilité',32,4),(33,'Achat',33,4),(34,'Facturation',34,4),(35,'Trésorerie',35,4),(36,'Contrôle de gestion',36,32),(37,'Synthèse',37,32),(38,'Analytique',38,32),(39,'Recouvrement',39,34),(40,'Maintenance',40,5),(41,'Ingénierie',41,5),(42,'SAV',42,40),(43,'Téléphonie',43,40),(44,'Support informatique',44,40),(45,'Innovation',45,41),(46,'Produit',46,6),(47,'Vente',47,6),(48,'Fabrication',48,46),(49,'Maquette',49,46),(50,'Stock',50,46),(51,'Comptoir',51,47),(52,'Expédition',52,47),(53,'Conditionnement',53,52),(54,'Commercial',54,7),(55,'Marketing',55,7),(56,'Developpement',56,54),(57,'Force de vente',57,54),(58,'Portail',58,55),(59,'Evenementiel',59,8),(60,'Publicité',60,8),(61,'Prospect',61,8);
 COMMIT;
 
 
 SET AUTOCOMMIT=0;
-INSERT INTO equipe VALUES (1,'Direction',1,1),
-(2,'RH',2,2),
-(3,'Moyens généraux',3,3),
-(4,'Finance',4,4),
-(5,'Sce technique',5,5),
-(6,'Production',6,6),
-(7,'Commerce',7,7),
-(8,'Communication',8,8),
-(9,'Secrétariat',9,1),
-(10,'Administration',10,1),
-(11,'Juridique',11,10),
-(12,'Gouvernance',12,10),
-(13,'Qualité',13,12),
-(14,'Stratégie',14,12),
-(15,'Paye',15,2),
-(16,'Congés',16,2),
-(17,'Social',17,2),
-(18,'Gestion du personnel',18,2),
-(19,'Vie au travail',19,2),
-(20,'Assistance sociale',20,17),
-(21,'Recrutement',21,18),
-(22,'Discipline',22,18),
-(23,'Logistique',23,3),
-(24,'Médecine du travail',24,3),
-(25,'Gestion client',25,3),
-(26,'Courrier',26,3),
-(27,'Restaurant',27,3),
-(28,'Sécurité',28,25),
-(29,'Accueil',29,25),
-(30,'Conciergerie',30,25),
-(31,'Chauffeur',31,25),
-(32,'Comptabilité',32,4),
-(33,'Achat',33,4),
-(34,'Facturation',34,4),
-(35,'Trésorerie',35,4),
-(36,'Contrôle de gestion',36,32),
-(37,'Synthèse',37,32),
-(38,'Analytique',38,32),
-(39,'Recouvrement',39,34),
-(40,'Maintenance',40,5),
-(41,'Ingénierie',41,5),
-(42,'SAV',42,40),
-(43,'Téléphonie',43,40),
-(44,'Support informatique',44,40),
-(45,'Innovation',45,41),
-(46,'Produit',46,6),
-(47,'Vente',47,6),
-(48,'Fabrication',48,46),
-(49,'Maquette',49,46),
-(50,'Stock',50,46),
-(51,'Comptoir',51,47),
-(52,'Expédition',52,47),
-(53,'Conditionnement',53,52),
-(54,'Commercial',54,7),
-(55,'Marketing',55,7),
-(56,'Developpement',56,54),
-(57,'Force de vente',57,54),
-(58,'Portail',58,55),
-(59,'Evenementiel',59,8),
-(60,'Publicité',60,8),
-(61,'Prospect',61,8);
+INSERT INTO role VALUES (1,0),(2,1),(3,2),(4,4),(5,8);
 COMMIT;
 
 
 SET AUTOCOMMIT=0;
-INSERT INTO role VALUES (1,0),
-(2,1),
-(3,2),
-(4,4),
-(5,8);
+INSERT INTO service_rh VALUES (1,'sonia.granger@gmail.com','GRANGER'),(2,'tania.suchet@gmail.com','SUCHET'),(3,'yann.lanvin@gmail.com','LANVIN'),(4,'alex.fiston@gmail.com','FISTON');
 COMMIT;
 
 
 SET AUTOCOMMIT=0;
-INSERT INTO service_rh VALUES (1,'sonia.granger@gmail.com','GRANGER'),
-(2,'tania.suchet@gmail.com','SUCHET'),
-(3,'yann.lanvin@gmail.com','LANVIN'),
-(4,'alex.fiston@gmail.com','FISTON');
+INSERT INTO statut VALUES (1,'Nouvelle demande', 0),(2,'En attente de validation du Responsable', 1),(3,'En attente de décision RH', 2),(4,'Validé', 3),(5,'Refusé par le Responsable', 4),(6,'Refusé par le RH', 5);
 COMMIT;
 
 
 SET AUTOCOMMIT=0;
-INSERT INTO statut VALUES (1,'Nouvelle demande', 0),
-(2,'En attente de validation du Responsable', 1),
-(3,'En attente de décision RH', 2),
-(4,'Validé', 3),
-(5,'Refusé par le Responsable', 4),
-(6,'Refusé par le RH', 5);
+INSERT INTO type VALUES (1,'Congé payé'),(2,'RTT'),(3,'Repos compensateur'),(4,'Congé maladie'),(5,'Absence irrégulière'),(6,'Autres absences');
+COMMIT;
+
+SET AUTOCOMMIT=0;
+INSERT INTO `absence` (`debut`,`fin`,`id_employe`,`id_type`,`id_statut`,`id_service_rh`) VALUES ("2015-05-19","2015-10-05",26,3,5,1),("2016-01-30","2015-01-29",9,4,5,1),("2015-08-23","2017-05-30",16,1,2,2),("2016-06-29","2016-12-22",20,5,6,4),("2016-05-11","2016-11-14",12,1,4,2),("2016-04-17","2016-05-23",13,6,1,2),("2016-03-12","2016-09-12",13,6,1,1),("2016-01-25","2015-03-18",18,6,6,1),("2015-07-13","2017-10-17",27,6,1,3),("2016-05-12","2017-10-02",24,5,4,1);
+INSERT INTO `absence` (`debut`,`fin`,`id_employe`,`id_type`,`id_statut`,`id_service_rh`) VALUES ("2015-09-02","2016-08-29",30,4,3,2),("2017-07-06","2017-08-14",19,2,6,1),("2016-10-22","2015-09-13",23,6,6,3),("2017-04-07","2015-11-26",1,6,6,3),("2016-07-12","2016-08-30",23,5,4,3),("2015-08-04","2017-01-23",8,5,4,4),("2016-10-17","2015-12-14",4,2,2,3),("2017-10-02","2016-10-21",5,2,1,4),("2015-10-09","2016-05-19",17,6,2,1),("2015-04-21","2015-06-01",8,1,5,2);
+INSERT INTO `absence` (`debut`,`fin`,`id_employe`,`id_type`,`id_statut`,`id_service_rh`) VALUES ("2017-03-24","2016-11-08",10,2,4,3),("2017-05-14","2015-02-27",13,4,6,2),("2015-05-17","2017-01-19",21,3,1,2),("2015-04-07","2017-04-19",29,1,1,4),("2017-01-10","2015-05-17",8,6,3,1),("2015-08-28","2015-12-12",15,5,5,3),("2015-06-23","2016-11-07",12,6,5,4),("2017-01-11","2016-06-20",16,6,5,1),("2016-05-08","2016-01-05",2,3,2,4),("2016-04-15","2017-08-07",2,5,2,1);
+INSERT INTO `absence` (`debut`,`fin`,`id_employe`,`id_type`,`id_statut`,`id_service_rh`) VALUES ("2016-07-19","2015-04-29",17,3,6,2),("2015-01-28","2015-03-07",5,4,3,4),("2016-08-25","2015-03-15",2,4,6,3),("2017-10-13","2015-01-18",21,5,3,3),("2017-06-20","2015-10-17",1,6,1,3),("2015-08-31","2016-02-28",19,4,3,1),("2016-04-13","2017-05-27",2,1,4,4),("2017-09-08","2016-05-11",26,3,5,1),("2017-03-13","2016-10-06",29,3,2,2),("2015-02-15","2016-07-13",10,1,1,2);
+INSERT INTO `absence` (`debut`,`fin`,`id_employe`,`id_type`,`id_statut`,`id_service_rh`) VALUES ("2016-03-30","2017-11-10",14,4,4,3),("2015-09-17","2015-03-18",30,6,2,1),("2017-09-16","2016-10-07",27,5,6,2),("2015-02-20","2016-04-10",28,4,6,2),("2015-05-31","2016-03-13",29,4,1,2),("2016-01-27","2015-02-12",14,5,6,4),("2017-09-18","2016-06-20",21,2,3,1),("2017-01-25","2015-11-29",7,1,3,3),("2016-08-25","2017-12-09",18,6,1,3),("2017-12-10","2015-07-08",13,4,6,4);
+INSERT INTO `absence` (`debut`,`fin`,`id_employe`,`id_type`,`id_statut`,`id_service_rh`) VALUES ("2016-04-09","2015-05-01",5,4,4,1),("2016-08-06","2016-04-25",14,6,3,2),("2016-07-06","2016-12-13",7,6,4,1),("2017-05-12","2017-07-13",9,6,5,2),("2015-05-21","2015-06-26",11,3,3,3),("2017-10-05","2015-12-01",4,4,2,4),("2017-08-28","2015-09-28",30,6,6,2),("2015-12-08","2016-12-31",5,5,1,3),("2016-06-12","2017-09-20",6,3,3,1),("2017-04-19","2015-04-07",30,6,5,3);
+INSERT INTO `absence` (`debut`,`fin`,`id_employe`,`id_type`,`id_statut`,`id_service_rh`) VALUES ("2015-07-10","2017-06-22",16,3,2,3),("2017-07-08","2015-11-30",23,3,2,3),("2015-09-20","2017-06-08",21,5,4,4),("2016-01-14","2016-07-18",17,1,4,4),("2015-01-17","2015-12-17",6,4,5,3),("2015-04-24","2015-08-06",18,3,3,3),("2017-04-30","2017-09-06",6,2,1,1),("2017-11-24","2017-03-03",11,1,4,4),("2016-07-15","2016-10-12",25,5,2,2),("2016-08-01","2015-01-27",8,1,2,2);
+INSERT INTO `absence` (`debut`,`fin`,`id_employe`,`id_type`,`id_statut`,`id_service_rh`) VALUES ("2017-09-06","2016-05-26",10,1,5,2),("2015-01-25","2015-07-07",10,6,6,1),("2015-06-05","2017-11-09",27,6,5,4),("2015-01-14","2015-01-20",17,5,5,3),("2015-08-29","2017-08-19",26,1,6,2),("2017-07-14","2015-09-29",8,1,4,2),("2016-03-18","2016-12-27",19,3,2,3),("2016-10-06","2015-02-07",17,5,4,3),("2017-01-29","2015-11-10",24,5,3,2),("2015-06-20","2016-04-06",11,4,5,3);
+INSERT INTO `absence` (`debut`,`fin`,`id_employe`,`id_type`,`id_statut`,`id_service_rh`) VALUES ("2015-01-20","2015-12-31",21,4,2,4),("2015-02-04","2017-11-06",24,2,2,3),("2017-05-16","2017-08-20",27,1,1,4),("2017-06-13","2015-06-03",19,1,5,3),("2017-11-03","2017-09-21",29,5,6,4),("2015-09-23","2015-10-20",29,3,4,3),("2016-02-08","2016-05-15",26,1,1,3),("2016-02-20","2016-06-29",13,1,4,1),("2015-01-23","2016-03-19",14,5,2,4),("2015-02-25","2015-10-13",28,3,1,1);
+INSERT INTO `absence` (`debut`,`fin`,`id_employe`,`id_type`,`id_statut`,`id_service_rh`) VALUES ("2015-11-19","2015-08-31",13,6,6,2),("2015-01-02","2017-04-17",26,1,3,2),("2017-10-19","2015-11-12",18,3,4,1),("2016-08-06","2015-12-03",29,3,6,1),("2017-05-26","2015-08-02",17,4,3,3),("2017-12-10","2015-10-25",25,4,5,2),("2017-08-25","2016-01-25",3,6,6,2),("2015-04-07","2015-07-22",15,6,2,2),("2017-12-05","2016-06-07",15,2,3,4),("2017-04-16","2016-08-04",11,1,3,2);
 COMMIT;
 
 
 SET AUTOCOMMIT=0;
-INSERT INTO type VALUES (1,'Congé payé'),
-(2,'RTT'),
-(3,'Repos compensateur'),
-(4,'Congé maladie'),
-(5,'Absence irrégulière'),
-(6,'Autres absences');
+INSERT INTO `employe` (`nom`,`prenom`,`matricule`,`nb_cp`,`nb_rtt`,`nb_rc`,`reliquat_ca`,`reliquat_rtt`,`id_equipe`,`id_service_rh`) VALUES ("Knox","Celeste","HEWH06",7,5,18,8,1,36,3),("Bruce","Jenette","GAOC03",9,1,23,0,2,18,1),("Welch","Perry","JAGH43",6,7,2,0,0,25,2),("Rowland","James","JYHB99",12,8,0,8,4,50,2),("Moreno","Elizabeth","FVSZ09",6,3,27,5,2,52,2),("Weiss","Odette","WYNS39",15,0,7,7,2,57,2),("Rodriquez","Cairo","HRDB06",13,4,5,8,1,43,3),("Schultz","Chester","SRPP85",16,2,13,6,0,14,4),("Mcdonald","India","VWWR04",2,8,10,9,1,13,1),("Calderon","Kenneth","SCDN16",11,1,28,5,0,12,2);
+INSERT INTO `employe` (`nom`,`prenom`,`matricule`,`nb_cp`,`nb_rtt`,`nb_rc`,`reliquat_ca`,`reliquat_rtt`,`id_equipe`,`id_service_rh`) VALUES ("Robles","Shaeleigh","LSML33",5,7,18,1,3,20,4),("Jensen","Mufutau","JQIJ43",13,10,16,5,1,49,3),("Richards","Mark","PNCB67",14,2,11,0,2,57,2),("Battle","Pandora","WJPY86",20,7,14,3,3,14,4),("Holmes","Genevieve","IKNF25",20,5,26,4,1,4,3),("Marsh","Shelby","WJGT57",18,1,6,9,0,34,2),("Carson","Melvin","RBJS76",16,6,11,4,4,3,2),("Powers","Eleanor","QBWP24",13,2,8,3,2,41,1),("Nielsen","Wayne","UKOQ30",1,1,9,4,1,48,3),("Jennings","Jocelyn","RNWZ36",9,9,15,1,1,33,2);
+INSERT INTO `employe` (`nom`,`prenom`,`matricule`,`nb_cp`,`nb_rtt`,`nb_rc`,`reliquat_ca`,`reliquat_rtt`,`id_equipe`,`id_service_rh`) VALUES ("Wells","Keiko","HLUQ29",7,0,3,3,3,37,3),("Miles","Dean","XOJE43",5,9,24,8,3,30,4),("Montgomery","Beatrice","JJDL65",10,10,5,9,1,3,3),("Hopper","Stacy","QOPJ51",10,8,8,2,3,18,3),("Cook","Brenna","BXKO29",5,6,0,6,0,42,2),("Winters","Mariam","TRIL34",14,6,0,2,3,12,2),("Goodman","Maggy","KEBX59",1,1,18,4,1,7,3),("Summers","Palmer","ADAB91",18,2,3,1,3,24,2),("Perry","Hanae","YHND21",11,10,12,9,3,52,1),("Aguirre","Ann","JBPK28",11,2,5,5,4,39,4);
+COMMIT;
+
+SET AUTOCOMMIT=0;
+INSERT INTO `user` (`email`,`password`,`id_employe`,`id_role`) VALUES ("orci.sem.eget@ridiculusmusProin.net","GXDJX287",2,1),("Integer.urna@urna.ca","GOPKP396",14,1),("dolor.quam.elementum@Curabitursedtortor.org","HDRSA250",5,3),("Aenean@eleifendvitaeerat.edu","SHJFA350",11,3),("mi.lorem.vehicula@sit.com","XYKTS104",21,1),("ipsum.nunc.id@cursus.com","TIAMR214",4,1),("lorem@elitEtiam.co.uk","XJRXT707",26,2),("ipsum.dolor.sit@Curabiturconsequatlectus.net","LMXKV353",11,2),("non.nisi.Aenean@inconsectetuer.com","QQOEZ729",27,5),("Phasellus@atvelit.co.uk","RYTGG473",15,4);
+INSERT INTO `user` (`email`,`password`,`id_employe`,`id_role`) VALUES ("elementum@in.ca","UKMVY825",16,5),("sit.amet.ornare@egetdictum.org","MVMFA211",30,5),("a.scelerisque@tellus.co.uk","JZWWU084",19,4),("sit@consequatlectus.net","BDUUE129",9,3),("in.consectetuer@anteVivamus.com","FWXOQ322",20,5),("ut.molestie@Sedeu.com","BKTUY809",24,2),("risus.Donec.egestas@nec.co.uk","UVNZT435",3,4),("tellus.Aenean.egestas@adipiscingenim.net","CLWNI614",16,1),("sagittis@lectus.org","ARUXD105",29,5),("facilisis.facilisis.magna@Sedmalesuadaaugue.co.uk","SKJPT818",12,3);
+INSERT INTO `user` (`email`,`password`,`id_employe`,`id_role`) VALUES ("magna@quamquisdiam.ca","XUCDP019",2,2),("at@nec.org","XWKMK818",3,5),("Nullam@at.co.uk","COHSG227",1,3),("Mauris@accumsan.ca","CMUOM187",11,1),("id.ante.dictum@miloremvehicula.org","GOKDY430",19,2),("cursus.purus@suscipitnonummyFusce.net","WQCDV990",21,2),("non.quam@magnisdis.org","ORGZG901",19,5),("consequat.nec.mollis@Vivamussit.net","DIFTW638",1,5),("ac@idmollis.ca","DEABB464",10,3),("ullamcorper@duiCumsociis.org","QKDNB182",16,1);
 COMMIT;

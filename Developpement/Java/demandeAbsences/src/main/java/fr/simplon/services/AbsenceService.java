@@ -10,6 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.simplon.dao.AbsenceDao;
 import fr.simplon.domain.Absence;
+import fr.simplon.domain.ServiceRh;
+import fr.simplon.domain.Statut;
+import fr.simplon.domain.TypeAbsence;
 
 /**
  * Classe métier du service Absence
@@ -40,15 +43,32 @@ public class AbsenceService {
 			Iterable<Absence> recherche = dao.findAll();
 
 			for (Absence absence : recherche) {
-				Absence st = new Absence();
-				st.setId(absence.getId());
-				st.setDebut(absence.getDebut());
-				st.setFin(absence.getFin());
-				st.setId_employe(absence.getId_employe());
-				st.setId_type(absence.getId_type());
-				st.setId_statut(absence.getId_statut());
-				st.setId_service_rh(absence.getId_service_rh());
-				resultat.add(st);
+				Absence ab = new Absence();
+				ab.setId(absence.getId());
+				ab.setDebut(absence.getDebut());
+				ab.setFin(absence.getFin());
+				ab.setId_employe(absence.getId_employe());
+				ab.setId_type(absence.getId_type());
+				ab.setId_statut(absence.getId_statut());
+				ab.setId_service_rh(absence.getId_service_rh());
+
+				TypeAbsence ta = new TypeAbsence();
+				ta.setId(absence.getTypes().getId());
+				ta.setNom(absence.getTypes().getNom());
+				ab.setTypes(ta);
+
+				Statut st = new Statut();
+				st.setId(absence.getStatuts().getId());
+				st.setNom(absence.getStatuts().getNom());
+				ab.setStatuts(st);
+				
+				ServiceRh sr = new ServiceRh();
+				sr.setId(absence.getRhs().getId());
+				sr.setNom(absence.getRhs().getNom());
+				sr.setEmail(absence.getRhs().getEmail());
+				ab.setRhs(sr);
+
+				resultat.add(ab);
 			}
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: listeAbsence" + e);
@@ -74,6 +94,7 @@ public class AbsenceService {
 	
 			for (Absence absence : recherche) {
 				Absence st = new Absence();
+				TypeAbsence ta = new TypeAbsence();
 				st.setId(absence.getId());
 				st.setDebut(absence.getDebut());
 				st.setFin(absence.getFin());
@@ -81,6 +102,9 @@ public class AbsenceService {
 				st.setId_type(absence.getId_type());
 				st.setId_statut(absence.getId_statut());
 				st.setId_service_rh(absence.getId_service_rh());
+				ta.setId(absence.getTypes().getId());
+				ta.setNom(absence.getTypes().getNom());
+				st.setTypes(ta);
 				resultat.add(st);
 			}
 		} catch (Exception e) {
@@ -147,6 +171,7 @@ public class AbsenceService {
 		try{
 			Iterable<Absence> temp = dao.findById(absence.getId());
 			Absence st = new Absence();
+			TypeAbsence ta = new TypeAbsence();
 			for (Absence service : temp) {
 				st.setId(service.getId());
 				st.setDebut(service.getDebut());
@@ -155,6 +180,9 @@ public class AbsenceService {
 				st.setId_type(service.getId_type());
 				st.setId_statut(service.getId_statut());
 				st.setId_service_rh(service.getId_service_rh());
+				ta.setId(service.getTypes().getId());
+				ta.setNom(service.getTypes().getNom());
+				st.setTypes(ta);
 				dao.delete(st);
 			}
 		} catch (Exception e) {
