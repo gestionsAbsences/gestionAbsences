@@ -36,7 +36,7 @@ public class Statut {
 	@NotBlank(message = "Nom obligatoire")
 	@Length(min = 2, message = "La chaîne doit avoir au moins 2 caractères")
 	private String nom;
-	
+
 	private int code;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id_statut")

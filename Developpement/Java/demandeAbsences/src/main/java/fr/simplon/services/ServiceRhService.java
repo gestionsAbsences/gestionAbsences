@@ -39,12 +39,11 @@ public class ServiceRhService {
 		try {
 			Iterable<ServiceRh> recherche = rhDao.findAll();
 			for (ServiceRh serviceRh : recherche) {
-//				ServiceRh rh = new ServiceRh();
-//				rh.setId(serviceRh.getId());
-//				rh.setEmail(serviceRh.getEmail());
-//				rh.setNom(serviceRh.getNom());
-//				resultat.add(rh);
-				resultat.add(serviceRh);
+				ServiceRh rh = new ServiceRh();
+				rh.setId(serviceRh.getId());
+				rh.setEmail(serviceRh.getEmail());
+				rh.setNom(serviceRh.getNom());
+				resultat.add(rh);
 			}
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: listeServiceRh" + e);
@@ -138,9 +137,8 @@ public class ServiceRhService {
 	public void deleteServiceRh(ServiceRh serviceRh) throws SQLException {
 		try{
 			Iterable<ServiceRh> temp = rhDao.findByName(serviceRh.getNom());
-			ServiceRh rh = new ServiceRh();
 			for (ServiceRh service : temp) {
-				
+				ServiceRh rh = new ServiceRh();
 				rh.setId(service.getId());
 				rh.setEmail(service.getEmail());
 				rh.setNom(service.getNom());

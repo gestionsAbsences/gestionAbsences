@@ -23,7 +23,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  * 
  */
 
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table(name="type")
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
@@ -32,7 +31,7 @@ public class TypeAbsence {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@Column(name = "nom")
 	@NotBlank(message = "Nom obligatoire")
 	@Length(min = 2, message = "La chaîne doit avoir au moins 2 caractères")
@@ -44,7 +43,7 @@ public class TypeAbsence {
 
 
 	public TypeAbsence(){
-		
+	
 	}
 
 	public TypeAbsence(Long id, String nom) {
@@ -60,6 +59,7 @@ public class TypeAbsence {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getNom() {
 		return nom;
 	}

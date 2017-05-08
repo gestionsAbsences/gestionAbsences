@@ -66,7 +66,6 @@ public class RoleService {
 		List<Role> resultat = new ArrayList<>();
 		try {
 			Iterable<Role> recherche = dao.findByName(nom);
-
 			for (Role element : recherche) {
 				Role donnee = new Role();
 				donnee.setId(element.getId());

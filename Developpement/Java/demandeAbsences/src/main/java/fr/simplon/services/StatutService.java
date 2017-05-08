@@ -39,12 +39,11 @@ public class StatutService {
 		try {
 			Iterable<Statut> recherche = dao.findAll();
 			for (Statut statut : recherche) {
-//				Statut st = new Statut();
-//				st.setId(statut.getId());
-//				st.setNom(statut.getNom());
-//				st.setAbsences(statut.getAbsences());
-//				resultat.add(st);
-				resultat.add(statut);
+				Statut st = new Statut();
+				st.setId(statut.getId());
+				st.setNom(statut.getNom());
+				st.setAbsences(statut.getAbsences());
+				resultat.add(st);
 			}
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: listeStatut" + e);
@@ -67,11 +66,11 @@ public class StatutService {
 		List<Statut> resultat = new ArrayList<>();
 		try {
 			Iterable<Statut> recherche = dao.findByName(nom);
-	
 			for (Statut statut : recherche) {
 				Statut st = new Statut();
 				st.setId(statut.getId());
 				st.setNom(statut.getNom());
+				st.setAbsences(statut.getAbsences());
 				resultat.add(st);
 			}
 		} catch (Exception e) {
@@ -137,9 +136,8 @@ public class StatutService {
 	public void deleteStatut(Statut statut) throws SQLException {
 		try{
 			Iterable<Statut> temp = dao.findByName(statut.getNom());
-			Statut st = new Statut();
 			for (Statut service : temp) {
-				
+				Statut st = new Statut();
 				st.setId(service.getId());
 				st.setNom(service.getNom());
 				dao.delete(st);
