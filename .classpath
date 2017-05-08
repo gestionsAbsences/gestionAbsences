@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="Developpement/Java/demandeAbsences/src/main/java"/>
+	<classpathentry kind="src" path="Developpement/Java/demandeAbsences/src/test/java"/>
+	<classpathentry kind="src" path="Divers/joursFeries/src"/>
+	<classpathentry kind="src" path="Documentation/Spring-MVC-Actions/src/main/java"/>
+	<classpathentry kind="src" path="Documentation/Spring-MVC-Actions/src/test/java"/>
+	<classpathentry kind="lib" path="Developpement/Java/demandeAbsences/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="lib" path="Developpement/Java/demandeAbsences/bin/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="lib" path="Documentation/Spring-MVC-Actions/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
