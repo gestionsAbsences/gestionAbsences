@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.simplon.dao.EmployeDao;
 import fr.simplon.domain.Employe;
-import fr.simplon.domain.Equipe;
 
 /**
  * Classe métier du service EMPLOYE
@@ -54,7 +53,7 @@ public class EmployeService {
 				em.setId_service_rh(employe.getId_service_rh());
 				em.setAbsences(employe.getAbsences());
 				em.setEmprhs(employe.getEmprhs());
-				
+
 //				Equipe eq = employe.getEquipes();
 //				eq.setId_hierarchie(0);
 //				eq.setEmployes(null);
