@@ -43,6 +43,7 @@ public class RoleService {
 				Role donnee = new Role();
 				donnee.setId(element.getId());
 				donnee.setValeur(element.getValeur());
+				donnee.setUsers(element.getUsers());
 				resultat.add(donnee);
 			}
 		} catch (Exception e) {

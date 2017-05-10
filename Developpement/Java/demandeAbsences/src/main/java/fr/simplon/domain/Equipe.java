@@ -1,23 +1,26 @@
 package fr.simplon.domain;
 
-import javax.persistence.CascadeType;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
 /**
- * entity Service RH
+ * entity Service EQUIPE
  * 
  */
 
@@ -37,10 +40,13 @@ public class Equipe {
 	private int id_hierarchie;
 	private int id_responsable;
 
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name="id_hierarchie", insertable = false, updatable = false)
-	@JsonManagedReference
 	private Equipe parent;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipes")
+	@JsonBackReference
+	private List<Employe> employes;
 
 
 	public Equipe(){}
@@ -94,4 +100,11 @@ public class Equipe {
 		this.id_responsable = id_responsable;
 	}
 
+	public List<Employe> getEmployes() {
+		return employes;
+	}
+
+	public void setEmployes(List<Employe> employes) {
+		this.employes = employes;
+	}
 }

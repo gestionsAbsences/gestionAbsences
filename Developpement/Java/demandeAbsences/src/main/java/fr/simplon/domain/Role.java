@@ -1,17 +1,23 @@
 package fr.simplon.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
- * entity Role
+ * entity ROLE
  * 
  */
 
@@ -28,7 +34,11 @@ public class Role {
 	@Length(min = 4, message = "La chaîne doit avoir au moins 4 caractères")
 	private String valeur;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "roles")
+	@JsonBackReference
+	private List<User> users;
 
+	
 	public Role(){}
 
 	public Role(Long id, String valeur) {
@@ -51,6 +61,14 @@ public class Role {
 
 	public void setValeur(String valeur) {
 		this.valeur = valeur;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 }

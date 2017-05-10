@@ -12,7 +12,7 @@ public interface AbsenceDao extends CrudRepository<Absence, Long>{
 	/**
 	 * lecture personnalisee dans la base de donnees
 	 * @param id 
-	 * @return id absence
+	 * @return id service ABSENCE
 	 */
 	@Query("from Absence where id = ?1")
 	public Iterable<Absence> findById(Long id);

@@ -12,7 +12,7 @@ public interface TypeDao extends CrudRepository<TypeAbsence, Long>{
 	/**
 	 * lecture personnalisee dans la base de donnees
 	 * @param name 
-	 * @return nom service RH
+	 * @return nom service TYPE
 	 */
 	@Query("from TypeAbsence where nom like %?1%")
 	public Iterable<TypeAbsence> findByName(String name);

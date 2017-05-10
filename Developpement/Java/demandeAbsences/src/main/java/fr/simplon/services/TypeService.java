@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.simplon.dao.TypeDao;
+import fr.simplon.domain.Absence;
 import fr.simplon.domain.TypeAbsence;
 
 /**
@@ -42,6 +43,18 @@ public class TypeService {
 				TypeAbsence tp = new TypeAbsence();
 				tp.setId(type.getId());
 				tp.setNom(type.getNom());
+				tp.setAbsences(new ArrayList<>());
+				for (Absence abs : tp.getAbsences()) {
+					Absence ab = new Absence();
+					ab.setId(abs.getId());
+					ab.setDebut(abs.getDebut());
+					ab.setFin(abs.getFin());
+					ab.setId_employe(abs.getId_employe());
+					ab.setId_type(abs.getId_type());
+					ab.setId_statut(abs.getId_statut());
+					ab.setId_service_rh(abs.getId_service_rh());
+					tp.getAbsences().add(ab);
+				}
 				tp.setAbsences(type.getAbsences());
 				resultat.add(tp);
 			}

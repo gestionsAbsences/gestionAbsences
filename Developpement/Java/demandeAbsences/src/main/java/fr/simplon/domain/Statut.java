@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
- * entity Service RH
+ * entity Service STATUT
  * 
  */
 
@@ -39,7 +39,7 @@ public class Statut {
 
 	private int code;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id_statut")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "statuts")
 	@JsonBackReference
 	private List<Absence> absences;
 

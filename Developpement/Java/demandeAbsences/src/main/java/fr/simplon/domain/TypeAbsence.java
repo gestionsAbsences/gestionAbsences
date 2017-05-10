@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
- * entity Service RH
+ * entity Service TYPE
  * 
  */
 
@@ -37,14 +37,12 @@ public class TypeAbsence {
 	@Length(min = 2, message = "La chaîne doit avoir au moins 2 caractères")
 	private String nom;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "id_type")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "types")
 	@JsonBackReference
 	private List<Absence> absences;
 
 
-	public TypeAbsence(){
-	
-	}
+	public TypeAbsence(){}
 
 	public TypeAbsence(Long id, String nom) {
 		super();

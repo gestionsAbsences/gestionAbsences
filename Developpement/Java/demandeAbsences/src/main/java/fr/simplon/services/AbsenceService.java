@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.simplon.dao.AbsenceDao;
 import fr.simplon.domain.Absence;
+import fr.simplon.domain.Employe;
 import fr.simplon.domain.ServiceRh;
 import fr.simplon.domain.Statut;
 import fr.simplon.domain.TypeAbsence;
@@ -51,6 +52,20 @@ public class AbsenceService {
 				ab.setId_type(absence.getId_type());
 				ab.setId_statut(absence.getId_statut());
 				ab.setId_service_rh(absence.getId_service_rh());
+
+				Employe em = new Employe();
+				em.setId(absence.getEmployes().getId());
+				em.setNom(absence.getEmployes().getNom());
+				em.setPrenom(absence.getEmployes().getPrenom());
+				em.setMatricule(absence.getEmployes().getMatricule());
+				em.setNb_cp(absence.getEmployes().getNb_cp());
+				em.setNb_rtt(absence.getEmployes().getNb_rtt());
+				em.setNb_rc(absence.getEmployes().getNb_rc());
+				em.setReliquat_ca(absence.getEmployes().getReliquat_ca());
+				em.setReliquat_rtt(absence.getEmployes().getReliquat_rtt());
+				em.setId_equipe(absence.getEmployes().getId_equipe());
+				em.setId_service_rh(absence.getEmployes().getId_service_rh());
+				ab.setEmployes(em);
 
 				TypeAbsence ta = new TypeAbsence();
 				ta.setId(absence.getTypes().getId());

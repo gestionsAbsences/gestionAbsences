@@ -1,6 +1,5 @@
 package fr.simplon.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,11 +10,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
- * entity Service Absence
+ * entity Service ABSENCE
  * 
  */
 
@@ -34,25 +33,30 @@ public class Absence {
 	@Column(name = "fin")
 	private String fin;
 
+	@JsonIgnore
 	private int id_employe;
+	@JsonIgnore
 	private int id_type;
+	@JsonIgnore
 	private int id_statut;
+	@JsonIgnore
 	private int id_service_rh;
 
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name="id_type", insertable = false, updatable = false)
-	@JsonManagedReference
 	private TypeAbsence types;
 
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name="id_statut", insertable = false, updatable = false)
-	@JsonManagedReference
 	private Statut statuts;
 
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name="id_service_rh", insertable = false, updatable = false)
-	@JsonManagedReference
 	private ServiceRh rhs;
+
+	@ManyToOne
+	@JoinColumn(name="id_employe", insertable = false, updatable = false)
+	private Employe employes;
 
 
 	public Absence(){}
@@ -146,6 +150,14 @@ public class Absence {
 
 	public void setRhs(ServiceRh rhs) {
 		this.rhs = rhs;
+	}
+
+	public Employe getEmployes() {
+		return employes;
+	}
+
+	public void setEmployes(Employe employes) {
+		this.employes = employes;
 	}
 
 }
