@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.simplon.dao.EmployeDao;
 import fr.simplon.domain.Employe;
+import fr.simplon.domain.Equipe;
+import fr.simplon.domain.User;
 
 /**
  * Classe métier du service EMPLOYE
@@ -51,16 +53,21 @@ public class EmployeService {
 				em.setReliquat_rtt(employe.getReliquat_rtt());
 				em.setId_equipe(employe.getId_equipe());
 				em.setId_service_rh(employe.getId_service_rh());
-				em.setAbsences(employe.getAbsences());
-				em.setEmprhs(employe.getEmprhs());
-
-//				Equipe eq = employe.getEquipes();
-//				eq.setId_hierarchie(0);
-//				eq.setEmployes(null);
-//				em.setEquipes(eq);
 				
-//				employe.getEquipes().setId_hierarchie(0);
-//				em.setEquipes(employe.getEquipes());
+				em.setAbsences(employe.getAbsences());
+				em.setGestionnaire_rh(employe.getGestionnaire_rh());
+				
+				Equipe eq = new Equipe();
+				eq.setId(employe.getEquipes().getId());
+				eq.setNom(employe.getEquipes().getNom());
+				eq.setId_responsable(employe.getEquipes().getId_responsable());
+				em.setEquipes(eq);
+				
+				User us = new User();
+				us.setId(employe.getUsers().getId());
+				us.setEmail(employe.getUsers().getEmail());
+				us.setPassword(employe.getUsers().getPassword());
+				em.setUsers(us);
 				
 				resultat.add(em);
 			}
@@ -89,6 +96,7 @@ public class EmployeService {
 				Employe em = new Employe();
 				em.setId(employe.getId());
 				em.setNom(employe.getNom());
+				em.setPrenom(employe.getPrenom());
 				em.setMatricule(employe.getMatricule());
 				em.setNb_cp(employe.getNb_cp());
 				em.setNb_rtt(employe.getNb_rtt());
@@ -97,7 +105,22 @@ public class EmployeService {
 				em.setReliquat_rtt(employe.getReliquat_rtt());
 				em.setId_equipe(employe.getId_equipe());
 				em.setId_service_rh(employe.getId_service_rh());
+				
 				em.setAbsences(employe.getAbsences());
+				em.setGestionnaire_rh(employe.getGestionnaire_rh());
+				
+				Equipe eq = new Equipe();
+				eq.setId(employe.getEquipes().getId());
+				eq.setNom(employe.getEquipes().getNom());
+				eq.setId_responsable(employe.getEquipes().getId_responsable());
+				em.setEquipes(eq);
+				
+				User us = new User();
+				us.setId(employe.getUsers().getId());
+				us.setEmail(employe.getUsers().getEmail());
+				us.setPassword(employe.getUsers().getPassword());
+				em.setUsers(us);
+				
 				resultat.add(em);
 			}
 		} catch (Exception e) {
@@ -160,21 +183,22 @@ public class EmployeService {
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteEmploye(Employe employe) throws SQLException {
+	public void deleteEmploye(Employe sup_employe) throws SQLException {
 		try{
-			Iterable<Employe> temp = dao.findByName(employe.getNom());
-			for (Employe service : temp) {
+			Iterable<Employe> temp = dao.findByName(sup_employe.getNom());
+			for (Employe employe : temp) {
 				Employe em = new Employe();
-				em.setId(service.getId());
-				em.setNom(service.getNom());
-				em.setMatricule(service.getMatricule());
-				em.setNb_cp(service.getNb_cp());
-				em.setNb_rtt(service.getNb_rtt());
-				em.setNb_rc(service.getNb_rc());
-				em.setReliquat_ca(service.getReliquat_ca());
-				em.setReliquat_rtt(service.getReliquat_rtt());
-				em.setId_equipe(service.getId_equipe());
-				em.setId_service_rh(service.getId_service_rh());
+				em.setId(employe.getId());
+				em.setNom(employe.getNom());
+				em.setPrenom(employe.getPrenom());
+				em.setMatricule(employe.getMatricule());
+				em.setNb_cp(employe.getNb_cp());
+				em.setNb_rtt(employe.getNb_rtt());
+				em.setNb_rc(employe.getNb_rc());
+				em.setReliquat_ca(employe.getReliquat_ca());
+				em.setReliquat_rtt(employe.getReliquat_rtt());
+				em.setId_equipe(employe.getId_equipe());
+				em.setId_service_rh(employe.getId_service_rh());
 				dao.delete(em);
 			}
 		} catch (Exception e) {

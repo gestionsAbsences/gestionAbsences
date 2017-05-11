@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
- * entity ROLE
+ * entity Service ROLE
  * 
  */
 

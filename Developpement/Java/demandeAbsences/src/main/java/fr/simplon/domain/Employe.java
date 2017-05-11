@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
@@ -63,11 +64,19 @@ public class Employe {
 
 	@ManyToOne
 	@JoinColumn(name="id_service_rh", insertable = false, updatable = false)
-	private ServiceRh emprhs;
+	private ServiceRh gestionnaire_rh;
 
 	@ManyToOne
 	@JoinColumn(name="id_equipe", insertable = false, updatable = false)
 	private Equipe equipes;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "responsables")
+	@JsonBackReference
+	private List<Equipe> resp_equipes;
+
+	@OneToOne
+	@JoinColumn(name="id", insertable = false, updatable = false)
+	private User users;
 
 
 	public Employe(){}
@@ -176,12 +185,12 @@ public class Employe {
 		this.absences = absences;
 	}
 
-	public ServiceRh getEmprhs() {
-		return emprhs;
+	public ServiceRh getGestionnaire_rh() {
+		return gestionnaire_rh;
 	}
 
-	public void setEmprhs(ServiceRh emprhs) {
-		this.emprhs = emprhs;
+	public void setGestionnaire_rh(ServiceRh gestionnaire_rh) {
+		this.gestionnaire_rh = gestionnaire_rh;
 	}
 
 	public Equipe getEquipes() {
@@ -190,5 +199,21 @@ public class Employe {
 
 	public void setEquipes(Equipe equipes) {
 		this.equipes = equipes;
+	}
+
+	public List<Equipe> getResp_equipes() {
+		return resp_equipes;
+	}
+
+	public void setResp_equipes(List<Equipe> resp_equipes) {
+		this.resp_equipes = resp_equipes;
+	}
+
+	public User getUsers() {
+		return users;
+	}
+
+	public void setUsers(User users) {
+		this.users = users;
 	}
 }

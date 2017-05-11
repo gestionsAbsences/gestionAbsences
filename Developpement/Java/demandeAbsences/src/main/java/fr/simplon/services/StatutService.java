@@ -12,7 +12,7 @@ import fr.simplon.dao.StatutDao;
 import fr.simplon.domain.Statut;
 
 /**
- * Classe métier du service Statut
+ * Classe métier du service STATUT
  * 
  * @author JGL
  *
@@ -133,13 +133,14 @@ public class StatutService {
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteStatut(Statut statut) throws SQLException {
+	public void deleteStatut(Statut sup_statut) throws SQLException {
 		try{
-			Iterable<Statut> temp = dao.findByName(statut.getNom());
-			for (Statut service : temp) {
+			Iterable<Statut> temp = dao.findByName(sup_statut.getNom());
+			for (Statut statut : temp) {
 				Statut st = new Statut();
-				st.setId(service.getId());
-				st.setNom(service.getNom());
+				st.setId(statut.getId());
+				st.setNom(statut.getNom());
+				st.setAbsences(statut.getAbsences());
 				dao.delete(st);
 			}
 		} catch (Exception e) {

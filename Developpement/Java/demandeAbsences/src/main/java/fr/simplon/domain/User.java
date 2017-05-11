@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Email;
@@ -47,6 +48,10 @@ public class User {
 	@ManyToOne
 	@JoinColumn(name="id_role", insertable = false, updatable = false)
 	private Role roles;
+
+	@OneToOne
+	@JoinColumn(name="id_employe", insertable = false, updatable = false)
+	private Employe user_employe;
 
 	
 	public User(){}
@@ -106,4 +111,11 @@ public class User {
 		this.roles = roles;
 	}
 
+	public Employe getUser_employe() {
+		return user_employe;
+	}
+
+	public void setUser_employe(Employe user_employe) {
+		this.user_employe = user_employe;
+	}
 }

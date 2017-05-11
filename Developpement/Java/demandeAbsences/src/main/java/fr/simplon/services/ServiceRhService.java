@@ -12,7 +12,7 @@ import fr.simplon.dao.ServiceRhDao;
 import fr.simplon.domain.ServiceRh;
 
 /**
- * Classe métier du service Rh
+ * Classe métier du service RH
  * 
  * @author JGL
  *
@@ -65,8 +65,7 @@ public class ServiceRhService {
 	public List<ServiceRh> getServiceRh(String nom) throws SQLException {
 		List<ServiceRh> resultat = new ArrayList<>();
 		try {
-			Iterable<ServiceRh> recherche = rhDao.findByName(nom);
-	
+			Iterable<ServiceRh> recherche = rhDao.findByName(nom);	
 			for (ServiceRh serviceRh : recherche) {
 				ServiceRh rh = new ServiceRh();
 				rh.setId(serviceRh.getId());
@@ -134,14 +133,14 @@ public class ServiceRhService {
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteServiceRh(ServiceRh serviceRh) throws SQLException {
+	public void deleteServiceRh(ServiceRh sup_serviceRh) throws SQLException {
 		try{
-			Iterable<ServiceRh> temp = rhDao.findByName(serviceRh.getNom());
-			for (ServiceRh service : temp) {
+			Iterable<ServiceRh> temp = rhDao.findByName(sup_serviceRh.getNom());
+			for (ServiceRh serviceRh : temp) {
 				ServiceRh rh = new ServiceRh();
-				rh.setId(service.getId());
-				rh.setEmail(service.getEmail());
-				rh.setNom(service.getNom());
+				rh.setId(serviceRh.getId());
+				rh.setEmail(serviceRh.getEmail());
+				rh.setNom(serviceRh.getNom());
 				rhDao.delete(rh);
 			}
 		} catch (Exception e) {

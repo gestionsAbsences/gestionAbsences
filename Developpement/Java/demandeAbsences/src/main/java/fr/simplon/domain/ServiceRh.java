@@ -43,13 +43,13 @@ public class ServiceRh {
 	@Length(min = 4, message = "La chaîne doit avoir au moins 4 caractères")
 	private String nom;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rhs")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "valideur_rh")
 	@JsonBackReference
 	private List<Absence> absences;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "emprhs")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "gestionnaire_rh")
 	@JsonBackReference
-	private List<Employe> rhemps;
+	private List<Employe> list_rh;
 
 
 	public ServiceRh(){}
@@ -93,12 +93,12 @@ public class ServiceRh {
 		this.absences = absences;
 	}
 
-	public List<Employe> getRhemps() {
-		return rhemps;
+	public List<Employe> getList_rh() {
+		return list_rh;
 	}
 
-	public void setRhemps(List<Employe> rhemps) {
-		this.rhemps = rhemps;
+	public void setList_rh(List<Employe> list_rh) {
+		this.list_rh = list_rh;
 	}
 
 }

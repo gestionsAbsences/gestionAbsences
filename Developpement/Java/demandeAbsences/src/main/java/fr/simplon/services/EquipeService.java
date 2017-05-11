@@ -9,10 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.simplon.dao.EquipeDao;
+import fr.simplon.domain.Employe;
 import fr.simplon.domain.Equipe;
 
 /**
- * Classe métier du service Equipe
+ * Classe métier du service EQUIPE
  * 
  * @author JGL
  *
@@ -41,16 +42,35 @@ public class EquipeService {
 
 			for (Equipe equipe : recherche) {
 				Equipe eq = new Equipe();
-				Equipe pr = new Equipe();
 				eq.setId(equipe.getId());
 				eq.setId_hierarchie(equipe.getId_hierarchie());
 				eq.setId_responsable(equipe.getId_responsable());
 				eq.setNom(equipe.getNom());
+				
+				Equipe pr = new Equipe();
 				pr.setId(equipe.getParent().getId());
 				pr.setId_hierarchie(equipe.getParent().getId_hierarchie());
 				pr.setId_responsable(equipe.getParent().getId_responsable());
 				pr.setNom(equipe.getParent().getNom());
 				eq.setParent(pr);
+
+				eq.setEmployes(new ArrayList<>());
+				for (Employe emp : eq.getEmployes()) {
+					Employe em = new Employe();
+					em.setId(emp.getId());
+					em.setNom(emp.getNom());
+					em.setPrenom(emp.getPrenom());
+					em.setMatricule(emp.getMatricule());
+					eq.getEmployes().add(em);
+				}
+
+				Employe rp = new Employe();
+				rp.setNom(equipe.getResponsables().getNom());
+				rp.setPrenom(equipe.getResponsables().getPrenom());
+				rp.setMatricule(equipe.getResponsables().getMatricule());
+				eq.setResponsables(rp);
+
+
 				resultat.add(eq);
 			}
 		} catch (Exception e) {
@@ -76,16 +96,35 @@ public class EquipeService {
 			Iterable<Equipe> recherche = dao.findByName(nom);
 			for (Equipe equipe : recherche) {
 				Equipe eq = new Equipe();
-				Equipe pr = new Equipe();
 				eq.setId(equipe.getId());
 				eq.setId_hierarchie(equipe.getId_hierarchie());
 				eq.setId_responsable(equipe.getId_responsable());
 				eq.setNom(equipe.getNom());
+				
+				Equipe pr = new Equipe();
 				pr.setId(equipe.getParent().getId());
 				pr.setId_hierarchie(equipe.getParent().getId_hierarchie());
 				pr.setId_responsable(equipe.getParent().getId_responsable());
 				pr.setNom(equipe.getParent().getNom());
 				eq.setParent(pr);
+
+				eq.setEmployes(new ArrayList<>());
+				for (Employe emp : eq.getEmployes()) {
+					Employe em = new Employe();
+					em.setId(emp.getId());
+					em.setNom(emp.getNom());
+					em.setPrenom(emp.getPrenom());
+					em.setMatricule(emp.getMatricule());
+					eq.getEmployes().add(em);
+				}
+
+				Employe rp = new Employe();
+				rp.setNom(equipe.getResponsables().getNom());
+				rp.setPrenom(equipe.getResponsables().getPrenom());
+				rp.setMatricule(equipe.getResponsables().getMatricule());
+				eq.setResponsables(rp);
+
+
 				resultat.add(eq);
 			}
 		} catch (Exception e) {
@@ -148,15 +187,15 @@ public class EquipeService {
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteEquipe(Equipe equipe) throws SQLException {
+	public void deleteEquipe(Equipe sup_equipe) throws SQLException {
 		try{
-			Iterable<Equipe> temp = dao.findByName(equipe.getNom());
-			Equipe eq = new Equipe();
-			for (Equipe service : temp) {
-				eq.setId(service.getId());
+			Iterable<Equipe> temp = dao.findByName(sup_equipe.getNom());
+			for (Equipe equipe : temp) {
+				Equipe eq = new Equipe();
+				eq.setId(equipe.getId());
 				eq.setId_hierarchie(equipe.getId_hierarchie());
 				eq.setId_responsable(equipe.getId_responsable());
-				eq.setNom(service.getNom());
+				eq.setNom(equipe.getNom());
 				dao.delete(eq);
 			}
 		} catch (Exception e) {

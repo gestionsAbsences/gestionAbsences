@@ -12,7 +12,7 @@ public interface EquipeDao extends CrudRepository<Equipe, Long>{
 	/**
 	 * lecture personnalisee dans la base de donnees
 	 * @param name 
-	 * @return nom service RH
+	 * @return nom service EQUIPE
 	 */
 	@Query("from Equipe where Nom like %?1%")
 	public Iterable<Equipe> findByName(String name);

@@ -13,7 +13,7 @@ import fr.simplon.domain.Absence;
 import fr.simplon.domain.TypeAbsence;
 
 /**
- * Classe métier du service Type
+ * Classe métier du service TYPE
  * 
  * @author JGL
  *
@@ -83,6 +83,18 @@ public class TypeService {
 				TypeAbsence tp = new TypeAbsence();
 				tp.setId(type.getId());
 				tp.setNom(type.getNom());
+				tp.setAbsences(new ArrayList<>());
+				for (Absence abs : tp.getAbsences()) {
+					Absence ab = new Absence();
+					ab.setId(abs.getId());
+					ab.setDebut(abs.getDebut());
+					ab.setFin(abs.getFin());
+					ab.setId_employe(abs.getId_employe());
+					ab.setId_type(abs.getId_type());
+					ab.setId_statut(abs.getId_statut());
+					ab.setId_service_rh(abs.getId_service_rh());
+					tp.getAbsences().add(ab);
+				}
 				tp.setAbsences(type.getAbsences());
 				resultat.add(tp);
 			}
@@ -146,13 +158,13 @@ public class TypeService {
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteType(TypeAbsence type) throws SQLException {
+	public void deleteType(TypeAbsence sup_type) throws SQLException {
 		try{
-			Iterable<TypeAbsence> temp = dao.findByName(type.getNom());
+			Iterable<TypeAbsence> temp = dao.findByName(sup_type.getNom());
 			TypeAbsence tp = new TypeAbsence();
-			for (TypeAbsence service : temp) {
-				tp.setId(service.getId());
-				tp.setNom(service.getNom());
+			for (TypeAbsence type : temp) {
+				tp.setId(type.getId());
+				tp.setNom(type.getNom());
 				dao.delete(tp);
 			}
 		} catch (Exception e) {

@@ -52,7 +52,7 @@ public class Absence {
 
 	@ManyToOne
 	@JoinColumn(name="id_service_rh", insertable = false, updatable = false)
-	private ServiceRh rhs;
+	private ServiceRh valideur_rh;
 
 	@ManyToOne
 	@JoinColumn(name="id_employe", insertable = false, updatable = false)
@@ -144,12 +144,12 @@ public class Absence {
 		this.statuts = statuts;
 	}
 
-	public ServiceRh getRhs() {
-		return rhs;
+	public ServiceRh getValideur_rh() {
+		return valideur_rh;
 	}
 
-	public void setRhs(ServiceRh rhs) {
-		this.rhs = rhs;
+	public void setValideur_rh(ServiceRh valideur_rh) {
+		this.valideur_rh = valideur_rh;
 	}
 
 	public Employe getEmployes() {

@@ -18,7 +18,6 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-
 /**
  * entity Service EQUIPE
  * 
@@ -47,6 +46,10 @@ public class Equipe {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipes")
 	@JsonBackReference
 	private List<Employe> employes;
+
+	@ManyToOne
+	@JoinColumn(name="id_responsable", insertable = false, updatable = false)
+	private Employe responsables;
 
 
 	public Equipe(){}
@@ -106,5 +109,13 @@ public class Equipe {
 
 	public void setEmployes(List<Employe> employes) {
 		this.employes = employes;
+	}
+
+	public Employe getResponsables() {
+		return responsables;
+	}
+
+	public void setResponsables(Employe responsables) {
+		this.responsables = responsables;
 	}
 }

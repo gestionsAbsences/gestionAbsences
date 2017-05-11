@@ -12,7 +12,7 @@ import fr.simplon.dao.RoleDao;
 import fr.simplon.domain.Role;
 
 /**
- * Classe métier du service Role
+ * Classe métier du service ROLE
  * 
  * @author JGL
  *
@@ -38,13 +38,12 @@ public class RoleService {
 		List<Role> resultat = new ArrayList<>();
 		try {
 			Iterable<Role> recherche = dao.findAll();
-
-			for (Role element : recherche) {
-				Role donnee = new Role();
-				donnee.setId(element.getId());
-				donnee.setValeur(element.getValeur());
-				donnee.setUsers(element.getUsers());
-				resultat.add(donnee);
+			for (Role role : recherche) {
+				Role rl = new Role();
+				rl.setId(role.getId());
+				rl.setValeur(role.getValeur());
+				rl.setUsers(role.getUsers());
+				resultat.add(rl);
 			}
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: listeRole" + e);
@@ -67,11 +66,12 @@ public class RoleService {
 		List<Role> resultat = new ArrayList<>();
 		try {
 			Iterable<Role> recherche = dao.findByName(nom);
-			for (Role element : recherche) {
-				Role donnee = new Role();
-				donnee.setId(element.getId());
-				donnee.setValeur(element.getValeur());
-				resultat.add(donnee);
+			for (Role role : recherche) {
+				Role rl = new Role();
+				rl.setId(role.getId());
+				rl.setValeur(role.getValeur());
+				rl.setUsers(role.getUsers());
+				resultat.add(rl);
 			}
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: listeRole" + e);
@@ -133,15 +133,15 @@ public class RoleService {
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteRole(Role element) throws SQLException {
+	public void deleteRole(Role sup_role) throws SQLException {
 		try{
-			Iterable<Role> temp = dao.findByName(element.getValeur());
-			Role donnee = new Role();
-			for (Role service : temp) {
-				
-				donnee.setId(service.getId());
-				donnee.setValeur(service.getValeur());
-				dao.delete(donnee);
+			Iterable<Role> temp = dao.findByName(sup_role.getValeur());
+			for (Role role : temp) {
+				Role rl = new Role();
+				rl.setId(role.getId());
+				rl.setValeur(role.getValeur());
+				rl.setUsers(role.getUsers());
+				dao.delete(rl);
 			}
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: deleteRole" + e);

@@ -16,7 +16,7 @@ import fr.simplon.domain.Statut;
 import fr.simplon.domain.TypeAbsence;
 
 /**
- * Classe métier du service Absence
+ * Classe métier du service ABSENCE
  * 
  * @author JGL
  *
@@ -78,10 +78,10 @@ public class AbsenceService {
 				ab.setStatuts(st);
 				
 				ServiceRh sr = new ServiceRh();
-				sr.setId(absence.getRhs().getId());
-				sr.setNom(absence.getRhs().getNom());
-				sr.setEmail(absence.getRhs().getEmail());
-				ab.setRhs(sr);
+				sr.setId(absence.getValideur_rh().getId());
+				sr.setNom(absence.getValideur_rh().getNom());
+				sr.setEmail(absence.getValideur_rh().getEmail());
+				ab.setValideur_rh(sr);
 
 				resultat.add(ab);
 			}
@@ -116,6 +116,20 @@ public class AbsenceService {
 			ab.setId_statut(absence.getId_statut());
 			ab.setId_service_rh(absence.getId_service_rh());
 
+			Employe em = new Employe();
+			em.setId(absence.getEmployes().getId());
+			em.setNom(absence.getEmployes().getNom());
+			em.setPrenom(absence.getEmployes().getPrenom());
+			em.setMatricule(absence.getEmployes().getMatricule());
+			em.setNb_cp(absence.getEmployes().getNb_cp());
+			em.setNb_rtt(absence.getEmployes().getNb_rtt());
+			em.setNb_rc(absence.getEmployes().getNb_rc());
+			em.setReliquat_ca(absence.getEmployes().getReliquat_ca());
+			em.setReliquat_rtt(absence.getEmployes().getReliquat_rtt());
+			em.setId_equipe(absence.getEmployes().getId_equipe());
+			em.setId_service_rh(absence.getEmployes().getId_service_rh());
+			ab.setEmployes(em);
+
 			TypeAbsence ta = new TypeAbsence();
 			ta.setId(absence.getTypes().getId());
 			ta.setNom(absence.getTypes().getNom());
@@ -127,12 +141,12 @@ public class AbsenceService {
 			ab.setStatuts(st);
 			
 			ServiceRh sr = new ServiceRh();
-			sr.setId(absence.getRhs().getId());
-			sr.setNom(absence.getRhs().getNom());
-			sr.setEmail(absence.getRhs().getEmail());
-			ab.setRhs(sr);
+			sr.setId(absence.getValideur_rh().getId());
+			sr.setNom(absence.getValideur_rh().getNom());
+			sr.setEmail(absence.getValideur_rh().getEmail());
+			ab.setValideur_rh(sr);
 
-				resultat.add(ab);
+			resultat.add(ab);
 			}
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: listeAbsence" + e);
@@ -194,18 +208,18 @@ public class AbsenceService {
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteAbsence(Absence absence) throws SQLException {
+	public void deleteAbsence(Absence sup_absence) throws SQLException {
 		try{
-			Iterable<Absence> temp = dao.findById(absence.getId());
-			Absence ab = new Absence();
-			for (Absence service : temp) {
-				ab.setId(service.getId());
-				ab.setDebut(service.getDebut());
-				ab.setFin(service.getFin());
-				ab.setId_employe(service.getId_employe());
-				ab.setId_type(service.getId_type());
-				ab.setId_statut(service.getId_statut());
-				ab.setId_service_rh(service.getId_service_rh());
+			Iterable<Absence> temp = dao.findById(sup_absence.getId());
+			for (Absence absence : temp) {
+				Absence ab = new Absence();
+				ab.setId(absence.getId());
+				ab.setDebut(absence.getDebut());
+				ab.setFin(absence.getFin());
+				ab.setId_employe(absence.getId_employe());
+				ab.setId_type(absence.getId_type());
+				ab.setId_statut(absence.getId_statut());
+				ab.setId_service_rh(absence.getId_service_rh());
 				dao.delete(ab);
 			}
 		} catch (Exception e) {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.simplon.dao.UserDao;
+import fr.simplon.domain.Employe;
 import fr.simplon.domain.User;
 
 /**
@@ -39,14 +40,22 @@ public class UserService {
 		try {
 			Iterable<User> recherche = dao.findAll();
 			for (User user : recherche) {
-				User st = new User();
-				st.setId(user.getId());
-				st.setEmail(user.getEmail());
-				st.setPassword(user.getPassword());
-				st.setId_employe(user.getId_employe());
-				st.setId_role(user.getId_role());
-				st.setRoles(user.getRoles());
-				resultat.add(st);
+				User us = new User();
+				us.setId(user.getId());
+				us.setEmail(user.getEmail());
+				us.setPassword(user.getPassword());
+				us.setId_employe(user.getId_employe());
+				us.setId_role(user.getId_role());
+				us.setRoles(user.getRoles());
+				
+				Employe em = new Employe();
+				em.setId(user.getUser_employe().getId());
+				em.setNom(user.getUser_employe().getNom());
+				em.setPrenom(user.getUser_employe().getPrenom());
+				em.setMatricule(user.getUser_employe().getMatricule());
+				us.setUser_employe(em);
+
+				resultat.add(us);
 			}
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: listeUser" + e);
@@ -70,14 +79,22 @@ public class UserService {
 		try {
 			Iterable<User> recherche = dao.findByName(nom);
 			for (User user : recherche) {
-				User st = new User();
-				st.setId(user.getId());
-				st.setEmail(user.getEmail());
-				st.setPassword(user.getPassword());
-				st.setId_employe(user.getId_employe());
-				st.setId_role(user.getId_role());
-				st.setRoles(user.getRoles());
-				resultat.add(st);
+				User us = new User();
+				us.setId(user.getId());
+				us.setEmail(user.getEmail());
+				us.setPassword(user.getPassword());
+				us.setId_employe(user.getId_employe());
+				us.setId_role(user.getId_role());
+				us.setRoles(user.getRoles());
+				
+				Employe em = new Employe();
+				em.setId(user.getUser_employe().getId());
+				em.setNom(user.getUser_employe().getNom());
+				em.setPrenom(user.getUser_employe().getPrenom());
+				em.setMatricule(user.getUser_employe().getMatricule());
+				us.setUser_employe(em);
+
+				resultat.add(us);
 			}
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: listeUser" + e);
@@ -139,17 +156,18 @@ public class UserService {
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteUser(User user) throws SQLException {
+	public void deleteUser(User sup_user) throws SQLException {
 		try{
-			Iterable<User> temp = dao.findByName(user.getEmail());
-			for (User service : temp) {
-				User st = new User();
-				st.setId(service.getId());
-				st.setEmail(service.getEmail());
-				st.setPassword(service.getPassword());
-				st.setId_employe(service.getId_employe());
-				st.setId_role(service.getId_role());
-				dao.delete(st);
+			Iterable<User> temp = dao.findByName(sup_user.getEmail());
+			for (User user : temp) {
+				User us = new User();
+				us.setId(user.getId());
+				us.setEmail(user.getEmail());
+				us.setPassword(user.getPassword());
+				us.setId_employe(user.getId_employe());
+				us.setId_role(user.getId_role());
+				us.setRoles(user.getRoles());
+				dao.delete(us);
 			}
 		} catch (Exception e) {
 			System.out.println("Hibernate Error !: deleteUser" + e);
