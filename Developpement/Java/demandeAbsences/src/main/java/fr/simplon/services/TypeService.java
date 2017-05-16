@@ -1,9 +1,11 @@
 package fr.simplon.services;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.sql.SQLException;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.simplon.dao.TypeDao;
 import fr.simplon.domain.TypeAbsence;
@@ -16,62 +18,116 @@ import fr.simplon.domain.TypeAbsence;
  *
  */
 @Service
+@Transactional
 public class TypeService {
 	
-	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
-	private TypeDao dao;
+	private TypeDao typeDao;
 
-	public Iterable<TypeAbsence> listTypes(String searchNew) throws Exception {
+	/**
+	 * Liste des type d'absence
+	 * 
+	 * @return une liste
+	 * @throws SQLException
+	 */
+	/*
+	 * La methode [findAll] retourne une liste de la table 
+	 * La methode [findAll] est overrride.
+	 */
+	public List<TypeAbsence> listeTypeAbsence() throws SQLException {
+		List<TypeAbsence> resultat;
 		try {
-			if (! "".equals(searchNew))
-				return dao.findNewTypes(searchNew);
-			else
-				return dao.findAll();
+			resultat = typeDao.findAll();
 		} catch (Exception e) {
-			log.error("Hibrnate Error !: listTypes", e);
+			System.out.println("Hibernate Error !: listeTypeAbsence" + e);
 			throw e;
 		}
+		return resultat;
 	}
 
-	public TypeAbsence getType(Long id) throws Exception {
-		TypeAbsence type = null;
+	/**
+	 * Recherche d'un type d'absence
+	 * 
+	 * @param nom
+	 * @return une liste de type absence en fonction du nom
+	 * @throws SQLException
+	 */
+	/*
+	 * Meme principe que ci-dessus une iteration qu'on transforme en liste
+	 */
+	public List<TypeAbsence> getTypeByName(String nom) throws SQLException {
+		List<TypeAbsence> resultat;
 		try {
-			type = dao.findOne(id);
+			resultat = typeDao.findTypeByName(nom);
 		} catch (Exception e) {
-			log.error("Hibrnate Error !: getType", e);
+			System.out.println("Hibernate Error !: getTypeByName" + e);
 			throw e;
 		}
-		return type;
+		return resultat;
 	}
 
-	public TypeAbsence insertType(TypeAbsence type) throws Exception {
+	/**
+	 * Creation nouveau type d'absence
+	 * 
+	 * @param type d'absence
+	 * @return objet
+	 * @throws SQLException
+	 */
+	/*
+	 * Simple methode hibernate pour la creation d'un nouveau type d'absence
+	 * J'ai crée un bojet Absence pour avoir le resultat de la creation en
+	 * retour
+	 */
+	public TypeAbsence insertTypeAbsence(TypeAbsence typeAbsence) throws SQLException {
+		TypeAbsence creationTypeAbs;
 		try {
-			type.setId(new Long(0));
-			type = dao.save(type);
+			creationTypeAbs = typeDao.save(typeAbsence);
 		} catch (Exception e) {
-			log.error("Hibrnate Error !: insertType", e);
+			System.out.println("Hibernate Error !: insertTypeAbsence" + e);
 			throw e;
 		}
-		return type;
+		return creationTypeAbs;
 	}
 
-	public TypeAbsence updateType(TypeAbsence type) throws Exception {
+	/**
+	 * Modification type Absence
+	 * 
+	 * @param type absence
+	 * @return Objet
+	 * @throws SQLException
+	 */
+	/*
+	 * Même principe que creation
+	 */
+	public TypeAbsence updateTypeAbsence(TypeAbsence typeAbsence) throws SQLException {
+		TypeAbsence modifTypeAbs;
 		try {
-			dao.save(type);
+			modifTypeAbs = typeDao.save(typeAbsence);
 		} catch (Exception e) {
-			log.error("Hibrnate Error !: updateType", e);
+			System.out.println("Hibernate Error !: updateAbsence" + e);
 			throw e;
 		}
-		return type;
+		return modifTypeAbs;
 	}
 
-	public void deleteType(Long id) throws Exception {
+	/**
+	 * Suppression Type Absence
+	 * 
+	 * @param type absence
+	 * @throws SQLException
+	 */
+	/*
+	 * On commence par faire une recherche d'un service absence avec la methode
+	 * [findByName()] Et on supprime l'objet par la methode delete d'hibernate
+	 * qui supprime une entité complete. Cette methode peut etre appelé à
+	 * evoluer
+	 */
+	public void deleteTypeAbsence(TypeAbsence typeAbsence) throws SQLException {
 		try {
-			dao.delete(id);
+			typeDao.delete(typeAbsence);
 		} catch (Exception e) {
-			log.error("Hibrnate Error !: deleteType", e);
+			System.out.println("Hibernate Error !: deleteTypeAbsence" + e);
 			throw e;
 		}
 	}

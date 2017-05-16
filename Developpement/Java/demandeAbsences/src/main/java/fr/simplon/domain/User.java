@@ -1,34 +1,33 @@
 package fr.simplon.domain;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
- * entity Service RH
+ * Entity User
  * 
  * @author JGL
- * 
+ *
  */
 
 @Entity
-@Table(name="service_rh")
+@Table(name="user")
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
-public class ServiceRh {
+public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,23 +38,23 @@ public class ServiceRh {
 	@Email(regexp="^[a-zA-Z0-9._-]+@[a-z0-9.-_]{2,}.[a-z]{2,4}$")
 	private String email;
 	
-	@Column(name = "nom")
-	@NotBlank(message = "Nom obligatoire")
+	@Column(name = "password")
+	@NotBlank(message = "Mot de passe obligatoire")
 	@Length(min = 4, message = "La chaîne doit avoir au moins 4 caractères")
-	private String nom;
+	private String passwd;
 	
-	@OneToMany(mappedBy = "valideurRh")
-	@JsonBackReference
-	private List<Absence> absence;
+	@ManyToOne
+	@JoinColumn(name="id_role")
+	private Role role;
 
-	@OneToMany(mappedBy = "gestionnaireRh")
-	@JsonBackReference
-	private List<Employe> listRh;
+	@OneToOne
+	@JoinColumn(name="id_employe")
+	private Employe userEmploye;
 	
-	public ServiceRh(){
+	public User(){
 		
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -72,30 +71,29 @@ public class ServiceRh {
 		this.email = email;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getPasswd() {
+		return passwd;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
 	}
 
-	public List<Absence> getAbsence() {
-		return absence;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setAbsences(List<Absence> absence) {
-		this.absence = absence;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
-	public List<Employe> getList_rh() {
-		return listRh;
+	public Employe getUserEmploye() {
+		return userEmploye;
 	}
 
-	public void setList_rh(List<Employe> list_rh) {
-		this.listRh = list_rh;
+	public void setUserEmploye(Employe userEmploye) {
+		this.userEmploye = userEmploye;
 	}
 
 	
-
 }

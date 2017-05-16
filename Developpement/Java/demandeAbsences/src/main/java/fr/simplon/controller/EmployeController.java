@@ -20,91 +20,92 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.simplon.domain.ServiceRh;
-import fr.simplon.services.ServiceRhService;
+import fr.simplon.domain.Employe;
+import fr.simplon.services.EmployeService;
 
 /**
- * CRUD des services RH
+ * CRUD des employes
  * 
  * @author JGL
  * 
  */
 
 /*
- * Controlleur pour la gestion des services Rh
+ * Controlleur pour la gestion des employes
  * J'ai utilisé le verbe correspondant à l'action 
- * (get : lecture, post : création, put : mise à jour et delete: supression
- * url àsaisir dans le navigateur : localhost:8080/rh/nomMethode
+ * (get : lecture, post : création, put : mise à jour et delete: suppression
+ * url à saisir dans le navigateur : localhost:8080/emp/nomMethode
  */
 @RestController
-@RequestMapping("rh")
-public class ServiceRhController {
+@RequestMapping("emp")
+
+public class EmployeController {
 	
 	@Autowired
-	ServiceRhService rhService;
+	EmployeService empService;
 	
 	/**
-	 * Liste des services rh
+	 * Liste des employes
 	 * 
-	 * @return liste des services rh
+	 * @return liste des employes
 	 */
 	
 	/*
-	 * Affiche la liste des services rh
+	 * Affiche la liste des employes
 	 * ResponseEntity permet gérer la réponse envoyée au front
 	 */
-	@GetMapping("/listeService")
+	@GetMapping("listeEmployes")
 	public ResponseEntity<?> findAll() {	
-		List<ServiceRh> serviceRh = new ArrayList<ServiceRh>();
+		List<Employe> employes;
 		try {
-		serviceRh = rhService.listeServicesRh();
+		employes = empService.listeEmployes();
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(serviceRh);
+		return ResponseEntity.ok(employes);
 	}
 	
 	/**
 	 * 
-	 * Recherche des services Rh par le nom
+	 * Recherche des employe rh par le nom
 	 * 
 	 * @param String nom
 	 * 
-	 * @return 1 ou  plusieurs entités rh 
+	 * @return 1 ou  plusieurs entités employes
 	 * 
 	 */
 	
 	/*
-	 * Cette methode recherche un service Rhpar le nom
-	 * Il suffit de rentrer une lettre et la liste des services
+	 * Cette methode recherche un employe par le nom
+	 * Il suffit de rentrer une lettre et la liste des employes
 	 * contenant cette lettre sera affichée
 	 */
 	
-	@GetMapping("/getService")
+	@GetMapping("getEmploye")
 	public ResponseEntity<?> findByName(@RequestParam(value="nom", defaultValue="") String nom) {	
-		List<ServiceRh> findServiceRh = new ArrayList<ServiceRh>();
+		List<Employe> employe;
 		try {
-			findServiceRh = rhService.getServiceRh(nom);
+			employe = empService.getEmploye(nom);
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(findServiceRh);
+		return ResponseEntity.ok(employe);
 	}
 	
 	/**
-	 * Création de nouveaux services Rh
+	 * Création de nouveaux employes
 	 * 
-	 * @param email et nom du service Rh
+	 * @param données concernant l'employe
 	 * 
 	 * @return enregistrement ou erreur de saisie
 	 * 
 	 */
 	/*
-	 * La 2° ligne permet d'enregistrer les données dans le bean [ServiceRh serviceRh]
-	 * et de capter le résultat  [BindingResult result]
+	 * La 2° ligne permet d'enregistrer les données dans le bean [Employe employe]
+	 * et de capter le résultat  [BindingResult result] (la création ou les erreurs)
 	 */
-	@PostMapping(value="/creerServiceRh", consumes = "application/json")	
-	public ResponseEntity<?> save(@Valid ServiceRh serviceRh, BindingResult result) {			
+	@PostMapping(value="/creerEmploye", consumes = "application/json")	
+	public ResponseEntity<?> save(@Valid Employe employe, BindingResult result) {			
 	/*
 	 * On capture les éventuelles erreurs dans une map 
 	 * sous forme : key, value
@@ -118,30 +119,29 @@ public class ServiceRhController {
 					return ResponseEntity.badRequest().body(map);
 				}
 			} else {
-		serviceRh =  rhService.insertServiceRh(serviceRh);
+		employe =  empService.insertEmploye(employe);
 		}
 		} catch( SQLException sqle){
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(serviceRh.getNom()+" créée.");
+		return ResponseEntity.ok(employe.getPrenom()+" "+employe.getNom()+" créée.");
 	}
 	
 	/**
-	 * Mise à jour d'un service Rh
+	 * Mise à jour d'un employe
 	 * 
-	 * @param email et nom du service Rh
+	 * @param données à modifier de l'employé
 	 * 
 	 * @return enregistrement ou erreur de saisie
 	 * 
 	 */
 	
 	/*
-	 * La mise à jour suis le même principe que la création
-	 * Ne pas oublier de saisir l'id, sinon Hibernate croit 
-	 * qu'il s'agit d'une création
+	 * La mise à jour suis le même principe que la création.
+	 * Si l'id est présent dans le bean, Hibernate sait qu'il s'agit d'un update
 	 */
-	@PutMapping(value="/updateService")	
-	public ResponseEntity<?> update(@Valid ServiceRh serviceRh, BindingResult result) {			
+	@PutMapping(value="/updateEmploye")	
+	public ResponseEntity<?> update(@Valid Employe employe, BindingResult result) {			
 		Map<String,Object> map = new HashMap<String,Object>();
 		try{
 			if(result.hasErrors()){
@@ -150,35 +150,31 @@ public class ServiceRhController {
 					return ResponseEntity.badRequest().body(map);
 				}
 			} else {
-		serviceRh =  rhService.updateServiceRh(serviceRh);
+		employe =  empService.updateEmploye(employe);
 		}
 		} catch( SQLException sqle){
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(serviceRh.getNom()+" modifié.");
+		return ResponseEntity.ok(employe.getNom()+" modifié.");
 	}
 	
 	/**
-	 * Supression d'un service Rh
+	 * Suppression d'un employé
 	 * @param nom
 	 * @return message de suppression
 	 */
 	/*
-	 * La suppression se fait par le nom
+	 * La suppression se fait par le matricule
 	 * Le reste de l'action est dans la classe Service
 	 */
-	@DeleteMapping("/deleteService")
-	public ResponseEntity<?> deleteRh(ServiceRh serviceRh) {	
+	@DeleteMapping("deleteEmploye")
+	public ResponseEntity<?> delete(@RequestParam(value="matricule", defaultValue="") String matricule) {	
 		try {
-			rhService.deleteServiceRh(serviceRh);
+			empService.deleteEmploye(matricule);
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(serviceRh.getNom() + " supprimé.");
+		return ResponseEntity.ok(matricule + " supprimé!");
 	}
 
 }
-
-	
-
-

@@ -1,24 +1,26 @@
 package fr.simplon.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.simplon.common.ResponseError;
 import fr.simplon.domain.Equipe;
 import fr.simplon.services.EquipeService;
 
@@ -27,7 +29,7 @@ import fr.simplon.services.EquipeService;
  * @author simplon
  *
  */
-@CrossOrigin(origins="http://localhost:3000")
+
 @RestController
 @RequestMapping("/equipe")
 public class EquipeController {
@@ -40,124 +42,131 @@ public class EquipeController {
 	 * @param search : critère de recherche
 	 * @param searchnew : 2eme critere de recherche 
 	 * @return liste des equipes
-	 */
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> listEquipes(@RequestParam(value="searchnew", defaultValue="") String searchnew) {
-		Iterable<Equipe> listEquipe = null;
-		try {
-			listEquipe = equipeService.listEquipes(searchnew);
-		} catch (Exception e) {
-			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(listEquipe);
-	}
-
-	/**
-	 * recherche d'un equipe. note : l'id est dans l'url et non en parametre
-	 * 
-	 * @param id : id du equipe
-	 * @return : objet equipe
-	 */
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getEquipe(@PathVariable("id") Long id) {
-		Equipe equipe = null;
-		try {
-			equipe = equipeService.getEquipe(id);
-		} catch (Exception e) {
-			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
-		}
-		if (equipe == null) {
-			return ResponseError.getErrorMessage(ResponseError.ERROR_NOT_FOUND, "Aucun enregistrement");
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(equipe);
-	}
-
-	/**
-	 * creation d'un equipe
-	 * 
-	 * @param equipe : equipe
-	 * @param errors : erreur de validation
-	 * @return : réponse de la requête
-	 */
-	@RequestMapping(method = RequestMethod.POST)
-//	public ResponseEntity<?> save(@Valid ServiceRh serviceRh, BindingResult result) {}
-//	public ResponseEntity<?> insertEquipe(@Valid @RequestBody Equipe equipe , Errors errors) {
-	public ResponseEntity<?> save(@Valid Equipe equipe, BindingResult errors) {
-
-		// Si erreur de validation, retour erreur 400 (bad request), avec le
-		// message d'erreur
-		if (errors.hasErrors()) {
-			return ResponseError.extractErrorWhenIncompletRequest(errors);
-		}
-
-		try {
-			equipe = equipeService.insertEquipe(equipe);
-		} catch (Exception e) {
-			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
-		}
-
-		return ResponseEntity.status(HttpStatus.OK).body(equipe);
-	}
-	
-	/**
-	 * 
-	 * @param equipe : equipe
-	 * @param errors : erreurs de validation
-	 * @return : réponse de la requête
 	 * @throws Exception 
 	 */
-	@RequestMapping(method = RequestMethod.PUT)
-//	public ResponseEntity<?> update(@Valid ServiceRh serviceRh, BindingResult result) {			
-//	public ResponseEntity<?> updateEquipe(@Valid @RequestBody Equipe equipe, Errors errors) {
-	public ResponseEntity<?> updateEquipe(@Valid Equipe equipe, BindingResult result) throws Exception {
-		// Si erreur de validation, retour erreur 400 (bad request), avec le
-		// message d'erreur
+	@GetMapping("/listeEquipe")
+	public ResponseEntity<?> listEquipes(){
+		List<Equipe> listEquipe = new ArrayList<Equipe>();
+		try {
+			listEquipe = equipeService.listEquipes();
+		} catch (SQLException sqle) {
+			return ResponseEntity.badRequest().body(sqle);
+		}
+		return ResponseEntity.ok(listEquipe);
+	}
 
-		Map<String,Object> map = new HashMap<String,Object>();
-		try{
-			if(result.hasErrors()){
-				for(FieldError error : result.getFieldErrors()){
+	/**
+	 * 
+	 * Recherche d'une equipe par le nom
+	 * 
+	 * @param String nom
+	 * 
+	 * @return 1 entité equipe
+	 * @throws Exception 
+	 * 
+	 */
+
+	/*
+	 * Cette methode recherche une equipe par le nom
+	 * 
+	 */
+
+	@GetMapping("/getEquipe")
+	public ResponseEntity<?> findById(@RequestParam(value = "nom", defaultValue = "") String nom){
+		List<Equipe> equipe = new ArrayList<Equipe>();
+		try {
+			equipe = equipeService.getEquipe(nom);
+		} catch (SQLException sqle) {
+			return ResponseEntity.badRequest().body(sqle);
+		}
+		return ResponseEntity.ok(equipe);
+	}
+
+	/**
+	 * Création d'une nouvelle equipe
+	 * 
+	 * @param 
+	 * 
+	 * @return enregistrement ou erreur de saisie
+	 * 
+	 */
+	/*
+	 * La 2° ligne permet d'enregistrer les données dans le bean [Absence
+	 * absence] et de capter le résultat [BindingResult result]
+	 */
+	@PostMapping(value = "/creerEquipe", consumes = "application/json")
+	public ResponseEntity<?> save(@Valid @RequestParam Equipe equipe, BindingResult result) {
+		/*
+		 * On capture les éventuelles erreurs dans une map sous forme : key,
+		 * value et formatée pour l'affichage
+		 */
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (result.hasErrors()) {
+				for (FieldError error : result.getFieldErrors()) {
 					map.put(error.getField(), String.format("message:%s", error.getDefaultMessage()));
 					return ResponseEntity.badRequest().body(map);
 				}
 			} else {
-				equipe =  equipeService.updateEquipe(equipe);
-		}
-		} catch( SQLException sqle){
+				equipe = equipeService.insertEquipe(equipe);
+			}
+		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(equipe.getNom()+" modifié.");
-
-
-//		if (errors.hasErrors()) {
-//			return ResponseError.extractErrorWhenIncompletRequest(errors);
-//		}
-//
-//		try {
-//			equipeService.updateEquipe(equipe);
-//		} catch (Exception e) {
-//			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
-//		}
-//		return ResponseEntity.status(HttpStatus.OK).body(equipe);
+		return ResponseEntity.ok(equipe.getNom() + " créée.");
 	}
+	
+	/**
+	 * Mise à jour d'une equipe
+	 * 
+	 * @param d°
+	 *            que création
+	 * 
+	 * @return enregistrement ou erreur de saisie
+	 * 
+	 */
+
+	/*
+	 * La mise à jour suis le même principe que la création
+	 */
+	@PutMapping(value = "/updateEquipe")
+	public ResponseEntity<?> update(@Valid Equipe equipe, BindingResult result) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			if (result.hasErrors()) {
+				for (FieldError error : result.getFieldErrors()) {
+					map.put(error.getField(), String.format("message:%s", error.getDefaultMessage()));
+					return ResponseEntity.badRequest().body(map);
+				}
+			} else {
+				equipe = equipeService.updateEquipe(equipe);
+			}
+		} catch (SQLException sqle) {
+			return ResponseEntity.badRequest().body(sqle);
+		}
+		return ResponseEntity.ok(equipe.getNom() + " modifié.");
+	}
+
+
+
 
 	/**
-	 * suppression d'un equipe
-	 * 
-	 * @param id : id du equipe
-	 * @return : réponse de la requête sans contenu
+	 * Suppression d'une equipe
+	 * @param nom
+	 * @return message de suppression
 	 */
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteEquipe(@PathVariable("id") Long id) {
-
+	/*
+	 * La suppression se fait par le matricule
+	 * Le reste de l'action est dans la classe Service
+	 */
+	@DeleteMapping("deleteEquipe")
+	public ResponseEntity<?> delete(@RequestParam(value="nom", defaultValue="") String nom) {	
 		try {
-			equipeService.deleteEquipe(id);
-		} catch (Exception e) {
-			return ResponseError.getErrorMessage(ResponseError.ERROR_EXEC, e.getMessage());
+			equipeService.deleteEquipe(nom);
+		} catch (SQLException sqle) {
+			return ResponseEntity.badRequest().body(sqle);
 		}
-
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok(nom + " supprimé!");
 	}
 
-	
 }

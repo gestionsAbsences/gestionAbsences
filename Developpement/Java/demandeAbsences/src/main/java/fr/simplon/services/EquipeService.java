@@ -1,7 +1,9 @@
 package fr.simplon.services;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,69 +11,67 @@ import fr.simplon.dao.EquipeDao;
 import fr.simplon.domain.Equipe;
 
 /**
- * service gérant le equipe
- * C'est la couche métier.
+ * service gérant le equipe C'est la couche métier.
  * 
  * @author simplon
  *
  */
 @Service
 public class EquipeService {
-	
-	private final Logger log = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
-	private EquipeDao dao;
+	private EquipeDao equipeDao;
 
-	public Iterable<Equipe> listEquipes(String searchNew) throws Exception {
+	public List<Equipe> listEquipes() throws SQLException {
+		List<Equipe> resultat = new ArrayList<Equipe>();
 		try {
-			if (! "".equals(searchNew))
-				return dao.findNewEquipes(searchNew);
-			else
-				return dao.findAll();
+			resultat = equipeDao.findAll();
 		} catch (Exception e) {
-			log.error("Hibrnate Error !: listEquipes", e);
+			System.out.println("Hibernate Error !: listEquipes" + e);
 			throw e;
 		}
+		return resultat;
 	}
 
-	public Equipe getEquipe(Long id) throws Exception {
-		Equipe equipe = null;
+	public List<Equipe> getEquipe(String nom) throws SQLException {
+		List<Equipe> resultat = new ArrayList<Equipe>();
 		try {
-			equipe = dao.findOne(id);
+			resultat = equipeDao.findEquipe(nom);
 		} catch (Exception e) {
-			log.error("Hibrnate Error !: getEquipe", e);
+			System.out.println("Hibrnate Error !: getEquipe" + e);
 			throw e;
 		}
-		return equipe;
+		return resultat;
 	}
 
-	public Equipe insertEquipe(Equipe equipe) throws Exception {
+	public Equipe insertEquipe(Equipe equipe) throws SQLException {
+		Equipe creationEquipe = new Equipe();
 		try {
-			equipe.setId(new Long(0));
-			equipe = dao.save(equipe);
+			creationEquipe = equipeDao.save(equipe);
 		} catch (Exception e) {
-			log.error("Hibrnate Error !: insertEquipe", e);
+			System.out.println("Hibrnate Error !: insertEquipe" + e);
 			throw e;
 		}
-		return equipe;
+		return creationEquipe;
 	}
 
-	public Equipe updateEquipe(Equipe equipe) throws Exception {
+	public Equipe updateEquipe(Equipe equipe) throws SQLException {
+		Equipe modifEquipe;
 		try {
-			dao.save(equipe);
+			modifEquipe = equipeDao.save(equipe);
 		} catch (Exception e) {
-			log.error("Hibrnate Error !: updateEquipe", e);
+			System.out.println("Hibrnate Error !: updateEquipe" + e);
 			throw e;
 		}
-		return equipe;
+		return modifEquipe;
 	}
 
-	public void deleteEquipe(Long id) throws Exception {
+	public void deleteEquipe(String nom) throws SQLException {
 		try {
-			dao.delete(id);
+			List<Equipe> supprEquipe = equipeDao.findEquipe(nom);
+			equipeDao.delete(supprEquipe);
 		} catch (Exception e) {
-			log.error("Hibrnate Error !: deleteEquipe", e);
+			System.out.println("Hibrnate Error !: deleteEquipe" + e);
 			throw e;
 		}
 	}
