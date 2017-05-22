@@ -23,28 +23,12 @@ class Site extends Component {
   constructor(props) {
     super(props);
   }
-
   render() {
     return (
       <div>
-
-        <div>
-          <div className="marge"></div>
-
-          <div className="container">
-            <div className="row">
-
-                  <BarDeNav />
-
-                <Page />
-
-            </div>
-          </div>
-
-          <div className="marge"></div>
-        </div>
-
         <Entete />
+        <BarDeNav />
+        <Page />
         <PiedPage />
       </div>
     )
