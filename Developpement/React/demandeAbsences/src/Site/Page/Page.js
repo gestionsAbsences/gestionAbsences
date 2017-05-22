@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-//import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
 
-import './page.css';
 import '../Bootstrap/dist/css/sb-admin-2.css'
+import './page.css';
 import axios from 'axios'
 
 import Authentification from './Authentification/Authentification.js';
+import ModifMotDePasse from './ModifMotDePasse/ModifMotDePasse.js';
+import ListeDemandes from './ListeDemandes/ListeDemandes.js';
 
 class Page extends Component {
 
@@ -25,7 +26,7 @@ class Page extends Component {
   render() {
     return (
       <div>
-        <Authentification />
+        <ListeDemandes />
         <div className="marge"></div>
       </div>
     );
