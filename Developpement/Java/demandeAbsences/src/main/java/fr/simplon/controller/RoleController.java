@@ -98,8 +98,8 @@ public class RoleController {
 	 * La 2° ligne permet d'enregistrer les données dans le bean [Absence
 	 * absence] et de capter le résultat [BindingResult result]
 	 */
-	@PostMapping(value = "/creerRole", consumes = "application/json")
-	public ResponseEntity<?> save(@Valid @RequestParam Role role, BindingResult result) {
+	@PostMapping(value = "/creerRole")
+	public ResponseEntity<?> save(@Valid Role role, BindingResult result) {
 		/*
 		 * On capture les éventuelles erreurs dans une map sous forme : key,
 		 * value et formatée pour l'affichage

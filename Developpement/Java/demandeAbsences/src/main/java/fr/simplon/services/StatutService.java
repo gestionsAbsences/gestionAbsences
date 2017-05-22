@@ -1,18 +1,13 @@
 package fr.simplon.services;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.simplon.dao.StatutDao;
-import fr.simplon.domain.Absence;
 import fr.simplon.domain.Statut;
 
 @Service
@@ -39,8 +34,7 @@ public class StatutService {
 		try {
 			resultat = statutDao.findAll();
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listeAbsence" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: listeAbsence" + e);
 		}
 		return resultat;
 	}
@@ -60,8 +54,7 @@ public class StatutService {
 		try {
 			resultat = statutDao.findByCode(code);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listeAbsence" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: listeAbsence" + e);
 		}
 		return resultat;
 	}
@@ -83,8 +76,7 @@ public class StatutService {
 		try {
 			creationStatut = statutDao.save(statut);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: insertAbsence" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: insertAbsence" + e);
 		}
 		return creationStatut;
 	}
@@ -104,8 +96,7 @@ public class StatutService {
 		try {
 			modifStatut = statutDao.save(statut);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: updateAbsence" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: updateAbsence" + e);
 		}
 		return modifStatut;
 	}
@@ -126,8 +117,7 @@ public class StatutService {
 		try {
 			statutDao.delete(statut);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: deleteAbsence" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: deleteAbsence" + e);
 		}
 	}
 }

@@ -35,10 +35,6 @@ public class Equipe {
 	@Length(min = 4, message = "La chaîne doit avoir au moins 2 caractères")
 	private String nom;
 
-	@ManyToOne
-	@JoinColumn(name="id_hierarchie")
-	private Equipe parent;
-
 	@OneToMany(mappedBy = "equipe")
 	@JsonBackReference
 	private List<Employe> employe;
@@ -50,6 +46,9 @@ public class Equipe {
 
 	public Equipe() {
 	}
+	
+	
+
 
 
 	public Long getId() {
@@ -80,18 +79,6 @@ public class Equipe {
 	public void setEmploye(List<Employe> employe) {
 		this.employe = employe;
 	}
-
-
-	public Equipe getParent() {
-		return parent;
-	}
-
-
-	public void setParent(Equipe parent) {
-		this.parent = parent;
-	}
-
-
 
 
 	public Employe getResponsable() {

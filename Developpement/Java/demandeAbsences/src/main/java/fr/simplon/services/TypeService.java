@@ -40,8 +40,7 @@ public class TypeService {
 		try {
 			resultat = typeDao.findAll();
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listeTypeAbsence" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: listeTypeAbsence" + e);
 		}
 		return resultat;
 	}
@@ -61,8 +60,7 @@ public class TypeService {
 		try {
 			resultat = typeDao.findTypeByName(nom);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: getTypeByName" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: getTypeByName" + e);
 		}
 		return resultat;
 	}
@@ -84,8 +82,7 @@ public class TypeService {
 		try {
 			creationTypeAbs = typeDao.save(typeAbsence);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: insertTypeAbsence" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: insertTypeAbsence" + e);
 		}
 		return creationTypeAbs;
 	}
@@ -105,8 +102,7 @@ public class TypeService {
 		try {
 			modifTypeAbs = typeDao.save(typeAbsence);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: updateAbsence" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: updateAbsence" + e);
 		}
 		return modifTypeAbs;
 	}
@@ -127,8 +123,7 @@ public class TypeService {
 		try {
 			typeDao.delete(typeAbsence);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: deleteTypeAbsence" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: deleteTypeAbsence" + e);
 		}
 	}
 

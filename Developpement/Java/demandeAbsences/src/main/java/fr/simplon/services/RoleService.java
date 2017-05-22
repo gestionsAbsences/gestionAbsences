@@ -26,8 +26,7 @@ public class RoleService {
 		try {
 			resultat = roleDao.findAll();
 		} catch (Exception e) {
-			System.out.println("Hibrnate Error !: listRoles" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: findAll " + e);
 		}
 		return resultat;
 	}
@@ -37,8 +36,7 @@ public class RoleService {
 		try {
 			resultat = roleDao.findByValue(valeur);
 		} catch (Exception e) {
-			System.out.println("Hibrnate Error !: getRole" + e);
-			throw e;
+			throw new SQLException("Hibrnate Error !: getRole" + e);
 		}
 		return resultat;
 	}
@@ -60,8 +58,7 @@ public class RoleService {
 		try {
 			creationRole = roleDao.save(role);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: insertRole" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: insertRole" + e);
 		}
 		return creationRole;
 	}
@@ -81,8 +78,7 @@ public class RoleService {
 		try {
 			modifRole = roleDao.save(role);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: updateRole" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: updateRole" + e);
 		}
 		return modifRole;
 	}
@@ -103,8 +99,7 @@ public class RoleService {
 		try {
 			roleDao.delete(role);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: deleteRole" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: deleteRole" + e);
 		}
 	}
 

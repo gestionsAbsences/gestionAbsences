@@ -39,8 +39,7 @@ public class ServiceRhService {
 		try {
 			resultat = rhDao.findAll();
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listeServiceRh" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: listeServiceRh" + e);
 		}
 		return resultat;
 	}
@@ -60,8 +59,7 @@ public class ServiceRhService {
 		try {
 			resultat = rhDao.findByName(nom);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listeServiceRh" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: listeServiceRh" + e);
 		}
 		return resultat;
 	}
@@ -79,10 +77,13 @@ public class ServiceRhService {
 	public ServiceRh insertServiceRh(ServiceRh serviceRh) throws SQLException {
 		ServiceRh creationRh = new ServiceRh();
 		try {
-			creationRh = rhDao.save(serviceRh);
+			if(!rhDao.findByEmail(serviceRh.getEmail()).isEmpty()){
+				throw new Exception("L'adresse email est déja utilisée");
+			} else {
+				creationRh = rhDao.save(serviceRh);
+			}
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: insertServiceRh" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: insertServiceRh" + e);
 		}
 		return creationRh;
 	}
@@ -101,8 +102,7 @@ public class ServiceRhService {
 		try {
 			modifRh = rhDao.save(serviceRh);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: updateServiceRh" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: updateServiceRh" + e);
 		}
 		return (ServiceRh) modifRh;
 	}
@@ -123,22 +123,7 @@ public class ServiceRhService {
 		try{
 			rhDao.delete(supprRh);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: deleteServiceRh" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: deleteServiceRh" + e);
 		}
-	}
-	
-	private List<ServiceRh> iterationToList(Iterable<ServiceRh> recherche){
-		List<ServiceRh> resultat = new ArrayList<>();
-		
-		for (ServiceRh serviceRh : recherche) {
-			ServiceRh rh = new ServiceRh();
-			rh.setId(serviceRh.getId());
-			rh.setEmail(serviceRh.getEmail());
-			rh.setNom(serviceRh.getNom());
-			resultat.add(rh);
-		}
-		
-		return resultat;
 	}
 }

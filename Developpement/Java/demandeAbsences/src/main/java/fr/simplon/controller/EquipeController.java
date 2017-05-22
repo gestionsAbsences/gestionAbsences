@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -95,7 +94,7 @@ public class EquipeController {
 	 * absence] et de capter le résultat [BindingResult result]
 	 */
 	@PostMapping(value = "/creerEquipe", consumes = "application/json")
-	public ResponseEntity<?> save(@Valid @RequestParam Equipe equipe, BindingResult result) {
+	public ResponseEntity<?> save(@Valid Equipe equipe, BindingResult result) {
 		/*
 		 * On capture les éventuelles erreurs dans une map sous forme : key,
 		 * value et formatée pour l'affichage
@@ -160,13 +159,13 @@ public class EquipeController {
 	 * Le reste de l'action est dans la classe Service
 	 */
 	@DeleteMapping("deleteEquipe")
-	public ResponseEntity<?> delete(@RequestParam(value="nom", defaultValue="") String nom) {	
+	public ResponseEntity<?> delete(Equipe equipe) {	
 		try {
-			equipeService.deleteEquipe(nom);
+			equipeService.deleteEquipe(equipe);
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(nom + " supprimé!");
+		return ResponseEntity.ok("Equipe supprimée");
 	}
 
 }

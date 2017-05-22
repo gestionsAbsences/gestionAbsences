@@ -1,7 +1,6 @@
 package fr.simplon.services;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +39,7 @@ public class EmployeService {
 		try {
 			listeEmployes = employeDao.findAll();
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listeEmployes" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: listeEmployes" + e);
 		}
 		return listeEmployes;
 	}
@@ -61,8 +59,7 @@ public class EmployeService {
 		try {
 			getEmploye = employeDao.findByName(nom);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: getEmploye" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: getEmploye" + e);
 		}
 		return getEmploye;
 	}
@@ -78,14 +75,17 @@ public class EmployeService {
 	 * J'ai crée un objet Employe pour avoir le resultat de la creation en retour
 	 */
 	public Employe insertEmploye(Employe employe) throws SQLException {
-		Employe creationEmploye;
+		Employe creationEmploye=null;
 		try {
-			creationEmploye = employeDao.save(employe);
+			if(!employeDao.findByMat(employe.getMatricule()).isEmpty()){
+				throw new Exception("matricule déjà utilisé");
+			} else {
+				creationEmploye = employeDao.save(employe);
+			}
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: insertEmploye" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: insertEmploye" + e);
 		}
-		return (Employe) creationEmploye;
+		return creationEmploye;
 	}
 
 	/**
@@ -102,10 +102,9 @@ public class EmployeService {
 		try {
 			modifEmploye = employeDao.save(employe);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: updateEmploye" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: updateEmploye" + e);
 		}
-		return (Employe) modifEmploye;
+		return modifEmploye;
 	}
 
 	/**
@@ -120,13 +119,11 @@ public class EmployeService {
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteEmploye(String matricule) throws SQLException {
-		try{
-			List<Employe> supprEmploye = employeDao.findByMat(matricule);
+	public void deleteEmploye(Employe supprEmploye) throws SQLException {
+		try{		
 			employeDao.delete(supprEmploye);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: deleteEmploye" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: deleteEmploye" + e);
 		}
 	}
 }

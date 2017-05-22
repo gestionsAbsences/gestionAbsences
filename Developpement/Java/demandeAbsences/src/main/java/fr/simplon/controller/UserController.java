@@ -102,13 +102,14 @@ public class UserController {
 	 * La 2° ligne permet d'enregistrer les données dans le bean [Employe employe]
 	 * et de capter le résultat  [BindingResult result]
 	 */
-	@PostMapping(value="/creerUser", consumes = "application/json")	
+	@PostMapping(value="/creerUser")	
 	public ResponseEntity<?> save(@Valid User user, BindingResult result) {			
 	/*
 	 * On capture les éventuelles erreurs dans une map 
 	 * sous forme : key, value
 	 * et formatée pour l'affichage
 	 */
+		System.out.println(user.getEmail()+" - "+user.getPasswd());
 		try{
 			Map<String,Object> map = new HashMap<String,Object>();
 			if(result.hasErrors()){

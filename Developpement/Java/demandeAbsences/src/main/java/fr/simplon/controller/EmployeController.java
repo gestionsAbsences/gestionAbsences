@@ -1,7 +1,6 @@
 package fr.simplon.controller;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +38,7 @@ import fr.simplon.services.EmployeService;
  */
 @RestController
 @RequestMapping("emp")
-
+@CrossOrigin(origins="*")
 public class EmployeController {
 	
 	@Autowired
@@ -104,7 +104,7 @@ public class EmployeController {
 	 * La 2° ligne permet d'enregistrer les données dans le bean [Employe employe]
 	 * et de capter le résultat  [BindingResult result] (la création ou les erreurs)
 	 */
-	@PostMapping(value="/creerEmploye", consumes = "application/json")	
+	@PostMapping(value="/creerEmploye")	
 	public ResponseEntity<?> save(@Valid Employe employe, BindingResult result) {			
 	/*
 	 * On capture les éventuelles erreurs dans une map 
@@ -168,13 +168,13 @@ public class EmployeController {
 	 * Le reste de l'action est dans la classe Service
 	 */
 	@DeleteMapping("deleteEmploye")
-	public ResponseEntity<?> delete(@RequestParam(value="matricule", defaultValue="") String matricule) {	
+	public ResponseEntity<?> delete(Employe employe) {	
 		try {
-			empService.deleteEmploye(matricule);
+			empService.deleteEmploye(employe);
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(matricule + " supprimé!");
+		return ResponseEntity.ok("Suppression effectuée");
 	}
 
 }

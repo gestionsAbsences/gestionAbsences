@@ -106,7 +106,7 @@ public class StatutController {
 	 * absence] et de capter le résultat [BindingResult result]
 	 */
 	@PostMapping(value = "/creerStatut", consumes = "application/json")
-	public ResponseEntity<?> save(@Valid @RequestParam Statut statut, BindingResult result) {
+	public ResponseEntity<?> save(@Valid Statut statut, BindingResult result) {
 		/*
 		 * On capture les éventuelles erreurs dans une map sous forme : key,
 		 * value et formatée pour l'affichage

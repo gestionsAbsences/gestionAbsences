@@ -10,7 +10,7 @@ import fr.simplon.domain.Statut;
 public interface StatutDao extends JpaRepository<Statut, Long>{
 	
 	 
-	@Query("from Statut where code like %?1% ")
+	@Query("from Statut where code = ? ")
 	public List<Statut> findByCode(int code);
 
 }

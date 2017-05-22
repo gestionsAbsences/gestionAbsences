@@ -106,8 +106,8 @@ public class AbsenceController {
 	 * La 2° ligne permet d'enregistrer les données dans le bean [Absence
 	 * absence] et de capter le résultat [BindingResult result]
 	 */
-	@PostMapping(value = "/creerAbsence", consumes = "application/json")
-	public ResponseEntity<?> save(@Valid @RequestParam Absence absence, BindingResult result) {
+	@PostMapping(value = "/creerAbsence")
+	public ResponseEntity<?> save(@Valid Absence absence, BindingResult result) {
 		/*
 		 * On capture les éventuelles erreurs dans une map sous forme : key,
 		 * value et formatée pour l'affichage

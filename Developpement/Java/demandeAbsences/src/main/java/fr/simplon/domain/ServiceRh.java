@@ -44,11 +44,8 @@ public class ServiceRh {
 	@Length(min = 4, message = "La chaîne doit avoir au moins 4 caractères")
 	private String nom;
 	
-	@OneToMany(mappedBy = "valideurRh")
-	@JsonBackReference
-	private List<Absence> absence;
 
-	@OneToMany(mappedBy = "gestionnaireRh")
+	@OneToMany(mappedBy = "serviceRh")
 	@JsonBackReference
 	private List<Employe> listRh;
 	
@@ -79,21 +76,14 @@ public class ServiceRh {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-
-	public List<Absence> getAbsence() {
-		return absence;
-	}
-
-	public void setAbsences(List<Absence> absence) {
-		this.absence = absence;
-	}
-
-	public List<Employe> getList_rh() {
+
+	
+	public List<Employe> getListRh() {
 		return listRh;
 	}
 
-	public void setList_rh(List<Employe> list_rh) {
-		this.listRh = list_rh;
+	public void setListRh(List<Employe> listRh) {
+		this.listRh = listRh;
 	}
 
 	

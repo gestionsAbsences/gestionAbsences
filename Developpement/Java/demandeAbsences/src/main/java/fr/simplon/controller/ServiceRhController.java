@@ -103,7 +103,7 @@ public class ServiceRhController {
 	 * La 2° ligne permet d'enregistrer les données dans le bean [ServiceRh serviceRh]
 	 * et de capter le résultat  [BindingResult result]
 	 */
-	@PostMapping(value="/creerServiceRh", consumes = "application/json")	
+	@PostMapping(value="/creerServiceRh")	
 	public ResponseEntity<?> save(@Valid ServiceRh serviceRh, BindingResult result) {			
 	/*
 	 * On capture les éventuelles erreurs dans une map 
@@ -140,7 +140,7 @@ public class ServiceRhController {
 	 * Ne pas oublier de saisir l'id, sinon Hibernate croit 
 	 * qu'il s'agit d'une création
 	 */
-	@PutMapping(value="/updateService")	
+	@PutMapping(value="/updateServiceRh")	
 	public ResponseEntity<?> update(@Valid ServiceRh serviceRh, BindingResult result) {			
 		Map<String,Object> map = new HashMap<String,Object>();
 		try{
@@ -167,7 +167,7 @@ public class ServiceRhController {
 	 * La suppression se fait par le nom
 	 * Le reste de l'action est dans la classe Service
 	 */
-	@DeleteMapping("/deleteService")
+	@DeleteMapping("/deleteServiceRh")
 	public ResponseEntity<?> deleteRh(ServiceRh serviceRh) {	
 		try {
 			rhService.deleteServiceRh(serviceRh);

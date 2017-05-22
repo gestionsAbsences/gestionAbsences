@@ -35,6 +35,7 @@ public class User {
 	
 	@Column(name = "email")
 	@NotBlank(message = "Email obligatoire")
+	@Length(min=2,message="L'adresse email est deja utilisée")
 	@Email(regexp="^[a-zA-Z0-9._-]+@[a-z0-9.-_]{2,}.[a-z]{2,4}$")
 	private String email;
 	
@@ -43,13 +44,13 @@ public class User {
 	@Length(min = 4, message = "La chaîne doit avoir au moins 4 caractères")
 	private String passwd;
 	
+	@OneToOne
+	@JoinColumn(name="id_employe")
+	private Employe employe;
+	
 	@ManyToOne
 	@JoinColumn(name="id_role")
 	private Role role;
-
-	@OneToOne
-	@JoinColumn(name="id_employe")
-	private Employe userEmploye;
 	
 	public User(){
 		
@@ -78,6 +79,14 @@ public class User {
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
 	}
+	
+	public Employe getEmploye() {
+		return employe;
+	}
+
+	public void setEmploye(Employe employe) {
+		this.employe = employe;
+	}
 
 	public Role getRole() {
 		return role;
@@ -87,13 +96,9 @@ public class User {
 		this.role = role;
 	}
 
-	public Employe getUserEmploye() {
-		return userEmploye;
-	}
 
-	public void setUserEmploye(Employe userEmploye) {
-		this.userEmploye = userEmploye;
-	}
+
+	
 
 	
 }

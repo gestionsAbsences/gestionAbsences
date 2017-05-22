@@ -27,8 +27,7 @@ public class EquipeService {
 		try {
 			resultat = equipeDao.findAll();
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listEquipes" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: listEquipes" + e);
 		}
 		return resultat;
 	}
@@ -38,8 +37,7 @@ public class EquipeService {
 		try {
 			resultat = equipeDao.findEquipe(nom);
 		} catch (Exception e) {
-			System.out.println("Hibrnate Error !: getEquipe" + e);
-			throw e;
+			throw new SQLException("Hibrnate Error !: getEquipe" + e);
 		}
 		return resultat;
 	}
@@ -49,8 +47,7 @@ public class EquipeService {
 		try {
 			creationEquipe = equipeDao.save(equipe);
 		} catch (Exception e) {
-			System.out.println("Hibrnate Error !: insertEquipe" + e);
-			throw e;
+			throw new SQLException("Hibrnate Error !: insertEquipe" + e);
 		}
 		return creationEquipe;
 	}
@@ -60,19 +57,16 @@ public class EquipeService {
 		try {
 			modifEquipe = equipeDao.save(equipe);
 		} catch (Exception e) {
-			System.out.println("Hibrnate Error !: updateEquipe" + e);
-			throw e;
+			throw new SQLException("Hibrnate Error !: updateEquipe" + e);
 		}
 		return modifEquipe;
 	}
 
-	public void deleteEquipe(String nom) throws SQLException {
+	public void deleteEquipe(Equipe supprEquipe) throws SQLException {
 		try {
-			List<Equipe> supprEquipe = equipeDao.findEquipe(nom);
 			equipeDao.delete(supprEquipe);
 		} catch (Exception e) {
-			System.out.println("Hibrnate Error !: deleteEquipe" + e);
-			throw e;
+			throw new SQLException("Hibrnate Error !: deleteEquipe" + e);
 		}
 	}
 

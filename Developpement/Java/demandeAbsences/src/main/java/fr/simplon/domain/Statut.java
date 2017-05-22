@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -26,6 +27,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name = "Statut")
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class Statut {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)
@@ -36,7 +38,7 @@ public class Statut {
 	private String nom;
 
 	@Column(name = "code")
-	@NotBlank(message = "code obligatoire")
+	@NotNull(message = "code obligatoire")
 	private int code;
 
 	@OneToMany(mappedBy = "statut")

@@ -18,7 +18,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -30,37 +29,37 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  */
 
 @Entity
-@Table(name="employe")
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
+@Table(name = "employe")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
 public class Employe {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@Column(name = "nom")
 	@NotBlank(message = "Nom obligatoire")
 	@Length(min = 2, message = "La chaîne doit avoir au moins 2 caractères")
 	private String nom;
-	
+
 	@Column(name = "prenom")
 	@NotBlank(message = "Prenom obligatoire")
 	@Length(min = 2, message = "La chaîne doit avoir au moins 2 caractères")
 	private String prenom;
-	
-	@Column(name= " matricule")
+
+	@Column(name = " matricule")
 	@NotBlank(message = "Matricule obligatoire")
 	@Length(min = 2, message = "La chaîne doit avoir au moins 2 caractères")
 	private String matricule;
-	
+
 	@Column(name = "nb_cp")
 	@NotNull(message = "Le nombre de C.A. est obligatoire")
-	@Max(value=30, message = " Le nombre de congés ne peut être supérieur à 30")
+	@Max(value = 30, message = " Le nombre de congés ne peut être supérieur à 30")
 	private int nbCa;
-	
+
 	@Column(name = "nb_rtt")
 	private int nbRtt;
-	
+
 	@Column(name = "nb_rc")
 	private int nbRc;
 	
@@ -69,31 +68,24 @@ public class Employe {
 	
 	@Column(name = "reliquat_rtt")
 	private int reliquatRtt;
-	
+
 	@OneToMany(mappedBy = "employe")
-	@JsonBackReference
 	private List<Absence> absence;
 
 	@ManyToOne
-	@JoinColumn(name="id_service_rh")
-	private ServiceRh gestionnaireRh;
+	@JoinColumn(name = "id_service_rh")
+	private ServiceRh serviceRh;
 
 	@ManyToOne
-	@JoinColumn(name="id_equipe")
+	@JoinColumn(name = "id_equipe")
 	private Equipe equipe;
 
-	@OneToMany(mappedBy = "responsable")
-	@JsonBackReference
-	private List<Equipe> respEquipe;
+	@OneToOne(mappedBy = "employe")
 
-	@OneToOne
-	@JoinColumn(name="id")
 	private User user;
 
+	public Employe() {
 
-	
-	public Employe(){
-		
 	}
 
 	public Long getId() {
@@ -151,7 +143,7 @@ public class Employe {
 	public void setNbRc(int nbRc) {
 		this.nbRc = nbRc;
 	}
-
+	
 	public int getReliquatCa() {
 		return reliquatCa;
 	}
@@ -176,12 +168,12 @@ public class Employe {
 		this.absence = absence;
 	}
 
-	public ServiceRh getGestionnaireRh() {
-		return gestionnaireRh;
+	public ServiceRh getServiceRh() {
+		return serviceRh;
 	}
 
-	public void setGestionnaireRh(ServiceRh gestionnaireRh) {
-		this.gestionnaireRh = gestionnaireRh;
+	public void setServiceRh(ServiceRh serviceRh) {
+		this.serviceRh = serviceRh;
 	}
 
 	public Equipe getEquipe() {
@@ -192,14 +184,6 @@ public class Employe {
 		this.equipe = equipe;
 	}
 
-	public List<Equipe> getRespEquipe() {
-		return respEquipe;
-	}
-
-	public void setRespEquipe(List<Equipe> respEquipe) {
-		this.respEquipe = respEquipe;
-	}
-
 	public User getUser() {
 		return user;
 	}
@@ -207,6 +191,5 @@ public class Employe {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
+
 }

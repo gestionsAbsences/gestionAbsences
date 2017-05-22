@@ -38,8 +38,7 @@ public class UserService {
 		try {
 			resultat = userDao.findAll();
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listeEmployes" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: listeEmployes" + e);
 		}
 		return resultat;
 	}
@@ -59,8 +58,7 @@ public class UserService {
 		try {
 			resultat = userDao.findByEmail(email);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: getUser" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: getUser" + e);
 		}
 		return resultat;
 	}
@@ -76,14 +74,17 @@ public class UserService {
 	 * J'ai crée un objet User pour avoir le resultat de la creation en retour
 	 */
 	public User insertUser(User user) throws SQLException {
-		User creationUser;
 		try {
-			creationUser = userDao.save(user);
+			if(!userDao.findByEmail(user.getEmail()).isEmpty()) {
+				throw new Exception("Adresse email déjà utilisé");
+			} else {
+			user = userDao.save(user);
+			}
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: insertUser" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: insertUser " + e);
+
 		}
-		return creationUser;
+		return user;
 	}
 
 	/**
@@ -100,8 +101,7 @@ public class UserService {
 		try {
 			modifUser = userDao.save(user);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: updateUser" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: updateUser" + e);
 		}
 		return modifUser;
 	}
@@ -122,8 +122,8 @@ public class UserService {
 		try {
 			userDao.delete(supprUser);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: deleteUser" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: deleteUser" + e);
 		}
 	}
+	
 }

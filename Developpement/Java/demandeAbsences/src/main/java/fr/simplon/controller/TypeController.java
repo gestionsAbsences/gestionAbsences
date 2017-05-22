@@ -82,7 +82,7 @@ public class TypeController {
 	 * absence] et de capter le résultat [BindingResult result]
 	 */
 	@PostMapping(value = "/creerTypeAbsence", consumes = "application/json")
-	public ResponseEntity<?> save(@Valid @RequestParam TypeAbsence typeAbsence, BindingResult result) {
+	public ResponseEntity<?> save(@Valid TypeAbsence typeAbsence, BindingResult result) {
 		/*
 		 * On capture les éventuelles erreurs dans une map sous forme : key,
 		 * value et formatée pour l'affichage

@@ -32,15 +32,14 @@ public class AbsenceService {
 	 */
 	/*
 	 * La methode [findAll] retourne une liste de la table 
-	 * La methode [findAll] est overrride.
+	 * La methode [findAll] est overide.
 	 */
 	public List<Absence> listeServicesAbsence() throws SQLException {
 		List<Absence> resultat;
 		try {
 			resultat = absenceDao.findAll();
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listeAbsence" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: listeAbsence" + e);
 		}
 		return resultat;
 	}
@@ -60,8 +59,7 @@ public class AbsenceService {
 		try {
 			resultat = absenceDao.findById(id);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listeAbsence" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: getAbsenceById" + e);
 		}
 		return resultat;
 	}
@@ -81,10 +79,13 @@ public class AbsenceService {
 	public Absence insertAbsence(Absence absence) throws SQLException {
 		Absence creationAbs;
 		try {
-			creationAbs = absenceDao.save(absence);
+			if(absence.getDebut().compareTo(absence.getFin())>0){
+				throw new Exception("La date de fin de congé doit être supèrieur à la date de début");
+			} else {
+				creationAbs = absenceDao.save(absence);
+			}
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: insertAbsence" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: insertAbsence" + e);
 		}
 		return creationAbs;
 	}
@@ -102,10 +103,13 @@ public class AbsenceService {
 	public Absence updateAbsence(Absence absence) throws SQLException {
 		Absence modifAbs;
 		try {
-			modifAbs = absenceDao.save(absence);
+			if(absence.getDebut().compareTo(absence.getFin())>0){
+				throw new Exception("La date de fin de congé doit être supèrieur à la date de début");
+			} else {
+				modifAbs = absenceDao.save(absence);
+			}
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: updateAbsence" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: insertAbsence" + e);
 		}
 		return modifAbs;
 	}
@@ -126,8 +130,7 @@ public class AbsenceService {
 		try {
 			absenceDao.delete(absence);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: deleteAbsence" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: deleteAbsence" + e);
 		}
 	}
 }
