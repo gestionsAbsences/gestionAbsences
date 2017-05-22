@@ -46,21 +46,21 @@ public class EmployeService {
 				em.setNom(employe.getNom());
 				em.setPrenom(employe.getPrenom());
 				em.setMatricule(employe.getMatricule());
-				em.setNb_cp(employe.getNb_cp());
-				em.setNb_rtt(employe.getNb_rtt());
-				em.setNb_rc(employe.getNb_rc());
-				em.setReliquat_ca(employe.getReliquat_ca());
-				em.setReliquat_rtt(employe.getReliquat_rtt());
-				em.setId_equipe(employe.getId_equipe());
-				em.setId_service_rh(employe.getId_service_rh());
+				em.setNbCa(employe.getNbCa());
+				em.setNbRtt(employe.getNbRtt());
+				em.setNbRc(employe.getNbRc());
+				em.setReliquatCa(employe.getReliquatCa());
+				em.setReliquatRtt(employe.getReliquatRtt());
+				em.setIdEquipe(employe.getIdEquipe());
+				em.setIdServiceRh(employe.getIdServiceRh());
 				
 				em.setAbsences(employe.getAbsences());
-				em.setGestionnaire_rh(employe.getGestionnaire_rh());
+				em.setGestionnaireRh(employe.getGestionnaireRh());
 				
 				Equipe eq = new Equipe();
 				eq.setId(employe.getEquipes().getId());
 				eq.setNom(employe.getEquipes().getNom());
-				eq.setId_responsable(employe.getEquipes().getId_responsable());
+				eq.setIdResponsable(employe.getEquipes().getIdResponsable());
 				em.setEquipes(eq);
 				
 				User us = new User();
@@ -98,21 +98,21 @@ public class EmployeService {
 				em.setNom(employe.getNom());
 				em.setPrenom(employe.getPrenom());
 				em.setMatricule(employe.getMatricule());
-				em.setNb_cp(employe.getNb_cp());
-				em.setNb_rtt(employe.getNb_rtt());
-				em.setNb_rc(employe.getNb_rc());
-				em.setReliquat_ca(employe.getReliquat_ca());
-				em.setReliquat_rtt(employe.getReliquat_rtt());
-				em.setId_equipe(employe.getId_equipe());
-				em.setId_service_rh(employe.getId_service_rh());
+				em.setNbCa(employe.getNbCa());
+				em.setNbRtt(employe.getNbRtt());
+				em.setNbRc(employe.getNbRc());
+				em.setReliquatCa(employe.getReliquatCa());
+				em.setReliquatRtt(employe.getReliquatRtt());
+				em.setIdEquipe(employe.getIdEquipe());
+				em.setIdServiceRh(employe.getIdServiceRh());
 				
 				em.setAbsences(employe.getAbsences());
-				em.setGestionnaire_rh(employe.getGestionnaire_rh());
+				em.setGestionnaireRh(employe.getGestionnaireRh());
 				
 				Equipe eq = new Equipe();
 				eq.setId(employe.getEquipes().getId());
 				eq.setNom(employe.getEquipes().getNom());
-				eq.setId_responsable(employe.getEquipes().getId_responsable());
+				eq.setIdResponsable(employe.getEquipes().getIdResponsable());
 				em.setEquipes(eq);
 				
 				User us = new User();
@@ -183,22 +183,22 @@ public class EmployeService {
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteEmploye(Employe sup_employe) throws SQLException {
+	public void deleteEmploye(Employe supEmploye) throws SQLException {
 		try{
-			Iterable<Employe> temp = dao.findByName(sup_employe.getNom());
+			Iterable<Employe> temp = dao.findByName(supEmploye.getNom());
 			for (Employe employe : temp) {
 				Employe em = new Employe();
 				em.setId(employe.getId());
 				em.setNom(employe.getNom());
 				em.setPrenom(employe.getPrenom());
 				em.setMatricule(employe.getMatricule());
-				em.setNb_cp(employe.getNb_cp());
-				em.setNb_rtt(employe.getNb_rtt());
-				em.setNb_rc(employe.getNb_rc());
-				em.setReliquat_ca(employe.getReliquat_ca());
-				em.setReliquat_rtt(employe.getReliquat_rtt());
-				em.setId_equipe(employe.getId_equipe());
-				em.setId_service_rh(employe.getId_service_rh());
+				em.setNbCa(employe.getNbCa());
+				em.setNbRtt(employe.getNbRtt());
+				em.setNbRc(employe.getNbRc());
+				em.setReliquatCa(employe.getReliquatCa());
+				em.setReliquatRtt(employe.getReliquatRtt());
+				em.setIdEquipe(employe.getIdEquipe());
+				em.setIdServiceRh(employe.getIdServiceRh());
 				dao.delete(em);
 			}
 		} catch (Exception e) {

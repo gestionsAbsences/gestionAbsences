@@ -34,42 +34,42 @@ public class Absence {
 	private String fin;
 
 	@JsonIgnore
-	private int id_employe;
+	private int idEmploye;
 	@JsonIgnore
-	private int id_type;
+	private int idType;
 	@JsonIgnore
-	private int id_statut;
+	private int idStatut;
 	@JsonIgnore
-	private int id_service_rh;
+	private int idServiceRh;
 
 	@ManyToOne
-	@JoinColumn(name="id_type", insertable = false, updatable = false)
+	@JoinColumn(name="idType", insertable = false, updatable = false)
 	private TypeAbsence types;
 
 	@ManyToOne
-	@JoinColumn(name="id_statut", insertable = false, updatable = false)
+	@JoinColumn(name="idStatut", insertable = false, updatable = false)
 	private Statut statuts;
 
 	@ManyToOne
-	@JoinColumn(name="id_service_rh", insertable = false, updatable = false)
-	private ServiceRh valideur_rh;
+	@JoinColumn(name="idServiceRh", insertable = false, updatable = false)
+	private ServiceRh valideurRh;
 
 	@ManyToOne
-	@JoinColumn(name="id_employe", insertable = false, updatable = false)
+	@JoinColumn(name="idEmploye", insertable = false, updatable = false)
 	private Employe employes;
 
 
 	public Absence(){}
 
-	public Absence(Long id, String debut, String fin, int id_employe, int id_type, int id_statut, int id_service_rh) {
+	public Absence(Long id, String debut, String fin, int idEmploye, int idType, int idStatut, int idServiceRh) {
 		super();
 		this.id = id;
 		this.debut = debut;
 		this.fin = fin;
-		this.id_employe = id_employe;
-		this.id_type = id_type;
-		this.id_statut = id_statut;
-		this.id_service_rh = id_service_rh;
+		this.idEmploye = idEmploye;
+		this.idType = idType;
+		this.idStatut = idStatut;
+		this.idServiceRh = idServiceRh;
 	}
 
 	public Long getId() {
@@ -96,36 +96,36 @@ public class Absence {
 		this.fin = fin;
 	}
 
-	public int getId_employe() {
-		return id_employe;
+	public int getIdEmploye() {
+		return idEmploye;
 	}
 
-	public void setId_employe(int id_employe) {
-		this.id_employe = id_employe;
+	public void setIdEmploye(int idEmploye) {
+		this.idEmploye = idEmploye;
 	}
 
-	public int getId_type() {
-		return id_type;
+	public int getIdType() {
+		return idType;
 	}
 
-	public void setId_type(int id_type) {
-		this.id_type = id_type;
+	public void setIdType(int idType) {
+		this.idType = idType;
 	}
 
-	public int getId_statut() {
-		return id_statut;
+	public int getIdStatut() {
+		return idStatut;
 	}
 
-	public void setId_statut(int id_statut) {
-		this.id_statut = id_statut;
+	public void setIdStatut(int idStatut) {
+		this.idStatut = idStatut;
 	}
 
-	public int getId_service_rh() {
-		return id_service_rh;
+	public int getIdServiceRh() {
+		return idServiceRh;
 	}
 
-	public void setId_service_rh(int id_service_rh) {
-		this.id_service_rh = id_service_rh;
+	public void setIdServiceRh(int idServiceRh) {
+		this.idServiceRh = idServiceRh;
 	}
 
 	public TypeAbsence getTypes() {
@@ -144,12 +144,12 @@ public class Absence {
 		this.statuts = statuts;
 	}
 
-	public ServiceRh getValideur_rh() {
-		return valideur_rh;
+	public ServiceRh getValideurRh() {
+		return valideurRh;
 	}
 
-	public void setValideur_rh(ServiceRh valideur_rh) {
-		this.valideur_rh = valideur_rh;
+	public void setValideurRh(ServiceRh valideurRh) {
+		this.valideurRh = valideurRh;
 	}
 
 	public Employe getEmployes() {

@@ -43,14 +43,14 @@ public class EquipeService {
 			for (Equipe equipe : recherche) {
 				Equipe eq = new Equipe();
 				eq.setId(equipe.getId());
-				eq.setId_hierarchie(equipe.getId_hierarchie());
-				eq.setId_responsable(equipe.getId_responsable());
+				eq.setIdHierarchie(equipe.getIdHierarchie());
+				eq.setIdResponsable(equipe.getIdResponsable());
 				eq.setNom(equipe.getNom());
 				
 				Equipe pr = new Equipe();
 				pr.setId(equipe.getParent().getId());
-				pr.setId_hierarchie(equipe.getParent().getId_hierarchie());
-				pr.setId_responsable(equipe.getParent().getId_responsable());
+				pr.setIdHierarchie(equipe.getParent().getIdHierarchie());
+				pr.setIdResponsable(equipe.getParent().getIdResponsable());
 				pr.setNom(equipe.getParent().getNom());
 				eq.setParent(pr);
 
@@ -97,14 +97,14 @@ public class EquipeService {
 			for (Equipe equipe : recherche) {
 				Equipe eq = new Equipe();
 				eq.setId(equipe.getId());
-				eq.setId_hierarchie(equipe.getId_hierarchie());
-				eq.setId_responsable(equipe.getId_responsable());
+				eq.setIdHierarchie(equipe.getIdHierarchie());
+				eq.setIdResponsable(equipe.getIdResponsable());
 				eq.setNom(equipe.getNom());
 				
 				Equipe pr = new Equipe();
 				pr.setId(equipe.getParent().getId());
-				pr.setId_hierarchie(equipe.getParent().getId_hierarchie());
-				pr.setId_responsable(equipe.getParent().getId_responsable());
+				pr.setIdHierarchie(equipe.getParent().getIdHierarchie());
+				pr.setIdResponsable(equipe.getParent().getIdResponsable());
 				pr.setNom(equipe.getParent().getNom());
 				eq.setParent(pr);
 
@@ -187,14 +187,14 @@ public class EquipeService {
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteEquipe(Equipe sup_equipe) throws SQLException {
+	public void deleteEquipe(Equipe supEquipe) throws SQLException {
 		try{
-			Iterable<Equipe> temp = dao.findByName(sup_equipe.getNom());
+			Iterable<Equipe> temp = dao.findByName(supEquipe.getNom());
 			for (Equipe equipe : temp) {
 				Equipe eq = new Equipe();
 				eq.setId(equipe.getId());
-				eq.setId_hierarchie(equipe.getId_hierarchie());
-				eq.setId_responsable(equipe.getId_responsable());
+				eq.setIdHierarchie(equipe.getIdHierarchie());
+				eq.setIdResponsable(equipe.getIdResponsable());
 				eq.setNom(equipe.getNom());
 				dao.delete(eq);
 			}

@@ -44,16 +44,16 @@ public class UserService {
 				us.setId(user.getId());
 				us.setEmail(user.getEmail());
 				us.setPassword(user.getPassword());
-				us.setId_employe(user.getId_employe());
-				us.setId_role(user.getId_role());
+				us.setIdEmploye(user.getIdEmploye());
+				us.setIdRole(user.getIdRole());
 				us.setRoles(user.getRoles());
 				
 				Employe em = new Employe();
-				em.setId(user.getUser_employe().getId());
-				em.setNom(user.getUser_employe().getNom());
-				em.setPrenom(user.getUser_employe().getPrenom());
-				em.setMatricule(user.getUser_employe().getMatricule());
-				us.setUser_employe(em);
+				em.setId(user.getUserEmploye().getId());
+				em.setNom(user.getUserEmploye().getNom());
+				em.setPrenom(user.getUserEmploye().getPrenom());
+				em.setMatricule(user.getUserEmploye().getMatricule());
+				us.setUserEmploye(em);
 
 				resultat.add(us);
 			}
@@ -83,16 +83,16 @@ public class UserService {
 				us.setId(user.getId());
 				us.setEmail(user.getEmail());
 				us.setPassword(user.getPassword());
-				us.setId_employe(user.getId_employe());
-				us.setId_role(user.getId_role());
+				us.setIdEmploye(user.getIdEmploye());
+				us.setIdRole(user.getIdRole());
 				us.setRoles(user.getRoles());
 				
 				Employe em = new Employe();
-				em.setId(user.getUser_employe().getId());
-				em.setNom(user.getUser_employe().getNom());
-				em.setPrenom(user.getUser_employe().getPrenom());
-				em.setMatricule(user.getUser_employe().getMatricule());
-				us.setUser_employe(em);
+				em.setId(user.getUserEmploye().getId());
+				em.setNom(user.getUserEmploye().getNom());
+				em.setPrenom(user.getUserEmploye().getPrenom());
+				em.setMatricule(user.getUserEmploye().getMatricule());
+				us.setUserEmploye(em);
 
 				resultat.add(us);
 			}
@@ -156,16 +156,16 @@ public class UserService {
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteUser(User sup_user) throws SQLException {
+	public void deleteUser(User supUser) throws SQLException {
 		try{
-			Iterable<User> temp = dao.findByName(sup_user.getEmail());
+			Iterable<User> temp = dao.findByName(supUser.getEmail());
 			for (User user : temp) {
 				User us = new User();
 				us.setId(user.getId());
 				us.setEmail(user.getEmail());
 				us.setPassword(user.getPassword());
-				us.setId_employe(user.getId_employe());
-				us.setId_role(user.getId_role());
+				us.setIdEmploye(user.getIdEmploye());
+				us.setIdRole(user.getIdRole());
 				us.setRoles(user.getRoles());
 				dao.delete(us);
 			}

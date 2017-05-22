@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  */
 
 @Entity
-@Table(name="service_rh")
+@Table(name="serviceRh")
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class ServiceRh {
 
@@ -43,13 +43,13 @@ public class ServiceRh {
 	@Length(min = 4, message = "La chaîne doit avoir au moins 4 caractères")
 	private String nom;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "valideur_rh")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "valideurRh")
 	@JsonBackReference
 	private List<Absence> absences;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "gestionnaire_rh")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "gestionnaireRh")
 	@JsonBackReference
-	private List<Employe> list_rh;
+	private List<Employe> listRh;
 
 
 	public ServiceRh(){}
@@ -93,12 +93,12 @@ public class ServiceRh {
 		this.absences = absences;
 	}
 
-	public List<Employe> getList_rh() {
-		return list_rh;
+	public List<Employe> getListRh() {
+		return listRh;
 	}
 
-	public void setList_rh(List<Employe> list_rh) {
-		this.list_rh = list_rh;
+	public void setListRh(List<Employe> listRh) {
+		this.listRh = listRh;
 	}
 
 }

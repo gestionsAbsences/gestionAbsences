@@ -133,9 +133,9 @@ public class ServiceRhService {
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteServiceRh(ServiceRh sup_serviceRh) throws SQLException {
+	public void deleteServiceRh(ServiceRh supServiceRh) throws SQLException {
 		try{
-			Iterable<ServiceRh> temp = rhDao.findByName(sup_serviceRh.getNom());
+			Iterable<ServiceRh> temp = rhDao.findByName(supServiceRh.getNom());
 			for (ServiceRh serviceRh : temp) {
 				ServiceRh rh = new ServiceRh();
 				rh.setId(serviceRh.getId());

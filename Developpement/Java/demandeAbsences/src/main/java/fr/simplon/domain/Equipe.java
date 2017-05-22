@@ -36,11 +36,11 @@ public class Equipe {
 	@Length(min = 4, message = "La chaîne doit avoir au moins 4 caractères")
 	private String nom;
 
-	private int id_hierarchie;
-	private int id_responsable;
+	private int idHierarchie;
+	private int idResponsable;
 
 	@ManyToOne
-	@JoinColumn(name="id_hierarchie", insertable = false, updatable = false)
+	@JoinColumn(name="idHierarchie", insertable = false, updatable = false)
 	private Equipe parent;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipes")
@@ -48,18 +48,18 @@ public class Equipe {
 	private List<Employe> employes;
 
 	@ManyToOne
-	@JoinColumn(name="id_responsable", insertable = false, updatable = false)
+	@JoinColumn(name="idResponsable", insertable = false, updatable = false)
 	private Employe responsables;
 
 
 	public Equipe(){}
 
-	public Equipe(Long id, String nom, int id_hierarchie, int id_responsable, Equipe parent) {
+	public Equipe(Long id, String nom, int idHierarchie, int idResponsable, Equipe parent) {
 		super();
 		this.id = id;
 		this.nom = nom;
-		this.id_hierarchie = id_hierarchie;
-		this.id_responsable = id_responsable;
+		this.idHierarchie = idHierarchie;
+		this.idResponsable = idResponsable;
 		this.parent = parent;
 	}
 
@@ -87,20 +87,20 @@ public class Equipe {
 		this.parent = parent;
 	}
 
-	public int getId_hierarchie() {
-		return id_hierarchie;
+	public int getIdHierarchie() {
+		return idHierarchie;
 	}
 
-	public void setId_hierarchie(int id_hierarchie) {
-		this.id_hierarchie = id_hierarchie;
+	public void setIdHierarchie(int idHierarchie) {
+		this.idHierarchie = idHierarchie;
 	}
 
-	public int getId_responsable() {
-		return id_responsable;
+	public int getIdResponsable() {
+		return idResponsable;
 	}
 
-	public void setId_responsable(int id_responsable) {
-		this.id_responsable = id_responsable;
+	public void setIdResponsable(int idResponsable) {
+		this.idResponsable = idResponsable;
 	}
 
 	public List<Employe> getEmployes() {

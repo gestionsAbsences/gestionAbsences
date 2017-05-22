@@ -133,9 +133,9 @@ public class StatutService {
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteStatut(Statut sup_statut) throws SQLException {
+	public void deleteStatut(Statut supStatut) throws SQLException {
 		try{
-			Iterable<Statut> temp = dao.findByName(sup_statut.getNom());
+			Iterable<Statut> temp = dao.findByName(supStatut.getNom());
 			for (Statut statut : temp) {
 				Statut st = new Statut();
 				st.setId(statut.getId());

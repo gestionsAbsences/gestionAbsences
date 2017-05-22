@@ -133,9 +133,9 @@ public class RoleService {
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteRole(Role sup_role) throws SQLException {
+	public void deleteRole(Role supRole) throws SQLException {
 		try{
-			Iterable<Role> temp = dao.findByName(sup_role.getValeur());
+			Iterable<Role> temp = dao.findByName(supRole.getValeur());
 			for (Role role : temp) {
 				Role rl = new Role();
 				rl.setId(role.getId());

@@ -49,10 +49,10 @@ public class TypeService {
 					ab.setId(abs.getId());
 					ab.setDebut(abs.getDebut());
 					ab.setFin(abs.getFin());
-					ab.setId_employe(abs.getId_employe());
-					ab.setId_type(abs.getId_type());
-					ab.setId_statut(abs.getId_statut());
-					ab.setId_service_rh(abs.getId_service_rh());
+					ab.setIdEmploye(abs.getIdEmploye());
+					ab.setIdType(abs.getIdType());
+					ab.setIdStatut(abs.getIdStatut());
+					ab.setIdServiceRh(abs.getIdServiceRh());
 					tp.getAbsences().add(ab);
 				}
 				tp.setAbsences(type.getAbsences());
@@ -89,10 +89,10 @@ public class TypeService {
 					ab.setId(abs.getId());
 					ab.setDebut(abs.getDebut());
 					ab.setFin(abs.getFin());
-					ab.setId_employe(abs.getId_employe());
-					ab.setId_type(abs.getId_type());
-					ab.setId_statut(abs.getId_statut());
-					ab.setId_service_rh(abs.getId_service_rh());
+					ab.setIdEmploye(abs.getIdEmploye());
+					ab.setIdType(abs.getIdType());
+					ab.setIdStatut(abs.getIdStatut());
+					ab.setIdServiceRh(abs.getIdServiceRh());
 					tp.getAbsences().add(ab);
 				}
 				tp.setAbsences(type.getAbsences());
@@ -158,9 +158,9 @@ public class TypeService {
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteType(TypeAbsence sup_type) throws SQLException {
+	public void deleteType(TypeAbsence supType) throws SQLException {
 		try{
-			Iterable<TypeAbsence> temp = dao.findByName(sup_type.getNom());
+			Iterable<TypeAbsence> temp = dao.findByName(supType.getNom());
 			TypeAbsence tp = new TypeAbsence();
 			for (TypeAbsence type : temp) {
 				tp.setId(type.getId());

@@ -41,17 +41,17 @@ public class User {
 	@Length(min = 8, message = "La chaîne doit avoir au moins 8 caractères")
 	private String password;
 
-	private int id_employe;
+	private int idEmploye;
 	
-	private int id_role;
+	private int idRole;
 
 	@ManyToOne
-	@JoinColumn(name="id_role", insertable = false, updatable = false)
+	@JoinColumn(name="idRole", insertable = false, updatable = false)
 	private Role roles;
 
 	@OneToOne
-	@JoinColumn(name="id_employe", insertable = false, updatable = false)
-	private Employe user_employe;
+	@JoinColumn(name="idEmploye", insertable = false, updatable = false)
+	private Employe userEmploye;
 
 	
 	public User(){}
@@ -87,20 +87,20 @@ public class User {
 		this.password = password;
 	}
 
-	public int getId_employe() {
-		return id_employe;
+	public int getIdEmploye() {
+		return idEmploye;
 	}
 
-	public void setId_employe(int id_employe) {
-		this.id_employe = id_employe;
+	public void setIdEmploye(int idEmploye) {
+		this.idEmploye = idEmploye;
 	}
 
-	public int getId_role() {
-		return id_role;
+	public int getIdRole() {
+		return idRole;
 	}
 
-	public void setId_role(int id_role) {
-		this.id_role = id_role;
+	public void setIdRole(int idRole) {
+		this.idRole = idRole;
 	}
 
 	public Role getRoles() {
@@ -111,11 +111,11 @@ public class User {
 		this.roles = roles;
 	}
 
-	public Employe getUser_employe() {
-		return user_employe;
+	public Employe getUserEmploye() {
+		return userEmploye;
 	}
 
-	public void setUser_employe(Employe user_employe) {
-		this.user_employe = user_employe;
+	public void setUserEmploye(Employe userEmploye) {
+		this.userEmploye = userEmploye;
 	}
 }

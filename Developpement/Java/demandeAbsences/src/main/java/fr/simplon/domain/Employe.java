@@ -50,29 +50,29 @@ public class Employe {
 	@Length(min = 3, message = "La chaîne doit avoir au moins 3 caractères")
 	private String matricule;
 	
-	private int nb_cp;
-	private int nb_rtt;
-	private int nb_rc;
-	private int reliquat_ca;
-	private int reliquat_rtt;
-	private int id_equipe;
-	private int id_service_rh;
+	private int nbCa;
+	private int nbRtt;
+	private int nbRc;
+	private int reliquatCa;
+	private int reliquatRtt;
+	private int idEquipe;
+	private int idServiceRh;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employes")
 	@JsonBackReference
 	private List<Absence> absences;
 
 	@ManyToOne
-	@JoinColumn(name="id_service_rh", insertable = false, updatable = false)
-	private ServiceRh gestionnaire_rh;
+	@JoinColumn(name="idServiceRh", insertable = false, updatable = false)
+	private ServiceRh gestionnaireRh;
 
 	@ManyToOne
-	@JoinColumn(name="id_equipe", insertable = false, updatable = false)
+	@JoinColumn(name="idEquipe", insertable = false, updatable = false)
 	private Equipe equipes;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "responsables")
 	@JsonBackReference
-	private List<Equipe> resp_equipes;
+	private List<Equipe> respEquipes;
 
 	@OneToOne
 	@JoinColumn(name="id", insertable = false, updatable = false)
@@ -121,60 +121,60 @@ public class Employe {
 		this.matricule = matricule;
 	}
 
-	public int getNb_cp() {
-		return nb_cp;
+	public int getNbCa() {
+		return nbCa;
 	}
 
-	public void setNb_cp(int nb_cp) {
-		this.nb_cp = nb_cp;
+	public void setNbCa(int nbCa) {
+		this.nbCa = nbCa;
 	}
 
-	public int getNb_rtt() {
-		return nb_rtt;
+	public int getNbRtt() {
+		return nbRtt;
 	}
 
-	public void setNb_rtt(int nb_rtt) {
-		this.nb_rtt = nb_rtt;
+	public void setNbRtt(int nbRtt) {
+		this.nbRtt = nbRtt;
 	}
 
-	public int getNb_rc() {
-		return nb_rc;
+	public int getNbRc() {
+		return nbRc;
 	}
 
-	public void setNb_rc(int nb_rc) {
-		this.nb_rc = nb_rc;
+	public void setNbRc(int nbRc) {
+		this.nbRc = nbRc;
 	}
 
-	public int getReliquat_ca() {
-		return reliquat_ca;
+	public int getReliquatCa() {
+		return reliquatCa;
 	}
 
-	public void setReliquat_ca(int reliquat_ca) {
-		this.reliquat_ca = reliquat_ca;
+	public void setReliquatCa(int reliquatCa) {
+		this.reliquatCa = reliquatCa;
 	}
 
-	public int getReliquat_rtt() {
-		return reliquat_rtt;
+	public int getReliquatRtt() {
+		return reliquatRtt;
 	}
 
-	public void setReliquat_rtt(int reliquat_rtt) {
-		this.reliquat_rtt = reliquat_rtt;
+	public void setReliquatRtt(int reliquatRtt) {
+		this.reliquatRtt = reliquatRtt;
 	}
 
-	public int getId_equipe() {
-		return id_equipe;
+	public int getIdEquipe() {
+		return idEquipe;
 	}
 
-	public void setId_equipe(int id_equipe) {
-		this.id_equipe = id_equipe;
+	public void setIdEquipe(int idEquipe) {
+		this.idEquipe = idEquipe;
 	}
 
-	public int getId_service_rh() {
-		return id_service_rh;
+	public int getIdServiceRh() {
+		return idServiceRh;
 	}
 
-	public void setId_service_rh(int id_service_rh) {
-		this.id_service_rh = id_service_rh;
+	public void setIdServiceRh(int idServiceRh) {
+		this.idServiceRh = idServiceRh;
 	}
 
 	public List<Absence> getAbsences() {
@@ -185,12 +185,12 @@ public class Employe {
 		this.absences = absences;
 	}
 
-	public ServiceRh getGestionnaire_rh() {
-		return gestionnaire_rh;
+	public ServiceRh getGestionnaireRh() {
+		return gestionnaireRh;
 	}
 
-	public void setGestionnaire_rh(ServiceRh gestionnaire_rh) {
-		this.gestionnaire_rh = gestionnaire_rh;
+	public void setGestionnaireRh(ServiceRh gestionnaireRh) {
+		this.gestionnaireRh = gestionnaireRh;
 	}
 
 	public Equipe getEquipes() {
@@ -201,12 +201,12 @@ public class Employe {
 		this.equipes = equipes;
 	}
 
-	public List<Equipe> getResp_equipes() {
-		return resp_equipes;
+	public List<Equipe> getRespEquipes() {
+		return respEquipes;
 	}
 
-	public void setResp_equipes(List<Equipe> resp_equipes) {
-		this.resp_equipes = resp_equipes;
+	public void setRespEquipes(List<Equipe> respEquipes) {
+		this.respEquipes = respEquipes;
 	}
 
 	public User getUsers() {

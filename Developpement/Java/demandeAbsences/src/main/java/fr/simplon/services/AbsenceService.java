@@ -48,23 +48,23 @@ public class AbsenceService {
 				ab.setId(absence.getId());
 				ab.setDebut(absence.getDebut());
 				ab.setFin(absence.getFin());
-				ab.setId_employe(absence.getId_employe());
-				ab.setId_type(absence.getId_type());
-				ab.setId_statut(absence.getId_statut());
-				ab.setId_service_rh(absence.getId_service_rh());
+				ab.setIdEmploye(absence.getIdEmploye());
+				ab.setIdType(absence.getIdType());
+				ab.setIdStatut(absence.getIdStatut());
+				ab.setIdServiceRh(absence.getIdServiceRh());
 
 				Employe em = new Employe();
 				em.setId(absence.getEmployes().getId());
 				em.setNom(absence.getEmployes().getNom());
 				em.setPrenom(absence.getEmployes().getPrenom());
 				em.setMatricule(absence.getEmployes().getMatricule());
-				em.setNb_cp(absence.getEmployes().getNb_cp());
-				em.setNb_rtt(absence.getEmployes().getNb_rtt());
-				em.setNb_rc(absence.getEmployes().getNb_rc());
-				em.setReliquat_ca(absence.getEmployes().getReliquat_ca());
-				em.setReliquat_rtt(absence.getEmployes().getReliquat_rtt());
-				em.setId_equipe(absence.getEmployes().getId_equipe());
-				em.setId_service_rh(absence.getEmployes().getId_service_rh());
+				em.setNbCa(absence.getEmployes().getNbCa());
+				em.setNbRtt(absence.getEmployes().getNbRtt());
+				em.setNbRc(absence.getEmployes().getNbRc());
+				em.setReliquatCa(absence.getEmployes().getReliquatCa());
+				em.setReliquatRtt(absence.getEmployes().getReliquatRtt());
+				em.setIdEquipe(absence.getEmployes().getIdEquipe());
+				em.setIdServiceRh(absence.getEmployes().getIdServiceRh());
 				ab.setEmployes(em);
 
 				TypeAbsence ta = new TypeAbsence();
@@ -78,10 +78,10 @@ public class AbsenceService {
 				ab.setStatuts(st);
 				
 				ServiceRh sr = new ServiceRh();
-				sr.setId(absence.getValideur_rh().getId());
-				sr.setNom(absence.getValideur_rh().getNom());
-				sr.setEmail(absence.getValideur_rh().getEmail());
-				ab.setValideur_rh(sr);
+				sr.setId(absence.getValideurRh().getId());
+				sr.setNom(absence.getValideurRh().getNom());
+				sr.setEmail(absence.getValideurRh().getEmail());
+				ab.setValideurRh(sr);
 
 				resultat.add(ab);
 			}
@@ -111,23 +111,23 @@ public class AbsenceService {
 			ab.setId(absence.getId());
 			ab.setDebut(absence.getDebut());
 			ab.setFin(absence.getFin());
-			ab.setId_employe(absence.getId_employe());
-			ab.setId_type(absence.getId_type());
-			ab.setId_statut(absence.getId_statut());
-			ab.setId_service_rh(absence.getId_service_rh());
+			ab.setIdEmploye(absence.getIdEmploye());
+			ab.setIdType(absence.getIdType());
+			ab.setIdStatut(absence.getIdStatut());
+			ab.setIdServiceRh(absence.getIdServiceRh());
 
 			Employe em = new Employe();
 			em.setId(absence.getEmployes().getId());
 			em.setNom(absence.getEmployes().getNom());
 			em.setPrenom(absence.getEmployes().getPrenom());
 			em.setMatricule(absence.getEmployes().getMatricule());
-			em.setNb_cp(absence.getEmployes().getNb_cp());
-			em.setNb_rtt(absence.getEmployes().getNb_rtt());
-			em.setNb_rc(absence.getEmployes().getNb_rc());
-			em.setReliquat_ca(absence.getEmployes().getReliquat_ca());
-			em.setReliquat_rtt(absence.getEmployes().getReliquat_rtt());
-			em.setId_equipe(absence.getEmployes().getId_equipe());
-			em.setId_service_rh(absence.getEmployes().getId_service_rh());
+			em.setNbCa(absence.getEmployes().getNbCa());
+			em.setNbRtt(absence.getEmployes().getNbRtt());
+			em.setNbRc(absence.getEmployes().getNbRc());
+			em.setReliquatCa(absence.getEmployes().getReliquatCa());
+			em.setReliquatRtt(absence.getEmployes().getReliquatRtt());
+			em.setIdEquipe(absence.getEmployes().getIdEquipe());
+			em.setIdServiceRh(absence.getEmployes().getIdServiceRh());
 			ab.setEmployes(em);
 
 			TypeAbsence ta = new TypeAbsence();
@@ -141,10 +141,10 @@ public class AbsenceService {
 			ab.setStatuts(st);
 			
 			ServiceRh sr = new ServiceRh();
-			sr.setId(absence.getValideur_rh().getId());
-			sr.setNom(absence.getValideur_rh().getNom());
-			sr.setEmail(absence.getValideur_rh().getEmail());
-			ab.setValideur_rh(sr);
+			sr.setId(absence.getValideurRh().getId());
+			sr.setNom(absence.getValideurRh().getNom());
+			sr.setEmail(absence.getValideurRh().getEmail());
+			ab.setValideurRh(sr);
 
 			resultat.add(ab);
 			}
@@ -208,18 +208,18 @@ public class AbsenceService {
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteAbsence(Absence sup_absence) throws SQLException {
+	public void deleteAbsence(Absence supAbsence) throws SQLException {
 		try{
-			Iterable<Absence> temp = dao.findById(sup_absence.getId());
+			Iterable<Absence> temp = dao.findById(supAbsence.getId());
 			for (Absence absence : temp) {
 				Absence ab = new Absence();
 				ab.setId(absence.getId());
 				ab.setDebut(absence.getDebut());
 				ab.setFin(absence.getFin());
-				ab.setId_employe(absence.getId_employe());
-				ab.setId_type(absence.getId_type());
-				ab.setId_statut(absence.getId_statut());
-				ab.setId_service_rh(absence.getId_service_rh());
+				ab.setIdEmploye(absence.getIdEmploye());
+				ab.setIdType(absence.getIdType());
+				ab.setIdStatut(absence.getIdStatut());
+				ab.setIdServiceRh(absence.getIdServiceRh());
 				dao.delete(ab);
 			}
 		} catch (Exception e) {
