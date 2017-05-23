@@ -6,7 +6,7 @@
       render() {
         return (
           <div className="bardenav">
-            <div className="marge"></div>
+            <div className="marge">&nbsp;</div>
             <div className="affix col-md-2 panel-group" id="accordion">
               <div className="panel panel-default">
                   <div className="panel-heading">

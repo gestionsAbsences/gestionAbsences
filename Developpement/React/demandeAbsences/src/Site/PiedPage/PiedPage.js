@@ -12,8 +12,8 @@ class PiedPage extends Component {
       <div>
         <footer>
           <div className="footer breadcrumb">
-            ©Copyright 2017   -   Par Fred, Jean et Mokhtar de La Poste.promo1@Simplon
-            <img className="logo logo1" src={logo1} alt="" />
+            © 2017   -   Par Fred, Jean et Mokhtar de La Poste.promo1@Simplon avec la participation de 
+            <img className="logo logo1" src={logo1} alt="" />et
             <img className="logo logo2" src={logo2} alt="" />
           </div>
         </footer>

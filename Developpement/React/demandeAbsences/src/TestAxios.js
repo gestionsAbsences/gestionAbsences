@@ -13,7 +13,6 @@ class TestAxios extends Component {
   }
 
   componentDidMount() {
-    console.log("Coucou");
        axios.get('http://localhost:8080/type/listeTypeAbsence/')
           .then(res => {
               console.log(res.data);
@@ -29,7 +28,6 @@ class TestAxios extends Component {
   }
 
   render() {
-console.log(this.state);
     return (
       <div>
 
@@ -37,18 +35,16 @@ console.log(this.state);
   click
 </a>
 
-<ul>
-{
-
+  <ul>
+  {
         this.state.types.map(
           (type, i) =>
           <li key={i}>
             {type.nom}
           </li>
         )
-
-}
-</ul>
+  }
+  </ul>
 
 
 

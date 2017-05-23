@@ -10,3 +10,44 @@
   height: 40px;
   margin-right: 50px;
 }
+
+.employe {
+  font-size: 16px;
+  padding: 0 20px;
+}
+
+.prenom, .matricule, .conge, .rtt, .repos {
+  margin-left: 20px;
+}
+.identite {
+  float: left;
+}
+
+.info {
+  float: right;
+}
+
+
+.nom {
+
+}
+
+.prenom {
+
+}
+
+.matricule {
+
+}
+
+.conge {
+
+}
+
+.rtt {
+
+}
+
+.repos {
+
+}
