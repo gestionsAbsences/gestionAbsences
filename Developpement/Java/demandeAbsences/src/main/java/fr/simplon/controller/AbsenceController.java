@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -85,7 +86,7 @@ public class AbsenceController {
 	public ResponseEntity<?> findById(@RequestParam(value = "id", defaultValue = "") Long id) {
 		List<Absence> absence;
 		try {
-			absence =(List<Absence>) absenceService.getAbsenceById(id);
+			absence =absenceService.getAbsenceById(id);
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
@@ -107,7 +108,7 @@ public class AbsenceController {
 	 * absence] et de capter le résultat [BindingResult result]
 	 */
 	@PostMapping(value = "/creerAbsence")
-	public ResponseEntity<?> save(@Valid Absence absence, BindingResult result) {
+	public ResponseEntity<?> save(@RequestBody @Valid Absence absence, BindingResult result) {
 		/*
 		 * On capture les éventuelles erreurs dans une map sous forme : key,
 		 * value et formatée pour l'affichage
@@ -116,7 +117,7 @@ public class AbsenceController {
 			Map<String, Object> map = new HashMap<String, Object>();
 			if (result.hasErrors()) {
 				for (FieldError error : result.getFieldErrors()) {
-					map.put(error.getField(), String.format("message:%s", error.getDefaultMessage()));
+					map.put(error.getField(), String.format("%s", error.getDefaultMessage()));
 					return ResponseEntity.badRequest().body(map);
 				}
 			} else {
@@ -142,12 +143,12 @@ public class AbsenceController {
 	 * La mise à jour suis le même principe que la création
 	 */
 	@PutMapping(value = "/updateAbsence")
-	public ResponseEntity<?> update(@Valid Absence absence, BindingResult result) {
+	public ResponseEntity<?> update(@RequestBody @Valid Absence absence, BindingResult result) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
 			if (result.hasErrors()) {
 				for (FieldError error : result.getFieldErrors()) {
-					map.put(error.getField(), String.format("message:%s", error.getDefaultMessage()));
+					map.put(error.getField(), String.format("%s", error.getDefaultMessage()));
 					return ResponseEntity.badRequest().body(map);
 				}
 			} else {
@@ -170,7 +171,7 @@ public class AbsenceController {
 	 * Service
 	 */
 	@DeleteMapping("/deleteAbsence")
-	public ResponseEntity<?> delete(Absence absence) {
+	public ResponseEntity<?> delete(@RequestBody Absence absence) {
 		try {
 			absenceService.deleteAbsence(absence);
 		} catch (SQLException sqle) {

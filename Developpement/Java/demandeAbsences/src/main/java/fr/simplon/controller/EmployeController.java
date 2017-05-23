@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -105,7 +106,7 @@ public class EmployeController {
 	 * et de capter le résultat  [BindingResult result] (la création ou les erreurs)
 	 */
 	@PostMapping(value="/creerEmploye")	
-	public ResponseEntity<?> save(@Valid Employe employe, BindingResult result) {			
+	public ResponseEntity<?> save(@RequestBody @Valid Employe employe, BindingResult result) {			
 	/*
 	 * On capture les éventuelles erreurs dans une map 
 	 * sous forme : key, value
@@ -141,7 +142,7 @@ public class EmployeController {
 	 * Si l'id est présent dans le bean, Hibernate sait qu'il s'agit d'un update
 	 */
 	@PutMapping(value="/updateEmploye")	
-	public ResponseEntity<?> update(@Valid Employe employe, BindingResult result) {			
+	public ResponseEntity<?> update(@RequestBody @Valid Employe employe, BindingResult result) {			
 		Map<String,Object> map = new HashMap<String,Object>();
 		try{
 			if(result.hasErrors()){
@@ -168,7 +169,7 @@ public class EmployeController {
 	 * Le reste de l'action est dans la classe Service
 	 */
 	@DeleteMapping("deleteEmploye")
-	public ResponseEntity<?> delete(Employe employe) {	
+	public ResponseEntity<?> delete(@RequestBody Employe employe) {	
 		try {
 			empService.deleteEmploye(employe);
 		} catch (SQLException sqle) {

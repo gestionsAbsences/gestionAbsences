@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fr.simplon.common.EmailException;
+import fr.simplon.common.ServiceException;
 import fr.simplon.dao.RoleDao;
 import fr.simplon.domain.Role;
 
@@ -25,8 +27,8 @@ public class RoleService {
 		List<Role> resultat;
 		try {
 			resultat = roleDao.findAll();
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: findAll " + e);
+		} catch (EmailException e) {
+			throw new ServiceException("Hibernate Error !: findAll " + e);
 		}
 		return resultat;
 	}
@@ -35,8 +37,8 @@ public class RoleService {
 		List<Role> resultat;
 		try {
 			resultat = roleDao.findByValue(valeur);
-		} catch (Exception e) {
-			throw new SQLException("Hibrnate Error !: getRole" + e);
+		} catch (EmailException e) {
+			throw new ServiceException("Hibrnate Error !: getRole" + e);
 		}
 		return resultat;
 	}
@@ -57,8 +59,8 @@ public class RoleService {
 		Role creationRole;
 		try {
 			creationRole = roleDao.save(role);
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: insertRole" + e);
+		} catch (EmailException e) {
+			throw new ServiceException("Hibernate Error !: insertRole" + e);
 		}
 		return creationRole;
 	}
@@ -77,8 +79,8 @@ public class RoleService {
 		Role modifRole;
 		try {
 			modifRole = roleDao.save(role);
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: updateRole" + e);
+		} catch (EmailException e) {
+			throw new ServiceException("Hibernate Error !: updateRole" + e);
 		}
 		return modifRole;
 	}
@@ -98,8 +100,8 @@ public class RoleService {
 	public void deleteRole(Role role) throws SQLException {
 		try {
 			roleDao.delete(role);
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: deleteRole" + e);
+		} catch (EmailException e) {
+			throw new ServiceException("Hibernate Error !: deleteRole" + e);
 		}
 	}
 

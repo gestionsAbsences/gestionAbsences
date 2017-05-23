@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import fr.simplon.common.EmailException;
+import fr.simplon.common.ServiceException;
 import fr.simplon.dao.UserDao;
 import fr.simplon.domain.User;
 
@@ -37,8 +39,8 @@ public class UserService {
 		List<User> resultat;
 		try {
 			resultat = userDao.findAll();
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: listeEmployes" + e);
+		} catch (ServiceException e) {
+			throw new ServiceException("Hibernate Error !: listeEmployes" + e);
 		}
 		return resultat;
 	}
@@ -57,8 +59,8 @@ public class UserService {
 		List<User> resultat;
 		try {
 			resultat = userDao.findByEmail(email);
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: getUser" + e);
+		} catch (ServiceException e) {
+			throw new ServiceException("Hibernate Error !: getUser" + e);
 		}
 		return resultat;
 	}
@@ -76,12 +78,12 @@ public class UserService {
 	public User insertUser(User user) throws SQLException {
 		try {
 			if(!userDao.findByEmail(user.getEmail()).isEmpty()) {
-				throw new Exception("Adresse email déjà utilisé");
+				throw new EmailException();
 			} else {
 			user = userDao.save(user);
 			}
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: insertUser " + e);
+		} catch (EmailException e) {
+			throw new EmailException();
 
 		}
 		return user;
@@ -100,8 +102,8 @@ public class UserService {
 		User modifUser;
 		try {
 			modifUser = userDao.save(user);
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: updateUser" + e);
+		} catch (ServiceException e) {
+			throw new ServiceException("Hibernate Error !: updateUser" + e);
 		}
 		return modifUser;
 	}
@@ -121,8 +123,8 @@ public class UserService {
 	public void deleteUser(User supprUser) throws SQLException {
 		try {
 			userDao.delete(supprUser);
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: deleteUser" + e);
+		} catch (ServiceException e) {
+			throw new ServiceException("Hibernate Error !: deleteUser" + e);
 		}
 	}
 	

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +16,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -30,7 +33,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "employe")
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Employe {
 
 	@Id
@@ -51,6 +54,10 @@ public class Employe {
 	@NotBlank(message = "Matricule obligatoire")
 	@Length(min = 2, message = "La chaîne doit avoir au moins 2 caractères")
 	private String matricule;
+	
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "employe")
+	@Cascade(CascadeType.ALL)
+	private User user;
 
 	@Column(name = "nb_cp")
 	@NotNull(message = "Le nombre de C.A. est obligatoire")
@@ -63,13 +70,7 @@ public class Employe {
 	@Column(name = "nb_rc")
 	private int nbRc;
 	
-	@Column(name = "reliquat_ca")
-	private int reliquatCa;
-	
-	@Column(name = "reliquat_rtt")
-	private int reliquatRtt;
-
-	@OneToMany(mappedBy = "employe")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employe")
 	private List<Absence> absence;
 
 	@ManyToOne
@@ -80,17 +81,15 @@ public class Employe {
 	@JoinColumn(name = "id_equipe")
 	private Equipe equipe;
 
-	@OneToOne(mappedBy = "employe")
 
-	private User user;
 
 	public Employe() {
 
 	}
 
-	public Long getId() {
-		return id;
-	}
+//	public Long getId() {
+//		return id;
+//	}
 
 	public void setId(Long id) {
 		this.id = id;
@@ -144,22 +143,6 @@ public class Employe {
 		this.nbRc = nbRc;
 	}
 	
-	public int getReliquatCa() {
-		return reliquatCa;
-	}
-
-	public void setReliquatCa(int reliquatCa) {
-		this.reliquatCa = reliquatCa;
-	}
-
-	public int getReliquatRtt() {
-		return reliquatRtt;
-	}
-
-	public void setReliquatRtt(int reliquatRtt) {
-		this.reliquatRtt = reliquatRtt;
-	}
-
 	public List<Absence> getAbsence() {
 		return absence;
 	}
