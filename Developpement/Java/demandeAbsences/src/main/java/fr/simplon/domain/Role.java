@@ -10,19 +10,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
- * entity Service ROLE
- * 
+ * entity Role
  */
-
 @Entity
-@Table(name="role")
+@Table(name = "role")
 public class Role {
 
 	@Id
@@ -30,21 +28,14 @@ public class Role {
 	private Long id;
 
 	@Column(name = "valeur")
-	@NotBlank(message = "Nom obligatoire")
-	@Length(min = 4, message = "La chaîne doit avoir au moins 4 caractères")
-	private String valeur;
+	@NotNull(message = "Valeur obligatoire")
+	private int valeur;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "roles")
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "role")
 	@JsonBackReference
-	private List<User> users;
+	private List<User> user;
 
-	
-	public Role(){}
-
-	public Role(Long id, String valeur) {
-		super();
-		this.id = id;
-		this.valeur = valeur;
+	public Role() {
 	}
 
 	public Long getId() {
@@ -55,20 +46,20 @@ public class Role {
 		this.id = id;
 	}
 
-	public String getValeur() {
+	public int getValeur() {
 		return valeur;
 	}
 
-	public void setValeur(String valeur) {
+	public void setValeur(int valeur) {
 		this.valeur = valeur;
 	}
 
-	public List<User> getUsers() {
-		return users;
+	public List<User> getUser() {
+		return user;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setUser(List<User> user) {
+		this.user = user;
 	}
 
 }

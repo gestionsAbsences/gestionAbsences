@@ -1,5 +1,15 @@
 .bardenav {
+<<<<<<< HEAD
   /*top: 12vh;*/
   /*position: fixed;*/
   /*width: 12%;*/
+=======
+  top: 5vh;
+  position: fixed;
+  width: 12%;
+>>>>>>> Fred
+}
+
+.table tr td {
+  padding-bottom: 8px;
 }

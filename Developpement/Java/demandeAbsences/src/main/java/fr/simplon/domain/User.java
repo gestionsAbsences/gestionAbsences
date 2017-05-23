@@ -18,49 +18,41 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
- * entity Service USER
+ * Entity User
  * 
+ * @author JGL
+ *
  */
 
 @Entity
 @Table(name="user")
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class User {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
+	
 	@Column(name = "email")
-	@NotBlank(message = "Nom obligatoire")
-	@Email
+	@NotBlank(message = "Email obligatoire")
+	@Length(min=2,message="L'adresse email est deja utilisée")
+	@Email(regexp="^[a-zA-Z0-9._-]+@[a-z0-9.-_]{2,}.[a-z]{2,4}$")
 	private String email;
-
+	
 	@Column(name = "password")
-	@NotBlank(message = "Nom obligatoire")
-	@Length(min = 8, message = "La chaîne doit avoir au moins 8 caractères")
-	private String password;
-
-	private int id_employe;
+	@NotBlank(message = "Mot de passe obligatoire")
+	@Length(min = 4, message = "La chaîne doit avoir au moins 4 caractères")
+	private String passwd;
 	
-	private int id_role;
-
-	@ManyToOne
-	@JoinColumn(name="id_role", insertable = false, updatable = false)
-	private Role roles;
-
 	@OneToOne
-	@JoinColumn(name="id_employe", insertable = false, updatable = false)
-	private Employe user_employe;
-
+	@JoinColumn(name="id_employe")
+	private Employe employe;
 	
-	public User(){}
-
-	public User(Long id, String email, String password) {
-		super();
-		this.id = id;
-		this.email = email;
-		this.password = password;
+	@ManyToOne
+	@JoinColumn(name="id_role")
+	private Role role;
+	
+	public User(){
+		
 	}
 
 	public Long getId() {
@@ -79,43 +71,33 @@ public class User {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getPasswd() {
+		return passwd;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
+	}
+	
+	public Employe getEmploye() {
+		return employe;
 	}
 
-	public int getId_employe() {
-		return id_employe;
+	public void setEmploye(Employe employe) {
+		this.employe = employe;
 	}
 
-	public void setId_employe(int id_employe) {
-		this.id_employe = id_employe;
+	public Role getRole() {
+		return role;
 	}
 
-	public int getId_role() {
-		return id_role;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
-	public void setId_role(int id_role) {
-		this.id_role = id_role;
-	}
 
-	public Role getRoles() {
-		return roles;
-	}
 
-	public void setRoles(Role roles) {
-		this.roles = roles;
-	}
+	
 
-	public Employe getUser_employe() {
-		return user_employe;
-	}
-
-	public void setUser_employe(Employe user_employe) {
-		this.user_employe = user_employe;
-	}
+	
 }

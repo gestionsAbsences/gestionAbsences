@@ -22,45 +22,37 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 /**
  * entity Service RH
  * 
+ * @author JGL
+ * 
  */
 
 @Entity
 @Table(name="service_rh")
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class ServiceRh {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
+	
 	@Column(name = "email")
 	@NotBlank(message = "Email obligatoire")
 	@Email(regexp="^[a-zA-Z0-9._-]+@[a-z0-9.-_]{2,}.[a-z]{2,4}$")
 	private String email;
-
+	
 	@Column(name = "nom")
 	@NotBlank(message = "Nom obligatoire")
 	@Length(min = 4, message = "La chaîne doit avoir au moins 4 caractères")
 	private String nom;
+	
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "valideur_rh")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "serviceRh")
 	@JsonBackReference
-	private List<Absence> absences;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "gestionnaire_rh")
-	@JsonBackReference
-	private List<Employe> list_rh;
-
-
-	public ServiceRh(){}
-
-	public ServiceRh(Long id, String email, String nom) {
-		super();
-		this.id = id;
-		this.email = email;
-		this.nom = nom;
+	private List<Employe> listRh;
+	
+	public ServiceRh(){
+		
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -84,21 +76,16 @@ public class ServiceRh {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-
-	public List<Absence> getAbsences() {
-		return absences;
+
+	
+	public List<Employe> getListRh() {
+		return listRh;
 	}
 
-	public void setAbsences(List<Absence> absences) {
-		this.absences = absences;
+	public void setListRh(List<Employe> listRh) {
+		this.listRh = listRh;
 	}
 
-	public List<Employe> getList_rh() {
-		return list_rh;
-	}
-
-	public void setList_rh(List<Employe> list_rh) {
-		this.list_rh = list_rh;
-	}
+	
 
 }

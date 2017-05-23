@@ -1,20 +1,28 @@
 package fr.simplon.dao;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 import fr.simplon.domain.Absence;
 
-@Repository
-public interface AbsenceDao extends CrudRepository<Absence, Long>{
+/**
+ * lecture personnalisée de la BDD
+ * 
+ * @author Simplon
+ *
+ */
+public interface AbsenceDao extends JpaRepository<Absence, Long> {
 	
 	/**
-	 * lecture personnalisee dans la base de donnees
+	 * recherche d'une absence
 	 * @param id 
-	 * @return id service ABSENCE
+	 * @return une absence
 	 */
-	@Query("from Absence where id = ?1")
-	public Iterable<Absence> findById(Long id);
+	@Query("from Absence where id = ?")
+	public List<Absence> findById(Long id);
 	
+	
+
 }

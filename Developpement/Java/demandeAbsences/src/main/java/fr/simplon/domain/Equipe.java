@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,103 +18,79 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
- * entity Service EQUIPE
- * 
+ * entity Equipe
  */
 
-@Entity
-@Table(name="equipe")
-public class Equipe {
 
+@Entity
+@Table(name = "equipe")
+public class Equipe {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Column(name = "nom")
-	@NotBlank(message = "Nom obligatoire")
-	@Length(min = 4, message = "La chaîne doit avoir au moins 4 caractères")
+	@NotBlank(message = "nom obligatoire")
+	@Length(min = 4, message = "La chaîne doit avoir au moins 2 caractères")
 	private String nom;
 
-	private int id_hierarchie;
-	private int id_responsable;
-
-	@ManyToOne
-	@JoinColumn(name="id_hierarchie", insertable = false, updatable = false)
-	private Equipe parent;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipes")
+	@OneToMany(mappedBy = "equipe")
 	@JsonBackReference
-	private List<Employe> employes;
+	private List<Employe> employe;
 
 	@ManyToOne
-	@JoinColumn(name="id_responsable", insertable = false, updatable = false)
-	private Employe responsables;
+	@JoinColumn(name="id_responsable")
+	private Employe responsable;
 
 
-	public Equipe(){}
-
-	public Equipe(Long id, String nom, int id_hierarchie, int id_responsable, Equipe parent) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.id_hierarchie = id_hierarchie;
-		this.id_responsable = id_responsable;
-		this.parent = parent;
+	public Equipe() {
 	}
+	
+	
+
+
 
 	public Long getId() {
 		return id;
 	}
 
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 
 	public String getNom() {
 		return nom;
 	}
 
+
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 
-	public Equipe getParent() {
-		return parent;
+
+	public List<Employe> getEmploye() {
+		return employe;
 	}
 
-	public void setParent(Equipe parent) {
-		this.parent = parent;
+
+	public void setEmploye(List<Employe> employe) {
+		this.employe = employe;
 	}
 
-	public int getId_hierarchie() {
-		return id_hierarchie;
+
+	public Employe getResponsable() {
+		return responsable;
 	}
 
-	public void setId_hierarchie(int id_hierarchie) {
-		this.id_hierarchie = id_hierarchie;
-	}
 
-	public int getId_responsable() {
-		return id_responsable;
+	public void setResponsable(Employe responsable) {
+		this.responsable = responsable;
 	}
+	
+	
 
-	public void setId_responsable(int id_responsable) {
-		this.id_responsable = id_responsable;
-	}
 
-	public List<Employe> getEmployes() {
-		return employes;
-	}
-
-	public void setEmployes(List<Employe> employes) {
-		this.employes = employes;
-	}
-
-	public Employe getResponsables() {
-		return responsables;
-	}
-
-	public void setResponsables(Employe responsables) {
-		this.responsables = responsables;
-	}
 }

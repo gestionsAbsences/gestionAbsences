@@ -1,5 +1,8 @@
 package fr.simplon.domain;
 
+
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,68 +11,61 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Future;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
- * entity Service ABSENCE
+ * entity Absence
  * 
+ * @author Simplon
+ *
  */
 
 @Entity
-@Table(name="absence")
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
+@Table(name = "absence")
 public class Absence {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
 
 	@Column(name = "debut")
-	private String debut;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
+	@Future(message = "La date doit être postérieure à la date du jour")
+	private Date debut;
+
 
 	@Column(name = "fin")
-	private String fin;
-
-	@JsonIgnore
-	private int id_employe;
-	@JsonIgnore
-	private int id_type;
-	@JsonIgnore
-	private int id_statut;
-	@JsonIgnore
-	private int id_service_rh;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
+	private Date fin;
+	
 
 	@ManyToOne
-	@JoinColumn(name="id_type", insertable = false, updatable = false)
-	private TypeAbsence types;
+	@JoinColumn(name = "id_type")
+	private TypeAbsence type;
 
+	
 	@ManyToOne
-	@JoinColumn(name="id_statut", insertable = false, updatable = false)
-	private Statut statuts;
-
+	@JoinColumn(name = "id_statut")
+	private Statut statut;
+	
 	@ManyToOne
-	@JoinColumn(name="id_service_rh", insertable = false, updatable = false)
-	private ServiceRh valideur_rh;
-
-	@ManyToOne
-	@JoinColumn(name="id_employe", insertable = false, updatable = false)
-	private Employe employes;
+	@JoinColumn(name = "id_employe")
+	private Employe employe;
 
 
-	public Absence(){}
 
-	public Absence(Long id, String debut, String fin, int id_employe, int id_type, int id_statut, int id_service_rh) {
-		super();
-		this.id = id;
-		this.debut = debut;
-		this.fin = fin;
-		this.id_employe = id_employe;
-		this.id_type = id_type;
-		this.id_statut = id_statut;
-		this.id_service_rh = id_service_rh;
+	public Absence() {
+		
 	}
 
 	public Long getId() {
@@ -80,84 +76,48 @@ public class Absence {
 		this.id = id;
 	}
 
-	public String getDebut() {
+	public Date getDebut() {
 		return debut;
 	}
 
-	public void setDebut(String debut) {
+	public void setDebut(Date debut) {
 		this.debut = debut;
 	}
 
-	public String getFin() {
+	public Date getFin() {
 		return fin;
 	}
 
-	public void setFin(String fin) {
+	public void setFin(Date fin) {
 		this.fin = fin;
 	}
-
-	public int getId_employe() {
-		return id_employe;
+	
+	public Statut getStatut() {
+		return statut;
 	}
 
-	public void setId_employe(int id_employe) {
-		this.id_employe = id_employe;
+	public void setStatut(Statut statut) {
+		this.statut = statut;
 	}
 
-	public int getId_type() {
-		return id_type;
+	public Employe getEmploye() {
+		return employe;
 	}
 
-	public void setId_type(int id_type) {
-		this.id_type = id_type;
+	public void setEmploye(Employe employe) {
+		this.employe = employe;
 	}
 
-	public int getId_statut() {
-		return id_statut;
+	public TypeAbsence getType() {
+		return type;
 	}
 
-	public void setId_statut(int id_statut) {
-		this.id_statut = id_statut;
+	public void setType(TypeAbsence type) {
+		this.type = type;
 	}
 
-	public int getId_service_rh() {
-		return id_service_rh;
-	}
 
-	public void setId_service_rh(int id_service_rh) {
-		this.id_service_rh = id_service_rh;
-	}
-
-	public TypeAbsence getTypes() {
-		return types;
-	}
-
-	public void setTypes(TypeAbsence types) {
-		this.types = types;
-	}
-
-	public Statut getStatuts() {
-		return statuts;
-	}
-
-	public void setStatuts(Statut statuts) {
-		this.statuts = statuts;
-	}
-
-	public ServiceRh getValideur_rh() {
-		return valideur_rh;
-	}
-
-	public void setValideur_rh(ServiceRh valideur_rh) {
-		this.valideur_rh = valideur_rh;
-	}
-
-	public Employe getEmployes() {
-		return employes;
-	}
-
-	public void setEmployes(Employe employes) {
-		this.employes = employes;
-	}
+	
+	
 
 }

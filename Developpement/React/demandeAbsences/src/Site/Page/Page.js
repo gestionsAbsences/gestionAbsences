@@ -1,31 +1,56 @@
 import React, { Component } from 'react';
-//import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
 
-import './page.css';
 import '../Bootstrap/dist/css/sb-admin-2.css'
+import './page.css';
 import axios from 'axios'
 
 import Authentification from './Authentification/Authentification.js';
+<<<<<<< HEAD
+=======
+import ModifMotDePasse from './ModifMotDePasse/ModifMotDePasse.js';
+import ListeDemandes from './ListeDemandes/ListeDemandes.js';
+import NouvelleDemande from './NouvelleDemande/NouvelleDemande.js';
+>>>>>>> Fred
 
 class Page extends Component {
 
   constructor(props) {
       super(props);
       this.state = {
-          donnees: []
+          types: []
       }
   }
+
   componentDidMount() {
-       axios.get('http://localhost:8080/type/listeService/')
+       axios.get('http://localhost:8080/type/listeTypeAbsence/')
           .then(res => {
-              console.log(res.data.resources);
-              this.setState({type: res.data.resources});
+              console.log(res.data);
+              this.setState({types: res.data});
       });
   }
+
   render() {
     return (
       <div>
+<<<<<<< HEAD
         <Authentification />
+=======
+      {/*
+        <ul>
+          this.state.types.map(
+            (type, i) =>
+            <li key={i}>
+              {type.nom}
+            </li>
+          )
+        </ul>
+*/}
+
+<div className="voffset">&nbsp;</div>
+        <div className="page">
+          <ListeDemandes />
+        </div>
+>>>>>>> Fred
         <div className="marge"></div>
       </div>
     );

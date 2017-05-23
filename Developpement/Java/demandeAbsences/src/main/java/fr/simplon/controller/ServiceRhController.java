@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,11 +54,11 @@ public class ServiceRhController {
 	 * Affiche la liste des services rh
 	 * ResponseEntity permet gérer la réponse envoyée au front
 	 */
-	@GetMapping("listeService")
+	@GetMapping("/listeService")
 	public ResponseEntity<?> findAll() {	
 		List<ServiceRh> serviceRh = new ArrayList<ServiceRh>();
 		try {
-		serviceRh = (List<ServiceRh>) rhService.listeServicesRh();
+		serviceRh = rhService.listeServicesRh();
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
@@ -80,15 +81,15 @@ public class ServiceRhController {
 	 * contenant cette lettre sera affichée
 	 */
 	
-	@GetMapping("getService")
+	@GetMapping("/getService")
 	public ResponseEntity<?> findByName(@RequestParam(value="nom", defaultValue="") String nom) {	
-		List<ServiceRh> serviceRh = new ArrayList<ServiceRh>();
+		List<ServiceRh> findServiceRh = new ArrayList<ServiceRh>();
 		try {
-			serviceRh = (List<ServiceRh>) rhService.getServiceRh(nom);
+			findServiceRh = rhService.getServiceRh(nom);
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(serviceRh);
+		return ResponseEntity.ok(findServiceRh);
 	}
 	
 	/**
@@ -103,8 +104,8 @@ public class ServiceRhController {
 	 * La 2° ligne permet d'enregistrer les données dans le bean [ServiceRh serviceRh]
 	 * et de capter le résultat  [BindingResult result]
 	 */
-	@PostMapping(value="/creerService", consumes = "application/json")	
-	public ResponseEntity<?> save(@Valid ServiceRh serviceRh, BindingResult result) {			
+	@PostMapping(value="/creerServiceRh")	
+	public ResponseEntity<?> save(@RequestBody @Valid ServiceRh serviceRh, BindingResult result) {			
 	/*
 	 * On capture les éventuelles erreurs dans une map 
 	 * sous forme : key, value
@@ -114,7 +115,7 @@ public class ServiceRhController {
 			Map<String,Object> map = new HashMap<String,Object>();
 			if(result.hasErrors()){
 				for(FieldError error : result.getFieldErrors()){
-					map.put(error.getField(), String.format("message:%s", error.getDefaultMessage()));
+					map.put(error.getField(), String.format("%s", error.getDefaultMessage()));
 					return ResponseEntity.badRequest().body(map);
 				}
 			} else {
@@ -137,14 +138,16 @@ public class ServiceRhController {
 	
 	/*
 	 * La mise à jour suis le même principe que la création
+	 * Ne pas oublier de saisir l'id, sinon Hibernate croit 
+	 * qu'il s'agit d'une création
 	 */
-	@PutMapping(value="/updateService")	
-	public ResponseEntity<?> update(@Valid ServiceRh serviceRh, BindingResult result) {			
+	@PutMapping(value="/updateServiceRh")	
+	public ResponseEntity<?> update(@RequestBody @Valid ServiceRh serviceRh, BindingResult result) {			
 		Map<String,Object> map = new HashMap<String,Object>();
 		try{
 			if(result.hasErrors()){
 				for(FieldError error : result.getFieldErrors()){
-					map.put(error.getField(), String.format("message:%s", error.getDefaultMessage()));
+					map.put(error.getField(), String.format("%s", error.getDefaultMessage()));
 					return ResponseEntity.badRequest().body(map);
 				}
 			} else {
@@ -165,8 +168,8 @@ public class ServiceRhController {
 	 * La suppression se fait par le nom
 	 * Le reste de l'action est dans la classe Service
 	 */
-	@DeleteMapping("deleteService")
-	public ResponseEntity<?> delete(ServiceRh serviceRh) {	
+	@DeleteMapping("/deleteServiceRh")
+	public ResponseEntity<?> deleteRh(@RequestBody ServiceRh serviceRh) {	
 		try {
 			rhService.deleteServiceRh(serviceRh);
 		} catch (SQLException sqle) {

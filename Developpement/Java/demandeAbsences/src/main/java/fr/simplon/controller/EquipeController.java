@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,159 +25,148 @@ import fr.simplon.domain.Equipe;
 import fr.simplon.services.EquipeService;
 
 /**
- * CRUD des services EQUIPE
- * 
- * @author JGL
- * 
+ * Controleur REST de la classe Equipe
+ * @author simplon
+ *
  */
 
-/*
- * Controlleur pour la gestion des services Equipe
- * J'ai utilisé le verbe correspondant à l'action 
- * (get : lecture, post : création, put : mise à jour et delete: supression
- * url àsaisir dans le navigateur : localhost:8080/equipe/nomMethode
- */
 @RestController
-@RequestMapping("equipe")
+@RequestMapping("/equipe")
 public class EquipeController {
-	
+
 	@Autowired
 	EquipeService equipeService;
-	
+
 	/**
-	 * Liste des services equipe
-	 * 
-	 * @return liste des services equipe
+	 * Liste des equipes
+	 * @param search : critère de recherche
+	 * @param searchnew : 2eme critere de recherche 
+	 * @return liste des equipes
+	 * @throws Exception 
 	 */
-	
-	/*
-	 * Affiche la liste des services equipe
-	 * ResponseEntity permet gérer la réponse envoyée au front
-	 */
-	@GetMapping("listeService")
-	public ResponseEntity<?> findAll() {	
-		List<Equipe> equipe = new ArrayList<Equipe>();
+	@GetMapping("/listeEquipe")
+	public ResponseEntity<?> listEquipes(){
+		List<Equipe> listEquipe = new ArrayList<Equipe>();
 		try {
-		equipe = (List<Equipe>) equipeService.listeServicesEquipe();
+			listEquipe = equipeService.listEquipes();
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(equipe);
+		return ResponseEntity.ok(listEquipe);
 	}
-	
+
 	/**
 	 * 
-	 * Recherche des services Equipe par le nom
+	 * Recherche d'une equipe par le nom
 	 * 
 	 * @param String nom
 	 * 
-	 * @return 1 ou  plusieurs entités equipe 
+	 * @return 1 entité equipe
+	 * @throws Exception 
 	 * 
 	 */
-	
+
 	/*
-	 * Cette methode recherche un service Equipepar le nom
-	 * Il suffit de rentrer une lettre et la liste des services
-	 * contenant cette lettre sera affichée
+	 * Cette methode recherche une equipe par le nom
+	 * 
 	 */
-	
-	@GetMapping("getService")
-	public ResponseEntity<?> findByName(@RequestParam(value="nom", defaultValue="") String nom) {	
+
+	@GetMapping("/getEquipe")
+	public ResponseEntity<?> findById(@RequestParam(value = "nom", defaultValue = "") String nom){
 		List<Equipe> equipe = new ArrayList<Equipe>();
 		try {
-			equipe = (List<Equipe>) equipeService.getEquipe(nom);
+			equipe = equipeService.getEquipe(nom);
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
 		return ResponseEntity.ok(equipe);
 	}
-	
+
 	/**
-	 * Création de nouveaux services Equipe
+	 * Création d'une nouvelle equipe
 	 * 
-	 * @param email et nom du service Equipe
+	 * @param 
 	 * 
 	 * @return enregistrement ou erreur de saisie
 	 * 
 	 */
 	/*
-	 * La 2° ligne permet d'enregistrer les données dans le bean [Equipe equipe]
-	 * et de capter le résultat  [BindingResult result]
+	 * La 2° ligne permet d'enregistrer les données dans le bean [Absence
+	 * absence] et de capter le résultat [BindingResult result]
 	 */
-	@PostMapping(value="/creerService", consumes = "application/json")	
-	public ResponseEntity<?> save(@Valid Equipe equipe, BindingResult result) {			
-	/*
-	 * On capture les éventuelles erreurs dans une map 
-	 * sous forme : key, value
-	 * et formatée pour l'affichage
-	 */
-		try{
-			Map<String,Object> map = new HashMap<String,Object>();
-			if(result.hasErrors()){
-				for(FieldError error : result.getFieldErrors()){
+	@PostMapping(value = "/creerEquipe", consumes = "application/json")
+	public ResponseEntity<?> save(@RequestBody @Valid Equipe equipe, BindingResult result) {
+		/*
+		 * On capture les éventuelles erreurs dans une map sous forme : key,
+		 * value et formatée pour l'affichage
+		 */
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (result.hasErrors()) {
+				for (FieldError error : result.getFieldErrors()) {
 					map.put(error.getField(), String.format("message:%s", error.getDefaultMessage()));
 					return ResponseEntity.badRequest().body(map);
 				}
 			} else {
-		equipe =  equipeService.insertEquipe(equipe);
-		}
-		} catch( SQLException sqle){
+				equipe = equipeService.insertEquipe(equipe);
+			}
+		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(equipe.getNom()+" créée.");
+		return ResponseEntity.ok(equipe.getNom() + " créée.");
 	}
 	
 	/**
-	 * Mise à jour d'un service Equipe
+	 * Mise à jour d'une equipe
 	 * 
-	 * @param email et nom du service Equipe
+	 * @param d°
+	 *            que création
 	 * 
 	 * @return enregistrement ou erreur de saisie
 	 * 
 	 */
-	
+
 	/*
 	 * La mise à jour suis le même principe que la création
 	 */
-	@PutMapping(value="/updateService")	
-	public ResponseEntity<?> update(@Valid Equipe equipe, BindingResult result) {			
-		Map<String,Object> map = new HashMap<String,Object>();
-		try{
-			if(result.hasErrors()){
-				for(FieldError error : result.getFieldErrors()){
+	@PutMapping(value = "/updateEquipe")
+	public ResponseEntity<?> update(@RequestBody @Valid Equipe equipe, BindingResult result) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			if (result.hasErrors()) {
+				for (FieldError error : result.getFieldErrors()) {
 					map.put(error.getField(), String.format("message:%s", error.getDefaultMessage()));
 					return ResponseEntity.badRequest().body(map);
 				}
 			} else {
-		equipe =  equipeService.updateEquipe(equipe);
-		}
-		} catch( SQLException sqle){
+				equipe = equipeService.updateEquipe(equipe);
+			}
+		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(equipe.getNom()+" modifié.");
+		return ResponseEntity.ok(equipe.getNom() + " modifié.");
 	}
-	
+
+
+
+
 	/**
-	 * Supression d'un service Equipe
+	 * Suppression d'une equipe
 	 * @param nom
 	 * @return message de suppression
 	 */
 	/*
-	 * La suppression se fait par le nom
+	 * La suppression se fait par le matricule
 	 * Le reste de l'action est dans la classe Service
 	 */
-	@DeleteMapping("deleteService")
-	public ResponseEntity<?> delete(Equipe equipe) {	
+	@DeleteMapping("deleteEquipe")
+	public ResponseEntity<?> delete(@RequestBody Equipe equipe) {	
 		try {
 			equipeService.deleteEquipe(equipe);
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(equipe.getNom() + " supprimé.");
+		return ResponseEntity.ok("Equipe supprimée");
 	}
 
 }
-
-	
-
-

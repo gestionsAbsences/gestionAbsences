@@ -13,22 +13,27 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
- * entity Service EMPLOYE
+ * Entity Employé
  * 
+ * @author JGL
+ *
  */
 
 @Entity
-@Table(name="employe")
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
+@Table(name = "employe")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Employe {
 
 	@Id
@@ -41,57 +46,50 @@ public class Employe {
 	private String nom;
 
 	@Column(name = "prenom")
-	@NotBlank(message = "Nom obligatoire")
+	@NotBlank(message = "Prenom obligatoire")
 	@Length(min = 2, message = "La chaîne doit avoir au moins 2 caractères")
 	private String prenom;
 
-	@Column(name = "matricule")
-	@NotBlank(message = "Nom obligatoire")
-	@Length(min = 3, message = "La chaîne doit avoir au moins 3 caractères")
+	@Column(name = " matricule")
+	@NotBlank(message = "Matricule obligatoire")
+	@Length(min = 2, message = "La chaîne doit avoir au moins 2 caractères")
 	private String matricule;
 	
-	private int nb_cp;
-	private int nb_rtt;
-	private int nb_rc;
-	private int reliquat_ca;
-	private int reliquat_rtt;
-	private int id_equipe;
-	private int id_service_rh;
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "employe")
+	@Cascade(CascadeType.ALL)
+	private User user;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employes")
-	@JsonBackReference
-	private List<Absence> absences;
+	@Column(name = "nb_ca")
+	@NotNull(message = "Le nombre de C.A. est obligatoire")
+	@Max(value = 30, message = " Le nombre de congés ne peut être supérieur à 30")
+	private int nbCa;
+
+	@Column(name = "nb_rtt")
+	private int nbRtt;
+
+	@Column(name = "nb_rc")
+	private int nbRc;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employe")
+	private List<Absence> absence;
 
 	@ManyToOne
-	@JoinColumn(name="id_service_rh", insertable = false, updatable = false)
-	private ServiceRh gestionnaire_rh;
+	@JoinColumn(name = "id_service_rh")
+	private ServiceRh serviceRh;
 
 	@ManyToOne
-	@JoinColumn(name="id_equipe", insertable = false, updatable = false)
-	private Equipe equipes;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "responsables")
-	@JsonBackReference
-	private List<Equipe> resp_equipes;
-
-	@OneToOne
-	@JoinColumn(name="id", insertable = false, updatable = false)
-	private User users;
+	@JoinColumn(name = "id_equipe")
+	private Equipe equipe;
 
 
-	public Employe(){}
 
-	public Employe(Long id, String nom, String prenom, String matricule) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.matricule = matricule;
+	public Employe() {
+
 	}
 
-	public Long getId() {
-		return id;
-	}
+//	public Long getId() {
+//		return id;
+//	}
 
 	public void setId(Long id) {
 		this.id = id;
@@ -121,99 +119,60 @@ public class Employe {
 		this.matricule = matricule;
 	}
 
-	public int getNb_cp() {
-		return nb_cp;
+	public int getNbCa() {
+		return nbCa;
 	}
 
-	public void setNb_cp(int nb_cp) {
-		this.nb_cp = nb_cp;
+	public void setNbCa(int nbCa) {
+		this.nbCa = nbCa;
 	}
 
-	public int getNb_rtt() {
-		return nb_rtt;
+	public int getNbRtt() {
+		return nbRtt;
 	}
 
-	public void setNb_rtt(int nb_rtt) {
-		this.nb_rtt = nb_rtt;
+	public void setNbRtt(int nbRtt) {
+		this.nbRtt = nbRtt;
 	}
 
-	public int getNb_rc() {
-		return nb_rc;
+	public int getNbRc() {
+		return nbRc;
 	}
 
-	public void setNb_rc(int nb_rc) {
-		this.nb_rc = nb_rc;
+	public void setNbRc(int nbRc) {
+		this.nbRc = nbRc;
+	}
+	
+	public List<Absence> getAbsence() {
+		return absence;
 	}
 
-	public int getReliquat_ca() {
-		return reliquat_ca;
+	public void setAbsence(List<Absence> absence) {
+		this.absence = absence;
 	}
 
-	public void setReliquat_ca(int reliquat_ca) {
-		this.reliquat_ca = reliquat_ca;
+	public ServiceRh getServiceRh() {
+		return serviceRh;
 	}
 
-	public int getReliquat_rtt() {
-		return reliquat_rtt;
+	public void setServiceRh(ServiceRh serviceRh) {
+		this.serviceRh = serviceRh;
 	}
 
-	public void setReliquat_rtt(int reliquat_rtt) {
-		this.reliquat_rtt = reliquat_rtt;
+	public Equipe getEquipe() {
+		return equipe;
 	}
 
-	public int getId_equipe() {
-		return id_equipe;
+	public void setEquipe(Equipe equipe) {
+		this.equipe = equipe;
 	}
 
-	public void setId_equipe(int id_equipe) {
-		this.id_equipe = id_equipe;
+	public User getUser() {
+		return user;
 	}
 
-	public int getId_service_rh() {
-		return id_service_rh;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public void setId_service_rh(int id_service_rh) {
-		this.id_service_rh = id_service_rh;
-	}
-
-	public List<Absence> getAbsences() {
-		return absences;
-	}
-
-	public void setAbsences(List<Absence> absences) {
-		this.absences = absences;
-	}
-
-	public ServiceRh getGestionnaire_rh() {
-		return gestionnaire_rh;
-	}
-
-	public void setGestionnaire_rh(ServiceRh gestionnaire_rh) {
-		this.gestionnaire_rh = gestionnaire_rh;
-	}
-
-	public Equipe getEquipes() {
-		return equipes;
-	}
-
-	public void setEquipes(Equipe equipes) {
-		this.equipes = equipes;
-	}
-
-	public List<Equipe> getResp_equipes() {
-		return resp_equipes;
-	}
-
-	public void setResp_equipes(List<Equipe> resp_equipes) {
-		this.resp_equipes = resp_equipes;
-	}
-
-	public User getUsers() {
-		return users;
-	}
-
-	public void setUsers(User users) {
-		this.users = users;
-	}
 }

@@ -1,20 +1,31 @@
 package fr.simplon.dao;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import fr.simplon.domain.User;
 
+/**
+ * Interface du CRUD
+ * pour la classe User
+ * 
+ * @author JGL
+ *
+ */
+
 @Repository
-public interface UserDao extends CrudRepository<User, Long>{
+public interface UserDao extends JpaRepository<User, Long>{
 	
+
 	/**
 	 * lecture personnalisee dans la base de donnees
-	 * @param name 
-	 * @return email service USER
+	 * @param email
+	 * @return User
 	 */
-	@Query("from User where email like %?1%")
-	public Iterable<User> findByName(String email);
-	
+	@Query("from User where Email=?")
+	public List<User> findByEmail(String email);
+
 }

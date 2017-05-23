@@ -1,20 +1,38 @@
 package fr.simplon.dao;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import fr.simplon.domain.Employe;
 
+/**
+ * Interface du CRUD
+ * 
+ * @author JGL
+ *
+ */
 @Repository
-public interface EmployeDao extends CrudRepository<Employe, Long>{
+public interface EmployeDao extends JpaRepository<Employe, Long> {
 	
 	/**
-	 * lecture personnalisee dans la base de donnees
+	 * lecture personnalisee dans la base de donnees par le nom
 	 * @param name 
-	 * @return nom service EMPLOYE
+	 * @return liste des employés
 	 */
-	@Query("from Employe where Nom like %?1%")
-	public Iterable<Employe> findByName(String name);
 	
+	@Query("from Employe where Nom like %?1%")
+	public List<Employe> findByName(String name);
+	
+	/**
+	 * Recherche d'un employe par le matricule
+	 * @param matricule
+	 * @return employe
+	 */
+	
+	@Query("from Employe where matricule = ?")
+	public List<Employe> findByMat(String matricule);
+
 }

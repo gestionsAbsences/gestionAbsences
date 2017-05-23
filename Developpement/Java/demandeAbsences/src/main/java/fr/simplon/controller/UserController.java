@@ -1,7 +1,6 @@
 package fr.simplon.controller;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,66 +24,67 @@ import fr.simplon.domain.User;
 import fr.simplon.services.UserService;
 
 /**
- * CRUD des services USER
+ * CRUD des user
  * 
  * @author JGL
  * 
  */
 
 /*
- * Controlleur pour la gestion des services User
+ * Controlleur pour la gestion des employes
  * J'ai utilisé le verbe correspondant à l'action 
- * (get : lecture, post : création, put : mise à jour et delete: supression
- * url àsaisir dans le navigateur : localhost:8080/user/nomMethode
+ * (get : lecture, post : création, put : mise à jour et delete: suppression
+ * url àsaisir dans le navigateur : localhost:8080/emp/nomMethode
  */
 @RestController
 @RequestMapping("user")
-public class UserController {	
+
+public class UserController {
+	
 	@Autowired
 	UserService userService;
 	
 	/**
-	 * Liste des services user
+	 * Liste des employes
 	 * 
-	 * @return liste des services user
+	 * @return liste des employes
 	 */
 	
 	/*
-	 * Affiche la liste des services user
+	 * Affiche la liste des employes
 	 * ResponseEntity permet gérer la réponse envoyée au front
 	 */
-	@GetMapping("listeService")
+	@GetMapping("listeUsers")
 	public ResponseEntity<?> findAll() {	
-		List<User> user = new ArrayList<User>();
+		List<User> users;
 		try {
-		user = (List<User>) userService.listeServicesUser();
+		users = userService.listeUsers();
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(user);
+		return ResponseEntity.ok(users);
 	}
 	
 	/**
 	 * 
-	 * Recherche des services User par le nom
+	 * Recherche des users par l'email
 	 * 
-	 * @param String nom
+	 * @param String email
 	 * 
-	 * @return 1 ou  plusieurs entités user 
+	 * @return 1 user
 	 * 
 	 */
 	
 	/*
-	 * Cette methode recherche un service Userpar le nom
-	 * Il suffit de rentrer une lettre et la liste des services
-	 * contenant cette lettre sera affichée
+	 * Cette methode recherche un user par l'email
+	 * 
 	 */
 	
-	@GetMapping("getService")
-	public ResponseEntity<?> findByName(@RequestParam(value="nom", defaultValue="") String nom) {	
-		List<User> user = new ArrayList<User>();
+	@GetMapping("getUser")
+	public ResponseEntity<?> findByName(@RequestParam(value="email", defaultValue="") String email) {	
+		List<User> user;
 		try {
-			user = (List<User>) userService.getUser(nom);
+			user = userService.getUser(email);
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
@@ -91,24 +92,25 @@ public class UserController {
 	}
 	
 	/**
-	 * Création de nouveaux services User
+	 * Création de nouveaux users
 	 * 
-	 * @param email et nom du service User
+	 * @param données concernant le user
 	 * 
 	 * @return enregistrement ou erreur de saisie
 	 * 
 	 */
 	/*
-	 * La 2° ligne permet d'enregistrer les données dans le bean [User user]
+	 * La 2° ligne permet d'enregistrer les données dans le bean [Employe employe]
 	 * et de capter le résultat  [BindingResult result]
 	 */
-	@PostMapping(value="/creerService", consumes = "application/json")	
-	public ResponseEntity<?> save(@Valid User user, BindingResult result) {			
+	@PostMapping(value="/creerUser")	
+	public ResponseEntity<?> save(@RequestBody @Valid User user, BindingResult result) {			
 	/*
 	 * On capture les éventuelles erreurs dans une map 
 	 * sous forme : key, value
 	 * et formatée pour l'affichage
 	 */
+		System.out.println(user.getEmail()+" - "+user.getPasswd());
 		try{
 			Map<String,Object> map = new HashMap<String,Object>();
 			if(result.hasErrors()){
@@ -122,13 +124,13 @@ public class UserController {
 		} catch( SQLException sqle){
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(user.getEmail()+" créée.");
+		return ResponseEntity.ok(user.getEmail()+" crée");
 	}
 	
 	/**
-	 * Mise à jour d'un service User
+	 * Mise à jour d'un user
 	 * 
-	 * @param email et nom du service User
+	 * @param données à modifier du user
 	 * 
 	 * @return enregistrement ou erreur de saisie
 	 * 
@@ -137,8 +139,8 @@ public class UserController {
 	/*
 	 * La mise à jour suis le même principe que la création
 	 */
-	@PutMapping(value="/updateService")	
-	public ResponseEntity<?> update(@Valid User user, BindingResult result) {			
+	@PutMapping(value="/updateUser")	
+	public ResponseEntity<?> update(@RequestBody @Valid User user, BindingResult result) {			
 		Map<String,Object> map = new HashMap<String,Object>();
 		try{
 			if(result.hasErrors()){
@@ -156,22 +158,22 @@ public class UserController {
 	}
 	
 	/**
-	 * Supression d'un service User
-	 * @param nom
+	 * Suppression d'un user
+	 * @param email
 	 * @return message de suppression
 	 */
 	/*
-	 * La suppression se fait par le nom
+	 * La suppression se fait par le matricule
 	 * Le reste de l'action est dans la classe Service
 	 */
-	@DeleteMapping("deleteService")
-	public ResponseEntity<?> delete(User user) {	
+	@DeleteMapping("deleteUser")
+	public ResponseEntity<?> delete(@RequestBody User user) {	
 		try {
 			userService.deleteUser(user);
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(user.getEmail() + " supprimé.");
+		return ResponseEntity.ok("Suppression effectuée");
 	}
 
 }
