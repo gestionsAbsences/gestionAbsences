@@ -7,8 +7,8 @@ import './modifmotdepasse.css';
 class ModifMotDePasse extends Component {
   render() {
     return (
-      <div className="container">
-              <div className="row">
+      <div className="">
+              <div className="">
                   <div className="col-md-4 col-md-offset-4">
                       <div className="login-panel panel panel-default">
                           <div className="panel-heading">

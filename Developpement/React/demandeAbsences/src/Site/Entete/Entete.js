@@ -5,17 +5,17 @@ import './entete.css';
 
 import logo from '../Medias/Logo.jpg';
 
-let nom   = "WALTER";
-let prenom  = "Lisandra";
-let matricule = "GDUW23";
+let nom="WALTER";
+let prenom="Lisandra";
+let matricule="GDUW23";
 
 class Entete extends Component {
   render() {
     return (
       <div>
         <header>
-          <div className = "header breadcrumb">
-            <img className="logo" src={logo} />
+          <div className="header breadcrumb">
+            <img className="logo" src={logo} alt="" />
             {nom} {prenom} - {matricule}
           </div>
         </header>

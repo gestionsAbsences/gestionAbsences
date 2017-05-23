@@ -1,7 +1,6 @@
 package fr.simplon.services;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.simplon.dao.UserDao;
-import fr.simplon.domain.Employe;
 import fr.simplon.domain.User;
 
 /**
- * Classe métier du service USER
+ * Classe metier de la gestion des user
  * 
  * @author JGL
  *
@@ -23,10 +21,10 @@ import fr.simplon.domain.User;
 public class UserService {
 
 	@Autowired
-	private UserDao dao;
+	UserDao userDao;
 	
 	/**
-	 * Liste des services User
+	 * Liste des employes
 	 * @return une liste
 	 * @throws SQLException
 	 */
@@ -35,97 +33,62 @@ public class UserService {
 	 * Avec la boucle [for], on la parcours et on retourne une
 	 * liste de la table
 	 */
-	public List<User> listeServicesUser() throws SQLException {
-		List<User> resultat = new ArrayList<>();
+	public List<User> listeUsers() throws SQLException {
+		List<User> resultat;
 		try {
-			Iterable<User> recherche = dao.findAll();
-			for (User user : recherche) {
-				User us = new User();
-				us.setId(user.getId());
-				us.setEmail(user.getEmail());
-				us.setPassword(user.getPassword());
-				us.setIdEmploye(user.getIdEmploye());
-				us.setIdRole(user.getIdRole());
-				us.setRoles(user.getRoles());
-				
-				Employe em = new Employe();
-				em.setId(user.getUserEmploye().getId());
-				em.setNom(user.getUserEmploye().getNom());
-				em.setPrenom(user.getUserEmploye().getPrenom());
-				em.setMatricule(user.getUserEmploye().getMatricule());
-				us.setUserEmploye(em);
-
-				resultat.add(us);
-			}
+			resultat = userDao.findAll();
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listeUser" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: listeEmployes" + e);
 		}
 		return resultat;
 	}
 
 	/**
-	 * Recherche d'un service User
-	 * @param nom
-	 * @return une liste des services user en fonction du nom
+	 * Recherche d'un user
+	 * @param email
+	 * @return un profil employé
 	 * @throws SQLException
 	 */
 	/*
 	 * Meme principe que ci-dessus
 	 * une iteration qu'on transforme en liste
 	 */
-	public List<User> getUser(String nom) throws SQLException {
-		List<User> resultat = new ArrayList<>();
+	public List<User> getUser(String email) throws SQLException {
+		List<User> resultat;
 		try {
-			Iterable<User> recherche = dao.findByName(nom);
-			for (User user : recherche) {
-				User us = new User();
-				us.setId(user.getId());
-				us.setEmail(user.getEmail());
-				us.setPassword(user.getPassword());
-				us.setIdEmploye(user.getIdEmploye());
-				us.setIdRole(user.getIdRole());
-				us.setRoles(user.getRoles());
-				
-				Employe em = new Employe();
-				em.setId(user.getUserEmploye().getId());
-				em.setNom(user.getUserEmploye().getNom());
-				em.setPrenom(user.getUserEmploye().getPrenom());
-				em.setMatricule(user.getUserEmploye().getMatricule());
-				us.setUserEmploye(em);
-
-				resultat.add(us);
-			}
+			resultat = userDao.findByEmail(email);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listeUser" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: getUser" + e);
 		}
 		return resultat;
 	}
 
 	/**
-	 * Creation nouveau service User
+	 * Creation nouveau user
 	 * @param user
 	 * @return objet
 	 * @throws SQLException
 	 */
 	/*
-	 * Simple methode hibernate pour la creation d'un nouveau service User
-	 * J'ai crée un bojet User pour avoir le resultat de la creation en retour
+	 * Simple methode hibernate pour la creation d'un nouveau user
+	 * J'ai crée un objet User pour avoir le resultat de la creation en retour
 	 */
 	public User insertUser(User user) throws SQLException {
-		User creation = new User();
 		try {
-			creation = dao.save(user);
+			if(!userDao.findByEmail(user.getEmail()).isEmpty()) {
+				throw new Exception("Adresse email déjà utilisé");
+			} else {
+			user = userDao.save(user);
+			}
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: insertUser" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: insertUser " + e);
+
 		}
-		return (User) creation;
+		return user;
 	}
 
 	/**
-	 * Modification service User
+	 * Modification user
 	 * @param user
 	 * @return Objet
 	 * @throws SQLException
@@ -134,45 +97,33 @@ public class UserService {
 	 * Même principe que creation
 	 */
 	public User updateUser(User user) throws SQLException {
-		User modif = new User();
+		User modifUser;
 		try {
-			modif = dao.save(user);
+			modifUser = userDao.save(user);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: updateUser" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: updateUser" + e);
 		}
-		return (User) modif;
+		return modifUser;
 	}
 
 	/**
-	 * Suppression Service User
+	 * Suppression User
 	 * @param user
 	 * @throws SQLException
 	 */
 	/*
-	 * On commence par faire une recherche d'un service user
-	 * avec la methode [findByName()]
+	 * On commence par faire une recherche d'un user par son adresse email
+	 * avec la methode [findByEmail()]
 	 * Et on supprime l'objet par la methode delete
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteUser(User supUser) throws SQLException {
-		try{
-			Iterable<User> temp = dao.findByName(supUser.getEmail());
-			for (User user : temp) {
-				User us = new User();
-				us.setId(user.getId());
-				us.setEmail(user.getEmail());
-				us.setPassword(user.getPassword());
-				us.setIdEmploye(user.getIdEmploye());
-				us.setIdRole(user.getIdRole());
-				us.setRoles(user.getRoles());
-				dao.delete(us);
-			}
+	public void deleteUser(User supprUser) throws SQLException {
+		try {
+			userDao.delete(supprUser);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: deleteUser" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: deleteUser" + e);
 		}
 	}
-
+	
 }

@@ -1,7 +1,6 @@
 package fr.simplon.services;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.simplon.dao.EmployeDao;
 import fr.simplon.domain.Employe;
-import fr.simplon.domain.Equipe;
-import fr.simplon.domain.User;
+
 
 /**
- * Classe métier du service EMPLOYE
+ * Classe metier de la gestion des employés
  * 
  * @author JGL
  *
@@ -22,12 +20,12 @@ import fr.simplon.domain.User;
 @Service
 @Transactional
 public class EmployeService {
-
+	
 	@Autowired
-	private EmployeDao dao;
+	EmployeDao employeDao;
 	
 	/**
-	 * Liste des services Employe
+	 * Liste des employes
 	 * @return une liste
 	 * @throws SQLException
 	 */
@@ -36,52 +34,20 @@ public class EmployeService {
 	 * Avec la boucle [for], on la parcours et on retourne une
 	 * liste de la table
 	 */
-	public List<Employe> listeServicesEmploye() throws SQLException {
-		List<Employe> resultat = new ArrayList<>();
+	public List<Employe> listeEmployes() throws SQLException {
+		List<Employe> listeEmployes;
 		try {
-			Iterable<Employe> recherche = dao.findAll();
-			for (Employe employe : recherche) {
-				Employe em = new Employe();
-				em.setId(employe.getId());
-				em.setNom(employe.getNom());
-				em.setPrenom(employe.getPrenom());
-				em.setMatricule(employe.getMatricule());
-				em.setNbCa(employe.getNbCa());
-				em.setNbRtt(employe.getNbRtt());
-				em.setNbRc(employe.getNbRc());
-				em.setReliquatCa(employe.getReliquatCa());
-				em.setReliquatRtt(employe.getReliquatRtt());
-				em.setIdEquipe(employe.getIdEquipe());
-				em.setIdServiceRh(employe.getIdServiceRh());
-				
-				em.setAbsences(employe.getAbsences());
-				em.setGestionnaireRh(employe.getGestionnaireRh());
-				
-				Equipe eq = new Equipe();
-				eq.setId(employe.getEquipes().getId());
-				eq.setNom(employe.getEquipes().getNom());
-				eq.setIdResponsable(employe.getEquipes().getIdResponsable());
-				em.setEquipes(eq);
-				
-				User us = new User();
-				us.setId(employe.getUsers().getId());
-				us.setEmail(employe.getUsers().getEmail());
-				us.setPassword(employe.getUsers().getPassword());
-				em.setUsers(us);
-				
-				resultat.add(em);
-			}
+			listeEmployes = employeDao.findAll();
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listeEmploye" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: listeEmployes" + e);
 		}
-		return resultat;
+		return listeEmployes;
 	}
 
 	/**
-	 * Recherche d'un service Employe
+	 * Recherche d'un employe
 	 * @param nom
-	 * @return une liste des services employe en fonction du nom
+	 * @return une liste des employes en fonction du nom
 	 * @throws SQLException
 	 */
 	/*
@@ -89,70 +55,41 @@ public class EmployeService {
 	 * une iteration qu'on transforme en liste
 	 */
 	public List<Employe> getEmploye(String nom) throws SQLException {
-		List<Employe> resultat = new ArrayList<>();
+		List<Employe> getEmploye;
 		try {
-			Iterable<Employe> recherche = dao.findByName(nom);
-			for (Employe employe : recherche) {
-				Employe em = new Employe();
-				em.setId(employe.getId());
-				em.setNom(employe.getNom());
-				em.setPrenom(employe.getPrenom());
-				em.setMatricule(employe.getMatricule());
-				em.setNbCa(employe.getNbCa());
-				em.setNbRtt(employe.getNbRtt());
-				em.setNbRc(employe.getNbRc());
-				em.setReliquatCa(employe.getReliquatCa());
-				em.setReliquatRtt(employe.getReliquatRtt());
-				em.setIdEquipe(employe.getIdEquipe());
-				em.setIdServiceRh(employe.getIdServiceRh());
-				
-				em.setAbsences(employe.getAbsences());
-				em.setGestionnaireRh(employe.getGestionnaireRh());
-				
-				Equipe eq = new Equipe();
-				eq.setId(employe.getEquipes().getId());
-				eq.setNom(employe.getEquipes().getNom());
-				eq.setIdResponsable(employe.getEquipes().getIdResponsable());
-				em.setEquipes(eq);
-				
-				User us = new User();
-				us.setId(employe.getUsers().getId());
-				us.setEmail(employe.getUsers().getEmail());
-				us.setPassword(employe.getUsers().getPassword());
-				em.setUsers(us);
-				
-				resultat.add(em);
-			}
+			getEmploye = employeDao.findByName(nom);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listeEmploye" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: getEmploye" + e);
 		}
-		return resultat;
+		return getEmploye;
 	}
 
 	/**
-	 * Creation nouveau service Employe
+	 * Creation nouvel employe
 	 * @param employe
 	 * @return objet
 	 * @throws SQLException
 	 */
 	/*
-	 * Simple methode hibernate pour la creation d'un nouveau service Employe
-	 * J'ai crée un bojet Employe pour avoir le resultat de la creation en retour
+	 * Simple methode hibernate pour la creation d'un nouveau service Rh
+	 * J'ai crée un objet Employe pour avoir le resultat de la creation en retour
 	 */
 	public Employe insertEmploye(Employe employe) throws SQLException {
-		Employe creation = new Employe();
+		Employe creationEmploye=null;
 		try {
-			creation = dao.save(employe);
+			if(!employeDao.findByMat(employe.getMatricule()).isEmpty()){
+				throw new Exception("matricule déjà utilisé");
+			} else {
+				creationEmploye = employeDao.save(employe);
+			}
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: insertEmploye" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: insertEmploye" + e);
 		}
-		return (Employe) creation;
+		return creationEmploye;
 	}
 
 	/**
-	 * Modification service Employe
+	 * Modification employe
 	 * @param employe
 	 * @return Objet
 	 * @throws SQLException
@@ -161,50 +98,32 @@ public class EmployeService {
 	 * Même principe que creation
 	 */
 	public Employe updateEmploye(Employe employe) throws SQLException {
-		Employe modif = new Employe();
+		Employe modifEmploye;
 		try {
-			modif = dao.save(employe);
+			modifEmploye = employeDao.save(employe);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: updateEmploye" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: updateEmploye" + e);
 		}
-		return (Employe) modif;
+		return modifEmploye;
 	}
 
 	/**
-	 * Suppression Service Employe
+	 * Suppression Employe
 	 * @param employe
 	 * @throws SQLException
 	 */
 	/*
-	 * On commence par faire une recherche d'un service employe
-	 * avec la methode [findByName()]
+	 * On commence par faire une recherche d'un employe par son matricule
+	 * avec la methode [findByMat()]
 	 * Et on supprime l'objet par la methode delete
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteEmploye(Employe supEmploye) throws SQLException {
-		try{
-			Iterable<Employe> temp = dao.findByName(supEmploye.getNom());
-			for (Employe employe : temp) {
-				Employe em = new Employe();
-				em.setId(employe.getId());
-				em.setNom(employe.getNom());
-				em.setPrenom(employe.getPrenom());
-				em.setMatricule(employe.getMatricule());
-				em.setNbCa(employe.getNbCa());
-				em.setNbRtt(employe.getNbRtt());
-				em.setNbRc(employe.getNbRc());
-				em.setReliquatCa(employe.getReliquatCa());
-				em.setReliquatRtt(employe.getReliquatRtt());
-				em.setIdEquipe(employe.getIdEquipe());
-				em.setIdServiceRh(employe.getIdServiceRh());
-				dao.delete(em);
-			}
+	public void deleteEmploye(Employe supprEmploye) throws SQLException {
+		try{		
+			employeDao.delete(supprEmploye);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: deleteEmploye" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: deleteEmploye" + e);
 		}
 	}
-
 }

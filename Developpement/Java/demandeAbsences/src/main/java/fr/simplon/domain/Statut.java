@@ -4,14 +4,13 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -19,37 +18,35 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
- * entity Service STATUT
+ * entity Statut
  * 
+ * @author Simplon
+ *
  */
-
 @Entity
-@Table(name="statut")
+@Table(name = "Statut")
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class Statut {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
-
+	
 	@Column(name = "nom")
-	@NotBlank(message = "Nom obligatoire")
-	@Length(min = 2, message = "La chaîne doit avoir au moins 2 caractères")
+	@NotBlank(message = "nom obligatoire!")
 	private String nom;
 
+	@Column(name = "code")
+	@NotNull(message = "code obligatoire")
 	private int code;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "statuts")
+	@OneToMany(mappedBy = "statut")
 	@JsonBackReference
-	private List<Absence> absences;
+	private List<Absence> absence;
 
-
-	public Statut(){}
-
-	public Statut(Long id, String nom) {
+	public Statut() {
 		super();
-		this.id = id;
-		this.nom = nom;
 	}
 
 	public Long getId() {
@@ -68,14 +65,6 @@ public class Statut {
 		this.nom = nom;
 	}
 
-	public List<Absence> getAbsences() {
-		return absences;
-	}
-
-	public void setAbsences(List<Absence> absences) {
-		this.absences = absences;
-	}
-
 	public int getCode() {
 		return code;
 	}
@@ -84,4 +73,14 @@ public class Statut {
 		this.code = code;
 	}
 
+	public List<Absence> getAbsence() {
+		return absence;
+	}
+
+	public void setAbsence(List<Absence> absence) {
+		this.absence = absence;
+	}
+	
 }
+
+

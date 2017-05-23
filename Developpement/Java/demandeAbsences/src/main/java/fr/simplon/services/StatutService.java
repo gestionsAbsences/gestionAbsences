@@ -1,7 +1,6 @@
 package fr.simplon.services;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,98 +10,80 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.simplon.dao.StatutDao;
 import fr.simplon.domain.Statut;
 
-/**
- * Classe métier du service STATUT
- * 
- * @author JGL
- *
- */
 @Service
 @Transactional
 public class StatutService {
 
+		
 	@Autowired
-	private StatutDao dao;
+	private StatutDao statutDao;
 	
+
 	/**
-	 * Liste des services Statut
+	 * Liste des statuts
+	 * 
 	 * @return une liste
 	 * @throws SQLException
 	 */
 	/*
-	 * La methode [findAll] retourne une iteration de la table
-	 * Avec la boucle [for], on la parcours et on retourne une
-	 * liste de la table
+	 * La methode [findAll] retourne une liste de la table 
+	 * La methode [findAll] est overrride.
 	 */
-	public List<Statut> listeServicesStatut() throws SQLException {
-		List<Statut> resultat = new ArrayList<>();
+	public List<Statut> listeStatut() throws SQLException {
+		List<Statut> resultat;
 		try {
-			Iterable<Statut> recherche = dao.findAll();
-			for (Statut statut : recherche) {
-				Statut st = new Statut();
-				st.setId(statut.getId());
-				st.setNom(statut.getNom());
-				st.setAbsences(statut.getAbsences());
-				resultat.add(st);
-			}
+			resultat = statutDao.findAll();
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listeStatut" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: listeAbsence" + e);
 		}
 		return resultat;
 	}
 
 	/**
-	 * Recherche d'un service Statut
+	 * Recherche d'un statut
+	 * 
 	 * @param nom
-	 * @return une liste des services statut en fonction du nom
+	 * @return une liste des services absence en fonction du code
 	 * @throws SQLException
 	 */
 	/*
-	 * Meme principe que ci-dessus
-	 * une iteration qu'on transforme en liste
+	 * Meme principe que ci-dessus une iteration qu'on transforme en liste
 	 */
-	public List<Statut> getStatut(String nom) throws SQLException {
-		List<Statut> resultat = new ArrayList<>();
+	public List<Statut> getStatutByCode(int code) throws SQLException {
+		List<Statut> resultat;
 		try {
-			Iterable<Statut> recherche = dao.findByName(nom);
-			for (Statut statut : recherche) {
-				Statut st = new Statut();
-				st.setId(statut.getId());
-				st.setNom(statut.getNom());
-				st.setAbsences(statut.getAbsences());
-				resultat.add(st);
-			}
+			resultat = statutDao.findByCode(code);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listeStatut" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: listeAbsence" + e);
 		}
 		return resultat;
 	}
 
 	/**
-	 * Creation nouveau service Statut
+	 * Creation nouveau statut
+	 * 
 	 * @param statut
 	 * @return objet
 	 * @throws SQLException
 	 */
 	/*
-	 * Simple methode hibernate pour la creation d'un nouveau service Statut
-	 * J'ai crée un bojet Statut pour avoir le resultat de la creation en retour
+	 * Simple methode hibernate pour la creation d'un nouveau statut
+	 * J'ai crée un bojet Absence pour avoir le resultat de la creation en
+	 * retour
 	 */
 	public Statut insertStatut(Statut statut) throws SQLException {
-		Statut creation = new Statut();
+		Statut creationStatut;
 		try {
-			creation = dao.save(statut);
+			creationStatut = statutDao.save(statut);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: insertStatut" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: insertAbsence" + e);
 		}
-		return (Statut) creation;
+		return creationStatut;
 	}
 
 	/**
-	 * Modification service Statut
+	 * Modification statut
+	 * 
 	 * @param statut
 	 * @return Objet
 	 * @throws SQLException
@@ -111,42 +92,32 @@ public class StatutService {
 	 * Même principe que creation
 	 */
 	public Statut updateStatut(Statut statut) throws SQLException {
-		Statut modif = new Statut();
+		Statut modifStatut;
 		try {
-			modif = dao.save(statut);
+			modifStatut = statutDao.save(statut);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: updateStatut" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: updateAbsence" + e);
 		}
-		return (Statut) modif;
+		return modifStatut;
 	}
 
 	/**
-	 * Suppression Service Statut
+	 * Suppression statut
+	 * 
 	 * @param statut
 	 * @throws SQLException
 	 */
 	/*
-	 * On commence par faire une recherche d'un service statut
-	 * avec la methode [findByName()]
-	 * Et on supprime l'objet par la methode delete
-	 * d'hibernate qui supprime une entité complete.
-	 * Cette methode peut etre appelé à evoluer
+	 * On commence par faire une recherche d'un service absence avec la methode
+	 * [findByName()] Et on supprime l'objet par la methode delete d'hibernate
+	 * qui supprime une entité complete. Cette methode peut etre appelé à
+	 * evoluer
 	 */
-	public void deleteStatut(Statut supStatut) throws SQLException {
-		try{
-			Iterable<Statut> temp = dao.findByName(supStatut.getNom());
-			for (Statut statut : temp) {
-				Statut st = new Statut();
-				st.setId(statut.getId());
-				st.setNom(statut.getNom());
-				st.setAbsences(statut.getAbsences());
-				dao.delete(st);
-			}
+	public void deleteStatut(Statut statut) throws SQLException {
+		try {
+			statutDao.delete(statut);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: deleteStatut" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: deleteAbsence" + e);
 		}
 	}
-
 }

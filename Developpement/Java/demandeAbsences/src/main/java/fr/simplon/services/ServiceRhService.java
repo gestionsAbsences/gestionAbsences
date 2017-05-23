@@ -12,7 +12,7 @@ import fr.simplon.dao.ServiceRhDao;
 import fr.simplon.domain.ServiceRh;
 
 /**
- * Classe métier du service RH
+ * Classe métier du service Rh
  * 
  * @author JGL
  *
@@ -31,23 +31,15 @@ public class ServiceRhService {
 	 */
 	/*
 	 * La methode [findAll] retourne une iteration de la table
-	 * Avec la boucle [for], on la parcours et on retourne une
-	 * liste de la table
+	 * Le méthode "iterationToList(iteration)" permet de retourner
+	 * le résultat sous forme de liste 
 	 */
 	public List<ServiceRh> listeServicesRh() throws SQLException {
 		List<ServiceRh> resultat = new ArrayList<>();
 		try {
-			Iterable<ServiceRh> recherche = rhDao.findAll();
-			for (ServiceRh serviceRh : recherche) {
-				ServiceRh rh = new ServiceRh();
-				rh.setId(serviceRh.getId());
-				rh.setEmail(serviceRh.getEmail());
-				rh.setNom(serviceRh.getNom());
-				resultat.add(rh);
-			}
+			resultat = rhDao.findAll();
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listeServiceRh" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: listeServiceRh" + e);
 		}
 		return resultat;
 	}
@@ -59,23 +51,15 @@ public class ServiceRhService {
 	 * @throws SQLException
 	 */
 	/*
-	 * Meme principe que ci-dessus
-	 * une iteration qu'on transforme en liste
+	 * Meme principe que ci-dessus : une iteration qu'on transforme en liste
+	 * car une liste sera retourner, peu importe le nombre de lettres du mot
 	 */
 	public List<ServiceRh> getServiceRh(String nom) throws SQLException {
 		List<ServiceRh> resultat = new ArrayList<>();
 		try {
-			Iterable<ServiceRh> recherche = rhDao.findByName(nom);	
-			for (ServiceRh serviceRh : recherche) {
-				ServiceRh rh = new ServiceRh();
-				rh.setId(serviceRh.getId());
-				rh.setEmail(serviceRh.getEmail());
-				rh.setNom(serviceRh.getNom());
-				resultat.add(rh);
-			}
+			resultat = rhDao.findByName(nom);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listeServiceRh" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: listeServiceRh" + e);
 		}
 		return resultat;
 	}
@@ -88,17 +72,20 @@ public class ServiceRhService {
 	 */
 	/*
 	 * Simple methode hibernate pour la creation d'un nouveau service Rh
-	 * J'ai crée un bojet ServiceRh pour avoir le resultat de la creation en retour
+	 * J'ai crée un objet ServiceRh pour avoir le resultat de la creation en retour
 	 */
 	public ServiceRh insertServiceRh(ServiceRh serviceRh) throws SQLException {
-		ServiceRh creation = new ServiceRh();
+		ServiceRh creationRh = new ServiceRh();
 		try {
-			creation = rhDao.save(serviceRh);
+			if(!rhDao.findByEmail(serviceRh.getEmail()).isEmpty()){
+				throw new Exception("L'adresse email est déja utilisée");
+			} else {
+				creationRh = rhDao.save(serviceRh);
+			}
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: insertServiceRh" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: insertServiceRh" + e);
 		}
-		return (ServiceRh) creation;
+		return creationRh;
 	}
 
 	/**
@@ -111,14 +98,13 @@ public class ServiceRhService {
 	 * Même principe que creation
 	 */
 	public ServiceRh updateServiceRh(ServiceRh serviceRh) throws SQLException {
-		ServiceRh modif = new ServiceRh();
+		ServiceRh modifRh = new ServiceRh();
 		try {
-			modif = rhDao.save(serviceRh);
+			modifRh = rhDao.save(serviceRh);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: updateServiceRh" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: updateServiceRh" + e);
 		}
-		return (ServiceRh) modif;
+		return (ServiceRh) modifRh;
 	}
 
 	/**
@@ -133,20 +119,11 @@ public class ServiceRhService {
 	 * d'hibernate qui supprime une entité complete.
 	 * Cette methode peut etre appelé à evoluer
 	 */
-	public void deleteServiceRh(ServiceRh supServiceRh) throws SQLException {
+	public void deleteServiceRh(ServiceRh supprRh) throws SQLException {
 		try{
-			Iterable<ServiceRh> temp = rhDao.findByName(supServiceRh.getNom());
-			for (ServiceRh serviceRh : temp) {
-				ServiceRh rh = new ServiceRh();
-				rh.setId(serviceRh.getId());
-				rh.setEmail(serviceRh.getEmail());
-				rh.setNom(serviceRh.getNom());
-				rhDao.delete(rh);
-			}
+			rhDao.delete(supprRh);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: deleteServiceRh" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: deleteServiceRh" + e);
 		}
 	}
-
 }

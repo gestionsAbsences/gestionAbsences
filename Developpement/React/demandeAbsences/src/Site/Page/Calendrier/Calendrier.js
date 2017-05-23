@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 
 import '../../Bootstrap/dist/css/sb-admin-2.css'
-import './listedemandes.css';
+import './calendrier.css';
 
-import liste from './listedemandes.json'
+import Users from './donnees/users.json'
+import Feries from './donnees/feries.json'
+import Absences from './donnees/absences.json'
 
-class ListeDemandes extends Component {
+class Calendrier extends Component {
   render() {
     return (
-      <div className="">
+      <div className="listedemande">
         <h2>Liste de vos dernières demandes</h2>
         <div className="">
           <table className="table table-bordered table-hover table-striped">
@@ -55,4 +57,4 @@ class ListeDemandes extends Component {
   }
 }
 
-export default ListeDemandes;
+export default Calendrier;

@@ -7,26 +7,42 @@ import axios from 'axios'
 import Authentification from './Authentification/Authentification.js';
 import ModifMotDePasse from './ModifMotDePasse/ModifMotDePasse.js';
 import ListeDemandes from './ListeDemandes/ListeDemandes.js';
+import NouvelleDemande from './NouvelleDemande/NouvelleDemande.js';
 
 class Page extends Component {
 
   constructor(props) {
       super(props);
       this.state = {
-          donnees: []
+          types: []
       }
   }
+
   componentDidMount() {
-       axios.get('http://localhost:8080/type/listeService/')
+       axios.get('http://localhost:8080/type/listeTypeAbsence/')
           .then(res => {
-              console.log(res.data.resources);
-              this.setState({type: res.data.resources});
+              console.log(res.data);
+              this.setState({types: res.data});
       });
   }
+
   render() {
     return (
       <div>
-        <ListeDemandes />
+      {/*
+        <ul>
+          this.state.types.map(
+            (type, i) =>
+            <li key={i}>
+              {type.nom}
+            </li>
+          )
+        </ul>
+*/}
+
+        <div className="page">
+          <NouvelleDemande />
+        </div>
         <div className="marge"></div>
       </div>
     );

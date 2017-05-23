@@ -3,3 +3,7 @@
   /*position: fixed;*/
   /*width: 12%;*/
 }
+
+.table tr td {
+  padding-bottom: 8px;
+}

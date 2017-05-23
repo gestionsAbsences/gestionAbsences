@@ -1,20 +1,18 @@
 package fr.simplon.dao;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 import fr.simplon.domain.Statut;
 
-@Repository
-public interface StatutDao extends CrudRepository<Statut, Long>{
+public interface StatutDao extends JpaRepository<Statut, Long>{
 	
-	/**
-	 * lecture personnalisee dans la base de donnees
-	 * @param name 
-	 * @return nom service STATUT
-	 */
-	@Query("from Statut where Nom like %?1%")
-	public Iterable<Statut> findByName(String name);
-	
+	 
+	@Query("from Statut where code = ? ")
+	public List<Statut> findByCode(int code);
+
 }
+
+

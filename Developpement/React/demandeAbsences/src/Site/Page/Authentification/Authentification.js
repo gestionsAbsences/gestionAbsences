@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 
 import '../../Bootstrap/dist/css/sb-admin-2.css'
 import './authentification.css';
-//import { nav, btn } from 'react-bootstrap';
 
 class Authentification extends Component {
   render() {
     return (
-      <div className="container">
-              <div className="row">
+      <div className="">
+              <div className="">
                   <div className="col-md-4 col-md-offset-4">
                       <div className="login-panel panel panel-default">
                           <div className="panel-heading">
@@ -18,10 +17,10 @@ class Authentification extends Component {
                               <form role="form">
                                   <fieldset>
                                       <div className="form-group">
-                                          <input className="form-control" placeholder="Adresse mail" name="email" type="email" autofocus />
+                                          <input className="form-control" placeholder="Adresse mail" name="email" type="email" autoFocus></input>
                                       </div>
                                       <div className="form-group">
-                                          <input className="form-control" placeholder="Mot de passe" name="password" type="password" value="" />
+                                          <input className="form-control" placeholder="Mot de passe" name="password" type="password" value=""></input>
                                       </div>
                                       <div className="checkbox">
                                           <label>

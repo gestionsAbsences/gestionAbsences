@@ -1,12 +1,11 @@
     import React, { Component } from 'react';
-    import {GlyphIcons, Container, Grid, Card, Icon, Popup} from 'semantic-ui-react';
     import '../Bootstrap/dist/css/sb-admin-2.css'
     import './bardenav.css';
 
     class BarDeNav extends Component {
       render() {
         return (
-          <div classNameName="bardenav">
+          <div className="bardenav">
             <div className="marge"></div>
             <div className="affix col-md-2 panel-group" id="accordion">
               <div className="panel panel-default">
@@ -28,6 +27,7 @@
                   <div id="collapseTwo" className="panel-collapse collapse">
                       <div className="panel-body">
                           <table className="table">
+                            <tbody>
                               <tr>
                                   <td>
                                       <a href="#">Nouvelle demande</a>
@@ -43,6 +43,7 @@
                                       <a href="#">Reliquat de congés</a>
                                   </td>
                               </tr>
+                             </tbody>
                           </table>
                       </div>
                   </div>
@@ -58,6 +59,7 @@
                   <div id="collapseThree" className="panel-collapse collapse">
                       <div className="panel-body">
                           <table className="table">
+                            <tbody>
                               <tr>
                                   <td>
                                       <a href="#">Mon calendrier</a>
@@ -73,6 +75,7 @@
                                       <a href="#">Calendrier du personnel</a>
                                   </td>
                               </tr>
+                             </tbody>
                           </table>
                       </div>
                   </div>
@@ -87,6 +90,7 @@
                   <div id="collapseFour" className="panel-collapse collapse">
                       <div className="panel-body">
                           <table className="table">
+                            <tbody>
                               <tr>
                                   <td>
                                       <span className="glyphicon glyphicon-usd"></span>
@@ -99,6 +103,7 @@
                                       <a href="#">Gestion d'équipe</a>
                                   </td>
                               </tr>
+                             </tbody>
                           </table>
                       </div>
                   </div>

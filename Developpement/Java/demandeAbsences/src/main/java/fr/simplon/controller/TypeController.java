@@ -1,7 +1,6 @@
 package fr.simplon.controller;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,162 +24,138 @@ import fr.simplon.domain.TypeAbsence;
 import fr.simplon.services.TypeService;
 
 /**
- * CRUD des services TYPE
- * 
- * @author JGL
- * 
+ * Controleur REST de la classe TypeAbsence
+ * @author simplon
+ *
  */
 
-/*
- * Controlleur pour la gestion des services Type
- * J'ai utilisé le verbe correspondant à l'action 
- * (get : lecture, post : création, put : mise à jour et delete: supression
- * url àsaisir dans le navigateur : localhost:8080/type/nomMethode
- */
-
-//@CrossOrigin(origins="http://localhost:3000")
-@CrossOrigin(origins="*")
 @RestController
-@RequestMapping("type")
+@RequestMapping("/type")
+@CrossOrigin(origins="*")
 public class TypeController {
-	
+
 	@Autowired
 	TypeService typeService;
-	
+
 	/**
-	 * Liste des services type
-	 * 
-	 * @return liste des services type
+	 * Liste des types
+	 * @param search : critère de recherche
+	 * @param searchnew : 2eme critere de recherche 
+	 * @return liste des types
 	 */
-	
-	/*
-	 * Affiche la liste des services type
-	 * ResponseEntity permet gérer la réponse envoyée au front
-	 */
-	@GetMapping("listeService")
-	public ResponseEntity<?> findAll() {	
-		List<TypeAbsence> listType = new ArrayList<TypeAbsence>();
+	@GetMapping("/listeTypeAbsence")
+	public ResponseEntity<?> findAll() {
+		List<TypeAbsence> typeabsence;
 		try {
-			listType = (List<TypeAbsence>) typeService.listeServicesType();
+			typeabsence =typeService.listeTypeAbsence();
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(listType);
+		return ResponseEntity.ok(typeabsence);
 	}
-	
+
 	/**
+	 * recherche d'un type. note : l'id est dans l'url et non en parametre
 	 * 
-	 * Recherche des services Type par le nom
-	 * 
-	 * @param String nom
-	 * 
-	 * @return 1 ou  plusieurs entités type 
-	 * 
+	 * @param id : id du type
+	 * @return : objet type
 	 */
-	
-	/*
-	 * Cette methode recherche un service Typepar le nom
-	 * Il suffit de rentrer une lettre et la liste des services
-	 * contenant cette lettre sera affichée
-	 */
-	
-	@GetMapping("getService")
-	public ResponseEntity<?> findByName(@RequestParam(value="nom", defaultValue="") String nom) {	
-		List<TypeAbsence> typeTrouve = new ArrayList<TypeAbsence>();
+	@GetMapping("/getTypeByName")
+	public ResponseEntity<?> findById(@RequestParam(value = "nom", defaultValue = "") String nom) {
+		List<TypeAbsence> typeAbsence;
 		try {
-			typeTrouve = (List<TypeAbsence>) typeService.getType(nom);
+			typeAbsence =typeService.getTypeByName(nom);
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(typeTrouve);
+		return ResponseEntity.ok(typeAbsence);
 	}
-	
+
 	/**
-	 * Création de nouveaux services Type
+	 * Création d'un nouveau type d'absence
 	 * 
-	 * @param email et nom du service Type
+	 * @param 
 	 * 
 	 * @return enregistrement ou erreur de saisie
 	 * 
 	 */
 	/*
-	 * La 2° ligne permet d'enregistrer les données dans le bean [Type type]
-	 * et de capter le résultat  [BindingResult result]
+	 * La 2° ligne permet d'enregistrer les données dans le bean [Absence
+	 * absence] et de capter le résultat [BindingResult result]
 	 */
-	@PostMapping(value="/creerService", consumes = "application/json")	
-	public ResponseEntity<?> save(@Valid TypeAbsence typeCree, BindingResult result) {			
-	/*
-	 * On capture les éventuelles erreurs dans une map 
-	 * sous forme : key, value
-	 * et formatée pour l'affichage
-	 */
-		try{
-			Map<String,Object> map = new HashMap<String,Object>();
-			if(result.hasErrors()){
-				for(FieldError error : result.getFieldErrors()){
+	@PostMapping(value = "/creerTypeAbsence", consumes = "application/json")
+	public ResponseEntity<?> save(@Valid TypeAbsence typeAbsence, BindingResult result) {
+		/*
+		 * On capture les éventuelles erreurs dans une map sous forme : key,
+		 * value et formatée pour l'affichage
+		 */
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (result.hasErrors()) {
+				for (FieldError error : result.getFieldErrors()) {
 					map.put(error.getField(), String.format("message:%s", error.getDefaultMessage()));
 					return ResponseEntity.badRequest().body(map);
 				}
 			} else {
-				typeCree =  typeService.insertType(typeCree);
-		}
-		} catch( SQLException sqle){
+				typeAbsence = typeService.insertTypeAbsence(typeAbsence);
+			}
+		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(typeCree.getNom()+" créée.");
+		return ResponseEntity.ok(typeAbsence.getNom() + " créée.");
 	}
-	
+
+
 	/**
-	 * Mise à jour d'un service Type
+	 * Mise à jour d'un type d'absence
 	 * 
-	 * @param email et nom du service Type
+	 * @param d°
+	 *            que création
 	 * 
 	 * @return enregistrement ou erreur de saisie
 	 * 
 	 */
-	
+
 	/*
 	 * La mise à jour suis le même principe que la création
 	 */
-	@PutMapping(value="/updateService")	
-	public ResponseEntity<?> update(@Valid TypeAbsence typeModifie, BindingResult result) {			
-		Map<String,Object> map = new HashMap<String,Object>();
-		try{
-			if(result.hasErrors()){
-				for(FieldError error : result.getFieldErrors()){
+	@PutMapping(value = "/updateTypeAbsence")
+	public ResponseEntity<?> update(@Valid TypeAbsence typeAbsence, BindingResult result) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			if (result.hasErrors()) {
+				for (FieldError error : result.getFieldErrors()) {
 					map.put(error.getField(), String.format("message:%s", error.getDefaultMessage()));
 					return ResponseEntity.badRequest().body(map);
 				}
 			} else {
-				typeModifie =  typeService.updateType(typeModifie);
-		}
-		} catch( SQLException sqle){
-			return ResponseEntity.badRequest().body(sqle);
-		}
-		return ResponseEntity.ok(typeModifie.getNom()+" modifié.");
-	}
-	
-	/**
-	 * Supression d'un service Type
-	 * @param nom
-	 * @return message de suppression
-	 */
-	/*
-	 * La suppression se fait par le nom
-	 * Le reste de l'action est dans la classe Service
-	 */
-	@DeleteMapping("deleteService")
-	public ResponseEntity<?> delete(TypeAbsence typeEfface) {	
-		try {
-			typeService.deleteType(typeEfface);
+				typeAbsence = typeService.updateTypeAbsence(typeAbsence);
+			}
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(typeEfface.getNom() + " supprimé.");
+		return ResponseEntity.ok(typeAbsence.getNom() + " modifié.");
+	}
+	
+	/**
+	 * Supression d'un type d'absence
+	 * 
+	 * @param id
+	 * @return message de suppression
+	 */
+	/*
+	 * La suppression se fait par l'id Le reste de l'action est dans la classe
+	 * Service
+	 */
+	@DeleteMapping("/deleteTypeAbsence")
+	public ResponseEntity<?> delete(TypeAbsence typeAbsence) {
+		try {
+			typeService.deleteTypeAbsence(typeAbsence);
+		} catch (SQLException sqle) {
+			return ResponseEntity.badRequest().body(sqle);
+		}
+		return ResponseEntity.ok(typeAbsence.getNom() + " supprimé.");
 	}
 
-}
-
 	
-
-
+}

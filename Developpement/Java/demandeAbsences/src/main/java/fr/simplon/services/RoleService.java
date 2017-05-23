@@ -1,108 +1,71 @@
 package fr.simplon.services;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import fr.simplon.dao.RoleDao;
 import fr.simplon.domain.Role;
 
 /**
- * Classe métier du service ROLE
+ * service gérant le role C'est la couche métier.
  * 
- * @author JGL
+ * @author simplon
  *
  */
 @Service
-@Transactional
 public class RoleService {
 
 	@Autowired
-	private RoleDao dao;
-	
-	/**
-	 * Liste des services Role
-	 * @return une liste
-	 * @throws SQLException
-	 */
-	/*
-	 * La methode [findAll] retourne une iteration de la table
-	 * Avec la boucle [for], on la parcours et on retourne une
-	 * liste de la table
-	 */
-	public List<Role> listeServicesRole() throws SQLException {
-		List<Role> resultat = new ArrayList<>();
+	private RoleDao roleDao;
+
+	public List<Role> listerRoles() throws SQLException {
+		List<Role> resultat;
 		try {
-			Iterable<Role> recherche = dao.findAll();
-			for (Role role : recherche) {
-				Role rl = new Role();
-				rl.setId(role.getId());
-				rl.setValeur(role.getValeur());
-				rl.setUsers(role.getUsers());
-				resultat.add(rl);
-			}
+			resultat = roleDao.findAll();
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listeRole" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: findAll " + e);
+		}
+		return resultat;
+	}
+
+	public List<Role> getRoleByValue(int valeur) throws SQLException {
+		List<Role> resultat;
+		try {
+			resultat = roleDao.findByValue(valeur);
+		} catch (Exception e) {
+			throw new SQLException("Hibrnate Error !: getRole" + e);
 		}
 		return resultat;
 	}
 
 	/**
-	 * Recherche d'un service Role
-	 * @param nom
-	 * @return une liste des services role en fonction du nom
-	 * @throws SQLException
-	 */
-	/*
-	 * Meme principe que ci-dessus
-	 * une iteration qu'on transforme en liste
-	 */
-	public List<Role> getRole(String nom) throws SQLException {
-		List<Role> resultat = new ArrayList<>();
-		try {
-			Iterable<Role> recherche = dao.findByName(nom);
-			for (Role role : recherche) {
-				Role rl = new Role();
-				rl.setId(role.getId());
-				rl.setValeur(role.getValeur());
-				rl.setUsers(role.getUsers());
-				resultat.add(rl);
-			}
-		} catch (Exception e) {
-			System.out.println("Hibernate Error !: listeRole" + e);
-			throw e;
-		}
-		return resultat;
-	}
-
-	/**
-	 * Creation nouveau service Role
-	 * @param role
+	 * Creation nouveau role
+	 * 
+	 * @param absence
 	 * @return objet
 	 * @throws SQLException
 	 */
 	/*
-	 * Simple methode hibernate pour la creation d'un nouveau service Role
-	 * J'ai crée un bojet Role pour avoir le resultat de la creation en retour
+	 * Simple methode hibernate pour la creation d'un nouveau service Absence
+	 * J'ai crée un bojet Absence pour avoir le resultat de la creation en
+	 * retour
 	 */
-	public Role insertRole(Role element) throws SQLException {
-		Role creation = new Role();
+	public Role insertRole(Role role) throws SQLException {
+		Role creationRole;
 		try {
-			creation = dao.save(element);
+			creationRole = roleDao.save(role);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: insertRole" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: insertRole" + e);
 		}
-		return (Role) creation;
+		return creationRole;
 	}
 
 	/**
-	 * Modification service Role
+	 * Modification role
+	 * 
 	 * @param role
 	 * @return Objet
 	 * @throws SQLException
@@ -110,42 +73,33 @@ public class RoleService {
 	/*
 	 * Même principe que creation
 	 */
-	public Role updateRole(Role element) throws SQLException {
-		Role modif = new Role();
+	public Role updateRole(Role role) throws SQLException {
+		Role modifRole;
 		try {
-			modif = dao.save(element);
+			modifRole = roleDao.save(role);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: updateRole" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: updateRole" + e);
 		}
-		return (Role) modif;
+		return modifRole;
 	}
 
 	/**
-	 * Suppression Service Role
+	 * Suppression role
+	 * 
 	 * @param role
 	 * @throws SQLException
 	 */
 	/*
-	 * On commence par faire une recherche d'un service role
-	 * avec la methode [findByName()]
-	 * Et on supprime l'objet par la methode delete
-	 * d'hibernate qui supprime une entité complete.
-	 * Cette methode peut etre appelé à evoluer
+	 * On commence par faire une recherche d'un service absence avec la methode
+	 * [findByName()] Et on supprime l'objet par la methode delete d'hibernate
+	 * qui supprime une entité complete. Cette methode peut etre appelé à
+	 * evoluer
 	 */
-	public void deleteRole(Role supRole) throws SQLException {
-		try{
-			Iterable<Role> temp = dao.findByName(supRole.getValeur());
-			for (Role role : temp) {
-				Role rl = new Role();
-				rl.setId(role.getId());
-				rl.setValeur(role.getValeur());
-				rl.setUsers(role.getUsers());
-				dao.delete(rl);
-			}
+	public void deleteRole(Role role) throws SQLException {
+		try {
+			roleDao.delete(role);
 		} catch (Exception e) {
-			System.out.println("Hibernate Error !: deleteRole" + e);
-			throw e;
+			throw new SQLException("Hibernate Error !: deleteRole" + e);
 		}
 	}
 

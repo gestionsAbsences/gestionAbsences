@@ -1,7 +1,6 @@
 package fr.simplon.controller;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,152 +23,153 @@ import fr.simplon.domain.Statut;
 import fr.simplon.services.StatutService;
 
 /**
- * CRUD des services STATUT
+ * CRUD des Statuts de demande de congé
  * 
  * @author JGL
  * 
  */
 
 /*
- * Controlleur pour la gestion des services Statut
- * J'ai utilisé le verbe correspondant à l'action 
- * (get : lecture, post : création, put : mise à jour et delete: supression
- * url àsaisir dans le navigateur : localhost:8080/statut/nomMethode
+ * Controlleur pour la gestion des services Absence J'ai utilisé le verbe
+ * correspondant à l'action (get : lecture, post : création, put : mise à jour
+ * et delete: supression url àsaisir dans le navigateur :
+ * localhost:8080/absence/nomMethode
  */
 
-//@CrossOrigin(origins="http://localhost:3000")
-@CrossOrigin(origins="*")
 @RestController
-@RequestMapping("statut")
+@RequestMapping("/statut")
+
 public class StatutController {
 	
 	@Autowired
 	StatutService statutService;
-	
+
 	/**
-	 * Liste des services statut
+	 * Liste des statuts
 	 * 
-	 * @return liste des services statut
+	 * @return liste des statuts
 	 */
-	
+
 	/*
-	 * Affiche la liste des services statut
+	 * Affiche la liste des statut 
 	 * ResponseEntity permet gérer la réponse envoyée au front
+	 * 
 	 */
-	@GetMapping("listeService")
-	public ResponseEntity<?> findAll() {	
-		List<Statut> statut = new ArrayList<Statut>();
+	@GetMapping("/listeStatut")
+	public ResponseEntity<?> findAll() {
+		List<Statut> statut;
 		try {
-		statut = (List<Statut>) statutService.listeServicesStatut();
+			statut =statutService.listeStatut();
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
 		return ResponseEntity.ok(statut);
 	}
-	
+
 	/**
 	 * 
-	 * Recherche des services Statut par le nom
+	 * Recherche des absences par le nom
 	 * 
-	 * @param String nom
+	 * @param String
+	 *            nom
 	 * 
-	 * @return 1 ou  plusieurs entités statut 
+	 * @return 1 entité absence
 	 * 
 	 */
-	
+
 	/*
-	 * Cette methode recherche un service Statutpar le nom
-	 * Il suffit de rentrer une lettre et la liste des services
-	 * contenant cette lettre sera affichée
+	 * Cette methode recherche une absence par l'id
+	 * 
 	 */
-	
-	@GetMapping("getService")
-	public ResponseEntity<?> findByName(@RequestParam(value="nom", defaultValue="") String nom) {	
-		List<Statut> statut = new ArrayList<Statut>();
+
+	@GetMapping("/getStatutByCode")
+	public ResponseEntity<?> findById(@RequestParam(value = "code", defaultValue = "") int code) {
+		List<Statut> statut;
 		try {
-			statut = (List<Statut>) statutService.getStatut(nom);
+			statut = statutService.getStatutByCode(code);
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
 		return ResponseEntity.ok(statut);
 	}
-	
+
 	/**
-	 * Création de nouveaux services Statut
+	 * Création d'unnouveau statut
 	 * 
-	 * @param email et nom du service Statut
+	 * @param 
 	 * 
 	 * @return enregistrement ou erreur de saisie
 	 * 
 	 */
 	/*
-	 * La 2° ligne permet d'enregistrer les données dans le bean [Statut statut]
-	 * et de capter le résultat  [BindingResult result]
+	 * La 2° ligne permet d'enregistrer les données dans le bean [Absence
+	 * absence] et de capter le résultat [BindingResult result]
 	 */
-	@PostMapping(value="/creerService", consumes = "application/json")	
-	public ResponseEntity<?> save(@Valid Statut statut, BindingResult result) {			
-	/*
-	 * On capture les éventuelles erreurs dans une map 
-	 * sous forme : key, value
-	 * et formatée pour l'affichage
-	 */
-		try{
-			Map<String,Object> map = new HashMap<String,Object>();
-			if(result.hasErrors()){
-				for(FieldError error : result.getFieldErrors()){
+	@PostMapping(value = "/creerStatut", consumes = "application/json")
+	public ResponseEntity<?> save(@Valid Statut statut, BindingResult result) {
+		/*
+		 * On capture les éventuelles erreurs dans une map sous forme : key,
+		 * value et formatée pour l'affichage
+		 */
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (result.hasErrors()) {
+				for (FieldError error : result.getFieldErrors()) {
 					map.put(error.getField(), String.format("message:%s", error.getDefaultMessage()));
 					return ResponseEntity.badRequest().body(map);
 				}
 			} else {
-		statut =  statutService.insertStatut(statut);
-		}
-		} catch( SQLException sqle){
+				statut = statutService.insertStatut(statut);
+			}
+		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(statut.getNom()+" créée.");
+		return ResponseEntity.ok(statut.getNom() + " créée.");
 	}
-	
+
 	/**
-	 * Mise à jour d'un service Statut
+	 * Mise à jour d'un statut
 	 * 
-	 * @param email et nom du service Statut
+	 * @param d°
+	 *            que création
 	 * 
 	 * @return enregistrement ou erreur de saisie
 	 * 
 	 */
-	
+
 	/*
 	 * La mise à jour suis le même principe que la création
 	 */
-	@PutMapping(value="/updateService")	
-	public ResponseEntity<?> update(@Valid Statut statut, BindingResult result) {			
-		Map<String,Object> map = new HashMap<String,Object>();
-		try{
-			if(result.hasErrors()){
-				for(FieldError error : result.getFieldErrors()){
+	@PutMapping(value = "/updateStatut")
+	public ResponseEntity<?> update(@Valid Statut statut, BindingResult result) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			if (result.hasErrors()) {
+				for (FieldError error : result.getFieldErrors()) {
 					map.put(error.getField(), String.format("message:%s", error.getDefaultMessage()));
 					return ResponseEntity.badRequest().body(map);
 				}
 			} else {
-		statut =  statutService.updateStatut(statut);
-		}
-		} catch( SQLException sqle){
+				statut = statutService.updateStatut(statut);
+			}
+		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(statut.getNom()+" modifié.");
+		return ResponseEntity.ok(statut.getNom() + " modifié.");
 	}
-	
+
 	/**
-	 * Supression d'un service Statut
-	 * @param nom
+	 * Supression d'un statut
+	 * 
+	 * @param id
 	 * @return message de suppression
 	 */
 	/*
-	 * La suppression se fait par le nom
-	 * Le reste de l'action est dans la classe Service
+	 * La suppression se fait par l'id Le reste de l'action est dans la classe
+	 * Service
 	 */
-	@DeleteMapping("deleteService")
-	public ResponseEntity<?> delete(Statut statut) {	
+	@DeleteMapping("/deleteStatut")
+	public ResponseEntity<?> delete(Statut statut) {
 		try {
 			statutService.deleteStatut(statut);
 		} catch (SQLException sqle) {
@@ -178,5 +177,5 @@ public class StatutController {
 		}
 		return ResponseEntity.ok(statut.getNom() + " supprimé.");
 	}
-
 }
+
