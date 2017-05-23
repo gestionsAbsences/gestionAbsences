@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -104,7 +105,7 @@ public class ServiceRhController {
 	 * et de capter le résultat  [BindingResult result]
 	 */
 	@PostMapping(value="/creerServiceRh")	
-	public ResponseEntity<?> save(@Valid ServiceRh serviceRh, BindingResult result) {			
+	public ResponseEntity<?> save(@RequestBody @Valid ServiceRh serviceRh, BindingResult result) {			
 	/*
 	 * On capture les éventuelles erreurs dans une map 
 	 * sous forme : key, value
@@ -114,7 +115,7 @@ public class ServiceRhController {
 			Map<String,Object> map = new HashMap<String,Object>();
 			if(result.hasErrors()){
 				for(FieldError error : result.getFieldErrors()){
-					map.put(error.getField(), String.format("message:%s", error.getDefaultMessage()));
+					map.put(error.getField(), String.format("%s", error.getDefaultMessage()));
 					return ResponseEntity.badRequest().body(map);
 				}
 			} else {
@@ -141,12 +142,12 @@ public class ServiceRhController {
 	 * qu'il s'agit d'une création
 	 */
 	@PutMapping(value="/updateServiceRh")	
-	public ResponseEntity<?> update(@Valid ServiceRh serviceRh, BindingResult result) {			
+	public ResponseEntity<?> update(@RequestBody @Valid ServiceRh serviceRh, BindingResult result) {			
 		Map<String,Object> map = new HashMap<String,Object>();
 		try{
 			if(result.hasErrors()){
 				for(FieldError error : result.getFieldErrors()){
-					map.put(error.getField(), String.format("message:%s", error.getDefaultMessage()));
+					map.put(error.getField(), String.format("%s", error.getDefaultMessage()));
 					return ResponseEntity.badRequest().body(map);
 				}
 			} else {
@@ -168,7 +169,7 @@ public class ServiceRhController {
 	 * Le reste de l'action est dans la classe Service
 	 */
 	@DeleteMapping("/deleteServiceRh")
-	public ResponseEntity<?> deleteRh(ServiceRh serviceRh) {	
+	public ResponseEntity<?> deleteRh(@RequestBody ServiceRh serviceRh) {	
 		try {
 			rhService.deleteServiceRh(serviceRh);
 		} catch (SQLException sqle) {

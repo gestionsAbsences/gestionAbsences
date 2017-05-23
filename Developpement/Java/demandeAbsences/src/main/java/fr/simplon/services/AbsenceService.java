@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import fr.simplon.common.EmailException;
+import fr.simplon.common.ServiceException;
 import fr.simplon.dao.AbsenceDao;
 import fr.simplon.domain.Absence;
 
@@ -80,12 +82,12 @@ public class AbsenceService {
 		Absence creationAbs;
 		try {
 			if(absence.getDebut().compareTo(absence.getFin())>0){
-				throw new Exception("La date de fin de congé doit être supèrieur à la date de début");
+				throw new ServiceException("La date de fin de congé doit être supèrieur à la date de début");
 			} else {
 				creationAbs = absenceDao.save(absence);
 			}
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: insertAbsence" + e);
+		} catch (EmailException e) {
+			throw new ServiceException("Hibernate Error !: insertAbsence" + e);
 		}
 		return creationAbs;
 	}

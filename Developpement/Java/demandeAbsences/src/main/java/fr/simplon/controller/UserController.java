@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -103,7 +104,7 @@ public class UserController {
 	 * et de capter le résultat  [BindingResult result]
 	 */
 	@PostMapping(value="/creerUser")	
-	public ResponseEntity<?> save(@Valid User user, BindingResult result) {			
+	public ResponseEntity<?> save(@RequestBody @Valid User user, BindingResult result) {			
 	/*
 	 * On capture les éventuelles erreurs dans une map 
 	 * sous forme : key, value
@@ -139,7 +140,7 @@ public class UserController {
 	 * La mise à jour suis le même principe que la création
 	 */
 	@PutMapping(value="/updateUser")	
-	public ResponseEntity<?> update(@Valid User user, BindingResult result) {			
+	public ResponseEntity<?> update(@RequestBody @Valid User user, BindingResult result) {			
 		Map<String,Object> map = new HashMap<String,Object>();
 		try{
 			if(result.hasErrors()){
@@ -166,7 +167,7 @@ public class UserController {
 	 * Le reste de l'action est dans la classe Service
 	 */
 	@DeleteMapping("deleteUser")
-	public ResponseEntity<?> delete(User user) {	
+	public ResponseEntity<?> delete(@RequestBody User user) {	
 		try {
 			userService.deleteUser(user);
 		} catch (SQLException sqle) {

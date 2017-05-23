@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import fr.simplon.common.EmailException;
+import fr.simplon.common.ServiceException;
 import fr.simplon.dao.TypeDao;
 import fr.simplon.domain.TypeAbsence;
 
@@ -39,8 +41,8 @@ public class TypeService {
 		List<TypeAbsence> resultat;
 		try {
 			resultat = typeDao.findAll();
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: listeTypeAbsence" + e);
+		} catch (ServiceException e) {
+			throw new ServiceException("Hibernate Error !: listeTypeAbsence" + e);
 		}
 		return resultat;
 	}
@@ -59,8 +61,8 @@ public class TypeService {
 		List<TypeAbsence> resultat;
 		try {
 			resultat = typeDao.findTypeByName(nom);
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: getTypeByName" + e);
+		} catch (ServiceException e) {
+			throw new ServiceException("Hibernate Error !: getTypeByName" + e);
 		}
 		return resultat;
 	}
@@ -81,8 +83,8 @@ public class TypeService {
 		TypeAbsence creationTypeAbs;
 		try {
 			creationTypeAbs = typeDao.save(typeAbsence);
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: insertTypeAbsence" + e);
+		} catch (ServiceException e) {
+			throw new ServiceException("Hibernate Error !: insertTypeAbsence" + e);
 		}
 		return creationTypeAbs;
 	}
@@ -98,11 +100,12 @@ public class TypeService {
 	 * Même principe que creation
 	 */
 	public TypeAbsence updateTypeAbsence(TypeAbsence typeAbsence) throws SQLException {
+		System.out.println(typeAbsence.getId()+" "+typeAbsence.getNom());
 		TypeAbsence modifTypeAbs;
 		try {
 			modifTypeAbs = typeDao.save(typeAbsence);
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: updateAbsence" + e);
+		} catch (ServiceException e) {
+			throw new ServiceException("Hibernate Error !: updateAbsence" + e);
 		}
 		return modifTypeAbs;
 	}
@@ -122,8 +125,8 @@ public class TypeService {
 	public void deleteTypeAbsence(TypeAbsence typeAbsence) throws SQLException {
 		try {
 			typeDao.delete(typeAbsence);
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: deleteTypeAbsence" + e);
+		} catch (ServiceException e) {
+			throw new ServiceException("Hibernate Error !: deleteTypeAbsence" + e);
 		}
 	}
 

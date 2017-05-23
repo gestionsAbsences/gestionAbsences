@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +23,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  */
 @Entity
 @Table(name = "type")
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class TypeAbsence {
 	
 	@Id
@@ -34,7 +34,7 @@ public class TypeAbsence {
 	@Length(min = 2, message = "La chaîne doit avoir au moins 2 caractères")
 	private String nom;
 	
-	@OneToMany(mappedBy = "type")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "type")
 	@JsonBackReference
 	private List<Absence> absence;
 

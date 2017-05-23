@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fr.simplon.common.EmailException;
+import fr.simplon.common.ServiceException;
 import fr.simplon.dao.EquipeDao;
 import fr.simplon.domain.Equipe;
 
@@ -26,8 +28,8 @@ public class EquipeService {
 		List<Equipe> resultat = new ArrayList<Equipe>();
 		try {
 			resultat = equipeDao.findAll();
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: listEquipes" + e);
+		} catch (EmailException e) {
+			throw new ServiceException("Hibernate Error !: listEquipes" + e);
 		}
 		return resultat;
 	}
@@ -36,8 +38,8 @@ public class EquipeService {
 		List<Equipe> resultat = new ArrayList<Equipe>();
 		try {
 			resultat = equipeDao.findEquipe(nom);
-		} catch (Exception e) {
-			throw new SQLException("Hibrnate Error !: getEquipe" + e);
+		} catch (EmailException e) {
+			throw new ServiceException("Hibrnate Error !: getEquipe" + e);
 		}
 		return resultat;
 	}
@@ -46,8 +48,8 @@ public class EquipeService {
 		Equipe creationEquipe = new Equipe();
 		try {
 			creationEquipe = equipeDao.save(equipe);
-		} catch (Exception e) {
-			throw new SQLException("Hibrnate Error !: insertEquipe" + e);
+		} catch (EmailException e) {
+			throw new ServiceException("Hibrnate Error !: insertEquipe" + e);
 		}
 		return creationEquipe;
 	}
@@ -56,8 +58,8 @@ public class EquipeService {
 		Equipe modifEquipe;
 		try {
 			modifEquipe = equipeDao.save(equipe);
-		} catch (Exception e) {
-			throw new SQLException("Hibrnate Error !: updateEquipe" + e);
+		} catch (EmailException e) {
+			throw new ServiceException("Hibrnate Error !: updateEquipe" + e);
 		}
 		return modifEquipe;
 	}
@@ -65,8 +67,8 @@ public class EquipeService {
 	public void deleteEquipe(Equipe supprEquipe) throws SQLException {
 		try {
 			equipeDao.delete(supprEquipe);
-		} catch (Exception e) {
-			throw new SQLException("Hibrnate Error !: deleteEquipe" + e);
+		} catch (EmailException e) {
+			throw new ServiceException("Hibrnate Error !: deleteEquipe" + e);
 		}
 	}
 

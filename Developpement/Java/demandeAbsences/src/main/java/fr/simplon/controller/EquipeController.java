@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -94,7 +95,7 @@ public class EquipeController {
 	 * absence] et de capter le résultat [BindingResult result]
 	 */
 	@PostMapping(value = "/creerEquipe", consumes = "application/json")
-	public ResponseEntity<?> save(@Valid Equipe equipe, BindingResult result) {
+	public ResponseEntity<?> save(@RequestBody @Valid Equipe equipe, BindingResult result) {
 		/*
 		 * On capture les éventuelles erreurs dans une map sous forme : key,
 		 * value et formatée pour l'affichage
@@ -129,7 +130,7 @@ public class EquipeController {
 	 * La mise à jour suis le même principe que la création
 	 */
 	@PutMapping(value = "/updateEquipe")
-	public ResponseEntity<?> update(@Valid Equipe equipe, BindingResult result) {
+	public ResponseEntity<?> update(@RequestBody @Valid Equipe equipe, BindingResult result) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
 			if (result.hasErrors()) {
@@ -159,7 +160,7 @@ public class EquipeController {
 	 * Le reste de l'action est dans la classe Service
 	 */
 	@DeleteMapping("deleteEquipe")
-	public ResponseEntity<?> delete(Equipe equipe) {	
+	public ResponseEntity<?> delete(@RequestBody Equipe equipe) {	
 		try {
 			equipeService.deleteEquipe(equipe);
 		} catch (SQLException sqle) {

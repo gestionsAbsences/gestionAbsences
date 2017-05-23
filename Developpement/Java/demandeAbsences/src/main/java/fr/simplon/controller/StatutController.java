@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -106,7 +107,7 @@ public class StatutController {
 	 * absence] et de capter le résultat [BindingResult result]
 	 */
 	@PostMapping(value = "/creerStatut", consumes = "application/json")
-	public ResponseEntity<?> save(@Valid Statut statut, BindingResult result) {
+	public ResponseEntity<?> save(@RequestBody @Valid Statut statut, BindingResult result) {
 		/*
 		 * On capture les éventuelles erreurs dans une map sous forme : key,
 		 * value et formatée pour l'affichage
@@ -141,7 +142,7 @@ public class StatutController {
 	 * La mise à jour suis le même principe que la création
 	 */
 	@PutMapping(value = "/updateStatut")
-	public ResponseEntity<?> update(@Valid Statut statut, BindingResult result) {
+	public ResponseEntity<?> update(@RequestBody @Valid Statut statut, BindingResult result) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
 			if (result.hasErrors()) {
@@ -169,7 +170,7 @@ public class StatutController {
 	 * Service
 	 */
 	@DeleteMapping("/deleteStatut")
-	public ResponseEntity<?> delete(Statut statut) {
+	public ResponseEntity<?> delete(@RequestBody Statut statut) {
 		try {
 			statutService.deleteStatut(statut);
 		} catch (SQLException sqle) {

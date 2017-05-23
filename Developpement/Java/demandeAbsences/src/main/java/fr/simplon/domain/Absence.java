@@ -29,7 +29,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "absence")
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
 public class Absence {
 
 	@Id
@@ -40,7 +39,7 @@ public class Absence {
 	@Column(name = "debut")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
-	@Future(message = "La date doit être postèrieure à la date du jour")
+	@Future(message = "La date doit être postérieure à la date du jour")
 	private Date debut;
 
 

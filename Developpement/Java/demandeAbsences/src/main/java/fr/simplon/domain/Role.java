@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +21,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  */
 @Entity
 @Table(name = "role")
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
 public class Role {
 
 	@Id
@@ -31,7 +31,7 @@ public class Role {
 	@NotNull(message = "Valeur obligatoire")
 	private int valeur;
 
-	@OneToMany(mappedBy = "role")
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "role")
 	@JsonBackReference
 	private List<User> user;
 

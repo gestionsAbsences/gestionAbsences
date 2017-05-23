@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -99,7 +100,7 @@ public class RoleController {
 	 * absence] et de capter le résultat [BindingResult result]
 	 */
 	@PostMapping(value = "/creerRole")
-	public ResponseEntity<?> save(@Valid Role role, BindingResult result) {
+	public ResponseEntity<?> save(@RequestBody @Valid Role role, BindingResult result) {
 		/*
 		 * On capture les éventuelles erreurs dans une map sous forme : key,
 		 * value et formatée pour l'affichage
@@ -134,7 +135,7 @@ public class RoleController {
 	 * La mise à jour suis le même principe que la création
 	 */
 	@PutMapping(value = "/updateRole")
-	public ResponseEntity<?> update(@Valid Role role, BindingResult result) {
+	public ResponseEntity<?> update(@RequestBody @Valid Role role, BindingResult result) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
 			if (result.hasErrors()) {
@@ -162,7 +163,7 @@ public class RoleController {
 	 * Service
 	 */
 	@DeleteMapping("/deleteRole")
-	public ResponseEntity<?> delete(Role role) {
+	public ResponseEntity<?> delete(@RequestBody Role role) {
 		try {
 			roleService.deleteRole(role);
 		} catch (SQLException sqle) {

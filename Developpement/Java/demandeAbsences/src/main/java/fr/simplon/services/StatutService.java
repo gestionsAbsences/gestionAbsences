@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import fr.simplon.common.EmailException;
+import fr.simplon.common.ServiceException;
 import fr.simplon.dao.StatutDao;
 import fr.simplon.domain.Statut;
 
@@ -33,8 +35,8 @@ public class StatutService {
 		List<Statut> resultat;
 		try {
 			resultat = statutDao.findAll();
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: listeAbsence" + e);
+		} catch (ServiceException e) {
+			throw new ServiceException("Hibernate Error !: listeAbsence" + e);
 		}
 		return resultat;
 	}
@@ -53,8 +55,8 @@ public class StatutService {
 		List<Statut> resultat;
 		try {
 			resultat = statutDao.findByCode(code);
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: listeAbsence" + e);
+		} catch (ServiceException e) {
+			throw new ServiceException("Hibernate Error !: listeAbsence" + e);
 		}
 		return resultat;
 	}
@@ -75,8 +77,8 @@ public class StatutService {
 		Statut creationStatut;
 		try {
 			creationStatut = statutDao.save(statut);
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: insertAbsence" + e);
+		} catch (ServiceException e) {
+			throw new ServiceException("Hibernate Error !: insertAbsence" + e);
 		}
 		return creationStatut;
 	}
@@ -95,8 +97,8 @@ public class StatutService {
 		Statut modifStatut;
 		try {
 			modifStatut = statutDao.save(statut);
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: updateAbsence" + e);
+		} catch (ServiceException e) {
+			throw new ServiceException("Hibernate Error !: updateAbsence" + e);
 		}
 		return modifStatut;
 	}
@@ -116,8 +118,8 @@ public class StatutService {
 	public void deleteStatut(Statut statut) throws SQLException {
 		try {
 			statutDao.delete(statut);
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: deleteAbsence" + e);
+		} catch (ServiceException e) {
+			throw new ServiceException("Hibernate Error !: deleteAbsence" + e);
 		}
 	}
 }

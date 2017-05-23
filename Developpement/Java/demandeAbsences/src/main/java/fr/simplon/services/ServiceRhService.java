@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import fr.simplon.common.EmailException;
+import fr.simplon.common.ServiceException;
 import fr.simplon.dao.ServiceRhDao;
 import fr.simplon.domain.ServiceRh;
 
@@ -39,7 +41,7 @@ public class ServiceRhService {
 		try {
 			resultat = rhDao.findAll();
 		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: listeServiceRh" + e);
+			throw new ServiceException("Hibernate Error !: listeServiceRh" + e);
 		}
 		return resultat;
 	}
@@ -59,7 +61,7 @@ public class ServiceRhService {
 		try {
 			resultat = rhDao.findByName(nom);
 		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: listeServiceRh" + e);
+			throw new ServiceException("Hibernate Error !: listeServiceRh" + e);
 		}
 		return resultat;
 	}
@@ -78,12 +80,12 @@ public class ServiceRhService {
 		ServiceRh creationRh = new ServiceRh();
 		try {
 			if(!rhDao.findByEmail(serviceRh.getEmail()).isEmpty()){
-				throw new Exception("L'adresse email est déja utilisée");
+				throw new EmailException();
 			} else {
 				creationRh = rhDao.save(serviceRh);
 			}
 		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: insertServiceRh" + e);
+			throw new EmailException();
 		}
 		return creationRh;
 	}
@@ -102,7 +104,7 @@ public class ServiceRhService {
 		try {
 			modifRh = rhDao.save(serviceRh);
 		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: updateServiceRh" + e);
+			throw new ServiceException("Hibernate Error !: updateServiceRh" + e);
 		}
 		return (ServiceRh) modifRh;
 	}
@@ -123,7 +125,7 @@ public class ServiceRhService {
 		try{
 			rhDao.delete(supprRh);
 		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: deleteServiceRh" + e);
+			throw new ServiceException("Hibernate Error !: deleteServiceRh" + e);
 		}
 	}
 }

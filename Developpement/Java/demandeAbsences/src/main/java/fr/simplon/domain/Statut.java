@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +26,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  */
 @Entity
 @Table(name = "Statut")
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class Statut {
 	
 	@Id
@@ -41,12 +41,12 @@ public class Statut {
 	@NotNull(message = "code obligatoire")
 	private int code;
 
-	@OneToMany(mappedBy = "statut")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "statut")
 	@JsonBackReference
 	private List<Absence> absence;
 
 	public Statut() {
-		super();
+	;
 	}
 
 	public Long getId() {

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import fr.simplon.common.EmailException;
+import fr.simplon.common.ServiceException;
 import fr.simplon.dao.EmployeDao;
 import fr.simplon.domain.Employe;
 
@@ -38,8 +40,8 @@ public class EmployeService {
 		List<Employe> listeEmployes;
 		try {
 			listeEmployes = employeDao.findAll();
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: listeEmployes" + e);
+		} catch (EmailException e) {
+			throw new ServiceException("Hibernate Error !: listeEmployes" + e);
 		}
 		return listeEmployes;
 	}
@@ -58,8 +60,8 @@ public class EmployeService {
 		List<Employe> getEmploye;
 		try {
 			getEmploye = employeDao.findByName(nom);
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: getEmploye" + e);
+		} catch (EmailException e) {
+			throw new ServiceException("Hibernate Error !: getEmploye" + e);
 		}
 		return getEmploye;
 	}
@@ -78,12 +80,12 @@ public class EmployeService {
 		Employe creationEmploye=null;
 		try {
 			if(!employeDao.findByMat(employe.getMatricule()).isEmpty()){
-				throw new Exception("matricule déjà utilisé");
+				throw new ServiceException("matricule déjà utilisé");
 			} else {
 				creationEmploye = employeDao.save(employe);
 			}
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: insertEmploye" + e);
+		} catch (EmailException e) {
+			throw new ServiceException("Hibernate Error !: insertEmploye" + e);
 		}
 		return creationEmploye;
 	}
@@ -101,8 +103,8 @@ public class EmployeService {
 		Employe modifEmploye;
 		try {
 			modifEmploye = employeDao.save(employe);
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: updateEmploye" + e);
+		} catch (EmailException e) {
+			throw new ServiceException("Hibernate Error !: updateEmploye" + e);
 		}
 		return modifEmploye;
 	}
@@ -122,8 +124,8 @@ public class EmployeService {
 	public void deleteEmploye(Employe supprEmploye) throws SQLException {
 		try{		
 			employeDao.delete(supprEmploye);
-		} catch (Exception e) {
-			throw new SQLException("Hibernate Error !: deleteEmploye" + e);
+		} catch (EmailException e) {
+			throw new ServiceException("Hibernate Error !: deleteEmploye" + e);
 		}
 	}
 }

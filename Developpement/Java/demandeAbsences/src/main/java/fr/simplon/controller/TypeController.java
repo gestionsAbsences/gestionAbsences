@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -84,7 +85,7 @@ public class TypeController {
 	 * absence] et de capter le résultat [BindingResult result]
 	 */
 	@PostMapping(value = "/creerTypeAbsence", consumes = "application/json")
-	public ResponseEntity<?> save(@Valid TypeAbsence typeAbsence, BindingResult result) {
+	public ResponseEntity<?> save(@RequestBody @Valid TypeAbsence typeAbsence, BindingResult result) {
 		/*
 		 * On capture les éventuelles erreurs dans une map sous forme : key,
 		 * value et formatée pour l'affichage
@@ -119,8 +120,8 @@ public class TypeController {
 	/*
 	 * La mise à jour suis le même principe que la création
 	 */
-	@PutMapping(value = "/updateTypeAbsence")
-	public ResponseEntity<?> update(@Valid TypeAbsence typeAbsence, BindingResult result) {
+	@PutMapping(value = "/updateTypeAbsence", consumes = "application/json")
+	public ResponseEntity<?> update(@RequestBody @Valid TypeAbsence typeAbsence, BindingResult result) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
 			if (result.hasErrors()) {
@@ -148,7 +149,7 @@ public class TypeController {
 	 * Service
 	 */
 	@DeleteMapping("/deleteTypeAbsence")
-	public ResponseEntity<?> delete(TypeAbsence typeAbsence) {
+	public ResponseEntity<?> delete(@RequestBody TypeAbsence typeAbsence) {
 		try {
 			typeService.deleteTypeAbsence(typeAbsence);
 		} catch (SQLException sqle) {
