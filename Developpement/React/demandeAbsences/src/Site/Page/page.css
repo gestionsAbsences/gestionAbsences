@@ -1,9 +1,13 @@
 .page {
   float: right;
+<<<<<<< HEAD
   margin-right: 30px;
   width: 80%
 }
 
 .voffset {
   height: 12vh;
+=======
+  width: 82%
+>>>>>>> master
 }

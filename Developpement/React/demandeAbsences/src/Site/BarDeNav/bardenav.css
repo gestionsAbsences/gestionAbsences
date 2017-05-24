@@ -1,7 +1,13 @@
 .bardenav {
+<<<<<<< HEAD
   top: 5vh;
   position: fixed;
   width: 12%;
+=======
+  /*top: 12vh;*/
+  /*position: fixed;*/
+  /*width: 12%;*/
+>>>>>>> master
 }
 
 .table tr td {

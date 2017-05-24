@@ -5,9 +5,12 @@ import './page.css';
 import axios from 'axios'
 
 import Authentification from './Authentification/Authentification.js';
+<<<<<<< HEAD
 import ModifMotDePasse from './ModifMotDePasse/ModifMotDePasse.js';
 import ListeDemandes from './ListeDemandes/ListeDemandes.js';
 import NouvelleDemande from './NouvelleDemande/NouvelleDemande.js';
+=======
+>>>>>>> master
 
 class Page extends Component {
 
@@ -29,6 +32,7 @@ class Page extends Component {
   render() {
     return (
       <div>
+<<<<<<< HEAD
       {/*
         <ul>
           this.state.types.map(
@@ -44,6 +48,9 @@ class Page extends Component {
         <div className="page">
           <ListeDemandes />
         </div>
+=======
+        <Authentification />
+>>>>>>> master
         <div className="marge"></div>
       </div>
     );

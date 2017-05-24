@@ -19,10 +19,16 @@ import './Bootstrap/dist/css/sb-admin-2.css'
 
 class Site extends Component {
 
+<<<<<<< HEAD
   // constructor(props) {
   //   super(props);
   // }
 
+=======
+  constructor(props) {
+    super(props);
+  }
+>>>>>>> master
   render() {
     return (
       <div>

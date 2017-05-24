@@ -1,12 +1,21 @@
     import React, { Component } from 'react';
+<<<<<<< HEAD
+=======
+    import {GlyphIcons, Container, Grid, Card, Icon, Popup} from 'semantic-ui-react';
+>>>>>>> master
     import '../Bootstrap/dist/css/sb-admin-2.css'
     import './bardenav.css';
 
     class BarDeNav extends Component {
       render() {
         return (
+<<<<<<< HEAD
           <div className="bardenav">
             <div className="marge">&nbsp;</div>
+=======
+          <div classNameName="bardenav">
+            <div className="marge"></div>
+>>>>>>> master
             <div className="affix col-md-2 panel-group" id="accordion">
               <div className="panel panel-default">
                   <div className="panel-heading">
@@ -27,7 +36,10 @@
                   <div id="collapseTwo" className="panel-collapse collapse">
                       <div className="panel-body">
                           <table className="table">
+<<<<<<< HEAD
                             <tbody>
+=======
+>>>>>>> master
                               <tr>
                                   <td>
                                       <a href="#">Nouvelle demande</a>
@@ -43,7 +55,10 @@
                                       <a href="#">Reliquat de congés</a>
                                   </td>
                               </tr>
+<<<<<<< HEAD
                              </tbody>
+=======
+>>>>>>> master
                           </table>
                       </div>
                   </div>
@@ -59,7 +74,10 @@
                   <div id="collapseThree" className="panel-collapse collapse">
                       <div className="panel-body">
                           <table className="table">
+<<<<<<< HEAD
                             <tbody>
+=======
+>>>>>>> master
                               <tr>
                                   <td>
                                       <a href="#">Mon calendrier</a>
@@ -75,7 +93,10 @@
                                       <a href="#">Calendrier du personnel</a>
                                   </td>
                               </tr>
+<<<<<<< HEAD
                              </tbody>
+=======
+>>>>>>> master
                           </table>
                       </div>
                   </div>
@@ -90,7 +111,10 @@
                   <div id="collapseFour" className="panel-collapse collapse">
                       <div className="panel-body">
                           <table className="table">
+<<<<<<< HEAD
                             <tbody>
+=======
+>>>>>>> master
                               <tr>
                                   <td>
                                       <span className="glyphicon glyphicon-usd"></span>
@@ -103,7 +127,10 @@
                                       <a href="#">Gestion d'équipe</a>
                                   </td>
                               </tr>
+<<<<<<< HEAD
                              </tbody>
+=======
+>>>>>>> master
                           </table>
                       </div>
                   </div>
