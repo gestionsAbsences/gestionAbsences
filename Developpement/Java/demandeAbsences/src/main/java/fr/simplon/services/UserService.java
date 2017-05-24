@@ -11,6 +11,7 @@ import fr.simplon.common.EmailException;
 import fr.simplon.common.ServiceException;
 import fr.simplon.dao.UserDao;
 import fr.simplon.domain.User;
+import fr.simplon.domain.dto.UserDto;
 
 /**
  * Classe metier de la gestion des user
@@ -25,6 +26,9 @@ public class UserService {
 	@Autowired
 	UserDao userDao;
 	
+	@Autowired
+	ConvertToDto convert;
+	
 	/**
 	 * Liste des employes
 	 * @return une liste
@@ -35,14 +39,16 @@ public class UserService {
 	 * Avec la boucle [for], on la parcours et on retourne une
 	 * liste de la table
 	 */
-	public List<User> listeUsers() throws SQLException {
-		List<User> resultat;
+	public List<UserDto> listeUsers() throws SQLException {
+		List<User> listeUsers;
+		List<UserDto> listeUsersDto;
 		try {
-			resultat = userDao.findAll();
+			listeUsers = userDao.findAll();
+			listeUsersDto = convert.convertListUserToDto(listeUsers);
 		} catch (ServiceException e) {
 			throw new ServiceException("Hibernate Error !: listeEmployes" + e);
 		}
-		return resultat;
+		return listeUsersDto;
 	}
 
 	/**
@@ -55,14 +61,16 @@ public class UserService {
 	 * Meme principe que ci-dessus
 	 * une iteration qu'on transforme en liste
 	 */
-	public List<User> getUser(String email) throws SQLException {
-		List<User> resultat;
+	public List<UserDto> getUser(String email) throws SQLException {
+		List<User> getUser;
+		List<UserDto> getUserDto;
 		try {
-			resultat = userDao.findByEmail(email);
+			getUser = userDao.findByEmail(email);
+			getUserDto = convert.convertListUserToDto(getUser);
 		} catch (ServiceException e) {
 			throw new ServiceException("Hibernate Error !: getUser" + e);
 		}
-		return resultat;
+		return getUserDto;
 	}
 
 	/**

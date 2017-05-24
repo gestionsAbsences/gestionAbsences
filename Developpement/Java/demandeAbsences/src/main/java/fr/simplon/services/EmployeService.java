@@ -1,6 +1,7 @@
 package fr.simplon.services;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import fr.simplon.common.EmailException;
 import fr.simplon.common.ServiceException;
 import fr.simplon.dao.EmployeDao;
 import fr.simplon.domain.Employe;
+import fr.simplon.domain.dto.EmployeDto;
 
 
 /**
@@ -26,6 +28,9 @@ public class EmployeService {
 	@Autowired
 	EmployeDao employeDao;
 	
+	@Autowired
+	ConvertToDto convert;
+	
 	/**
 	 * Liste des employes
 	 * @return une liste
@@ -36,14 +41,16 @@ public class EmployeService {
 	 * Avec la boucle [for], on la parcours et on retourne une
 	 * liste de la table
 	 */
-	public List<Employe> listeEmployes() throws SQLException {
+	public List<EmployeDto> listeEmployes() throws SQLException {
 		List<Employe> listeEmployes;
+		List<EmployeDto> listeEmployesDto;
 		try {
 			listeEmployes = employeDao.findAll();
+			listeEmployesDto=convert.convertListeEmployeToDto(listeEmployes);
 		} catch (EmailException e) {
 			throw new ServiceException("Hibernate Error !: listeEmployes" + e);
 		}
-		return listeEmployes;
+		return listeEmployesDto;
 	}
 
 	/**
@@ -56,14 +63,16 @@ public class EmployeService {
 	 * Meme principe que ci-dessus
 	 * une iteration qu'on transforme en liste
 	 */
-	public List<Employe> getEmploye(String nom) throws SQLException {
+	public List<EmployeDto> getEmploye(String nom) throws SQLException {
 		List<Employe> getEmploye;
+		List<EmployeDto> getEmployeDto;
 		try {
 			getEmploye = employeDao.findByName(nom);
+			getEmployeDto=convert.convertListeEmployeToDto(getEmploye);
 		} catch (EmailException e) {
 			throw new ServiceException("Hibernate Error !: getEmploye" + e);
 		}
-		return getEmploye;
+		return getEmployeDto;
 	}
 
 	/**

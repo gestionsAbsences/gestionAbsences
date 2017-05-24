@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.simplon.domain.Employe;
+import fr.simplon.domain.dto.EmployeDto;
 import fr.simplon.services.EmployeService;
 
 /**
@@ -57,7 +58,7 @@ public class EmployeController {
 	 */
 	@GetMapping("listeEmployes")
 	public ResponseEntity<?> findAll() {	
-		List<Employe> employes;
+		List<EmployeDto> employes;
 		try {
 		employes = empService.listeEmployes();
 		} catch (SQLException sqle) {
@@ -84,7 +85,7 @@ public class EmployeController {
 	
 	@GetMapping("getEmploye")
 	public ResponseEntity<?> findByName(@RequestParam(value="nom", defaultValue="") String nom) {	
-		List<Employe> employe;
+		List<EmployeDto> employe;
 		try {
 			employe = empService.getEmploye(nom);
 		} catch (SQLException sqle) {

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.simplon.domain.User;
+import fr.simplon.domain.dto.UserDto;
 import fr.simplon.services.UserService;
 
 /**
@@ -56,7 +57,7 @@ public class UserController {
 	 */
 	@GetMapping("listeUsers")
 	public ResponseEntity<?> findAll() {	
-		List<User> users;
+		List<UserDto> users;
 		try {
 		users = userService.listeUsers();
 		} catch (SQLException sqle) {
@@ -82,7 +83,7 @@ public class UserController {
 	
 	@GetMapping("getUser")
 	public ResponseEntity<?> findByName(@RequestParam(value="email", defaultValue="") String email) {	
-		List<User> user;
+		List<UserDto> user;
 		try {
 			user = userService.getUser(email);
 		} catch (SQLException sqle) {
