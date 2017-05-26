@@ -15,7 +15,6 @@ import ModifMotDePasse from './ModifMotDePasse/ModifMotDePasse.js';
 import ListeDemandes from './ListeDemandes/ListeDemandes.js';
 import NouvelleDemande from './NouvelleDemande/NouvelleDemande.js';
 import DeclareAbsence from './DeclareAbsence/DeclareAbsence.js';
-import MonCalendrier from './MonCalendrier/MonCalendrier.js';
 
 // Accueil
 // Absence
