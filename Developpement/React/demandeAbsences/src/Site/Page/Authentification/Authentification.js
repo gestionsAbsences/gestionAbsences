@@ -22,11 +22,6 @@ class Authentification extends Component {
                                       <div className="form-group">
                                           <input className="form-control" placeholder="Mot de passe" name="password" type="password" value=""></input>
                                       </div>
-                                      <div className="checkbox">
-                                          <label>
-                                              <input name="remember" type="checkbox" value="Remember Me" />Se souvenir de moi
-                                          </label>
-                                      </div>
                                       <a href="index.html" className="btn btn-primary btn-block">Se connecter</a>
                                   </fieldset>
                               </form>

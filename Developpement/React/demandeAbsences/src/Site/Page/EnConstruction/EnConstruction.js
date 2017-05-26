@@ -28,3 +28,5 @@ class EnConstruction extends Component {
     );
   }
 }
+
+export default EnConstruction;
