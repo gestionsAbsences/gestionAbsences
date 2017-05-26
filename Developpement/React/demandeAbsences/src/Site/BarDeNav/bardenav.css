@@ -1,0 +1,13 @@
+.bardenav {
+  top: 5vh;
+  position: fixed;
+  width: 12%;
+}
+
+.voffsetnav {
+  height: 7vh;
+}
+
+.tdbar {
+  padding-bottom: 8px;
+}
