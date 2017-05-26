@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import '../../Bootstrap/dist/css/sb-admin-2.css'
 import './modifmotdepasse.css';
-//import { nav, btn } from 'react-bootstrap';
 
 class ModifMotDePasse extends Component {
   render() {

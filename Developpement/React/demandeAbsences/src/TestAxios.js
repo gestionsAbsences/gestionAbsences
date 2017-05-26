@@ -29,25 +29,19 @@ class TestAxios extends Component {
   render() {
     return (
       <div>
-
-<a href="#" onClick={this.creerService}>
-  click
-</a>
-
-  <ul>
-  {
-        this.state.types.map(
-          (type, i) =>
-          <li key={i}>
-            {type.nom}
-          </li>
-        )
-  }
-  </ul>
-
-
-
-        <div className="marge"></div>
+        <a href="#" onClick={this.creerService}>
+          click
+        </a>
+        <ul>
+        {
+              this.state.types.map(
+                (type, i) =>
+                <li key={i}>
+                  {type.nom}
+                </li>
+              )
+        }
+        </ul>
       </div>
     );
   }
