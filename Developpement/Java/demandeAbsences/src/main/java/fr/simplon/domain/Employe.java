@@ -59,7 +59,7 @@ public class Employe {
 	@Cascade(CascadeType.ALL)
 	private User user;
 
-	@Column(name = "nb_cp")
+	@Column(name = "nb_ca")
 	@NotNull(message = "Le nombre de C.A. est obligatoire")
 	@Max(value = 30, message = " Le nombre de congés ne peut être supérieur à 30")
 	private int nbCa;
