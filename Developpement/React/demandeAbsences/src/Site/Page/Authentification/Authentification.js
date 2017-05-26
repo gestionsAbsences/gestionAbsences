@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import '../../Bootstrap/dist/css/sb-admin-2.css'
 import './authentification.css';
-
+// 
 class Authentification extends Component {
   render() {
     return (

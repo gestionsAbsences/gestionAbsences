@@ -4,8 +4,6 @@ import '../../Bootstrap/dist/css/sb-admin-2.css'
 import './modifmotdepasse.css';
 //import { nav, btn } from 'react-bootstrap';
 
-// import logohelp from '../../Medias/Aide.jpg';
-
 class ModifMotDePasse extends Component {
   render() {
     return (
