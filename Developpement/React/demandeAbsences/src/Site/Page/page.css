@@ -1,4 +1,9 @@
 .page {
   float: right;
-  width: 82%
+  margin-right: 30px;
+  width: 80%
+}
+
+.voffset {
+  height: 12vh;
 }

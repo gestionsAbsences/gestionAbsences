@@ -3,10 +3,27 @@
   top: 0px;
   height: 8vh;
   width: 100%;
+  font-size: 16px;
 }
 
-.logo {
+.logohead {
   width: 40px;
   height: 40px;
   margin-right: 50px;
+}
+
+.nom, .prenom, .matricule, .compteur {
+  font-weight: bold;
+}
+
+.prenom, .matricule, .conge {
+  margin-left: 20px;
+}
+
+.rtt, .repos {
+  margin-left: 80px;
+}
+
+.repos {
+  padding-right: 20px;
 }
