@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import '../../Bootstrap/dist/css/sb-admin-2.css'
 import './enconstruction.css';
 
 import travaux from '../../Medias/Travaux.jpg';

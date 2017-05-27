@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import '../Bootstrap/dist/css/sb-admin-2.css'
+// import '../Bootstrap/dist/css/sb-admin-2.css'
 import './piedPage.css';
 
 import logo1 from '../Medias/Java_Logo.svg';

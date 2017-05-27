@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 // import axios from 'axios'
 
-import '../../Bootstrap/dist/css/sb-admin-2.css'
+// import '../../Bootstrap/dist/css/sb-admin-2.css'
 import './declareabsence.css';
 
 let nbCa=11;

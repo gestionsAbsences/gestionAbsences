@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import '../Bootstrap/dist/css/sb-admin-2.css'
 import './bardenav.css';
 
 class BarDeNav extends Component {
@@ -13,7 +12,7 @@ class BarDeNav extends Component {
               <div className="panel-heading">
                   <a href="/accueil">
                       <h4 className="panel-title">
-                          <span className="glyphicon glyphicon-home"></span>Accueil
+                          <span className="glyphicon glyphicon-home"></span> Accueil
                       </h4>
                   </a>
               </div>
@@ -23,7 +22,7 @@ class BarDeNav extends Component {
               <div className="panel-heading">
                   <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
                       <h4 className="panel-title">
-                          <span className="glyphicon glyphicon-th"></span>Absence
+                          <span className="glyphicon glyphicon-user"></span> Absence
                       </h4>
                   </a>
               </div>
@@ -55,8 +54,7 @@ class BarDeNav extends Component {
               <div className="panel-heading">
                   <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
                       <h4 className="panel-title">
-                          <span className="glyphicon glyphicon-user">
-                          </span>Calendrier
+                          <span className="glyphicon glyphicon-calendar"></span> Calendrier
                       </h4>
                   </a>
               </div>
@@ -88,7 +86,7 @@ class BarDeNav extends Component {
               <div className="panel-heading">
                   <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
                       <h4 className="panel-title">
-                          <span className="glyphicon glyphicon-file"></span>Gestion
+                          <span className="glyphicon glyphicon-file"></span> Gestion
                       </h4>
                   </a>
               </div>
@@ -99,14 +97,12 @@ class BarDeNav extends Component {
                         <tbody>
                           <tr>
                               <td className="tdbar">
-                                  <a href="/gestionpersonnel"><span className="glyphicon glyphicon-usd"></span>
-                                  Gestion du personnel</a>
+                                  <a href="/gestionpersonnel">Gestion du personnel</a>
                               </td>
                           </tr>
                           <tr>
                               <td className="tdbar">
-                                  <a href="/gestionequipe"><span className="glyphicon glyphicon-user"></span>
-                                  Gestion d'équipe</a>   {/*'*/}
+                                  <a href="/gestionequipe">Gestion d'équipe</a>   {/*'*/}
                               </td>
                           </tr>
                          </tbody>
@@ -119,7 +115,7 @@ class BarDeNav extends Component {
               <div className="panel-heading">
                   <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
                       <h4 className="panel-title">
-                          <span className="glyphicon glyphicon-home"></span>Aide
+                          <span className="glyphicon glyphicon-question-sign"></span> Aide
                       </h4>
                   </a>
               </div>
@@ -130,14 +126,12 @@ class BarDeNav extends Component {
                         <tbody>
                           <tr>
                               <td className="tdbar">
-                                  <a href="/aide"><span className="glyphicon glyphicon-usd"></span>
-                                  Aide</a>
+                                  <a href="/aide">Aide</a>
                               </td>
                           </tr>
                           <tr>
                               <td className="tdbar">
-                                  <a href="/apropos"><span className="glyphicon glyphicon-user"></span>
-                                  A propos</a>
+                                  <a href="/apropos">A propos</a>
                               </td>
                           </tr>
                          </tbody>
@@ -150,7 +144,7 @@ class BarDeNav extends Component {
               <div className="panel-heading">
                   <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
                       <h4 className="panel-title">
-                          <span className="glyphicon glyphicon-home"></span>Session
+                          <span className="glyphicon glyphicon-off"></span> Session
                       </h4>
                   </a>
               </div>
@@ -161,14 +155,12 @@ class BarDeNav extends Component {
                         <tbody>
                           <tr>
                               <td className="tdbar">
-                                  <a href="/deconnexion"><span className="glyphicon glyphicon-usd"></span>
-                                  Déconnexion</a>
+                                  <a href="/deconnexion">Déconnexion</a>
                               </td>
                           </tr>
                           <tr>
                               <td className="tdbar">
-                                  <a href="/modifmotdepasse"><span className="glyphicon glyphicon-user"></span>
-                                  Modification de votre mot de passe</a>
+                                  <a href="/modifmotdepasse">Modification de votre mot de passe</a>
                               </td>
                           </tr>
                          </tbody>

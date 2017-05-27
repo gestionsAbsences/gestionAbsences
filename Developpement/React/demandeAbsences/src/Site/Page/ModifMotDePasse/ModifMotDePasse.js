@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import '../../Bootstrap/dist/css/sb-admin-2.css'
+// import '../../Bootstrap/dist/css/sb-admin-2.css'
 import './modifmotdepasse.css';
 
 class ModifMotDePasse extends Component {
@@ -17,7 +17,7 @@ class ModifMotDePasse extends Component {
                               <form role="form">
                                   <fieldset>
                                       <div className="form-group">
-                                          <input className="form-control" placeholder="Adresse mail" name="email" type="email" autofocus />
+                                          <input className="form-control" placeholder="Adresse mail" name="email" type="email" />
                                       </div>
                                       <div className="form-group">
                                           <input className="form-control" placeholder="Mot de passe actuel" name="password" type="password" value="" />
