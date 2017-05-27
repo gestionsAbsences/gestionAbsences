@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 
+<<<<<<< HEAD
 import '../../Bootstrap/dist/css/sb-admin-2.css'
+=======
+// import '../../Bootstrap/dist/css/sb-admin-2.css'
+>>>>>>> master
 import './authentification.css';
 
 class Authentification extends Component {
@@ -22,11 +26,14 @@ class Authentification extends Component {
                                       <div className="form-group">
                                           <input className="form-control" placeholder="Mot de passe" name="password" type="password" value=""></input>
                                       </div>
+<<<<<<< HEAD
                                       <div className="checkbox">
                                           <label>
                                               <input name="remember" type="checkbox" value="Remember Me" />Se souvenir de moi
                                           </label>
                                       </div>
+=======
+>>>>>>> master
                                       <a href="index.html" className="btn btn-primary btn-block">Se connecter</a>
                                   </fieldset>
                               </form>

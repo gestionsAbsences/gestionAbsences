@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 
 // import axios from 'axios'
 
+<<<<<<< HEAD
 import '../../Bootstrap/dist/css/sb-admin-2.css'
+=======
+// import '../../Bootstrap/dist/css/sb-admin-2.css'
+>>>>>>> master
 import './nouvelledemande.css';
 
 let nbCa=11;

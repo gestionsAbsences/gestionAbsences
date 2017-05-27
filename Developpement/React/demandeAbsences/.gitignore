@@ -1,3 +1,6 @@
 # Folders to ignore
+<<<<<<< HEAD
 bower_components
+=======
+>>>>>>> master
 node_modules

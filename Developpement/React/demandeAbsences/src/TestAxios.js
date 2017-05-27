@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 
 import axios from 'axios'
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 class TestAxios extends Component {
 
   constructor(props) {
@@ -30,6 +33,7 @@ class TestAxios extends Component {
   render() {
     return (
       <div>
+<<<<<<< HEAD
 
 <a href="#" onClick={this.creerService}>
   click
@@ -49,6 +53,21 @@ class TestAxios extends Component {
 
 
         <div className="marge"></div>
+=======
+        <a href="#" onClick={this.creerService}>
+          click
+        </a>
+        <ul>
+        {
+              this.state.types.map(
+                (type, i) =>
+                <li key={i}>
+                  {type.nom}
+                </li>
+              )
+        }
+        </ul>
+>>>>>>> master
       </div>
     );
   }

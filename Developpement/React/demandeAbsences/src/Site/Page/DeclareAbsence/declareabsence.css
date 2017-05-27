@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .voffsetpos {
   height: 0vh;
 }
@@ -18,3 +19,25 @@
   padding-left: 0px;
   margin-left: 0px;
 }
+=======
+.voffsetpos {
+  height: 0vh;
+}
+
+.voffsetbas {
+  height: 7vh;
+}
+
+.voffsethaut {
+  height: 7vh;
+}
+
+.spacingbutton {
+  margin-right: 20px;
+}
+
+.ajust {
+  padding-left: 0px;
+  margin-left: 0px;
+}
+>>>>>>> master
