@@ -163,6 +163,7 @@ function calendrierGroupe() {
 		bord = "";
 		couleur = "jaune";
 		if (debut.getDate() == 1) {bord = " borderL";}
+		if (debut.getDate() == fin.getDate()) {bord += " borderR";}
 		couleur = couleurCase(debut, 0);
 		html+='<td class="' + couleur + bord + '">' + Jour[debut.getDay()] + "</td>";
 	    debut.setDate(debut.getDate() + 1);
@@ -176,6 +177,7 @@ function calendrierGroupe() {
 		bord = " borderB";
 		couleur = "jaune";
 		if (debut.getDate() == 1) {bord += " borderL";}
+		if (debut.getDate() == fin.getDate()) {bord += " borderR";}
 		couleur = couleurCase(debut, 0);
 		html += '<td class="' + couleur + bord + '">' + debut.getDate() + "</td>";
 	    debut.setDate(debut.getDate() + 1);
@@ -184,13 +186,17 @@ function calendrierGroupe() {
 	$(idCalendrierHtml).append(html);
 
 	for (var i = 0; i < users.length; i++) {
-		html = '<tr><td class="bleuUser borderR">' + users[i].nom + " " + users[i].prenom + "</td>";
+		bord=" borderL borderR";
+		if ((i+1) == users.length) {bord += " borderB";}
+		html = '<tr><td class="bleuUser' + bord + '">' + users[i].nom + " " + users[i].prenom + "</td>";
 		debut = new Date(annee, mois, -6);
 		id = users[i].id;
 		for (; debut <= fin;) {
 			bord = "";
 			couleur = "normal";
 			if (debut.getDate() == 1) {bord = " borderL";}
+			if (debut.getDate() == fin.getDate()) {bord += " borderR";}
+			if ((i+1) == users.length) {bord += " borderB";}
 			couleur = couleurCase(debut, id);
 			html += '<td class="' + couleur + bord + '"></td>';
 		    debut.setDate(debut.getDate() + 1);

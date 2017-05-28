@@ -7,3 +7,7 @@
 .voffset {
   height: 12vh;
 }
+
+.panel-title {
+  font-weight: bold;
+}

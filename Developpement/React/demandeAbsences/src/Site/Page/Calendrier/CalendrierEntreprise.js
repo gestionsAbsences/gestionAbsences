@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 
 import './calendrier.css';
 
-class CalendrierEquipe extends Component {
+class CalendrierEntreprise extends Component {
   render() {
     return (
       <div>
         <div className="voffsetpos">&nbsp;</div>   {/*1   Cosmétique Ajout d'une marge au dessus du formulaire réglable via le css voffsetpos */}{/*1    fin */}
         <div className="panel panel-default">   {/*2   Formulaire */}
           <div className="panel-heading">   {/*3   Titre de Formulaire */}
-            <h3 className="panel-title">Calendrier de mon équipe</h3>
+            <h3 className="panel-title">Calendrier de l'entreprise</h3>{/*'*/}
           </div>   {/*3   fin */}
           <div className="panel-body">   {/*4   Contenu Formulaire */}
             <div className="voffsethaut">&nbsp;</div>   {/*5   Cosmétique Ajout d'une marge au dessus du contenu du formulaire réglable via le css voffsethaut */}{/*5   fin */}
@@ -45,4 +45,4 @@ class CalendrierEquipe extends Component {
   }
 }
 
-export default CalendrierEquipe;
+export default CalendrierEntreprise;

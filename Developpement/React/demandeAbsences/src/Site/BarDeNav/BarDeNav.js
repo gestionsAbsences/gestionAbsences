@@ -74,7 +74,7 @@ class BarDeNav extends Component {
                           </tr>
                           <tr>
                               <td className="tdbar">
-                                  <a href="/calendrierpersonnel">Calendrier du personnel</a>
+                                  <a href="/calendrierentreprise">Calendrier du personnel</a>
                               </td>
                           </tr>
                          </tbody>
