@@ -6,15 +6,44 @@
   text-align: center;
 }
 
-.logofoot {
-  width: 40px;
-  height: 40px;
-}
-
 .logo1 {
+  width: 35px;
+  height: 35px;
   margin-left: 0px;
 }
 
 .logo2 {
-  margin-left: 0px;
+  width: 40px;
+  height: 40px;
+  margin: 0px;
+}
+
+.logo3 {
+  width: 40px;
+  height: 40px;
+  margin: 0px 10px;
+}
+
+.logo4 {
+  width: 25px;
+  height: 25px;
+  margin: 0px 10px;
+}
+
+.logo5 {
+  width: 20px;
+  height: 20px;
+  margin: 0px 10px;
+}
+
+.logo6 {
+  width: 25px;
+  height: 25px;
+  margin: 0px 10px;
+}
+
+.logo7 {
+  width: 25px;
+  height: 25px;
+  margin-left: 10px;
 }

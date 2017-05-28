@@ -24,26 +24,26 @@ class Page extends Component {
   render() {
     return (
       <Router history={history}>
-      <div>
-        <div className="voffset">&nbsp;</div>
-        <div className="page">
-          <Route path="/accueil"               component={ListeDemandes} />
-          <Route path="/listedemnade"          component={ListeDemandes} />
-          <Route path="/nouvelledemnade"       component={NouvelleDemande} />
-          <Route path="/declareabsence"        component={DeclareAbsence} />
-          <Route path="/reliquatconges"        component={EnConstruction} />
-          <Route path="/moncalendrier"         component={MonCalendrier} />
-          <Route path="/calendrierequipe"      component={CalendrierEquipe} />
-          <Route path="/calendrierentreprise"  component={CalendrierEntreprise} />
-          <Route path="/gestionpersonnel"      component={EnConstruction} />
-          <Route path="/gestionequipe"         component={EnConstruction} />
-          <Route path="/aide"                  component={EnConstruction} />
-          <Route path="/apropos"               component={EnConstruction} />
-          <Route path="/deconnexion"           component={Authentification} />
-          <Route path="/modifmotdepasse"       component={ModifMotDePasse} />
+        <div>
+          <div className="voffset">&nbsp;</div>
+          <div className="page">
+            <Route path="/accueil"               component={ListeDemandes} />
+            <Route path="/listedemnade"          component={ListeDemandes} />
+            <Route path="/nouvelledemnade"       component={NouvelleDemande} />
+            <Route path="/declareabsence"        component={DeclareAbsence} />
+            <Route path="/reliquatconges"        component={EnConstruction} />
+            <Route path="/moncalendrier"         component={MonCalendrier} />
+            <Route path="/calendrierequipe"      component={CalendrierEquipe} />
+            <Route path="/calendrierentreprise"  component={CalendrierEntreprise} />
+            <Route path="/gestionpersonnel"      component={EnConstruction} />
+            <Route path="/gestionequipe"         component={EnConstruction} />
+            <Route path="/aide"                  component={EnConstruction} />
+            <Route path="/apropos"               component={EnConstruction} />
+            <Route path="/deconnexion"           component={Authentification} />
+            <Route path="/modifmotdepasse"       component={ModifMotDePasse} />
+          </div>
+          <div className="marge"></div>
         </div>
-        <div className="marge"></div>
-      </div>
       </Router>
     );
   }
