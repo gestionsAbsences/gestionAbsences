@@ -43,6 +43,7 @@ class MonCalendrier extends Component {
                     <span className="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
                   </a>
                 </div>
+                <div className="voffsetbas">&nbsp;</div>   {/*12   Cosmétique d'unee marge au dessus des boutons */}{/*12   fin */}
               </div>   {/*11   fin */}
             </div>
           </div>
