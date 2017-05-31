@@ -1,19 +1,39 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 
-// import '../Bootstrap/dist/css/sb-admin-2.css'
 import './entete.css';
-
 import logo from '../Medias/Logo.jpg';
 
 let nom="PEREZ";
-let prenom="Lucien";
-let matricule="GATR62";
-let nbCa=14;
-let nbRtt=11;
-let nbRc=34;
 
 class Entete extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            nom:"",
+            prenom:"",
+            matricule:"",
+            nbCa:0,
+            nbRtt:0,
+            nbRc:0
+      }
+    }
+
+    componentDidMount() {
+         axios.get('http://localhost:8080/emp/getEmploye?nom='+nom)
+            .then(res => {
+                this.setState({
+                  nom: res.data[0].nom,
+                  prenom: res.data[0].prenom,
+                  matricule: res.data[0].matricule,
+                  nbCa: res.data[0].nbCa,
+                  nbRtt: res.data[0].nbRtt,
+                  nbRc: res.data[0].nbRc
+              });
+        });
+    }
+
   render() {
     return (
       <header>
@@ -25,16 +45,16 @@ class Entete extends Component {
             </div>
 
             <div className="navbar-form col-md-5">
-              <span className="nom">{nom}</span>
-              <span className="prenom">{prenom}</span>
-              <span className="matricule">{matricule}</span>
+              <span className="nom">{this.state.nom}</span>
+              <span className="prenom">{this.state.prenom}</span>
+              <span className="matricule">{this.state.matricule}</span>
             </div>
 
             <div className="navbar-form col-md-6 pull-right">
               <div className="pull-right">
-                <span className="conge">Congés payés : <span className="compteur">{nbCa}</span> j</span>
-                <span className="rtt">RTT : <span className="compteur">{nbRtt}</span> j</span>
-                <span className="repos">Repos compensateurs : <span className="compteur">{nbRc}</span> h</span>
+                <span className="conge">Congés payés : <span className="compteur">{this.state.nbCa}</span> j</span>
+                <span className="rtt">RTT : <span className="compteur">{this.state.nbRtt}</span> j</span>
+                <span className="repos">Repos compensateurs : <span className="compteur">{this.state.nbRc}</span> h</span>
               </div>
             </div>
 

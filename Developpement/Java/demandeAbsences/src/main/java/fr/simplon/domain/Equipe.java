@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name = "equipe")
 public class Equipe {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

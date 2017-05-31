@@ -4,7 +4,6 @@ import createBrowserHistory from 'history/createBrowserHistory';
 
 // import axios from 'axios'
 
-// import '../Bootstrap/dist/css/sb-admin-2.css'
 import './page.css';
 
 const history = createBrowserHistory();
@@ -18,6 +17,8 @@ import DeclareAbsence from './DeclareAbsence/DeclareAbsence.js';
 import MonCalendrier from './Calendrier/MonCalendrier.js';
 import CalendrierEquipe from './Calendrier/CalendrierEquipe.js';
 import CalendrierEntreprise from './Calendrier/CalendrierEntreprise.js';
+import APropos from '../APropos/APropos.js';
+import Aide from '../Aide/Aide.js';
 
 class Page extends Component {
 
@@ -37,8 +38,8 @@ class Page extends Component {
             <Route path="/calendrierentreprise"  component={CalendrierEntreprise} />
             <Route path="/gestionpersonnel"      component={EnConstruction} />
             <Route path="/gestionequipe"         component={EnConstruction} />
-            <Route path="/aide"                  component={EnConstruction} />
-            <Route path="/apropos"               component={EnConstruction} />
+            <Route path="/aide"                  component={Aide} />
+            <Route path="/apropos"               component={APropos} />
             <Route path="/deconnexion"           component={Authentification} />
             <Route path="/modifmotdepasse"       component={ModifMotDePasse} />
           </div>

@@ -1,11 +1,44 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
-// import '../../Bootstrap/dist/css/sb-admin-2.css'
 import './listedemandes.css';
 
 import liste from './listedemandes.json'
 
+let id="3";
+
 class ListeDemandes extends Component {
+
+  constructor(props) {
+      super(props);
+      this.state = {
+          absences: [],
+          nom: "",
+          prenom: "",
+          nomResp: [],
+          prenomResp: [],
+          action: []
+      }
+  }
+
+  componentDidMount() {
+       axios.get('http://localhost:8080/absence/getAbsenceById?id='+id)
+          .then(res => {
+              console.log(res.data[0].employe.absence);
+              this.setState({
+                absences: res.data[0].employe.absence,
+                nom: res.data[0].employe.nom,
+                prenom: res.data[0].employe.prenom
+              });
+      });
+  }
+
+    formatDate(date) {
+      return (
+        date.substr(-2) +"/"+ date.substr(5,2) +"/"+ date.substr(0,4)
+      )
+    }
+
   render() {
     return (
       <div>
@@ -22,7 +55,7 @@ class ListeDemandes extends Component {
                   <th>Prénom</th>
                   <th>Nom</th>
                   <th>Nom Resp</th>
-                  <th>Nom Resp</th>
+                  <th>Prénom Resp</th>
                   <th>Type</th>
                   <th>Début</th>
                   <th>Fin</th>
@@ -32,19 +65,29 @@ class ListeDemandes extends Component {
               </thead>{/*15 Fin */}
               <tbody>{/*16 Contenu du tableau */}
                 {
-                  liste.absences.map(
+                  this.state.absences.map(
                     (absence, i) =>
                     <tr key={i}>
-                      <td>{absence.demande}</td>
+                      <td>DEM{("000000" + absence.id).substr(-6)}</td>
+{/*
                       <td>{absence.nom}</td>
                       <td>{absence.prenom}</td>
                       <td>{absence.nomresp}</td>
                       <td>{absence.prenomresp}</td>
-                      <td>{absence.type}</td>
-                      <td>{absence.debut}</td>
-                      <td>{absence.fin}</td>
-                      <td>{absence.statut}</td>
+*/}
+                      <td>{this.state.nom}</td>
+                      <td>{this.state.prenom}</td>
+                      <td>absence.nomresp</td>
+                      <td>absence.prenomresp</td>
+
+                      <td>{absence.type.nom}</td>
+                      <td>{this.formatDate(absence.debut)}</td>
+                      <td>{this.formatDate(absence.fin)}</td>
+                      <td>{absence.statut.nom}</td>
+{/*
                       <td><a href={absence.lien}>{absence.action}</a></td>
+*/}
+                      <td>{/*<a href="#">absence.action</a>*/}</td>
                     </tr>
                   )
                 }

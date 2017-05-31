@@ -30,25 +30,25 @@ class BarDeNav extends Component {
                 <table className="table">
                   <tbody>
                     <tr>
-                      <a href="/nouvelledemnade">
-                        <td className="btn btn-block tdbar">
+                      <td className="btn btn-block tdbar">
+                        <a href="/nouvelledemnade">
                           Nouvelle demande
-                        </td>
-                      </a>
+                        </a>
+                      </td>
                     </tr>
                     <tr>
-                      <a href="/declareabsence">
-                        <td className="btn btn-block tdbar">
+                      <td className="btn btn-block tdbar">
+                        <a href="/declareabsence">
                           Déclaration d'absence{/*'*/}
-                        </td>
-                      </a>
+                        </a>
+                      </td>
                     </tr>
                     <tr>
-                      <a href="/reliquatconges">
-                        <td className="btn btn-block tdbar">
+                      <td className="btn btn-block tdbar">
+                        <a href="/reliquatconges">
                           Reliquat de congés
-                        </td>
-                      </a>
+                        </a>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -68,25 +68,25 @@ class BarDeNav extends Component {
                 <table className="table">
                   <tbody>
                     <tr>
-                      <a href="/moncalendrier">
-                        <td className="btn btn-block tdbar">
+                      <td className="btn btn-block tdbar">
+                        <a href="/moncalendrier">
                           Mon calendrier
-                        </td>
-                      </a>
+                        </a>
+                      </td>
                     </tr>
                     <tr>
-                      <a href="/calendrierequipe">
-                        <td className="btn btn-block tdbar">
+                      <td className="btn btn-block tdbar">
+                        <a href="/calendrierequipe">
                           Calendrier d'équipe{/*'*/}
-                        </td>
-                      </a>
+                        </a>
+                      </td>
                     </tr>
                     <tr>
-                      <a href="/calendrierentreprise">
-                        <td className="btn btn-block tdbar">
+                      <td className="btn btn-block tdbar">
+                        <a href="/calendrierentreprise">
                           Calendrier du personnel
-                        </td>
-                      </a>
+                        </a>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -106,18 +106,18 @@ class BarDeNav extends Component {
                 <table className="table">
                   <tbody>
                     <tr>
-                      <a href="/gestionpersonnel">
-                        <td className="btn btn-block tdbar">
+                      <td className="btn btn-block tdbar">
+                        <a href="/gestionpersonnel">
                           Gestion du personnel
-                        </td>
-                      </a>
+                        </a>
+                      </td>
                     </tr>
                     <tr>
-                      <a href="/gestionequipe">
-                        <td className="btn btn-block tdbar">
+                      <td className="btn btn-block tdbar">
+                        <a href="/gestionequipe">
                           Gestion d'équipe{/*'*/}
-                        </td>
-                      </a>
+                        </a>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -137,18 +137,18 @@ class BarDeNav extends Component {
                 <table className="table">
                   <tbody>
                     <tr>
-                      <a href="/aide">
-                        <td className="btn btn-block tdbar">
+                      <td className="btn btn-block tdbar">
+                        <a href="/aide">
                           Aide
-                        </td>
-                      </a>
+                        </a>
+                      </td>
                     </tr>
                     <tr>
-                      <a href="/apropos">
-                        <td className="btn btn-block tdbar">
+                      <td className="btn btn-block tdbar">
+                        <a href="/apropos">
                           A propos
-                        </td>
-                      </a>
+                        </a>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -168,18 +168,18 @@ class BarDeNav extends Component {
                 <table className="table">
                   <tbody>
                     <tr>
-                      <a href="/deconnexion">
-                        <td className="btn btn-block tdbar">
+                      <td className="btn btn-block tdbar">
+                        <a href="/deconnexion">
                           Déconnexion
-                        </td>
-                      </a>
+                        </a>
+                      </td>
                     </tr>
                     <tr>
-                      <a href="/modifmotdepasse">
-                        <td className="btn btn-block tdbar">
+                      <td className="btn btn-block tdbar">
+                        <a href="/modifmotdepasse">
                           Modifier mot de passe
-                        </td>
-                      </a>
+                        </a>
+                      </td>
                     </tr>
                   </tbody>
                 </table>

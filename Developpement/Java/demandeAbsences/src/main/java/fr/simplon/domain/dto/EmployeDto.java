@@ -14,6 +14,7 @@ public class EmployeDto {
 	private String emailRh;
 	private String nomEquipe;
 	private String nomResponsable;
+	private String prenomResponsable;
 	private String emailReponsable;
 	
 	public EmployeDto() {
@@ -121,6 +122,14 @@ public class EmployeDto {
 
 	public void setEmailReponsable(String emailReponsable) {
 		this.emailReponsable = emailReponsable;
+	}
+
+	public String getPrenomResponsable() {
+		return prenomResponsable;
+	}
+
+	public void setPrenomResponsable(String prenomResponsable) {
+		this.prenomResponsable = prenomResponsable;
 	}
 	
 	

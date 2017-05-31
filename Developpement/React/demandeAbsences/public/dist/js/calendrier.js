@@ -1,8 +1,18 @@
-var ConfJoursReposHebdo = 96;
 var dateEnCours = new Date();
+var listeJoursFeries = [];
+
+var Jour = ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"];
+var Mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+var idCalendrierHtml = "table.calendrier";
+var mois;
+var annee;
+var couleur = "normal";
+
+// Données en dur pour tester
 var idUser = 12;
+var ConfJoursReposHebdo = 96;
+var ConfFeriesTravailles = 0;
 var users = [{id: 10, nom: "ARMAND", prenom: "Fulbert"}, {id: 11, nom: "CHAUMETTE", prenom: "Ernest"}, {id: 12, nom: "FARDET", prenom: "Gondran"}, {id: 13, nom: "FOURQUAY", prenom: "Anatole"}, {id: 14, nom: "URBAIN", prenom: "Gertrude"}];
-var listeJoursFeries = [new Date(2017, 0, 1), new Date(2017, 3, 16), new Date(2017, 3, 17), new Date(2017, 4, 1), new Date(2017, 4, 8), new Date(2017, 4, 25), new Date(2017, 5, 4), new Date(2017, 5, 5), new Date(2017, 6, 14), new Date(2017, 7, 15), new Date(2017, 10, 1), new Date(2017, 10, 11), new Date(2017, 11, 25)];
 var listeAbsences = [
 	{id: 10, debut: "10/02/2017", fin: "10/02/2017", type: 2, statut: 1},
 	{id: 10, debut: "24/02/2017", fin: "24/02/2017", type: 2, statut: 1},
@@ -32,13 +42,6 @@ var listeAbsences = [
 	{id: 14, debut: "24/06/2017", fin: "30/06/2017", type: 4, statut: 1}
 ];
 
-var Jour = ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"];
-var Mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
-var idCalendrierHtml = "table.calendrier";
-var mois;
-var annee;
-var couleur = "normal";
-
 $(document).ready(function() {
 
 	afficherCalendrier();
@@ -62,12 +65,13 @@ $(document).ready(function() {
 });
 
 function afficherCalendrier() {
-	viderElement(idCalendrierHtml);
 	if($('#moncalendrier').length) {
+		viderElement(idCalendrierHtml);
 		calendrierPerso();
 	}
 	if($('#calendriergroupe').length) {
 		affLegende=false;
+		viderElement(idCalendrierHtml);
 		calendrierGroupe();
 	}
 }
@@ -83,6 +87,7 @@ function calendrierPerso() {
 	MoisAffiche[0] = new Date(annee, (mois - 1), 1);
 	MoisAffiche[1] = new Date(annee, mois, 1);
 	MoisAffiche[2] = new Date(annee, (mois + 1), 1);
+	joursFeries();
 
 	html = '<tr>';
 	html += '<td class="' + couleur + ' mois border" colspan=7>' + Mois[MoisAffiche[0].getMonth()] + ' ' + MoisAffiche[0].getFullYear() + '</td>';
@@ -146,6 +151,7 @@ function calendrierGroupe() {
 	annee = dateEnCours.getFullYear();
 	var debut = new Date(annee, mois, -6);
 	var fin   = new Date(annee, (mois + 1), 7);
+	joursFeries();
 
 	html = "<tr><td class='" + couleur + " border mois' rowspan=4>Equipe</td></tr>";
 	html += "<tr>";
@@ -163,7 +169,7 @@ function calendrierGroupe() {
 		bord = "";
 		couleur = "jaune";
 		if (debut.getDate() == 1) {bord = " borderL";}
-		if (debut.getDate() == fin.getDate()) {bord += " borderR";}
+		if (debut.getDate() == fin.getDate() && debut.getMonth() == fin.getMonth()) {bord += " borderR";}
 		couleur = couleurCase(debut, 0);
 		html+='<td class="' + couleur + bord + '">' + Jour[debut.getDay()] + "</td>";
 	    debut.setDate(debut.getDate() + 1);
@@ -177,7 +183,7 @@ function calendrierGroupe() {
 		bord = " borderB";
 		couleur = "jaune";
 		if (debut.getDate() == 1) {bord += " borderL";}
-		if (debut.getDate() == fin.getDate()) {bord += " borderR";}
+		if (debut.getDate() == fin.getDate() && debut.getMonth() == fin.getMonth()) {bord += " borderR";}
 		couleur = couleurCase(debut, 0);
 		html += '<td class="' + couleur + bord + '">' + debut.getDate() + "</td>";
 	    debut.setDate(debut.getDate() + 1);
@@ -195,7 +201,7 @@ function calendrierGroupe() {
 			bord = "";
 			couleur = "normal";
 			if (debut.getDate() == 1) {bord = " borderL";}
-			if (debut.getDate() == fin.getDate()) {bord += " borderR";}
+			if (debut.getDate() == fin.getDate() && debut.getMonth() == fin.getMonth()) {bord += " borderR";}
 			if ((i+1) == users.length) {bord += " borderB";}
 			couleur = couleurCase(debut, id);
 			html += '<td class="' + couleur + bord + '"></td>';
@@ -214,7 +220,9 @@ function couleurCase(date, id) {
 	if (jour < 0) {jour = 6;}
 	if ((ConfJoursReposHebdo & Math.pow(2, jour)) == Math.pow(2, jour)) {return "gris";}
 	for (var i = 0; i < listeJoursFeries.length; i++) {
-		if (date.getDate() == listeJoursFeries[i].getDate() && date.getMonth() == listeJoursFeries[i].getMonth() && date.getFullYear() == listeJoursFeries[i].getFullYear()) {return "gris";}
+		if (date.getDate() == listeJoursFeries[i].getDate() && date.getMonth() == listeJoursFeries[i].getMonth() && date.getFullYear() == listeJoursFeries[i].getFullYear()) {
+			if ((ConfFeriesTravailles & Math.pow(2, i)) != Math.pow(2, i)) {return "gris";}
+		}
 	}
 //	console.log(id);
 	if (id > 0) {
@@ -244,12 +252,51 @@ function verifDates(date, sDebut, sFin) {
 	return resultat;
 }
 
+function  PaquesAdd(an, jAdd) {
+	var calcJf;
+	var A = an % 19;
+	var B = an % 4;
+	var C = an % 7;
+	var D = ((A * 19) + 24) % 30;
+	if (D == 29) {D = 28;}
+	if ((D == 28) && (A > 10)) {D = 27;}
+	var E = ((2 * B) + (4 * C) + (6 * D) + 5) % 7;
+	if (D + E >= 10) {
+		calcJf = new Date(an, 3, D + E - 9 + jAdd);
+	} else {
+		calcJf = new Date(an, 2, D + E + jAdd);
+	}
+	return calcJf;
+}
+
+function joursFeries() {
+	listeJoursFeries = [
+		new Date(annee + (mois > 9), 0, 1),
+		PaquesAdd(annee + (mois > 9), 0),
+		PaquesAdd(annee + (mois > 9), 1),
+		new Date(annee, 4, 1),
+		new Date(annee, 4, 8),
+		PaquesAdd(annee, 39),
+		PaquesAdd(annee, 49),
+		PaquesAdd(annee, 50),
+		new Date(annee, 6, 14),
+		new Date(annee, 7, 15),
+		new Date(annee - (mois < 3), 10, 1),
+		new Date(annee - (mois < 3), 10, 11),
+		new Date(annee - (mois < 3), 11, 25)
+	];
+	return true;
+}
+
+function transformDate(date) {
+  return date.substr(-2) + "/" + date.substr(5,3) + "/" + date.substr(0,4);
+}
+
 function afficheLegend() {
 	var liste=["Non travaillé", "Congé payé", "RTT", "Repos", "Autre absence"];
 	var clrN=["gris", "rouge", "bleu", "vert", "mauve"];
 	var clrE=["jaune", "rougeEstompe", "bleuEstompe", "vertEstompe", "mauveEstompe"];
 	var mot="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-
 	html ="<br><br>---Légende---<br><br>"
 	$("#legendText").append(html);
 	html ="<span class='"+clrN[0]+"'>"+mot+"</span> : " + liste[0]+"<br>"
