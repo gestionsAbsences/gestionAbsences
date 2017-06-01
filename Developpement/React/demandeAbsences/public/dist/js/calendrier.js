@@ -158,6 +158,7 @@ function calendrierGroupe() {
 	html += "<td class='" + couleur + " mois border' colspan=7>" + Mois[debut.getMonth()] + " " + debut.getFullYear() + "</td>";
 	debut = new Date(annee, (mois + 1), 0);
 	html += "<td class='" + couleur + " mois border' colspan=" + debut.getDate() + ">" + Mois[debut.getMonth()] + " " + debut.getFullYear() + "</td>";
+	debut = new Date(annee, (mois + 2), 0);
 	html += "<td class='" + couleur + " mois border' colspan=" + debut.getDate() + ">" + Mois[debut.getMonth()] + " " + debut.getFullYear() + "</td>";
 	html += "</tr>";
 	$(idCalendrierHtml).append(html);

@@ -31,7 +31,7 @@ class BarDeNav extends Component {
                   <tbody>
                     <tr>
                       <td className="btn btn-block tdbar">
-                        <a href="/nouvelledemnade">
+                        <a href="/nouvelledemande">
                           Nouvelle demande
                         </a>
                       </td>

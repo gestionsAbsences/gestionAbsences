@@ -3,8 +3,6 @@ import axios from 'axios';
 
 import './listedemandes.css';
 
-import liste from './listedemandes.json'
-
 let id="3";
 
 class ListeDemandes extends Component {

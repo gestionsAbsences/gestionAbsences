@@ -130,10 +130,6 @@ public class EmployeDto {
 
 	public void setPrenomResponsable(String prenomResponsable) {
 		this.prenomResponsable = prenomResponsable;
-	}
-	
-	
-	
-	
+	}	
 
 }

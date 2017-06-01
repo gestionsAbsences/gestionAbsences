@@ -1,22 +1,51 @@
 import React, { Component } from 'react';
 
-// import axios from 'axios'
+import axios from 'axios';
 
 // import '../../Bootstrap/dist/css/sb-admin-2.css'
 import './declareabsence.css';
 
-let nbCa=11;
-let nbRtt=9;
-let nbRc=6;
+let nom="PEREZ";
 
 class DeclareAbsence extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+          nbCa:0,
+          nbRtt:0,
+          nbRc:0,
+          types: []
+      }
+    }
+
+  componentDidMount() {
+       axios.get('http://localhost:8080/emp/getEmploye?nom='+nom)
+          .then(res => {
+              this.setState({
+                nom: res.data[0].nomResp,
+                prenom: res.data[0].prenomResp,
+                nbCa: res.data[0].nbCa,
+                nbRtt: res.data[0].nbRtt,
+                nbRc: res.data[0].nbRc
+            });
+      });
+
+    axios.get('http://localhost:8080/type/listeTypeAbsence')
+       .then(res => {
+           this.setState({
+             types: res.data
+         });
+   });
+}
+
   render() {
     return (
       <div>
         <div className="voffsetpos">&nbsp;</div>   {/*1   Cosmétique Ajout d'une marge au dessus du formulaire réglable via le css voffsetpos */}{/*1    fin */}
         <div className="panel panel-default">   {/*2   Formulaire */}
           <div className="panel-heading">   {/*3   Titre de Formulaire */}
-            <h3 className="panel-title">Declaration d'une absence</h3>                 {/*'*/}{/* Factice Pour rectifier bug d'affichage sur Atom */}
+            <h3 className="panel-title">Declaration d'une absence inopinée</h3>                 {/*'*/}{/* Factice Pour rectifier bug d'affichage sur Atom */}
           </div>   {/*3   fin */}
           <div className="panel-body">   {/*4   Contenu Formulaire */}
             <div className="voffsethaut">&nbsp;</div>   {/*5   Cosmétique Ajout d'une marge au dessus du contenu du formulaire réglable via le css voffsethaut */}{/*5   fin */}
@@ -24,38 +53,31 @@ class DeclareAbsence extends Component {
               <div className="col-md-4 col-md-offset-1">   {/*6   Formulaire Partie gauche */}
                 <div className="form-group">   {/*7   Un des champs select du Formulaire */}
                   <label>Nom de l'employé</label>                                       {/*'*/}
-                  <select className="form-control">
-                    <option>Congés payés</option>
-                    <option>RTT</option>
-                    <option>Repos conpensateurs</option>
-                  </select>
+                  <input className="form-control" placeholder="Nom de l'employé" />
                 </div>   {/*7   fin */}
                 <div className="form-group">
                   <label>Prénom de l'employé</label>                                     {/*'*/}
-                  <select className="form-control">
-                    <option>Congés payés</option>
-                    <option>RTT</option>
-                    <option>Repos conpensateurs</option>
-                  </select>
+                  <input className="form-control" placeholder="Prénom de l'employé" />
                 </div>
                 <div className="form-group">
                   <label>Type d'absence</label>                                           {/*'*/}
                   <select className="form-control">
-                    <option>Congés payés</option>
-                    <option>RTT</option>
-                    <option>Repos conpensateurs</option>
+                    {this.state.types.map(
+                      (type, i) =>
+                      <option key={i}>{type.nom}</option>
+                    )}
                   </select>
                 </div>
                 <div className="container-fluid">   {/*7   Les 3 labels pour les compteurs */}
                   <div className="text-center ajust">
                     <div className="form-group col-md-4">
-                      <label className="form-control">{nbCa} CP</label>
+                      <label className="form-control">{/*nbCa*/} CP</label>
                     </div>
                     <div className="form-group col-md-4">
-                      <label className="form-control">{nbRtt} RTT</label>
+                      <label className="form-control">{/*nbRtt*/} RTT</label>
                     </div>
                     <div className="form-group col-md-4">
-                      <label className="form-control">{nbRc} RC</label>
+                      <label className="form-control">{/*nbRc*/} RC</label>
                     </div>
                   </div>
                 </div>   {/*7   fin */}
@@ -63,11 +85,11 @@ class DeclareAbsence extends Component {
               <div className="col-md-4 col-md-offset-2">   {/*8   Block formulaire Partie droite */}
                 <div className="form-group">   {/*9   Un des champ de saisie de type texte */}
                   <label>Date de début</label>
-                  <input className="form-control" placeholder="Début" />
+                  <input type="date" className="form-control" placeholder="Fin" />
                 </div>   {/*9   fin */}
                 <div className="form-group">
                   <label>Date de fin</label>
-                  <input className="form-control" placeholder="Fin" />
+                  <input type="date" className="form-control" placeholder="Fin" />
                 </div>
                 <div className="form-group">   {/*10   Champs de saisie de type Zone de texte */}
                   <label>Commentaires</label>

@@ -1,16 +1,45 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
-// import axios from 'axios'
-
-// import '../../Bootstrap/dist/css/sb-admin-2.css'
 import './nouvelledemande.css';
 
-let nbCa=11;
-let nbRtt=9;
-let nbRc=6;
+let nom="PEREZ";
+
 let responsable="GRUMELON Gérald";
 
 class NouvelleDemande extends Component {
+
+      constructor(props) {
+          super(props);
+          this.state = {
+              nomResp:"",
+              prenomResp:"",
+              nbCa:0,
+              nbRtt:0,
+              nbRc:0,
+              types: []
+        }
+      }
+
+            componentDidMount() {
+                 axios.get('http://localhost:8080/emp/getEmploye?nom='+nom)
+                    .then(res => {
+                        this.setState({
+                          nom: res.data[0].nomResp,
+                          prenom: res.data[0].prenomResp,
+                          nbCa: res.data[0].nbCa,
+                          nbRtt: res.data[0].nbRtt,
+                          nbRc: res.data[0].nbRc
+                      });
+                });
+                 axios.get('http://localhost:8080/type/listeTypeAbsence')
+                    .then(res => {
+                        this.setState({
+                          types: res.data
+                      });
+                });
+      }
+
   render() {
     return (
       <div>
@@ -26,32 +55,33 @@ class NouvelleDemande extends Component {
                 <div className="form-group">   {/*7   Un des champs select du Formulaire */}
                   <label>Type d'absence</label>                    {/*'*/}{/* Factice Pour rectifier bug d'affichage sur Atom */}
                   <select className="form-control">
-                    <option>Congés payés</option>
-                    <option>RTT</option>
-                    <option>Repos conpensateurs</option>
+                    {this.state.types.map(
+                      (type, i) =>
+                      <option key={i}>{type.nom}</option>
+                    )}
                   </select>
                 </div>   {/*7   fin */}
                 <div className="form-group">   {/*9   Un des champ de saisie de type texte */}
                   <label>Date de début</label>
-                  <input className="form-control" placeholder="Début" />
+                  <input type="date" className="form-control" placeholder="Début" />
                   </div>   {/*9   fin */}
                 <div className="form-group">
                   <label>Date de fin</label>
-                  <input className="form-control" placeholder="Fin" />
+                  <input type="date" className="form-control" placeholder="Fin" />
                 </div>
               </div>   {/*6   fin */}
               <div className="col-md-4 col-md-offset-2">   {/*8   Block formulaire Partie droite */}
                 <div className="form-group">
                   <label>Congés payés</label>
-                  <label className="form-control">{nbCa}</label>
+                  <label className="form-control">{this.state.nbCa}</label>
                 </div>
                 <div className="form-group">
                   <label>RTT</label>
-                  <label className="form-control">{nbRtt}</label>
+                  <label className="form-control">{this.state.nbRtt}</label>
                 </div>
                 <div className="form-group">
                   <label>Repos compensateur</label>
-                  <label className="form-control">{nbRc}</label>
+                  <label className="form-control">{this.state.nbRc}</label>
                 </div>
                 <div className="form-group">
                   <label>Valideur</label>

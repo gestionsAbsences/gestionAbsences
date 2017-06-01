@@ -24,13 +24,14 @@ class Page extends Component {
 
   render() {
     return (
+      <div>
       <Router history={history}>
         <div>
           <div className="voffset">&nbsp;</div>
           <div className="page">
             <Route path="/accueil"               component={ListeDemandes} />
-            <Route path="/listedemnade"          component={ListeDemandes} />
-            <Route path="/nouvelledemnade"       component={NouvelleDemande} />
+            <Route path="/listedemandes"         component={ListeDemandes} />
+            <Route path="/nouvelledemande"       component={NouvelleDemande} />
             <Route path="/declareabsence"        component={DeclareAbsence} />
             <Route path="/reliquatconges"        component={EnConstruction} />
             <Route path="/moncalendrier"         component={MonCalendrier} />
@@ -46,6 +47,7 @@ class Page extends Component {
           <div className="marge"></div>
         </div>
       </Router>
+      </div>
     );
   }
 }
