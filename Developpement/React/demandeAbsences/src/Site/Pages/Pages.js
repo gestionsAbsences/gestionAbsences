@@ -4,7 +4,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 
 // import axios from 'axios'
 
-import './page.css';
+import './pages.css';
 
 const history = createBrowserHistory();
 
@@ -20,7 +20,7 @@ import CalendrierEntreprise from './Calendrier/CalendrierEntreprise.js';
 import APropos from '../APropos/APropos.js';
 import Aide from '../Aide/Aide.js';
 
-class Page extends Component {
+class Pages extends Component {
 
   render() {
     return (
@@ -52,4 +52,4 @@ class Page extends Component {
   }
 }
 
-export default Page;
+export default Pages;
