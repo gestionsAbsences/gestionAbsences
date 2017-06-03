@@ -40,7 +40,7 @@ class ListeDemandes extends Component {
   render() {
     return (
       <div>
-        <div className="voffsetpos">&nbsp;</div>   {/*1   Cosmétique Ajout d'une marge au dessus du formulaire réglable via le css voffsetpos */}{/*1    fin */}
+        <div className="voffsethaut">&nbsp;</div>   {/*1   Cosmétique Ajout d'une marge au dessus du formulaire réglable via le css voffsetpos */}{/*1    fin */}
         <div className="panel panel-default">   {/*2   Formulaire */}
           <div className="panel-heading">   {/*3   Titre de la page */}
             <h3 className="panel-title">Liste de vos dernières demandes</h3>
@@ -50,8 +50,8 @@ class ListeDemandes extends Component {
               <thead>{/*15   Entête du tableau */}
                 <tr>
                   <th>N° demande</th>
-                  <th>Prénom</th>
                   <th>Nom</th>
+                  <th>Prénom</th>
                   <th>Nom Resp</th>
                   <th>Prénom Resp</th>
                   <th>Type</th>
@@ -93,6 +93,7 @@ class ListeDemandes extends Component {
             </table>
           </div>   {/*14 Fin */}
         </div>   {/*2 Fin */}
+        <div className="voffsetbas">&nbsp;</div>   {/*1   Cosmétique Ajout d'une marge en dessous du formulaire réglable via le css voffsetpos */}{/*1    fin */}
       </div>
     );
   }

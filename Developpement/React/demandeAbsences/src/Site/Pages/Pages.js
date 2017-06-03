@@ -17,6 +17,7 @@ import DeclareAbsence from './DeclareAbsence/DeclareAbsence.js';
 import MonCalendrier from './Calendrier/MonCalendrier.js';
 import CalendrierEquipe from './Calendrier/CalendrierEquipe.js';
 import CalendrierEntreprise from './Calendrier/CalendrierEntreprise.js';
+import ReliquatConges from './ReliquatConges/ReliquatConges.js';
 import APropos from '../APropos/APropos.js';
 import Aide from '../Aide/Aide.js';
 
@@ -33,7 +34,7 @@ class Pages extends Component {
             <Route path="/listedemandes"         component={ListeDemandes} />
             <Route path="/nouvelledemande"       component={NouvelleDemande} />
             <Route path="/declareabsence"        component={DeclareAbsence} />
-            <Route path="/reliquatconges"        component={EnConstruction} />
+            <Route path="/reliquatconges"        component={ReliquatConges} />
             <Route path="/moncalendrier"         component={MonCalendrier} />
             <Route path="/calendrierequipe"      component={CalendrierEquipe} />
             <Route path="/calendrierentreprise"  component={CalendrierEntreprise} />

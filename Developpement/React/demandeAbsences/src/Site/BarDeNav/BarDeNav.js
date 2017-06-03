@@ -7,7 +7,7 @@ class BarDeNav extends Component {
     return (
       <div className="bardenav">
         <div className="voffsetnav">&nbsp;</div>
-        <div className="affix col-md-2 panel-group" id="accordion">
+        <div className="affix col-xs-1 col-sm-1 col-md-2 col-lg-2 panel-group" id="accordion">
           <div className="panel panel-default">
             <div className="panel-heading">
               <a href="/accueil">
