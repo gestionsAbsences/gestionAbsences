@@ -22,7 +22,6 @@ class ListeDemandes extends Component {
   componentDidMount() {
        axios.get('http://localhost:8080/absence/getAbsenceById?id='+id)
           .then(res => {
-              console.log(res.data[0].employe.absence);
               this.setState({
                 absences: res.data[0].employe.absence,
                 nom: res.data[0].employe.nom,
