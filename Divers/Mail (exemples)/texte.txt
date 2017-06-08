@@ -1,0 +1,84 @@
+
+  if ($Cas ==  1) { /** Mail Accusé de réception de la demande - Dest=Bénéficiaire ***************************************************************/
+	  Nous accusons réception de votre demande d'obtention des droits d'administrateur sur votre poste de travail sous le N° ['URL'].?Page=NoDemandeNoDemande
+	  Votre demande va être étudiée et vous serez très prochainement informé(e) de la décision retenue.
+
+  if ($Cas ==  2) { /** Mail+Lien pour validation - Dest=Responsable de pôle *********************************************************************/
+      L'utilisateur(trice) User dont vous êtes le ou la responsable de pôle, demande à bénéficier des droits d'administrateur sur son poste de travail.
+	  En qualité de responsable de pôle, merci de bien vouloir étudier la demande référencée sous le N° URL?Page=NoDemandeNoDemande et d'y apporter votre validation ou votre refus en cliquant sur le lien.
+	  Nous attirons votre vigilance sur l'importance et votre engagement concernant votre validation ou votre refus.
+	  Une ultime étape est prévue pour la signature de la Charte. Elle est obligatoire pour que la demande soit traitée par le CDS.
+
+  if ($Cas == 22) { /** Mail+Lien pour validation - Dest=Responsable de pôle *********************************************************************/
+      L'utilisateur(trice) User dont vous êtes le ou la responsable de pôle, demande à bénéficier des droits d'administrateur sur son poste de travail.
+	  En qualité de responsable de pôle, merci de bien vouloir étudier la demande référencée sous le N° URL?Page=NoDemandeNoDemande et d'y apporter votre validation ou votre refus en cliquant sur le lien
+	  Nous attirons votre vigilance sur l'importance et votre engagement concernant votre validation ou votre refus.
+	  
+  if ($Cas ==  3) { /** Mail Refus du Responsable de pôle - Dest=Bénéficiaire+Responsable de pôle ************************************************/
+      Votre demande N° NoDemande pour l'obtention des droits d'administrateur sur votre poste de travail n'a pas été approuvée par votre responsable de pôle pour les motifs ci-dessous.
+	  Motif : (CommentResp).
+	  En conséquence votre demande est annulée
+	  
+  if ($Cas ==  4) { /** Mail Accord du Responsable de pôle - Dest=Bénéficiaire+Responsable de pôle ***********************************************/
+      Votre responsable de pôle vient de valider votre demande pour l'obtention des droits d'administrateur sur votre poste de travail.
+	  Votre demande va être soumise au service d'attribution de droits d'administration pour étude et prise de décision.
+	  Vous serez très prochainement informé(e) par mail de la décision retenue par le service d'attribution des droits d'administration.
+
+  if ($Cas ==  5) { /** Mail+Lien pour validation - Dest=Expert technique+Backup *****************************************************************/
+	  En qualité d'expert technique, merci de bien vouloir étudier l'opportunité de la demande URL?Page=NoDemandeNoDemande d'obtention des droits d'administrateur sur le poste de travail de l'utilisateur User
+	  Afin de vous prononcer merci de cliquer sur le N° de la demande ci-dessus.
+	  
+  if ($Cas ==  25) { /** Mail+Lien pour validation - Dest=Expert technique+Backup *****************************************************************/
+      En qualité d'expert technique, merci de bien vouloir étudier l'opportunité de la demande URL?Page=NoDemandeNoDemande d'obtention des droits d'administrateur sur le poste de travail de l'utilisateur User.
+	  Afin de vous prononcer merci de cliquer sur le N° de la demande ci-dessus.
+	  
+  if ($Cas ==  14) { /** Mail+Lien pour validation - Dest=Responsable technique ******************************************************************/
+      En qualité de responsable technique, merci de bien vouloir étudier l'opportunité de la demande URL?Page=NoDemandeNoDemande d'obtention des droits d'administrateur sur le poste de travail de l'utilisateur User
+	  Afin de vous prononcer merci de cliquer sur le N° de la demande ci-dessus.
+
+  if ($Cas ==  15) { /** Mail+Lien pour validation - Dest=Responsable technique ******************************************************************/
+      En qualité de responsable technique, merci de bien vouloir étudier l'opportunité de la demande URL?Page=NoDemandeNoDemande d'obtention des droits d'administrateur sur le poste de travail de l'utilisateur User.
+	  Afin de vous prononcer merci de cliquer sur le N° de la demande ci-dessus.
+	  
+  if ($Cas ==  6) { /** Mail+Lien pour Charte - Dest=Responsable de pôle *************************************************************************/
+      Afin de finaliser la demande, merci de signer numériquement la Charte d'administration en cliquant sur le N° de la demande : N°NoDemandeNoDemande
+	  
+  if ($Cas ==  7) { /** Mail+Lien pour Charte - Dest=Bénéficiaire ********************************************************************************/
+      Afin de finaliser la demande, merci de signer numériquement la Charte d'administration en cliquant sur le N° de la demande : N°URL?Page=NoDemandeNoDemande
+	  
+  if ($Cas ==  8) { /** Mail Refus du RSSI - Dest=Bénéficiaire+Responsable de pôle ***************************************************************/
+      Votre demande N° NoDemande pour l'obtention des  droits d'administrateur sur votre poste de travail n'a pas été approuvée par le service d'attribution des droits d'administration pour les motifs ci-dessous. Motif : (CommentValideur).
+	  En conséquence votre demande est annulée.
+	  
+  if ($Cas == 10) { /** Mail Chartes signées - Dest=Bénéficiaire *********************************************************************************/
+      Votre demande d'obtention des droits d'administrateur a été validée, vous allez très prochainement être contacté(e) par les services Support Informatique afin de procéder à la mise en place des droits d'administrateur sur votre poste de travail.
+	  
+  if ($Cas == 11) { /** Mail Refus de l'Expert technique - Dest=Bénéficiaire+Responsable de pôle *************************************************/
+      Votre demande N° NoDemande pour l'obtention des droits d'administrateur sur votre poste de travail n'a pas été approuvée par le service d'attribution des droits d'administration pour les motifs ci-dessous.
+	  Motif : (CommentSB).
+	  En conséquence votre demande est annulée.
+	  
+  if ($Cas == 21) { /** Mail Refus du Responsable technique - Dest=Bénéficiaire+Responsable de pôle **********************************************/
+      Votre demande N° NoDemande pour l'obtention des droits d'administrateur sur votre poste de travail n'a pas été approuvée par le service d'attribution des droits d'administration pour les motifs ci-dessous.
+	  Motif : (CommentLitige).
+	  En conséquence votre demande est annulée.
+	  
+  if ($Cas == 12) { /** Mail+Lien pour validation - Dest=RSSI ************************************************************************************/
+      Merci de bien vouloir étudier la demande URL?Page=NoDemandeNoDemande d'obtention des droits d'administrateur sur le poste de travail de l'utilisateur(trice) User.
+	  Afin de vous prononcer merci de cliquer sur le N° de la demande ci-dessus.
+	  
+  if ($Cas == 32) { /** Mail+Lien pour validation - Dest=RSSI ************************************************************************************/
+      Merci de bien vouloir étudier la demande URL?Page=NoDemandeNoDemande d'obtention des droits d'administrateur sur le poste de travail de l'utilisateur(trice) User.
+	  Afin de vous prononcer merci de cliquer sur le N° de la demande ci-dessus.
+	  
+
+
+	  
+	Bonjour,
+
+	Corp
+
+	Cordialement,
+	[Valideur]
+
+	Ce message vous a été envoyé automatiquement, merci de ne pas répondre.
