@@ -44,8 +44,34 @@ var listeAbsences = [
 
 $(document).ready(function() {
 
-	afficherCalendrier();
-	afficheLegend();
+		$.ajax({
+				type: "GET",
+				url: "emp/listeEmployes",
+			 //  data: {email:radio_button_value},
+				success: function(response) {
+					users = response;
+					// console.log(users);
+			 }
+	 });
+
+		$.ajax({
+				type: "GET",
+				url: "absence/listeAbsence",
+			 //  data: {email:radio_button_value},
+				success: function(response) {
+					listeAbsences = response;
+					// console.log(listeAbsences);
+			 }
+	 });
+
+	 $(document).ajaxStop(function () {
+			 // 0 === $.active
+			//  console.log("GO !");
+			 console.log(listeAbsences);
+
+		afficherCalendrier();
+		afficheLegend();
+	});
 
 	$('#leftcalendrier').click(function(){
 		dateEnCours = new Date(annee, (mois - 1), 1);
@@ -63,6 +89,21 @@ $(document).ready(function() {
 	});
 
 });
+
+function leftCalendar() {
+	dateEnCours = new Date(annee, (mois - 1), 1);
+	afficherCalendrier();
+}
+
+function rightCalendar() {
+		dateEnCours = new Date(annee, (mois + 1), 1);
+		afficherCalendrier();
+}
+
+	function todayCalendar() {
+		dateEnCours = new Date();
+		afficherCalendrier();
+}
 
 function afficherCalendrier() {
 	if($('#moncalendrier').length) {
@@ -155,11 +196,11 @@ function calendrierGroupe() {
 
 	html = "<tr><td class='" + couleur + " border mois' rowspan=4>Equipe</td></tr>";
 	html += "<tr>";
-	html += "<td class='" + couleur + " mois border' colspan=7>" + Mois[debut.getMonth()] + " " + debut.getFullYear() + "</td>";
+	html += "<td class='" + couleur + " mois border' colspan=7><a class='lienCalendrier' onclick='leftCalendar()'>" + Mois[debut.getMonth()] + " " + debut.getFullYear() + "</a></td>";
 	debut = new Date(annee, (mois + 1), 0);
-	html += "<td class='" + couleur + " mois border' colspan=" + debut.getDate() + ">" + Mois[debut.getMonth()] + " " + debut.getFullYear() + "</td>";
+	html += "<td class='" + couleur + " mois border' colspan=" + debut.getDate() + "><a class='lienCalendrier' onclick='todayCalendar()'>" + Mois[debut.getMonth()] + " " + debut.getFullYear() + "</a></td>";
 	debut = new Date(annee, (mois + 2), 0);
-	html += "<td class='" + couleur + " mois border' colspan=" + debut.getDate() + ">" + Mois[debut.getMonth()] + " " + debut.getFullYear() + "</td>";
+	html += "<td class='" + couleur + " mois border' colspan=" + debut.getDate() + "><a class='lienCalendrier' onclick='rightCalendar()'>" + Mois[debut.getMonth()] + " " + debut.getFullYear() + "</a></td>";
 	html += "</tr>";
 	$(idCalendrierHtml).append(html);
 
