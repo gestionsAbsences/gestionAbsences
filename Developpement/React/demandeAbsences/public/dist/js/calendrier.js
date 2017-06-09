@@ -359,7 +359,7 @@ function transformDate(date) {
 }
 
 function afficheLegend() {
-	var liste=["Non travaillé", "Congé payé", "RTT", "Repos", "Autre absence"];
+	var liste=["Non travaillé", "Congé payé", "RTT", "Repos", "Autre"];
 	var clrN=["gris", "rouge", "bleu", "vert", "mauve"];
 	var clrE=["jaune", "rougeEstompe", "bleuEstompe", "vertEstompe", "mauveEstompe"];
 	var mot="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";

@@ -68,7 +68,7 @@ class DeclareAbsence extends Component {
                     )}
                   </select>
                 </div>
-                <div className="vdecalage">&nbsp;</div>   {/*5   Cosmétique Ajout d'une marge au dessus du contenu du formulaire réglable via le css voffsethaut */}{/*5   fin */}
+                <div className="vdecalage3">&nbsp;</div>   {/*5   Cosmétique Ajout d'une marge au dessus du contenu du formulaire réglable via le css voffsethaut */}{/*5   fin */}
                 <div className="container-fluid">   {/*7   Les 3 labels pour les compteurs */}
                   <div className="text-center ajust">
                     <div className="form-group col-md-4">

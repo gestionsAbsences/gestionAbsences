@@ -17,6 +17,7 @@ import MonCalendrier from './Calendrier/MonCalendrier.js';
 import CalendrierEquipe from './Calendrier/CalendrierEquipe.js';
 import CalendrierEntreprise from './Calendrier/CalendrierEntreprise.js';
 import ReliquatConges from './ReliquatConges/ReliquatConges.js';
+import GestionPersonnel from './GestionPersonnel/GestionPersonnel.js';
 import GestionEquipe from './GestionEquipe/GestionEquipe.js';
 import APropos from '../APropos/APropos.js';
 import Aide from '../Aide/Aide.js';
@@ -43,7 +44,7 @@ class Pages extends Component {
             <Route path="/moncalendrier"         component={MonCalendrier} />
             <Route path="/calendrierequipe"      component={CalendrierEquipe} />
             <Route path="/calendrierentreprise"  component={CalendrierEntreprise} />
-            <Route path="/gestionpersonnel"      component={EnConstruction} />
+            <Route path="/gestionpersonnel"      component={GestionPersonnel} />
             <Route path="/gestionequipe"         component={GestionEquipe} />
             <Route path="/aide"                  component={Aide} />
             <Route path="/apropos"               component={APropos} />
