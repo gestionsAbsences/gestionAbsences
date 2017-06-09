@@ -73,23 +73,23 @@ class AvisRh extends Component {
               </div>
               <div className="col-md-4 col-md-offset-2">   {/*8   Block formulaire Partie droite */}
                 <div className="vdecalage">&nbsp;</div>   {/*5   Cosmétique Ajout d'une marge au dessus du contenu du formulaire réglable via le css voffsethaut */}{/*5   fin */}
-				        <div className="form-group">
-            		  <label>Décision</label>
-                  <label className="radio-inline mefradio">
-                    <div className="mefinput" >
-                    	<input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked=""/>Valider
+				        <div className="form-group input-group">
+            		  <span className="input-group-addon"><label>Décision</label></span>
+                  <div className="radio-inline mefradio input-group-addon">
+                    <div className="mefinput">
+                  	  <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked=""/>Valider
                     </div>
-                  </label>
-                  <label className="radio-inline mefradio">
+                  </div>
+                  <div className="radio-inline mefradio input-group-addon">
                     <div className="mefinput">
                     	<input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2"/>Refuser
                     </div>
-                  </label>
+                  </div>
                 </div>
                 <div className="vdecalage">&nbsp;</div>   {/*5   Cosmétique Ajout d'une marge au dessus du contenu du formulaire réglable via le css voffsethaut */}{/*5   fin */}
                 <div className="form-group">   {/*10   Champs de saisie de type Zone de texte */}
                 	<label>Commentaires</label>
-                    <textarea rows="7" className="form-control"></textarea>
+                  <textarea rows="7" className="form-control"></textarea>
                 </div>   {/*10   fin */}
                 <div className="vdecalage2">&nbsp;</div>   {/*5   Cosmétique Ajout d'une marge au dessus du contenu du formulaire réglable via le css voffsethaut */}{/*5   fin */}
                 <div className="container-fluid">   {/*7   Les 3 labels pour les compteurs */}
