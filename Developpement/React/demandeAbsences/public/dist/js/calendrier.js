@@ -100,7 +100,7 @@ function rightCalendar() {
 		afficherCalendrier();
 }
 
-	function todayCalendar() {
+function todayCalendar() {
 		dateEnCours = new Date();
 		afficherCalendrier();
 }
@@ -196,11 +196,11 @@ function calendrierGroupe() {
 
 	html = "<tr><td class='" + couleur + " border mois' rowspan=4>Equipe</td></tr>";
 	html += "<tr>";
-	html += "<td class='" + couleur + " mois border' colspan=7><a class='lienCalendrier' onclick='leftCalendar()'>" + Mois[debut.getMonth()] + " " + debut.getFullYear() + "</a></td>";
+	html += "<td class='lienCalendrier " + couleur + " mois border' colspan=7><a onclick='leftCalendar()'>" + Mois[debut.getMonth()] + " " + debut.getFullYear() + "</a></td>";
 	debut = new Date(annee, (mois + 1), 0);
-	html += "<td class='" + couleur + " mois border' colspan=" + debut.getDate() + "><a class='lienCalendrier' onclick='todayCalendar()'>" + Mois[debut.getMonth()] + " " + debut.getFullYear() + "</a></td>";
+	html += "<td class='lienCalendrier " + couleur + " mois border' colspan=" + debut.getDate() + "><a onclick='todayCalendar()'>" + Mois[debut.getMonth()] + " " + debut.getFullYear() + "</a></td>";
 	debut = new Date(annee, (mois + 2), 0);
-	html += "<td class='" + couleur + " mois border' colspan=" + debut.getDate() + "><a class='lienCalendrier' onclick='rightCalendar()'>" + Mois[debut.getMonth()] + " " + debut.getFullYear() + "</a></td>";
+	html += "<td class='lienCalendrier " + couleur + " mois border' colspan=" + debut.getDate() + "><a onclick='rightCalendar()'>" + Mois[debut.getMonth()] + " " + debut.getFullYear() + "</a></td>";
 	html += "</tr>";
 	$(idCalendrierHtml).append(html);
 
@@ -267,11 +267,19 @@ function couleurCase(date, id) {
 		}
 	}
 //	console.log(id);
+	var employe=0;
 	if (id > 0) {
 		for (var i=0; i < listeAbsences.length; i++) {
-			if (listeAbsences[i].id == id) {
+			if (!(listeAbsences[i].employe > 0)) {employe = listeAbsences[i].employe.absence[0].employe;} else {employe = listeAbsences[i].employe;}
+			// console.log("Employé = " + employe);
+			// console.log("Début = " + listeAbsences[i].debut);
+			// console.log("Fin = " + listeAbsences[i].fin);
+			// console.log("Type = " + listeAbsences[i].type.id);
+			// console.log("Statut = " + listeAbsences[i].statut.code);
+			// console.log("");
+			if (employe == id) {
 	 			if (verifDates(date, listeAbsences[i].debut, listeAbsences[i].fin)) {
-					coulR = listeCoulR[(listeAbsences[i].type - 1)] + intensite[listeAbsences[i].statut];
+					coulR = listeCoulR[(listeAbsences[i].type.id - 1)] + intensite[listeAbsences[i].statut.code];
 //					console.log(coulR + " - " + listeAbsences[i].type + " - " + listeCoulR[listeAbsences[i].type]+ " - " + intensite[listeAbsences[i].statut]);
 				}
 			}
@@ -283,11 +291,27 @@ function couleurCase(date, id) {
 function verifDates(date, sDebut, sFin) {
 	var resultat = false;
 
-	arrDeb = sDebut.split("/");
-	arrFin = sFin.split("/");
+	if (sDebut.indexOf("-") > -1) {
+		arrDeb = sDebut.split("-");
+		debut =  new Date(arrDeb[0], arrDeb[1] - 1, arrDeb[2]);
+	}	else {
+		arrDeb = sDebut.split("/");
+		debut =  new Date(arrDeb[2], arrDeb[1] - 1, arrDeb[0]);
+	}
 
-	debut =  new Date(arrDeb[2], arrDeb[1] - 1, arrDeb[0]);
-	fin   =  new Date(arrFin[2], arrFin[1] - 1, arrFin[0]);
+	if (sFin.indexOf("-") > -1) {
+		arrFin = sFin.split("-");
+		fin =  new Date(arrFin[0], arrFin[1] - 1, arrFin[2]);
+	} else {
+		arrFin = sFin.split("/");
+		fin =  new Date(arrFin[2], arrFin[1] - 1, arrFin[0]);
+	}
+
+	// arrDeb = sDebut.split("/");
+	// arrFin = sFin.split("/");
+	//
+	// debut =  new Date(arrDeb[2], arrDeb[1] - 1, arrDeb[0]);
+	// fin   =  new Date(arrFin[2], arrFin[1] - 1, arrFin[0]);
 
 	if (date >= debut && date <= fin) {resultat = true;}
 

@@ -2,10 +2,10 @@
   margin-bottom: 0px;
 }
 
-.voffsetbas {
-  height: 7vh;
-}
-
 .voffsethaut {
   height: 0vh;
+}
+
+.voffsetbas {
+  height: 7vh;
 }
