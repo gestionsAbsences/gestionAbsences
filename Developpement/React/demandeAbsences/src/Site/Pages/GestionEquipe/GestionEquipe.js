@@ -72,7 +72,7 @@ class GestionEquipe extends Component {
 
                 <div className="form-group">
                   <label>Membre de l'équipe</label>                                     {/*'*/}
-                  <div className="">
+                  <div className="cadretablo">
                     <table className="table table-bordered table-responsive table-hover table-striped tablesupmargebas tablo">{/*   Cosmétique Tablesupmargebas, supprime la marge en bas du tableau */}{/* fin */}
                       <thead className="contenutablo">{/*15   Entête du tableau */}
                         <tr>
