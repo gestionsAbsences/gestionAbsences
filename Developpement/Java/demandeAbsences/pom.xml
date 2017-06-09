@@ -52,11 +52,11 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+		<!-- https://mvnrepository.com/artifact/joda-time/joda-time
 		<dependency>
 		    <groupId>joda-time</groupId>
 		    <artifactId>joda-time</artifactId>
-		</dependency> 
+		</dependency>  -->
 		<dependency>
 	    <groupId>junit</groupId>
 	    <artifactId>junit</artifactId>

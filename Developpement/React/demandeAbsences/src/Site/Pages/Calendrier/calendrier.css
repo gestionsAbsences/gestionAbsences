@@ -75,7 +75,7 @@
   font-size: 8px;
 }
 
-#calendrier .border, #legend .border {
+.calendrier .border, #legend .border {
 	border: 2px solid black;
  }
 
@@ -99,4 +99,9 @@
 
 #leftcalendrier, #todaycalendrier {
   margin-right: 30px;
+}
+
+.lienCalendrier a, .lienCalendrier a:hover, .lienCalendrier a:link, .lienCalendrier a:visited, .lienCalendrier a:active {
+  text-decoration: none;
+  color: black;
 }

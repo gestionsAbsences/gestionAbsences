@@ -138,14 +138,16 @@ class BarDeNav extends Component {
                   <tbody>
                     <tr>
                       <td className="btn btn-block tdbar">
-                        <a href="/aide">
+                        {/* <a href="/aide"> */}
+                        <a href="/avishierarchique">
                           Aide
                         </a>
                       </td>
                     </tr>
                     <tr>
                       <td className="btn btn-block tdbar">
-                        <a href="/apropos">
+                        {/* <a href="/apropos"> */}
+                        <a href="/avisrh">
                           A propos
                         </a>
                       </td>

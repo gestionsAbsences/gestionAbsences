@@ -68,6 +68,7 @@ class DeclareAbsence extends Component {
                     )}
                   </select>
                 </div>
+                <div className="vdecalage">&nbsp;</div>   {/*5   Cosmétique Ajout d'une marge au dessus du contenu du formulaire réglable via le css voffsethaut */}{/*5   fin */}
                 <div className="container-fluid">   {/*7   Les 3 labels pour les compteurs */}
                   <div className="text-center ajust">
                     <div className="form-group col-md-4">
@@ -93,7 +94,7 @@ class DeclareAbsence extends Component {
                 </div>
                 <div className="form-group">   {/*10   Champs de saisie de type Zone de texte */}
                   <label>Commentaires</label>
-                  <textarea rows="4" className="form-control"></textarea>
+                  <textarea rows="7" className="form-control"></textarea>
                 </div>   {/*10   fin */}
               </div>   {/*8   fin */}
               <div className="col-md-1"></div>
