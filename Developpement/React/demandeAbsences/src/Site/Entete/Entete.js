@@ -37,7 +37,7 @@ class Entete extends Component {
   render() {
     return (
       <header>
-        <div className="header breadcrumb container-fluid">
+        <div className="header breadcrumb container-fluid premierplan">
           <div className="row">
 
             <div className="col-md-1">

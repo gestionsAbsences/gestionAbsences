@@ -27,3 +27,7 @@
 .repos {
   padding-right: 20px;
 }
+
+.premierplan {
+  z-index: 5000;
+}
