@@ -16,7 +16,7 @@ class PiedPage extends Component {
     return (
       <div>
         <footer>
-          <div className="footer breadcrumb">
+          <div className="footer breadcrumb premierplan">
             GestionAbsences©2017   -   Par Fred, Jean et Mokhtar de La Poste.promo1@Simplon avec la participation de
             <img className="logo1" src={logo1} alt="" />,
             <img className="logo2" src={logo2} alt="" />,

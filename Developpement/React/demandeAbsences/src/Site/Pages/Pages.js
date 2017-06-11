@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {Router, Route} from 'react-router';
+import { Router, Route } from 'react-router'
 import createBrowserHistory from 'history/createBrowserHistory';
+// import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router'
 
 import './pages.css';
 
@@ -29,35 +30,37 @@ class Pages extends Component {
   render() {
     return (
       <div>
-      <Router history={history}>
-        <div>
-          <div className="voffset">&nbsp;</div>
-          <div className="page">
+        <Router history={history}>
+          <div>
+            <div className="voffset">&nbsp;</div>
+            <div className="page">
 
-            {/* Liste des Path associés aux pages à afficher en fonction de la navigation */}
+              {/* Liste des Path associés aux pages à afficher en fonction de la navigation */}
 
-            <Route path="/accueil"               component={ListeDemandes} />
-            <Route path="/listedemandes"         component={ListeDemandes} />
-            <Route path="/nouvelledemande"       component={NouvelleDemande} />
-            <Route path="/declareabsence"        component={DeclareAbsence} />
-            <Route path="/reliquatconges"        component={ReliquatConges} />
-            <Route path="/moncalendrier"         component={MonCalendrier} />
-            <Route path="/calendrierequipe"      component={CalendrierEquipe} />
-            <Route path="/calendrierentreprise"  component={CalendrierEntreprise} />
-            <Route path="/gestionpersonnel"      component={GestionPersonnel} />
-            <Route path="/gestionequipe"         component={GestionEquipe} />
-            <Route path="/aide"                  component={Aide} />
-            <Route path="/apropos"               component={APropos} />
-            <Route path="/deconnexion"           component={Authentification} />
-            <Route path="/modifmotdepasse"       component={ModifMotDePasse} />
+              <Route exact path="/accueil"               component={ListeDemandes} />
+              <Route exact path="/listedemandes"         component={ListeDemandes} />
+              <Route exact path="/nouvelledemande"       component={NouvelleDemande} />
+              <Route exact path="/declareabsence"        component={DeclareAbsence} />
+              <Route exact path="/reliquatconges"        component={ReliquatConges} />
+              <Route exact path="/moncalendrier"         component={MonCalendrier} />
+              <Route exact path="/calendrierequipe"      component={CalendrierEquipe} />
+              <Route exact path="/calendrierentreprise"  component={CalendrierEntreprise} />
+              <Route exact path="/gestionpersonnel"      component={GestionPersonnel} />
+              <Route exact path="/gestionequipe"         component={GestionEquipe} />
+              <Route exact path="/aide"                  component={Aide} />
+              <Route exact path="/apropos"               component={APropos} />
+              <Route exact path="/deconnexion"           component={Authentification} />
+              <Route exact path="/modifmotdepasse"       component={ModifMotDePasse} />
 
-            <Route path="/avishierarchique"      component={AvisHierarchique} />
-            <Route path="/avisrh"                component={AvisRh} />
+              <Route exact path="/avishierarchique"      component={AvisHierarchique} />
+              <Route exact path="/avisrh"                component={AvisRh} />
 
+              {/* <Route path="*"                            component={Authentification} /> */}
+
+            </div>
+            <div className="marge"></div>
           </div>
-          <div className="marge"></div>
-        </div>
-      </Router>
+        </Router>
       </div>
     );
   }
