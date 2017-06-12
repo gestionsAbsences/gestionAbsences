@@ -44,34 +44,34 @@ var listeAbsences = [
 
 $(document).ready(function() {
 
-		$.ajax({
-				type: "GET",
-				url: "emp/listeEmployes",
-			 //  data: {email:radio_button_value},
-				success: function(response) {
-					users = response;
-					// console.log(users);
-			 }
-	 });
+	// 	$.ajax({
+	// 			type: "GET",
+	// 			url: "emp/listeEmployes",
+	// 		 //  data: {email:radio_button_value},
+	// 			success: function(response) {
+	// 				users = response;
+	// 				// console.log(users);
+	// 		 }
+	//  });
+	 //
+	// 	$.ajax({
+	// 			type: "GET",
+	// 			url: "absence/listeAbsence",
+	// 		 //  data: {email:radio_button_value},
+	// 			success: function(response) {
+	// 				listeAbsences = response;
+	// 				// console.log(listeAbsences);
+	// 		 }
+	//  });
 
-		$.ajax({
-				type: "GET",
-				url: "absence/listeAbsence",
-			 //  data: {email:radio_button_value},
-				success: function(response) {
-					listeAbsences = response;
-					// console.log(listeAbsences);
-			 }
-	 });
-
-	 $(document).ajaxStop(function () {
-			 // 0 === $.active
-			//  console.log("GO !");
-			 console.log(listeAbsences);
-
+	//  $(document).ajaxStop(function () {
+	// 		 // 0 === $.active
+	// 		//  console.log("GO !");
+	// 		 console.log(listeAbsences);
+	 //
 		afficherCalendrier();
 		afficheLegend();
-	});
+	// });
 
 	$('#leftcalendrier').click(function(){
 		dateEnCours = new Date(annee, (mois - 1), 1);
@@ -270,17 +270,24 @@ function couleurCase(date, id) {
 	var employe=0;
 	if (id > 0) {
 		for (var i=0; i < listeAbsences.length; i++) {
-			if (!(listeAbsences[i].employe > 0)) {employe = listeAbsences[i].employe.absence[0].employe;} else {employe = listeAbsences[i].employe;}
+			//if (!(listeAbsences.employe > 0)) {employe = listeAbsences.employe.absence.employe;} else {employe = listeAbsences.employe;}
+			// if (!(listeAbsences[i].employe > 0)) {employe = listeAbsences[i].employe.absence[0].employe;} else {employe = listeAbsences[i].employe;}
 			// console.log("Employé = " + employe);
 			// console.log("Début = " + listeAbsences[i].debut);
 			// console.log("Fin = " + listeAbsences[i].fin);
 			// console.log("Type = " + listeAbsences[i].type.id);
 			// console.log("Statut = " + listeAbsences[i].statut.code);
 			// console.log("");
-			if (employe == id) {
-	 			if (verifDates(date, listeAbsences[i].debut, listeAbsences[i].fin)) {
-					coulR = listeCoulR[(listeAbsences[i].type.id - 1)] + intensite[listeAbsences[i].statut.code];
-//					console.log(coulR + " - " + listeAbsences[i].type + " - " + listeCoulR[listeAbsences[i].type]+ " - " + intensite[listeAbsences[i].statut]);
+			// if (employe == id) {
+			// console.log(listeAbsences[i].id);
+			// console.log(id);
+			if (listeAbsences[i].id == id) {
+				// if (verifDates(date, listeAbsences[i].debut, listeAbsences[i].fin)) {
+				if (verifDates(date, listeAbsences[i].debut, listeAbsences[i].fin)) {
+					coulR = listeCoulR[(listeAbsences[i].type - 1)] + intensite[listeAbsences[i].statut];
+					// coulR = listeCoulR[(listeAbsences[i].type.id - 1)] + intensite[listeAbsences[i].statut.code];
+
+//					// console.log(coulR + " - " + listeAbsences[i].type + " - " + listeCoulR[listeAbsences[i].type]+ " - " + intensite[listeAbsences[i].statut]);
 				}
 			}
 		}
