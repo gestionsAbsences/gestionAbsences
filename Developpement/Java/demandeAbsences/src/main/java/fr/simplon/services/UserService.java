@@ -12,6 +12,7 @@ import fr.simplon.common.ServiceException;
 import fr.simplon.dao.UserDao;
 import fr.simplon.domain.User;
 import fr.simplon.domain.dto.UserDto;
+import fr.simplon.services.utils.ConvertToDto;
 
 /**
  * Classe metier de la gestion des user

@@ -15,7 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Future;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * entity Absence
@@ -34,14 +34,14 @@ public class Absence {
 	
 
 	@Column(name = "debut")
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	@Future(message = "La date doit être postérieure à la date du jour")
 	private Date debut;
 
 
 	@Column(name = "fin")
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date fin;
 	

@@ -86,7 +86,7 @@ public class StatutController {
 
 	@GetMapping("/getStatutByCode")
 	public ResponseEntity<?> findById(@RequestParam(value = "code", defaultValue = "") int code) {
-		List<Statut> statut;
+		Statut statut;
 		try {
 			statut = statutService.getStatutByCode(code);
 		} catch (SQLException sqle) {

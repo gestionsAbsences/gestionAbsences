@@ -12,7 +12,7 @@ import fr.simplon.common.ServiceException;
 import fr.simplon.dao.EmployeDao;
 import fr.simplon.domain.Employe;
 import fr.simplon.domain.dto.EmployeDto;
-
+import fr.simplon.services.utils.ConvertToDto;
 
 /**
  * Classe metier de la gestion des employés
@@ -23,29 +23,29 @@ import fr.simplon.domain.dto.EmployeDto;
 @Service
 @Transactional
 public class EmployeService {
-	
+
 	@Autowired
 	EmployeDao employeDao;
-	
+
 	@Autowired
 	ConvertToDto convert;
-	
+
 	/**
 	 * Liste des employes
+	 * 
 	 * @return une liste
 	 * @throws SQLException
 	 */
 	/*
-	 * La methode [findAll] retourne une iteration de la table
-	 * Avec la boucle [for], on la parcours et on retourne une
-	 * liste de la table
+	 * La methode [findAll] retourne une iteration de la table Avec la boucle
+	 * [for], on la parcours et on retourne une liste de la table
 	 */
 	public List<EmployeDto> listeEmployes() throws SQLException {
 		List<Employe> listeEmployes;
 		List<EmployeDto> listeEmployesDto;
 		try {
 			listeEmployes = employeDao.findAll();
-			listeEmployesDto=convert.convertListeEmployeToDto(listeEmployes);
+			listeEmployesDto = convert.convertListeEmployeToDto(listeEmployes);
 		} catch (EmailException e) {
 			throw new ServiceException("Hibernate Error !: listeEmployes" + e);
 		}
@@ -54,20 +54,20 @@ public class EmployeService {
 
 	/**
 	 * Recherche d'un employe
+	 * 
 	 * @param nom
 	 * @return une liste des employes en fonction du nom
 	 * @throws SQLException
 	 */
 	/*
-	 * Meme principe que ci-dessus
-	 * une iteration qu'on transforme en liste
+	 * Meme principe que ci-dessus une iteration qu'on transforme en liste
 	 */
 	public List<EmployeDto> getEmploye(String nom) throws SQLException {
 		List<Employe> getEmploye;
 		List<EmployeDto> getEmployeDto;
 		try {
 			getEmploye = employeDao.findByName(nom);
-			getEmployeDto=convert.convertListeEmployeToDto(getEmploye);
+			getEmployeDto = convert.convertListeEmployeToDto(getEmploye);
 		} catch (EmailException e) {
 			throw new ServiceException("Hibernate Error !: getEmploye" + e);
 		}
@@ -76,21 +76,22 @@ public class EmployeService {
 
 	/**
 	 * Creation nouvel employe
+	 * 
 	 * @param employe
 	 * @return objet
 	 * @throws SQLException
 	 */
 	/*
-	 * Simple methode hibernate pour la creation d'un nouveau service Rh
-	 * J'ai crée un objet Employe pour avoir le resultat de la creation en retour
+	 * Simple methode hibernate pour la creation d'un nouveau service Rh J'ai
+	 * crée un objet Employe pour avoir le resultat de la creation en retour
 	 */
 	public Employe insertEmploye(Employe employe) throws SQLException {
-		Employe creationEmploye=null;
+		Employe creationEmploye = null;
 		try {
-			if(!employeDao.findByMat(employe.getMatricule()).isEmpty()){
-				throw new ServiceException("matricule déjà utilisé");
-			} else {
+			if (employeDao.findByMat(employe.getMatricule()).equals(null)) {
 				creationEmploye = employeDao.save(employe);
+			} else {
+				throw new ServiceException("matricule déjà utilisé");
 			}
 		} catch (EmailException e) {
 			throw new ServiceException("Hibernate Error !: insertEmploye" + e);
@@ -100,6 +101,7 @@ public class EmployeService {
 
 	/**
 	 * Modification employe
+	 * 
 	 * @param employe
 	 * @return Objet
 	 * @throws SQLException
@@ -119,18 +121,18 @@ public class EmployeService {
 
 	/**
 	 * Suppression Employe
+	 * 
 	 * @param employe
 	 * @throws SQLException
 	 */
 	/*
-	 * On commence par faire une recherche d'un employe par son matricule
-	 * avec la methode [findByMat()]
-	 * Et on supprime l'objet par la methode delete
-	 * d'hibernate qui supprime une entité complete.
-	 * Cette methode peut etre appelé à evoluer
+	 * On commence par faire une recherche d'un employe par son matricule avec
+	 * la methode [findByMat()] Et on supprime l'objet par la methode delete
+	 * d'hibernate qui supprime une entité complete. Cette methode peut etre
+	 * appelé à evoluer
 	 */
 	public void deleteEmploye(Employe supprEmploye) throws SQLException {
-		try{		
+		try {
 			employeDao.delete(supprEmploye);
 		} catch (EmailException e) {
 			throw new ServiceException("Hibernate Error !: deleteEmploye" + e);
