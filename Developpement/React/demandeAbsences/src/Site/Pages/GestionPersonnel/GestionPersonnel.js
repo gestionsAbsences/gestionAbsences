@@ -124,8 +124,8 @@ class GestionPersonnel extends Component {
                 </div>
                 <div className="vdecalage5">&nbsp;</div>
                 <div className="form-group">
-                  <div className="col-md-7">
-                    <a href="index.html" className="btn btn-primary btn-lg btn-block">Réinitialisation du mot de passe</a>
+                  <div className="vdecalage4">
+                    <a href="index.html" className="btn btn-primary btn-md btn-block">Réinitialisation<br/>du mot de passe</a>
                   </div>
                 </div>
               </div>
