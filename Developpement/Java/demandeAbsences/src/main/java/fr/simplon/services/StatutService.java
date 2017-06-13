@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.simplon.common.EmailException;
 import fr.simplon.common.ServiceException;
 import fr.simplon.dao.StatutDao;
 import fr.simplon.domain.Statut;
@@ -51,8 +50,8 @@ public class StatutService {
 	/*
 	 * Meme principe que ci-dessus une iteration qu'on transforme en liste
 	 */
-	public List<Statut> getStatutByCode(int code) throws SQLException {
-		List<Statut> resultat;
+	public Statut getStatutByCode(int code) throws SQLException {
+		Statut resultat;
 		try {
 			resultat = statutDao.findByCode(code);
 		} catch (ServiceException e) {

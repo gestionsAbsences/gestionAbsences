@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.simplon.common.EmailException;
 import fr.simplon.common.ServiceException;
 import fr.simplon.dao.AbsenceDao;
 import fr.simplon.domain.Absence;
+import fr.simplon.domain.dto.AbsenceDto;
+import fr.simplon.services.utils.TraitementAbsence;
 
 /**
  * Classe metier des absences
@@ -25,6 +26,9 @@ public class AbsenceService {
 
 	@Autowired
 	private AbsenceDao absenceDao;
+	
+	@Autowired
+	private TraitementAbsence traitementAbsence;
 
 	/**
 	 * Liste des absences
@@ -74,19 +78,17 @@ public class AbsenceService {
 	 * @throws SQLException
 	 */
 	/*
-	 * Simple methode hibernate pour la creation d'un nouveau service Absence
-	 * J'ai crée un bojet Absence pour avoir le resultat de la creation en
-	 * retour
+	 * Appelle une classe spécifique afin de verifier la validité des congés
 	 */
-	public Absence insertAbsence(Absence absence) throws SQLException {
-		Absence creationAbs;
+	public AbsenceDto insertAbsence(AbsenceDto absenceDto) throws SQLException {
+		AbsenceDto creationAbs;
 		try {
-			if(absence.getDebut().compareTo(absence.getFin())>0){
+			if(absenceDto.getDebut().compareTo(absenceDto.getFin())>0){
 				throw new ServiceException("La date de fin de congé doit être supèrieur à la date de début");
 			} else {
-				creationAbs = absenceDao.save(absence);
+				creationAbs = traitementAbsence.demanderAbsence(absenceDto);
 			}
-		} catch (EmailException e) {
+		} catch (Exception e) {
 			throw new ServiceException("Hibernate Error !: insertAbsence" + e);
 		}
 		return creationAbs;

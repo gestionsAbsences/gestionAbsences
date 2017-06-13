@@ -44,7 +44,7 @@ public class Statut {
 	private List<Absence> absence;
 
 	public Statut() {
-	;
+	
 	}
 
 	public Long getId() {

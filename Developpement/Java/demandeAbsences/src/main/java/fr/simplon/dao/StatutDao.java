@@ -1,7 +1,5 @@
 package fr.simplon.dao;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -11,7 +9,7 @@ public interface StatutDao extends JpaRepository<Statut, Long>{
 	
 	 
 	@Query("from Statut where code = ? ")
-	public List<Statut> findByCode(int code);
+	public Statut findByCode(int code);
 
 }
 

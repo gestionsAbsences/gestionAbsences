@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.simplon.domain.Absence;
+import fr.simplon.domain.dto.AbsenceDto;
 import fr.simplon.services.AbsenceService;
 
 /**
@@ -34,7 +35,7 @@ import fr.simplon.services.AbsenceService;
 /*
  * Controlleur pour la gestion des services Absence J'ai utilisé le verbe
  * correspondant à l'action (get : lecture, post : création, put : mise à jour
- * et delete: supression url àsaisir dans le navigateur :
+ * et delete: supression url à saisir dans le navigateur :
  * localhost:8080/absence/nomMethode
  */
 
@@ -110,7 +111,7 @@ public class AbsenceController {
 	 * absence] et de capter le résultat [BindingResult result]
 	 */
 	@PostMapping(value = "/creerAbsence")
-	public ResponseEntity<?> save(@RequestBody @Valid Absence absence, BindingResult result) {
+	public ResponseEntity<?> save(@RequestBody @Valid AbsenceDto absenceDto, BindingResult result) {
 		/*
 		 * On capture les éventuelles erreurs dans une map sous forme : key,
 		 * value et formatée pour l'affichage
@@ -123,12 +124,12 @@ public class AbsenceController {
 					return ResponseEntity.badRequest().body(map);
 				}
 			} else {
-				absence = absenceService.insertAbsence(absence);
+				absenceDto = absenceService.insertAbsence(absenceDto);
 			}
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(absence.getId() + " créée.");
+		return ResponseEntity.ok(absenceDto);
 	}
 
 	/**
