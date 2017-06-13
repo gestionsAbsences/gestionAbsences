@@ -13,6 +13,7 @@ import fr.simplon.common.ServiceException;
 import fr.simplon.dao.EmployeDao;
 import fr.simplon.domain.Employe;
 import fr.simplon.domain.dto.EmployeDto;
+import fr.simplon.services.utils.ConvertToDto;
 
 
 /**
@@ -88,10 +89,10 @@ public class EmployeService {
 	public Employe insertEmploye(Employe employe) throws SQLException {
 		Employe creationEmploye=null;
 		try {
-			if(!employeDao.findByMat(employe.getMatricule()).isEmpty()){
-				throw new ServiceException("matricule déjà utilisé");
-			} else {
+			if(employeDao.findByMat(employe.getMatricule()).equals(null)){
 				creationEmploye = employeDao.save(employe);
+			} else {
+				throw new ServiceException("matricule déjà utilisé");
 			}
 		} catch (EmailException e) {
 			throw new ServiceException("Hibernate Error !: insertEmploye" + e);

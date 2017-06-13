@@ -63,7 +63,7 @@ public class TypeController {
 	 */
 	@GetMapping("/getTypeByName")
 	public ResponseEntity<?> findById(@RequestParam(value = "nom", defaultValue = "") String nom) {
-		List<TypeAbsence> typeAbsence;
+		TypeAbsence typeAbsence;
 		try {
 			typeAbsence =typeService.getTypeByName(nom);
 		} catch (SQLException sqle) {

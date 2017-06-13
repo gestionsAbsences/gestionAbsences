@@ -57,8 +57,8 @@ public class TypeService {
 	/*
 	 * Meme principe que ci-dessus une iteration qu'on transforme en liste
 	 */
-	public List<TypeAbsence> getTypeByName(String nom) throws SQLException {
-		List<TypeAbsence> resultat;
+	public TypeAbsence getTypeByName(String nom) throws SQLException {
+		TypeAbsence resultat;
 		try {
 			resultat = typeDao.findTypeByName(nom);
 		} catch (ServiceException e) {

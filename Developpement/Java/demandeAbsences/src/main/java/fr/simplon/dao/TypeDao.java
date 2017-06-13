@@ -18,6 +18,6 @@ public interface TypeDao extends JpaRepository<TypeAbsence, Long> {
 	 * @return liste de types
 	 */
 	@Query("from TypeAbsence where nom like %?1%")
-	public List<TypeAbsence> findTypeByName(String nom);
+	public TypeAbsence findTypeByName(String nom);
 
 }

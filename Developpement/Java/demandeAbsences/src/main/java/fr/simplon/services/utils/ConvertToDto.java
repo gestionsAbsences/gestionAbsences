@@ -1,4 +1,4 @@
-package fr.simplon.services;
+package fr.simplon.services.utils;
 
 import java.util.ArrayList;
 import java.util.List;

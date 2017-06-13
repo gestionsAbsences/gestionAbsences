@@ -15,8 +15,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * entity Statut
@@ -46,7 +44,7 @@ public class Statut {
 	private List<Absence> absence;
 
 	public Statut() {
-	;
+	
 	}
 
 	public Long getId() {
