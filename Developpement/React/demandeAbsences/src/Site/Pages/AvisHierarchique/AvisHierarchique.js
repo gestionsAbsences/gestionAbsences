@@ -77,7 +77,7 @@ class AvisHierarchique extends Component {
             		  <span className="input-group-addon"><label>Décision</label></span>
                   <div className="radio-inline mefradio input-group-addon">
                     <div className="mefinput">
-                  	  <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked=""/>Valider
+                  	  <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1"/>Valider
                     </div>
                   </div>
                   <div className="radio-inline mefradio input-group-addon">
@@ -112,7 +112,7 @@ class AvisHierarchique extends Component {
               <div className="col-md-2 col-md-offset-4">
                 <a href="index.html" className="btn btn-primary btn-block">Soumettre</a>
               </div>
-              <div className="col-md-2 col-md-offset-1">
+              <div className="col-md-2">
                 <a href="index.html" className="btn btn-primary btn-block">Annuler</a>
               </div>
             </div>   {/*11   fin */}
