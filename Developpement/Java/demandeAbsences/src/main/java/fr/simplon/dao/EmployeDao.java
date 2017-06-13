@@ -33,6 +33,6 @@ public interface EmployeDao extends JpaRepository<Employe, Long> {
 	 */
 	
 	@Query("from Employe where matricule = ?")
-	public List<Employe> findByMat(String matricule);
+	public Employe findByMat(String matricule);
 
 }
