@@ -94,7 +94,7 @@ class NouvelleDemande extends Component {
               <div className="col-md-2 col-md-offset-4">
                 <a href="index.html" className="btn btn-primary btn-block">Soumettre</a>
               </div>
-              <div className="col-md-2 col-md-offset-1">
+              <div className="col-md-2">
                 <a href="index.html" className="btn btn-primary btn-block">Annuler</a>
               </div>
             </div>   {/*11   fin */}
