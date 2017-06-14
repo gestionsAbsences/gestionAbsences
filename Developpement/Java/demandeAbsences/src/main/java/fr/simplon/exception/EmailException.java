@@ -1,4 +1,4 @@
-package fr.simplon.common;
+package fr.simplon.exception;
 
 public class EmailException extends RuntimeException {
 	

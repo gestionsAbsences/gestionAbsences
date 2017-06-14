@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.simplon.common.EmailException;
-import fr.simplon.common.ServiceException;
 import fr.simplon.dao.ServiceRhDao;
 import fr.simplon.domain.ServiceRh;
+import fr.simplon.exception.EmailException;
+import fr.simplon.exception.ServiceException;
 
 /**
  * Classe métier du service Rh

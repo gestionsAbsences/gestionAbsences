@@ -3,7 +3,8 @@ package fr.simplon;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -52,11 +53,11 @@ public class DemandeAbsencesApplicationTests {
 	
 	@Test
 	public void serviceRhBeanTest() {
-//		//Verifie si une instance d'une classe existe
+		//Verifie si une instance d'une classe existe
 //		assertTrue (rh instanceof ServiceRh);
 //		List<Absence> abs = new ArrayList<Absence>();
 //		List<Employe> emp = new ArrayList<Employe>();
-//		ServiceRh sce = new ServiceRh(anyLong(),null,"jean",abs,emp);
+//		ServiceRh sce = new ServiceRh((Long)anyInt(),anyString(),"jean",emp);
 //		assertEquals("jean",sce.getNom());
 //		assertNull(sce.getEmail());
 	}

@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import fr.simplon.common.ServiceException;
 import fr.simplon.domain.Absence;
 import fr.simplon.domain.Employe;
 import fr.simplon.domain.User;
 import fr.simplon.domain.dto.AbsenceDto;
 import fr.simplon.domain.dto.EmployeDto;
 import fr.simplon.domain.dto.UserDto;
+import fr.simplon.exception.ServiceException;
 
 
 @Service

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.simplon.common.ServiceException;
 import fr.simplon.dao.AbsenceDao;
 import fr.simplon.dao.EmployeDao;
 import fr.simplon.dao.StatutDao;
@@ -18,6 +17,7 @@ import fr.simplon.dao.TypeDao;
 import fr.simplon.domain.Absence;
 import fr.simplon.domain.Employe;
 import fr.simplon.domain.dto.AbsenceDto;
+import fr.simplon.exception.ServiceException;
 
 
 /**

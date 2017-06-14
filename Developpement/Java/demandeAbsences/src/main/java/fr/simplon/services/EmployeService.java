@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.simplon.common.EmailException;
-import fr.simplon.common.ServiceException;
 import fr.simplon.dao.EmployeDao;
 import fr.simplon.domain.Employe;
 import fr.simplon.domain.dto.EmployeDto;
+import fr.simplon.exception.EmailException;
+import fr.simplon.exception.ServiceException;
 import fr.simplon.services.utils.ConvertToDto;
 
 /**

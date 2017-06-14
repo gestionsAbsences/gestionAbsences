@@ -7,10 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.simplon.common.EmailException;
-import fr.simplon.common.ServiceException;
 import fr.simplon.dao.EquipeDao;
 import fr.simplon.domain.Equipe;
+import fr.simplon.exception.EmailException;
+import fr.simplon.exception.ServiceException;
 
 /**
  * service gérant le equipe C'est la couche métier.
