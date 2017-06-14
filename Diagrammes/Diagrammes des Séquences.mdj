@@ -1331,7 +1331,7 @@
 											"left": 277,
 											"top": 259,
 											"width": 14,
-											"height": 150,
+											"height": 246,
 											"autoResize": false
 										}
 									],
@@ -2452,176 +2452,6 @@
 									"showType": true
 								},
 								{
-									"_type": "UMLSeqMessageView",
-									"_id": "AAAAAAFbKCdDhnE+NRg=",
-									"_parent": {
-										"$ref": "AAAAAAFbJ9jP+2vGzk4="
-									},
-									"model": {
-										"$ref": "AAAAAAFbKCdDhXE94eE="
-									},
-									"subViews": [
-										{
-											"_type": "EdgeLabelView",
-											"_id": "AAAAAAFbKCdDhnE/BRM=",
-											"_parent": {
-												"$ref": "AAAAAAFbKCdDhnE+NRg="
-											},
-											"model": {
-												"$ref": "AAAAAAFbKCdDhXE94eE="
-											},
-											"visible": true,
-											"enabled": true,
-											"lineColor": "#000000",
-											"fillColor": "#ffffff",
-											"fontColor": "#000000",
-											"font": "Arial;13;0",
-											"showShadow": true,
-											"containerChangeable": false,
-											"containerExtending": false,
-											"left": 262,
-											"top": 423,
-											"width": 125.00439453125,
-											"height": 13,
-											"autoResize": false,
-											"alpha": 1.5707963267948966,
-											"distance": 10,
-											"hostEdge": {
-												"$ref": "AAAAAAFbKCdDhnE+NRg="
-											},
-											"edgePosition": 1,
-											"underline": false,
-											"text": "10 : Envoi email refus",
-											"horizontalAlignment": 2,
-											"verticalAlignment": 5,
-											"wordWrap": false
-										},
-										{
-											"_type": "EdgeLabelView",
-											"_id": "AAAAAAFbKCdDhnFAQAE=",
-											"_parent": {
-												"$ref": "AAAAAAFbKCdDhnE+NRg="
-											},
-											"model": {
-												"$ref": "AAAAAAFbKCdDhXE94eE="
-											},
-											"visible": false,
-											"enabled": true,
-											"lineColor": "#000000",
-											"fillColor": "#ffffff",
-											"fontColor": "#000000",
-											"font": "Arial;13;0",
-											"showShadow": true,
-											"containerChangeable": false,
-											"containerExtending": false,
-											"left": 324,
-											"top": 438,
-											"width": 0,
-											"height": 13,
-											"autoResize": false,
-											"alpha": 1.5707963267948966,
-											"distance": 25,
-											"hostEdge": {
-												"$ref": "AAAAAAFbKCdDhnE+NRg="
-											},
-											"edgePosition": 1,
-											"underline": false,
-											"horizontalAlignment": 2,
-											"verticalAlignment": 5,
-											"wordWrap": false
-										},
-										{
-											"_type": "EdgeLabelView",
-											"_id": "AAAAAAFbKCdDhnFBiMs=",
-											"_parent": {
-												"$ref": "AAAAAAFbKCdDhnE+NRg="
-											},
-											"model": {
-												"$ref": "AAAAAAFbKCdDhXE94eE="
-											},
-											"visible": false,
-											"enabled": true,
-											"lineColor": "#000000",
-											"fillColor": "#ffffff",
-											"fontColor": "#000000",
-											"font": "Arial;13;0",
-											"showShadow": true,
-											"containerChangeable": false,
-											"containerExtending": false,
-											"left": 325,
-											"top": 403,
-											"width": 0,
-											"height": 13,
-											"autoResize": false,
-											"alpha": -1.5707963267948966,
-											"distance": 10,
-											"hostEdge": {
-												"$ref": "AAAAAAFbKCdDhnE+NRg="
-											},
-											"edgePosition": 1,
-											"underline": false,
-											"horizontalAlignment": 2,
-											"verticalAlignment": 5,
-											"wordWrap": false
-										},
-										{
-											"_type": "UMLActivationView",
-											"_id": "AAAAAAFbKCdDhnFCM8M=",
-											"_parent": {
-												"$ref": "AAAAAAFbKCdDhnE+NRg="
-											},
-											"model": {
-												"$ref": "AAAAAAFbKCdDhXE94eE="
-											},
-											"visible": false,
-											"enabled": true,
-											"lineColor": "#000000",
-											"fillColor": "#ffffff",
-											"fontColor": "#000000",
-											"font": "Arial;13;0",
-											"showShadow": true,
-											"containerChangeable": false,
-											"containerExtending": false,
-											"left": 45,
-											"top": 419,
-											"width": 14,
-											"height": 25,
-											"autoResize": false
-										}
-									],
-									"visible": true,
-									"enabled": true,
-									"lineColor": "#000000",
-									"fillColor": "#ffffff",
-									"fontColor": "#000000",
-									"font": "Arial;13;0",
-									"showShadow": true,
-									"containerChangeable": false,
-									"containerExtending": false,
-									"head": {
-										"$ref": "AAAAAAFbJ9ugu2xgmDE="
-									},
-									"tail": {
-										"$ref": "AAAAAAFbJ+fkP24/MCQ="
-									},
-									"lineStyle": 0,
-									"points": "606:419;45:419",
-									"nameLabel": {
-										"$ref": "AAAAAAFbKCdDhnE/BRM="
-									},
-									"stereotypeLabel": {
-										"$ref": "AAAAAAFbKCdDhnFAQAE="
-									},
-									"propertyLabel": {
-										"$ref": "AAAAAAFbKCdDhnFBiMs="
-									},
-									"activation": {
-										"$ref": "AAAAAAFbKCdDhnFCM8M="
-									},
-									"showProperty": true,
-									"showType": true
-								},
-								{
 									"_type": "UMLSeqLifelineView",
 									"_id": "AAAAAAFbKCg4v3FXJXE=",
 									"_parent": {
@@ -2825,6 +2655,346 @@
 								},
 								{
 									"_type": "UMLSeqMessageView",
+									"_id": "AAAAAAFcpuHAoMquvaQ=",
+									"_parent": {
+										"$ref": "AAAAAAFbJ9jP+2vGzk4="
+									},
+									"model": {
+										"$ref": "AAAAAAFcpuHAoMqtkrQ="
+									},
+									"subViews": [
+										{
+											"_type": "EdgeLabelView",
+											"_id": "AAAAAAFcpuHAoMqvgAs=",
+											"_parent": {
+												"$ref": "AAAAAAFcpuHAoMquvaQ="
+											},
+											"model": {
+												"$ref": "AAAAAAFcpuHAoMqtkrQ="
+											},
+											"visible": true,
+											"enabled": true,
+											"lineColor": "#000000",
+											"fillColor": "#ffffff",
+											"fontColor": "#000000",
+											"font": "Arial;13;0",
+											"showShadow": true,
+											"containerChangeable": false,
+											"containerExtending": false,
+											"left": 380,
+											"top": 412,
+											"width": 135.84619140625,
+											"height": 13,
+											"autoResize": false,
+											"alpha": 1.5707963267948966,
+											"distance": 10,
+											"hostEdge": {
+												"$ref": "AAAAAAFcpuHAoMquvaQ="
+											},
+											"edgePosition": 1,
+											"underline": false,
+											"text": "10 : Envoi mail de refus",
+											"horizontalAlignment": 2,
+											"verticalAlignment": 5,
+											"wordWrap": false
+										},
+										{
+											"_type": "EdgeLabelView",
+											"_id": "AAAAAAFcpuHAoMqwxgs=",
+											"_parent": {
+												"$ref": "AAAAAAFcpuHAoMquvaQ="
+											},
+											"model": {
+												"$ref": "AAAAAAFcpuHAoMqtkrQ="
+											},
+											"visible": false,
+											"enabled": true,
+											"lineColor": "#000000",
+											"fillColor": "#ffffff",
+											"fontColor": "#000000",
+											"font": "Arial;13;0",
+											"showShadow": true,
+											"containerChangeable": false,
+											"containerExtending": false,
+											"left": 447,
+											"top": 427,
+											"width": 0,
+											"height": 13,
+											"autoResize": false,
+											"alpha": 1.5707963267948966,
+											"distance": 25,
+											"hostEdge": {
+												"$ref": "AAAAAAFcpuHAoMquvaQ="
+											},
+											"edgePosition": 1,
+											"underline": false,
+											"horizontalAlignment": 2,
+											"verticalAlignment": 5,
+											"wordWrap": false
+										},
+										{
+											"_type": "EdgeLabelView",
+											"_id": "AAAAAAFcpuHAoMqxOt4=",
+											"_parent": {
+												"$ref": "AAAAAAFcpuHAoMquvaQ="
+											},
+											"model": {
+												"$ref": "AAAAAAFcpuHAoMqtkrQ="
+											},
+											"visible": false,
+											"enabled": true,
+											"lineColor": "#000000",
+											"fillColor": "#ffffff",
+											"fontColor": "#000000",
+											"font": "Arial;13;0",
+											"showShadow": true,
+											"containerChangeable": false,
+											"containerExtending": false,
+											"left": 448,
+											"top": 392,
+											"width": 0,
+											"height": 13,
+											"autoResize": false,
+											"alpha": -1.5707963267948966,
+											"distance": 10,
+											"hostEdge": {
+												"$ref": "AAAAAAFcpuHAoMquvaQ="
+											},
+											"edgePosition": 1,
+											"underline": false,
+											"horizontalAlignment": 2,
+											"verticalAlignment": 5,
+											"wordWrap": false
+										},
+										{
+											"_type": "UMLActivationView",
+											"_id": "AAAAAAFcpuHAoMqyF1Y=",
+											"_parent": {
+												"$ref": "AAAAAAFcpuHAoMquvaQ="
+											},
+											"model": {
+												"$ref": "AAAAAAFcpuHAoMqtkrQ="
+											},
+											"visible": false,
+											"enabled": true,
+											"lineColor": "#000000",
+											"fillColor": "#ffffff",
+											"fontColor": "#000000",
+											"font": "Arial;13;0",
+											"showShadow": true,
+											"containerChangeable": false,
+											"containerExtending": false,
+											"left": 277,
+											"top": 408,
+											"width": 14,
+											"height": 25,
+											"autoResize": false
+										}
+									],
+									"visible": true,
+									"enabled": true,
+									"lineColor": "#000000",
+									"fillColor": "#ffffff",
+									"fontColor": "#000000",
+									"font": "Arial;13;0",
+									"showShadow": true,
+									"containerChangeable": false,
+									"containerExtending": false,
+									"head": {
+										"$ref": "AAAAAAFbJ996nWyAjx8="
+									},
+									"tail": {
+										"$ref": "AAAAAAFbJ+fkP24/MCQ="
+									},
+									"lineStyle": 0,
+									"points": "606:408;290:408",
+									"nameLabel": {
+										"$ref": "AAAAAAFcpuHAoMqvgAs="
+									},
+									"stereotypeLabel": {
+										"$ref": "AAAAAAFcpuHAoMqwxgs="
+									},
+									"propertyLabel": {
+										"$ref": "AAAAAAFcpuHAoMqxOt4="
+									},
+									"activation": {
+										"$ref": "AAAAAAFcpuHAoMqyF1Y="
+									},
+									"showProperty": true,
+									"showType": true
+								},
+								{
+									"_type": "UMLSeqMessageView",
+									"_id": "AAAAAAFcpuInncrj6xc=",
+									"_parent": {
+										"$ref": "AAAAAAFbJ9jP+2vGzk4="
+									},
+									"model": {
+										"$ref": "AAAAAAFcpuInncrifMw="
+									},
+									"subViews": [
+										{
+											"_type": "EdgeLabelView",
+											"_id": "AAAAAAFcpuInncrkl4I=",
+											"_parent": {
+												"$ref": "AAAAAAFcpuInncrj6xc="
+											},
+											"model": {
+												"$ref": "AAAAAAFcpuInncrifMw="
+											},
+											"visible": true,
+											"enabled": true,
+											"lineColor": "#000000",
+											"fillColor": "#ffffff",
+											"fontColor": "#000000",
+											"font": "Arial;13;0",
+											"showShadow": true,
+											"containerChangeable": false,
+											"containerExtending": false,
+											"left": 82,
+											"top": 428,
+											"width": 156.076171875,
+											"height": 13,
+											"autoResize": false,
+											"alpha": 1.5707963267948966,
+											"distance": 10,
+											"hostEdge": {
+												"$ref": "AAAAAAFcpuInncrj6xc="
+											},
+											"edgePosition": 1,
+											"underline": false,
+											"text": "11 : Envoi mail de refus Rh",
+											"horizontalAlignment": 2,
+											"verticalAlignment": 5,
+											"wordWrap": false
+										},
+										{
+											"_type": "EdgeLabelView",
+											"_id": "AAAAAAFcpuInncrlt84=",
+											"_parent": {
+												"$ref": "AAAAAAFcpuInncrj6xc="
+											},
+											"model": {
+												"$ref": "AAAAAAFcpuInncrifMw="
+											},
+											"visible": false,
+											"enabled": true,
+											"lineColor": "#000000",
+											"fillColor": "#ffffff",
+											"fontColor": "#000000",
+											"font": "Arial;13;0",
+											"showShadow": true,
+											"containerChangeable": false,
+											"containerExtending": false,
+											"left": 160,
+											"top": 443,
+											"width": 0,
+											"height": 13,
+											"autoResize": false,
+											"alpha": 1.5707963267948966,
+											"distance": 25,
+											"hostEdge": {
+												"$ref": "AAAAAAFcpuInncrj6xc="
+											},
+											"edgePosition": 1,
+											"underline": false,
+											"horizontalAlignment": 2,
+											"verticalAlignment": 5,
+											"wordWrap": false
+										},
+										{
+											"_type": "EdgeLabelView",
+											"_id": "AAAAAAFcpuInncrm8Uw=",
+											"_parent": {
+												"$ref": "AAAAAAFcpuInncrj6xc="
+											},
+											"model": {
+												"$ref": "AAAAAAFcpuInncrifMw="
+											},
+											"visible": false,
+											"enabled": true,
+											"lineColor": "#000000",
+											"fillColor": "#ffffff",
+											"fontColor": "#000000",
+											"font": "Arial;13;0",
+											"showShadow": true,
+											"containerChangeable": false,
+											"containerExtending": false,
+											"left": 161,
+											"top": 408,
+											"width": 0,
+											"height": 13,
+											"autoResize": false,
+											"alpha": -1.5707963267948966,
+											"distance": 10,
+											"hostEdge": {
+												"$ref": "AAAAAAFcpuInncrj6xc="
+											},
+											"edgePosition": 1,
+											"underline": false,
+											"horizontalAlignment": 2,
+											"verticalAlignment": 5,
+											"wordWrap": false
+										},
+										{
+											"_type": "UMLActivationView",
+											"_id": "AAAAAAFcpuInncrntQs=",
+											"_parent": {
+												"$ref": "AAAAAAFcpuInncrj6xc="
+											},
+											"model": {
+												"$ref": "AAAAAAFcpuInncrifMw="
+											},
+											"visible": false,
+											"enabled": true,
+											"lineColor": "#000000",
+											"fillColor": "#ffffff",
+											"fontColor": "#000000",
+											"font": "Arial;13;0",
+											"showShadow": true,
+											"containerChangeable": false,
+											"containerExtending": false,
+											"left": 45,
+											"top": 424,
+											"width": 14,
+											"height": 25,
+											"autoResize": false
+										}
+									],
+									"visible": true,
+									"enabled": true,
+									"lineColor": "#000000",
+									"fillColor": "#ffffff",
+									"fontColor": "#000000",
+									"font": "Arial;13;0",
+									"showShadow": true,
+									"containerChangeable": false,
+									"containerExtending": false,
+									"head": {
+										"$ref": "AAAAAAFbJ9ugu2xgmDE="
+									},
+									"tail": {
+										"$ref": "AAAAAAFbJ996nWyAjx8="
+									},
+									"lineStyle": 0,
+									"points": "277:424;45:424",
+									"nameLabel": {
+										"$ref": "AAAAAAFcpuInncrkl4I="
+									},
+									"stereotypeLabel": {
+										"$ref": "AAAAAAFcpuInncrlt84="
+									},
+									"propertyLabel": {
+										"$ref": "AAAAAAFcpuInncrm8Uw="
+									},
+									"activation": {
+										"$ref": "AAAAAAFcpuInncrntQs="
+									},
+									"showProperty": true,
+									"showType": true
+								},
+								{
+									"_type": "UMLSeqMessageView",
 									"_id": "AAAAAAFbKCjTcHF+aH0=",
 									"_parent": {
 										"$ref": "AAAAAAFbJ9jP+2vGzk4="
@@ -2851,7 +3021,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 461,
+											"left": 464,
 											"top": 450,
 											"width": 101.1689453125,
 											"height": 13,
@@ -2863,7 +3033,7 @@
 											},
 											"edgePosition": 1,
 											"underline": false,
-											"text": "11 : Etat mensuel",
+											"text": "12 : Etat mensuel",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -2886,7 +3056,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 511,
+											"left": 514,
 											"top": 435,
 											"width": 0,
 											"height": 13,
@@ -2920,7 +3090,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 511,
+											"left": 514,
 											"top": 470,
 											"width": 0,
 											"height": 13,
@@ -2977,7 +3147,7 @@
 										"$ref": "AAAAAAFbJ996nWyAjx8="
 									},
 									"lineStyle": 0,
-									"points": "284:466;739:466",
+									"points": "290:466;739:466",
 									"nameLabel": {
 										"$ref": "AAAAAAFbKCjTcXF/e5A="
 									},
@@ -3157,13 +3327,30 @@
 						},
 						{
 							"_type": "UMLMessage",
-							"_id": "AAAAAAFbKCdDhXE94eE=",
+							"_id": "AAAAAAFcpuHAoMqtkrQ=",
 							"_parent": {
 								"$ref": "AAAAAAFbJ9jP+2vFU4I="
 							},
-							"name": "Envoi email refus",
+							"name": "Envoi mail de refus",
 							"source": {
 								"$ref": "AAAAAAFbJ+fkPW44gq0="
+							},
+							"target": {
+								"$ref": "AAAAAAFbJ996nGx5pjc="
+							},
+							"visibility": "public",
+							"messageSort": "reply",
+							"isConcurrentIteration": false
+						},
+						{
+							"_type": "UMLMessage",
+							"_id": "AAAAAAFcpuInncrifMw=",
+							"_parent": {
+								"$ref": "AAAAAAFbJ9jP+2vFU4I="
+							},
+							"name": "Envoi mail de refus Rh",
+							"source": {
+								"$ref": "AAAAAAFbJ996nGx5pjc="
 							},
 							"target": {
 								"$ref": "AAAAAAFbJ9ugq2xZetE="
