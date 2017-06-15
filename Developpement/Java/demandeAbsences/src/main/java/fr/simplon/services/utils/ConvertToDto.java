@@ -62,6 +62,12 @@ public class ConvertToDto {
 			}
 		return resultatAbsence;
 	}
+
+	public AbsenceDto convertAbsToDto(Absence absence){
+		AbsenceDto absenceDto = convertAbsenceToDto(absence);
+
+		return absenceDto;
+	}
 	
 	
 	
@@ -93,6 +99,8 @@ public class ConvertToDto {
 				absenceDto.setFin(absence.getFin());
 				absenceDto.setType(absence.getType().getNom());
 				absenceDto.setStatut(absence.getStatut().getNom());
+				absenceDto.setNumDemande(absence.getNumDemande());
+				absenceDto.setCommentaire(absence.getCommentaire());
 				
 		return absenceDto;
 	}

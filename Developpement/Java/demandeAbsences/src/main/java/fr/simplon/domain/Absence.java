@@ -45,6 +45,12 @@ public class Absence {
 	@Temporal(TemporalType.DATE)
 	private Date fin;
 	
+	@Column(name= "num_demande")
+	private int numDemande;
+	
+	@Column(name= "commentaire")
+	private String commentaire;
+	
 
 	@ManyToOne
 	@JoinColumn(name = "id_type")
@@ -113,8 +119,21 @@ public class Absence {
 		this.type = type;
 	}
 
+	public int getNumDemande() {
+		return numDemande;
+	}
+
+	public void setNumDemande(int numDemande) {
+		this.numDemande = numDemande;
+	}
+
+	public String getCommentaire() {
+		return commentaire;
+	}
+
+	public void setCommentaire(String commentaire) {
+		this.commentaire = commentaire;
+	}
 
 	
-	
-
 }

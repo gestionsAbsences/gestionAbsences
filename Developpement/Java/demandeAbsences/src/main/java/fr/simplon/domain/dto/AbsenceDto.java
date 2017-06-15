@@ -37,6 +37,10 @@ public class AbsenceDto {
 	
 	private String statut;
 	
+	private int numDemande;
+	
+	private String commentaire;
+	
 	public AbsenceDto() {
 	}
 
@@ -70,6 +74,22 @@ public class AbsenceDto {
 
 	public void setStatut(String statut) {
 		this.statut = statut;
+	}
+
+	public int getNumDemande() {
+		return numDemande;
+	}
+
+	public void setNumDemande(int numDemande) {
+		this.numDemande = numDemande;
+	}
+
+	public String getCommentaire() {
+		return commentaire;
+	}
+
+	public void setCommentaire(String commentaire) {
+		this.commentaire = commentaire;
 	}
 
 	

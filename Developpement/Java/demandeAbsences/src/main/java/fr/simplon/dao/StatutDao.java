@@ -10,6 +10,9 @@ public interface StatutDao extends JpaRepository<Statut, Long>{
 	 
 	@Query("from Statut where code = ? ")
 	public Statut findByCode(int code);
+	
+	@Query("from Statut where nom = ?")
+	public Statut findByName(String name);
 
 }
 

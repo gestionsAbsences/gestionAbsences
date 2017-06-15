@@ -11,6 +11,7 @@ import fr.simplon.dao.AbsenceDao;
 import fr.simplon.domain.Absence;
 import fr.simplon.domain.dto.AbsenceDto;
 import fr.simplon.exception.ServiceException;
+import fr.simplon.services.utils.ConvertToDto;
 import fr.simplon.services.utils.TraitementAbsence;
 
 /**
@@ -26,6 +27,9 @@ public class AbsenceService {
 
 	@Autowired
 	private AbsenceDao absenceDao;
+	
+	@Autowired
+	ConvertToDto convert;
 	
 	@Autowired
 	private TraitementAbsence traitementAbsence;
@@ -81,17 +85,19 @@ public class AbsenceService {
 	 * Appelle une classe spécifique afin de verifier la validité des congés
 	 */
 	public AbsenceDto insertAbsence(AbsenceDto absenceDto) throws SQLException {
-		AbsenceDto creationAbs;
+		Absence creationAbs;
+		AbsenceDto resultatAbs;
 		try {
 			if(absenceDto.getDebut().compareTo(absenceDto.getFin())>0){
 				throw new ServiceException("La date de fin de congé doit être supèrieur à la date de début");
 			} else {
 				creationAbs = traitementAbsence.demanderAbsence(absenceDto);
+				resultatAbs = convert.convertAbsToDto(creationAbs);
 			}
 		} catch (Exception e) {
 			throw new ServiceException("Hibernate Error !: insertAbsence" + e);
 		}
-		return creationAbs;
+		return resultatAbs;
 	}
 
 	/**

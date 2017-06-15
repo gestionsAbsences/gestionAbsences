@@ -46,7 +46,7 @@ public class TraitementAbsence {
 	@Autowired
 	EmployeDao employeDao;
 
-	public AbsenceDto demanderAbsence(AbsenceDto absenceDto) throws SQLException {
+	public Absence demanderAbsence(AbsenceDto absenceDto) throws SQLException {
 		Absence nouvelleAbs = new Absence();
 		Employe employe = employeDao.findByMat("YLF246");
 		int resultatAbs = 0;
@@ -56,9 +56,9 @@ public class TraitementAbsence {
 			nouvelleAbs = creerAbsence(absenceDto, employe);
 			resultatAbs = decompterJours(nouvelleAbs);
 			//Vérification du nombre de jours d'absences pas supérieur au reliquat
-			if (resultatAbs < 0){
-				 throw new ServiceException("Vous avez pris trop de " + nouvelleAbs.getType().getNom() );
-			}
+//			if (resultatAbs < 0){
+//				 throw new ServiceException("Vous avez pris trop de " + nouvelleAbs.getType().getNom() );
+//			}
 			// emailService.sendMailInJava(nouvelleAbs);
 			nouvelleAbs.setStatut(statutDao.findByCode(1));
 			System.out.println("resultatAbs" + resultatAbs);
@@ -70,7 +70,7 @@ public class TraitementAbsence {
 			throw new ServiceException("Hibernate Error !: insertAbsence" + e);
 		}
 
-		return absenceDto;
+		return nouvelleAbs;
 	}
 	
 	//Création de l'objet Absence à partir du Dto
@@ -81,8 +81,10 @@ public class TraitementAbsence {
 		try {
 			creationAbs.setDebut(absenceDto.getDebut());
 			creationAbs.setFin(absenceDto.getFin());
+			creationAbs.setNumDemande(absenceDto.getNumDemande());
+			creationAbs.setCommentaire(absenceDto.getCommentaire());
 			creationAbs.setType(typeDao.findTypeByName(absenceDto.getType()));
-			creationAbs.setStatut(statutDao.findByCode(Integer.parseInt(absenceDto.getStatut())));
+			creationAbs.setStatut(statutDao.findByName(absenceDto.getStatut()));
 			creationAbs.setEmploye(employe);
 		} catch (Exception e) {
 
