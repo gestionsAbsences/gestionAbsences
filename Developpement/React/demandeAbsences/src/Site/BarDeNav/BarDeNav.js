@@ -84,7 +84,7 @@ class BarDeNav extends Component {
                     <tr>
                       <td className="btn btn-block tdbar">
                         <a href="/calendrierentreprise">
-                          Calendrier du personnel
+                          Calendrier de l'entreprise
                         </a>
                       </td>
                     </tr>
@@ -138,16 +138,14 @@ class BarDeNav extends Component {
                   <tbody>
                     <tr>
                       <td className="btn btn-block tdbar">
-                        {/* <a href="/aide"> */}
-                        <a href="/avishierarchique">
+                       <a href="/aide">
                           Aide
                         </a>
                       </td>
                     </tr>
                     <tr>
                       <td className="btn btn-block tdbar">
-                        {/* <a href="/apropos"> */}
-                        <a href="/avisrh">
+                        <a href="/apropos">
                           A propos
                         </a>
                       </td>
