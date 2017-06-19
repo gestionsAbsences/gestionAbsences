@@ -18,7 +18,7 @@ import fr.simplon.exception.ServiceException;
 public class ConvertToDto {
 	
 	public List<EmployeDto> convertListeEmployeToDto(List<Employe> employe){
-		List<EmployeDto> resultatEmploye = new ArrayList<EmployeDto>();
+		List<EmployeDto> resultatEmploye = new ArrayList<>();
 		
 		if(!employe.isEmpty()){
 			for (Employe transfert : employe) {
@@ -32,21 +32,10 @@ public class ConvertToDto {
 	}
 	
 	public List<UserDto> convertListUserToDto(List<User> user){
-		List<UserDto> resultatUser = new ArrayList<UserDto>();
+		List<UserDto> resultatUser = new ArrayList<>();
 		if(!user.isEmpty()){
 			for (User transfert : user) {
-				UserDto userDto = new UserDto();
-				
-				userDto.setEmail(transfert.getEmail());
-				userDto.setPassword(transfert.getPasswd());
-				userDto.setRole(transfert.getRole().getValeur());;
-				userDto.setEmployeDto(convertEmployeToDto(transfert.getEmploye()));
-
-				List<Absence> absence = transfert.getEmploye().getAbsence();
-				userDto.setAbsenceDto((List<AbsenceDto>) convertListeAbsenceToDto(absence));
-
-				
-				resultatUser.add(userDto);
+				resultatUser.add(convertUserToDto(transfert));
 			}
 		} else {
 			throw new ServiceException("Liste User vide");
@@ -56,11 +45,31 @@ public class ConvertToDto {
 	}
 	
 	public List<AbsenceDto> convertListeAbsenceToDto(List<Absence> absence){
-		List<AbsenceDto> resultatAbsence = new ArrayList<AbsenceDto>();
+		List<AbsenceDto> resultatAbsence = new ArrayList<>();
 			for (Absence transfert : absence) {
 				resultatAbsence.add(convertAbsenceToDto(transfert));
 			}
 		return resultatAbsence;
+	}
+	
+	public UserDto convertUserToDto(User user){
+		
+		
+				UserDto userDto = new UserDto();
+				
+				userDto.setEmail(user.getEmail());
+				userDto.setRole(user.getRole().getValeur());
+				userDto.setEmployeDto(convertEmployeToDto(user.getEmploye()));
+
+				List<Absence> absence = user.getEmploye().getAbsence();
+				userDto.setAbsenceDto((List<AbsenceDto>) convertListeAbsenceToDto(absence));
+
+				
+				
+		
+		
+		
+		return userDto;
 	}
 
 	public AbsenceDto convertAbsToDto(Absence absence){
@@ -78,7 +87,7 @@ public class ConvertToDto {
 				employeDto.setPrenom(employe.getPrenom());
 				employeDto.setMatricule(employe.getMatricule());
 				employeDto.setEmail(employe.getUser().getEmail());
-				employeDto.setRole(employe.getUser().getRole().getValeur());;
+				employeDto.setRole(employe.getUser().getRole().getValeur());
 				employeDto.setNbCa(employe.getNbCa());
 				employeDto.setNbRtt(employe.getNbRtt());
 				employeDto.setNbRc(employe.getNbRtt());
@@ -86,6 +95,7 @@ public class ConvertToDto {
 				employeDto.setEmailRh(employe.getServiceRh().getEmail());
 				employeDto.setNomEquipe(employe.getEquipe().getNom());
 				employeDto.setNomResponsable(employe.getEquipe().getResponsable().getNom());
+                                employeDto.setPrenomResponsable(employe.getEquipe().getResponsable().getPrenom());
 				employeDto.setEmailReponsable(employe.getEquipe().getResponsable().getUser().getEmail());
 			
 				return employeDto;
