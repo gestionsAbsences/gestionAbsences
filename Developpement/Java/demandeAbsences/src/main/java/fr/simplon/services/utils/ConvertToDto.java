@@ -90,7 +90,7 @@ public class ConvertToDto {
 				employeDto.setRole(employe.getUser().getRole().getValeur());
 				employeDto.setNbCa(employe.getNbCa());
 				employeDto.setNbRtt(employe.getNbRtt());
-				employeDto.setNbRc(employe.getNbRtt());
+				employeDto.setNbRc(employe.getNbRc());
 				employeDto.setNomRh(employe.getServiceRh().getNom());
 				employeDto.setEmailRh(employe.getServiceRh().getEmail());
 				employeDto.setNomEquipe(employe.getEquipe().getNom());
