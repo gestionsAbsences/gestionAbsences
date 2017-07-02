@@ -24,19 +24,19 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  *
  */
 
-@Entity
-@Table(name = "absence")
+@Entity //Spécifie que cette classe est une entité, un javabean
+@Table(name = "absence") // Assure la correlation entre la base de données et le javabean
 public class Absence {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Id  //Indique qu'il s'agit de la clé primaire de la table
+	@GeneratedValue(strategy = GenerationType.AUTO) // Specifie que la génération de la clé primaire sera gérer automatiquement
 	private Long id;
 	
 
-	@Column(name = "debut")
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
-	@Temporal(TemporalType.DATE)
-	@Future(message = "La date doit être postérieure à la date du jour")
+	@Column(name = "debut") // Indique le nom de la colonne de la table
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy") //Converti le format de la date dans la base de données au format désiré
+	@Temporal(TemporalType.DATE) //Indique qu'il s'agit d'un élément à traiter avec java.util.Date
+	@Future(message = "La date doit être postérieure à la date du jour") //Vérifie que la date soit supérieur à la date du jour
 	private Date debut;
 
 
@@ -45,15 +45,15 @@ public class Absence {
 	@Temporal(TemporalType.DATE)
 	private Date fin;
 	
-	@Column(name= "num_demande")
-	private int numDemande;
+ 	@Column(name= "num_demande")
+	private String numDemande;
 	
 	@Column(name= "commentaire")
 	private String commentaire;
 	
 
-	@ManyToOne
-	@JoinColumn(name = "id_type")
+	@ManyToOne // Liaison avec une autre entité incorporé dans cette classe, la liaison est multiple dans cette classe, unique dans la classe liée
+	@JoinColumn(name = "id_type") // Specifie la colonne sur laquelle se fera la jointure des 2 entités, et recupère la valeur correspondant a la FK
 	private TypeAbsence type;
 
 	
@@ -66,15 +66,17 @@ public class Absence {
 	private Employe employe;
 
 
-
+	// Constructeur vide conforme aux spécifications java
 	public Absence() {
 		
 	}
 
+	//Retourne la valeur de la variable
 	public Long getId() {
 		return id;
 	}
 
+	//Affecte une valeur à la variable
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -119,11 +121,11 @@ public class Absence {
 		this.type = type;
 	}
 
-	public int getNumDemande() {
+	public String getNumDemande() {
 		return numDemande;
 	}
 
-	public void setNumDemande(int numDemande) {
+	public void setNumDemande(String numDemande) {
 		this.numDemande = numDemande;
 	}
 

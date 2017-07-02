@@ -27,6 +27,12 @@ import org.joda.time.DateTime;
 
 public class JourFerie {
 	
+	/**
+	 * Calcul de Paques
+	 * @param year
+	 * @return
+	 */
+	
 	public static List<DateTime> calculerFerie(int year) {
 		
 		//Creation de la liste

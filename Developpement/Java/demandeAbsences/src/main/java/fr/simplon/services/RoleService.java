@@ -36,7 +36,7 @@ public class RoleService {
 	public List<Role> getRoleByValue(int valeur) throws SQLException {
 		List<Role> resultat;
 		try {
-			resultat = roleDao.findByValue(valeur);
+			resultat = roleDao.findByValeur(valeur);
 		} catch (EmailException e) {
 			throw new ServiceException("Hibrnate Error !: getRole" + e);
 		}

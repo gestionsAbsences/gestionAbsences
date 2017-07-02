@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -42,6 +43,8 @@ import fr.simplon.services.EmployeService;
 @RequestMapping("emp")
 @CrossOrigin(origins="*")
 public class EmployeController {
+	
+	Logger logger;
 	
 	@Autowired
 	EmployeService empService;

@@ -22,7 +22,7 @@ import fr.simplon.domain.Employe;
 import fr.simplon.domain.ServiceRh;
 import fr.simplon.domain.dto.AbsenceDto;
 import fr.simplon.services.AbsenceService;
-import fr.simplon.services.utils.ConvertToDto;
+import fr.simplon.services.utils.MapperDto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Config.class)
@@ -36,7 +36,7 @@ public class DemandeAbsencesApplicationTests {
 	ServiceRh rh;
 
 	@Mock
-	ConvertToDto mapper;
+	MapperDto mapper;
 	
 	@Mock
 	Absence absence;

@@ -19,7 +19,6 @@ import fr.simplon.domain.Employe;
 import fr.simplon.domain.dto.AbsenceDto;
 import fr.simplon.exception.ServiceException;
 
-
 /**
  * Classe de service pour la verification des droits à congés
  * 
@@ -29,8 +28,9 @@ import fr.simplon.exception.ServiceException;
  * @author JGL
  *
  */
-
+//indique que c'esu un service, pas besoin d'être instancier
 @Service
+//indique que la classe assure les transactions avec la base de données
 @Transactional
 public class TraitementAbsence {
 
@@ -45,73 +45,80 @@ public class TraitementAbsence {
 
 	@Autowired
 	EmployeDao employeDao;
+	
+	@Autowired
+	EmailService emailService;
+	
+	@Autowired
+	MapperDto mapper;
 
-	public Absence demanderAbsence(AbsenceDto absenceDto) throws SQLException {
-		Absence nouvelleAbs = new Absence();
-		Employe employe = employeDao.findByMat("YLF246");
+	public AbsenceDto demanderAbsence(AbsenceDto absenceDto) throws Exception {
+		Absence nouvelleAbs;
+		AbsenceDto creationAbs;
+		Employe employe = employeDao.findByMatricule(absenceDto.getMatricule());
 		int resultatAbs = 0;
 
 		try {
-
-			nouvelleAbs = creerAbsence(absenceDto, employe);
+			//Création d'un objet absence à partir du Dto reçu du front
+			nouvelleAbs = mapper.convertDtoToAbs(absenceDto);
+			//Vérification des droits à congés et calcul du nombre de jours pris
 			resultatAbs = decompterJours(nouvelleAbs);
-			//Vérification du nombre de jours d'absences pas supérieur au reliquat
-//			if (resultatAbs < 0){
-//				 throw new ServiceException("Vous avez pris trop de " + nouvelleAbs.getType().getNom() );
-//			}
-			// emailService.sendMailInJava(nouvelleAbs);
+			// Vérification du nombre de jours d'absences pas supérieur au reliquat
+			if (resultatAbs < 0) {
+				throw new ServiceException("Vous avez pris trop de " + nouvelleAbs.getType().getNom());
+			}
+			
+			//changement du statut de la demande de "nouvelle demande" à "en attente de validation"
 			nouvelleAbs.setStatut(statutDao.findByCode(1));
-			System.out.println("resultatAbs" + resultatAbs);
-			employe.setNbCa(resultatAbs);
+			//Mise à jour des reliquats de l'employé
+			if (nouvelleAbs.getType().getNom().equals("Congé payé")){
+				employe.setNbCa(resultatAbs);
+			} else if (nouvelleAbs.getType().getNom().equals("RTT")){
+				employe.setNbRtt(resultatAbs);
+			} else if (nouvelleAbs.getType().getNom().equals("Repos compensateur")){
+				employe.setNbRc(resultatAbs);
+			}
+			//recupère le résultat de la demande pour mis à jour du front, au format absenceDto
+			creationAbs = mapper.convertAbsToDto(nouvelleAbs);
+			//mise à jour de la BDD absence
 //			absenceDao.save(nouvelleAbs);
+			//mise à jour de la BDD employé
 //			employeDao.save(employe);
+			
+			//envoi d'un email au N+1
+			emailService.sendEmail(creationAbs, employe.getEquipe().getResponsable().getUser().getEmail(), "demande de congé",1);
 
-		} catch (Exception e) {
-			throw new ServiceException("Hibernate Error !: insertAbsence" + e);
+		} catch (ServiceException e) {
+			
+			throw new ServiceException(e.getMessage());
 		}
 
-		return nouvelleAbs;
-	}
-	
-	//Création de l'objet Absence à partir du Dto
-
-	private Absence creerAbsence(AbsenceDto absenceDto, Employe employe) {
-		Absence creationAbs = new Absence();
-
-		try {
-			creationAbs.setDebut(absenceDto.getDebut());
-			creationAbs.setFin(absenceDto.getFin());
-			creationAbs.setNumDemande(absenceDto.getNumDemande());
-			creationAbs.setCommentaire(absenceDto.getCommentaire());
-			creationAbs.setType(typeDao.findTypeByName(absenceDto.getType()));
-			creationAbs.setStatut(statutDao.findByName(absenceDto.getStatut()));
-			creationAbs.setEmploye(employe);
-		} catch (Exception e) {
-
-		}
 		return creationAbs;
-
 	}
 
-	//Décompte des jours d'absences
-	
+
+	// Décompte des jours d'absences, utilisation de la librairie Joda-Time
+
 	private int decompterJours(Absence absence) throws ServiceException {
 		DateTime dateDebut = new DateTime(absence.getDebut());
 		DateTime dateFin = new DateTime(absence.getFin());
-		Duration duree = new Duration(dateDebut, dateFin);
+		//calcul de la durée des congés, il faut retirer un jour à la date de début, sinon elle sort du calcul
+		Duration duree = new Duration(dateDebut.minusDays(1), dateFin);
+		//qui est convertie en jour, le resultat retourné étant un long, on le caste en int
 		int joursAbs = Math.toIntExact(duree.getStandardDays());
+		//initialisation du reliquat
 		int reliquat = 0;
 
-		//Vérifie que l'employé ne prend pas plus de 4 semaines de congés
-		if (joursAbs > 28) {
-			throw new ServiceException("Vous ne pouvez pas prendre plus de 4 semaines de congés");
-		}
-
 		try {
+			// Vérifie que l'employé ne prend pas plus de 4 semaines de congés
+			if (joursAbs > 28) {
+				throw new ServiceException("Vous ne pouvez pas prendre plus de 4 semaines de congés");
+			}
 
+			//appelle une methose qui calcule les jours fériés de l'année et retourne une liste de ceux-ci
 			List<DateTime> ferie = new ArrayList<DateTime>(JourFerie.calculerFerie(dateDebut.getYear()));
 
-			//Retire les jours fériés se situant pendant les congés
+			// Retire les jours fériés se situant pendant les congés
 			if (absence.getStatut().getCode() == 0) {
 				for (DateTime dateFerie : ferie) {
 					if (dateDebut.isBefore(dateFerie) && dateFin.isAfter(dateFerie)) {
@@ -120,37 +127,40 @@ public class TraitementAbsence {
 				}
 
 			}
+			
+			//On retire les samedi et dimanche qui ne sont pas travaillés
+			joursAbs -= (joursAbs/7)*2;
 
+			//calcul du reliquat de congé en fonction du type d'absence
 			reliquat = calculerReliquat(joursAbs, absence);
 
-		} catch (Exception e) {
-
+		} catch (ServiceException e) {
+			throw new ServiceException(e.getMessage());
 		}
 		return reliquat;
 	}
 
-	//Méthode décomptant les jours d'absence en fonction du type de congés
-	private int calculerReliquat(int joursAbs, Absence absence) throws RuntimeException{
+	// Méthode décomptant les jours d'absence en fonction du type de congés
+	private int calculerReliquat(int joursAbs, Absence absence) throws RuntimeException {
 
 		switch (absence.getType().getNom()) {
 		case "Congé payé":
-			if(joursAbs<absence.getEmploye().getNbCa()){
+			if (joursAbs < absence.getEmploye().getNbCa()) {
 				int reliquat = absence.getEmploye().getNbCa() - joursAbs;
-				System.out.println(reliquat + " " + joursAbs);
 				return reliquat;
 			}
 		case "RTT":
-			if(joursAbs>absence.getEmploye().getNbRtt()){
+			if (joursAbs > absence.getEmploye().getNbRtt()) {
 				int reliquat = absence.getEmploye().getNbRtt() - joursAbs;
 				return reliquat;
 			}
 		case "Repos compensateur":
-			if(joursAbs>absence.getEmploye().getNbRc()){
+			if (joursAbs > absence.getEmploye().getNbRc()) {
 				int reliquat = absence.getEmploye().getNbRc() - joursAbs;
 				return reliquat;
 			}
 		default:
-			 throw new ServiceException("Vous avez pris trop de " + absence.getType().getNom() );
+			throw new ServiceException("Vous avez pris trop de " + absence.getType().getNom());
 		}
 	}
 }

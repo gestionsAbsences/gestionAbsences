@@ -3,6 +3,7 @@ package fr.simplon.services;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +13,7 @@ import fr.simplon.domain.Employe;
 import fr.simplon.domain.dto.EmployeDto;
 import fr.simplon.exception.EmailException;
 import fr.simplon.exception.ServiceException;
-import fr.simplon.services.utils.ConvertToDto;
+import fr.simplon.services.utils.MapperDto;
 
 /**
  * Classe metier de la gestion des employés
@@ -28,7 +29,9 @@ public class EmployeService {
 	EmployeDao employeDao;
 
 	@Autowired
-	ConvertToDto convert;
+	MapperDto convert;
+	
+	final org.slf4j.Logger logger = LoggerFactory.getLogger(EmployeService.class);
 
 	/**
 	 * Liste des employes
@@ -66,7 +69,7 @@ public class EmployeService {
 		List<Employe> getEmploye;
 		List<EmployeDto> getEmployeDto;
 		try {
-			getEmploye = employeDao.findByName(nom);
+			getEmploye = employeDao.findByNomContaining(nom);
 			getEmployeDto = convert.convertListeEmployeToDto(getEmploye);
 		} catch (EmailException e) {
 			throw new ServiceException("Hibernate Error !: getEmploye" + e);
@@ -88,7 +91,7 @@ public class EmployeService {
 	public Employe insertEmploye(Employe employe) throws SQLException {
 		Employe creationEmploye = null;
 		try {
-			if (employeDao.findByMat(employe.getMatricule()).equals(null)) {
+			if (employeDao.findByMatricule(employe.getMatricule()).equals(null)) {
 				creationEmploye = employeDao.save(employe);
 			} else {
 				throw new ServiceException("matricule déjà utilisé");

@@ -34,14 +34,14 @@ public class EquipeService {
 		return resultat;
 	}
 
-	public List<Equipe> getEquipe(String nom) throws SQLException {
-		List<Equipe> resultat = new ArrayList<Equipe>();
+	public Equipe getEquipe(String nom) throws SQLException {
+		Equipe equipe;
 		try {
-			resultat = equipeDao.findEquipe(nom);
+			equipe = equipeDao.findEquipeByNom(nom);
 		} catch (EmailException e) {
 			throw new ServiceException("Hibrnate Error !: getEquipe" + e);
 		}
-		return resultat;
+		return equipe;
 	}
 
 	public Equipe insertEquipe(Equipe equipe) throws SQLException {

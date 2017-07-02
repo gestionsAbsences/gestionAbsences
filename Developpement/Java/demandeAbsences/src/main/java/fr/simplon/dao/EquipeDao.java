@@ -1,9 +1,6 @@
 package fr.simplon.dao;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import fr.simplon.domain.Equipe;
@@ -16,7 +13,7 @@ public interface EquipeDao extends JpaRepository<Equipe, Long> {
 	 * @param name nom
 	 * @return liste de equipes
 	 */
-	@Query("from Equipe where nom like %?1%")
-	public List<Equipe> findEquipe(String nom);
+	
+	Equipe findEquipeByNom(String nom);
 
 }

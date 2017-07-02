@@ -3,7 +3,6 @@ package fr.simplon.dao;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import fr.simplon.domain.Role;
@@ -17,7 +16,7 @@ public interface RoleDao extends JpaRepository<Role, Long> {
 	 * @param name role
 	 * @return liste de roles
 	 */
-	@Query("from Role where valeur = ?")
-	List<Role> findByValue(int valeur);
+
+	List<Role> findByValeur(int valeur);
 
 }

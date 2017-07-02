@@ -59,7 +59,7 @@ public class TypeService {
 	public TypeAbsence getTypeByName(String nom) throws SQLException {
 		TypeAbsence resultat;
 		try {
-			resultat = typeDao.findTypeByName(nom);
+			resultat = typeDao.findTypeByNom(nom);
 		} catch (ServiceException e) {
 			throw new ServiceException("Hibernate Error !: getTypeByName" + e);
 		}

@@ -3,7 +3,6 @@ package fr.simplon.domain.dto;
 
 import java.util.Date;
 
-
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Future;
@@ -37,9 +36,15 @@ public class AbsenceDto {
 	
 	private String statut;
 	
-	private int numDemande;
+	private String numDemande;
 	
 	private String commentaire;
+	
+	private String matricule;
+	
+	private String nom;
+	
+	private String prenom;
 	
 	public AbsenceDto() {
 	}
@@ -76,11 +81,11 @@ public class AbsenceDto {
 		this.statut = statut;
 	}
 
-	public int getNumDemande() {
+ 	public String getNumDemande() {
 		return numDemande;
 	}
 
-	public void setNumDemande(int numDemande) {
+	public void setNumDemande(String numDemande) {
 		this.numDemande = numDemande;
 	}
 
@@ -90,6 +95,30 @@ public class AbsenceDto {
 
 	public void setCommentaire(String commentaire) {
 		this.commentaire = commentaire;
+	}
+
+	public String getMatricule() {
+		return matricule;
+	}
+
+	public void setMatricule(String matricule) {
+		this.matricule = matricule;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
 	}
 
 	

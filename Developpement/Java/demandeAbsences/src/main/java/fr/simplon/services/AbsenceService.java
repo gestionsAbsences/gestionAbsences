@@ -1,6 +1,8 @@
 package fr.simplon.services;
 
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,7 @@ import fr.simplon.dao.AbsenceDao;
 import fr.simplon.domain.Absence;
 import fr.simplon.domain.dto.AbsenceDto;
 import fr.simplon.exception.ServiceException;
-import fr.simplon.services.utils.ConvertToDto;
+import fr.simplon.services.utils.MapperDto;
 import fr.simplon.services.utils.TraitementAbsence;
 
 /**
@@ -25,11 +27,12 @@ import fr.simplon.services.utils.TraitementAbsence;
 @Transactional
 public class AbsenceService {
 
+	//Il s'agit de l'injection de dépendance de Spring
 	@Autowired
 	private AbsenceDao absenceDao;
 	
 	@Autowired
-	ConvertToDto convert;
+	MapperDto convert;
 	
 	@Autowired
 	private TraitementAbsence traitementAbsence;
@@ -44,10 +47,14 @@ public class AbsenceService {
 	 * La methode [findAll] retourne une liste de la table 
 	 * La methode [findAll] est overide.
 	 */
-	public List<Absence> listeServicesAbsence() throws SQLException {
-		List<Absence> resultat;
+	public List<AbsenceDto> listeServicesAbsence() throws SQLException {
+		List<AbsenceDto> resultat;
+		List<Absence> absence;
 		try {
-			resultat = absenceDao.findAll();
+			//recherche la liste complète des absences
+			absence = absenceDao.findAll();
+			//converti le resultat en dto
+			resultat = convert.convertListeAbsenceToDto(absence);
 		} catch (Exception e) {
 			throw new SQLException("Hibernate Error !: listeAbsence" + e);
 		}
@@ -64,10 +71,12 @@ public class AbsenceService {
 	/*
 	 * Meme principe que ci-dessus une iteration qu'on transforme en liste
 	 */
-	public List<Absence> getAbsenceById(Long id) throws SQLException {
-		List<Absence> resultat;
+	public List<AbsenceDto> getAbsenceById(Long id) throws SQLException {
+		List<AbsenceDto> resultat;
+		List<Absence> absence;
 		try {
-			resultat = absenceDao.findById(id);
+			absence = absenceDao.findById(id);
+			resultat=convert.convertListeAbsenceToDto(absence);
 		} catch (Exception e) {
 			throw new SQLException("Hibernate Error !: getAbsenceById" + e);
 		}
@@ -85,14 +94,20 @@ public class AbsenceService {
 	 * Appelle une classe spécifique afin de verifier la validité des congés
 	 */
 	public AbsenceDto insertAbsence(AbsenceDto absenceDto) throws SQLException {
-		Absence creationAbs;
+		
+		//créer un objet absence Dto
 		AbsenceDto resultatAbs;
 		try {
+			//vérifie que la date de fin de congé ne soit pas inférieur à la date de début
 			if(absenceDto.getDebut().compareTo(absenceDto.getFin())>0){
 				throw new ServiceException("La date de fin de congé doit être supèrieur à la date de début");
 			} else {
-				creationAbs = traitementAbsence.demanderAbsence(absenceDto);
-				resultatAbs = convert.convertAbsToDto(creationAbs);
+				//envoie la demande vers le traitement
+				//implemente le numéro de demande par un timeStamp
+				String calendar = Calendar.getInstance().getTimeInMillis()+"";
+				absenceDto.setNumDemande(calendar.substring(6,12));
+				resultatAbs = traitementAbsence.demanderAbsence(absenceDto);
+				
 			}
 		} catch (Exception e) {
 			throw new ServiceException("Hibernate Error !: insertAbsence" + e);
@@ -136,9 +151,15 @@ public class AbsenceService {
 	 * qui supprime une entité complete. Cette methode peut etre appelé à
 	 * evoluer
 	 */
-	public void deleteAbsence(Absence absence) throws SQLException {
+	public void deleteAbsence(AbsenceDto absenceDto) throws SQLException {
 		try {
+			Date now = new Date();
+			if(now.compareTo(absenceDto.getDebut())>0){
+				throw new ServiceException("Annulation impossible!");
+			} else {
+			Absence absence = convert.convertDtoToAbs(absenceDto);
 			absenceDao.delete(absence);
+			}
 		} catch (Exception e) {
 			throw new SQLException("Hibernate Error !: deleteAbsence" + e);
 		}

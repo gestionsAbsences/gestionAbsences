@@ -9,7 +9,7 @@ package fr.simplon.exception;
 public class ServiceException extends RuntimeException {
 	
 	/**
-	 * @category Gestion des exceptions
+	 * @category Personnalisation des exceptions
 	 * 
 	 * @author JGL
 	 */ 
