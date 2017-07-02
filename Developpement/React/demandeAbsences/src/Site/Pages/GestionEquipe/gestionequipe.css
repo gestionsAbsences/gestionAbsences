@@ -3,7 +3,9 @@
     border-spacing: 0;
 }
 
-.contenutablo, .contenutablo tr, .contenutablo tr th, .contenutablo tr td { display: block; }
+.contenutablo, .contenutablo tr, .contenutablo tr th, .contenutablo tr td {
+  display: block;
+}
 
 .scrollable tr {
     /* fallback */

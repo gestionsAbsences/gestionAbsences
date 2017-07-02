@@ -3,11 +3,18 @@ import React, { Component } from 'react';
 import './bardenav.css';
 
 class BarDeNav extends Component {
+
+  constructor (props) {
+    super(props); // Récupère le Props du parent
+    this.props=props;
+  }
+
   render() {
     return (
       <div className="bardenav">
         <div className="voffsetnav">&nbsp;</div>
         <div className="affix col-xs-1 col-sm-1 col-md-2 col-lg-2 panel-group" id="accordion">
+
           <div className="panel panel-default">
             <div className="panel-heading">
               <a href="/accueil">
@@ -17,6 +24,7 @@ class BarDeNav extends Component {
               </a>
             </div>
           </div>
+
           <div className="panel panel-default">
             <div className="panel-heading">
               <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
@@ -36,6 +44,8 @@ class BarDeNav extends Component {
                         </a>
                       </td>
                     </tr>
+
+{/* Disponible seulement pour les valideurs */}
                     <tr>
                       <td className="btn btn-block tdbar">
                         <a href="/declareabsence">
@@ -50,11 +60,14 @@ class BarDeNav extends Component {
                         </a>
                       </td>
                     </tr>
+{/* Fin */}
+
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
+
           <div className="panel panel-default">
             <div className="panel-heading">
               <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
@@ -74,6 +87,8 @@ class BarDeNav extends Component {
                         </a>
                       </td>
                     </tr>
+
+{/* Disponible seulement pour les valideurs */}
                     <tr>
                       <td className="btn btn-block tdbar">
                         <a href="/calendrierequipe">
@@ -81,18 +96,25 @@ class BarDeNav extends Component {
                         </a>
                       </td>
                     </tr>
+{/* Fin */}
+
+{/* Disponible seulement pour les valideurs */}
                     <tr>
                       <td className="btn btn-block tdbar">
                         <a href="/calendrierentreprise">
-                          Calendrier du personnel
+                          Calendrier de l'entreprise
                         </a>
                       </td>
                     </tr>
+{/* Fin */}
+
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
+
+{/* Disponible pour l'administrateur */}
           <div className="panel panel-default">
             <div className="panel-heading">
               <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
@@ -124,6 +146,8 @@ class BarDeNav extends Component {
               </div>
             </div>
           </div>
+{/* Fin */}
+
           <div className="panel panel-default">
             <div className="panel-heading">
               <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
@@ -138,16 +162,16 @@ class BarDeNav extends Component {
                   <tbody>
                     <tr>
                       <td className="btn btn-block tdbar">
-                        {/* <a href="/aide"> */}
-                        <a href="/avishierarchique">
+                        <a href="/aide">
+                        {/* <a href="/avishierarchique"> */}
                           Aide
                         </a>
                       </td>
                     </tr>
                     <tr>
                       <td className="btn btn-block tdbar">
-                        {/* <a href="/apropos"> */}
-                        <a href="/avisrh">
+                        <a href="/apropos">
+                        {/* <a href="/avisrh"> */}
                           A propos
                         </a>
                       </td>
@@ -157,6 +181,7 @@ class BarDeNav extends Component {
               </div>
             </div>
           </div>
+
           <div className="panel panel-default">
             <div className="panel-heading">
               <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
@@ -188,6 +213,7 @@ class BarDeNav extends Component {
               </div>
             </div>
           </div>
+
         </div>
       </div>
     );

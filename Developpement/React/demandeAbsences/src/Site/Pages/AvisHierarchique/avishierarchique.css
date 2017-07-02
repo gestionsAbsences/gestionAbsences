@@ -6,24 +6,16 @@
 	margin-left: 2vw;
 }
 
-.voffsetpos {
-  height: 0vh;
-}
-
-.voffsetbas {
-  height: 7vh;
-}
-
-.voffsethaut {
-  height: 7vh;
-}
-
-.vdecalage {
+.VOffSetAvis {
 	height: 3vh;
 }
 
-.vdecalage2 {
+.VOffSetAvis2 {
 	height: 4vh;
+}
+
+.VOffSetAvis3 {
+	margin-top: 3px;
 }
 
 .spacingbutton {
