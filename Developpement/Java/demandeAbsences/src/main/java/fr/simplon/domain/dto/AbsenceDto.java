@@ -22,12 +22,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class AbsenceDto {
 	
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Future(message = "La date doit être postérieure à la date du jour")
 	private Date debut;
 	
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Future(message = "La date doit être postérieure à la date du jour")
 	private Date fin;

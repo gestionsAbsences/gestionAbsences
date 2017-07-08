@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.simplon.dao.AbsenceDao;
 import fr.simplon.dao.EmployeDao;
 import fr.simplon.dao.EquipeDao;
+import fr.simplon.dao.StatutDao;
 import fr.simplon.domain.Absence;
 import fr.simplon.domain.Employe;
 import fr.simplon.domain.Equipe;
@@ -19,6 +20,12 @@ import fr.simplon.exception.ServiceException;
 import fr.simplon.services.utils.EmailService;
 import fr.simplon.services.utils.MapperDto;
 
+
+/**
+ * Service de validation olu refus des absences
+ * @author JGL
+ *
+ */
 @Service
 @Transactional
 public class ValidationService {
@@ -34,6 +41,9 @@ public class ValidationService {
 	
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private StatutDao statutDao;
 	
 	@Autowired
 	MapperDto mapper;
@@ -62,36 +72,36 @@ public class ValidationService {
 		return absenceDto;
 	}
 	
-	public AbsenceDto updateValidation(AbsenceDto absenceDto, int validation) throws Exception{
-		Employe employe = employeDao.findByMatricule(absenceDto.getMatricule());
-		Absence absence;
+	public AbsenceDto updateValidation(String numDemande, String valide) throws Exception{
+		int validation = Integer.parseInt(valide);
+		Absence absence = absenceDao.findByNumDemande(numDemande);
+		AbsenceDto absenceDto;
 		switch (validation){
 		case  3 : 
-			absenceDto.setStatut("En attente de décision RH");
-			emailService.sendEmail(absenceDto, employe.getUser().getEmail(), "Validation de votre congé",2);
-			emailService.sendEmail(absenceDto, employe.getServiceRh().getEmail(), "Validation de votre congé",3);
+			absence.setStatut(statutDao.findByCode(validation));
+			emailService.sendEmail(absence, absence.getEmploye().getUser().getEmail(), "Validation de votre congé",2);
+			emailService.sendEmail(absence, absence.getEmploye().getServiceRh().getEmail(), "Validation de votre congé",3);
 			break;
 			
 		case 4 : 
-			absenceDto.setStatut("Validé");
+			absence.setStatut(statutDao.findByCode(validation));
 			break;
 			
 		case 5 : 
-			absenceDto.setStatut("Refusé par le responsable");
-			emailService.sendEmail(absenceDto, employe.getUser().getEmail(),"Refus de votre congé par le responsable",4);
+			absence.setStatut(statutDao.findByCode(validation));
+			emailService.sendEmail(absence, absence.getEmploye().getUser().getEmail(),"Refus de votre congé par le responsable",4);
 			break;
 			
 		case 6 : 
-			absenceDto.setStatut("Refusé par le RH");
-			emailService.sendEmail(absenceDto, employe.getUser().getEmail() ,"Refus de votre congé par le service RH",5);
-			emailService.sendEmail(absenceDto, employe.getEquipe().getResponsable().getUser().getEmail(),"Refus de votre congé par le service RH",6);
+			absence.setStatut(statutDao.findByCode(validation));
+			emailService.sendEmail(absence, absence.getEmploye().getUser().getEmail() ,"Refus de votre congé par le service RH",5);
+			emailService.sendEmail(absence, absence.getEmploye().getEquipe().getResponsable().getUser().getEmail(),"Refus de votre congé par le service RH",6);
 			break;
 			
 		default :
 			throw new ServiceException("Le statut n'existe pas");
 		}
 		
-		absence = mapper.convertDtoToAbs(absenceDto);
 		absenceDao.save(absence);
 		absenceDto = mapper.convertAbsToDto(absence);
 		

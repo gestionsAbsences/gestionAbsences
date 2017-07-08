@@ -18,6 +18,7 @@ public interface AbsenceDao extends JpaRepository<Absence, Long> {
 	/**
 	 * recherche d'une absence
 	 * @param id 
+	 * @param numDemande
 	 * @return une absence
 	 */
 	

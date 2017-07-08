@@ -58,6 +58,7 @@ public class AbsenceController {
 	 * ResponseEntity permet gérer la réponse envoyée au front
 	 * 
 	 */
+//	@PreAuthorize(AuthConstantes.SERVICERH + " or " + AuthConstantes.RESPONSABLE)
 	@GetMapping("/listeAbsence") //raccourci pour la méthode : @RequestMapping(value = "/listeAbsence", method = RequestMethod.GET
 	public ResponseEntity<?> findAll() {
 		List<AbsenceDto> absence;
@@ -73,8 +74,7 @@ public class AbsenceController {
 	 * 
 	 * Recherche des absences par le nom
 	 * 
-	 * @param String
-	 *            nom
+	 * @param String nom
 	 * 
 	 * @return 1 entité absence
 	 * 
@@ -85,6 +85,7 @@ public class AbsenceController {
 	 * 
 	 */
 
+//	@PreAuthorize(AuthConstantes.EMPLOYE + " or " + AuthConstantes.RESPONSABLE + " or " + AuthConstantes.SERVICERH)
 	@GetMapping("/getAbsenceById")
 	public ResponseEntity<?> findById(@RequestParam(value = "id", defaultValue = "") Long id) {
 		List<AbsenceDto> absence;

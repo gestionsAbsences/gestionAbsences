@@ -1,16 +1,10 @@
 package fr.simplon.controller;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.simplon.domain.Equipe;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import fr.simplon.domain.dto.AbsenceDto;
 import fr.simplon.services.ValidationService;
 
@@ -51,26 +46,26 @@ public class ValidationController {
 		return ResponseEntity.ok(absenceDto);
 	}
 	
+	/**
+	 * Trairement des absences
+	 * @param json
+	 * @return
+	 * @throws Exception
+	 */
 	
 	//Validation des congés
 	@PutMapping(value = "/validationAbsence")
-	public ResponseEntity<?> update(@RequestBody @Valid AbsenceDto absenceDto, int validation, BindingResult result) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
+	public ResponseEntity<?> update(@RequestBody ObjectNode json) throws Exception {
+		String numDemande = json.get("numDemande").asText();
+		String validation = json.get("validation").asText();
+		AbsenceDto absenceDto;
 		try {
-			if (result.hasErrors()) {
-				for (FieldError error : result.getFieldErrors()) {
-					map.put(error.getField(), String.format("%s", error.getDefaultMessage()));
-					return ResponseEntity.badRequest().body(map);
-				}
-			} else {
-				absenceDto = validationService.updateValidation(absenceDto, validation);
-			}
+			absenceDto = validationService.updateValidation(numDemande, validation);
+			
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
 		return ResponseEntity.ok(absenceDto);
 	}
-	
-	
 
 }

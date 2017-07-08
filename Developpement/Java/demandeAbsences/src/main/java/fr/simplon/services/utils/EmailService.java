@@ -22,7 +22,7 @@ import javax.mail.internet.MimeMultipart;
 
 import org.springframework.stereotype.Service;
 
-import fr.simplon.domain.dto.AbsenceDto;
+import fr.simplon.domain.Absence;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
@@ -30,7 +30,7 @@ import freemarker.template.TemplateExceptionHandler;
 @Service
 public class EmailService {
 
-	public boolean sendEmail(AbsenceDto absence, String emailDest, String subject, int numero) throws Exception {
+	public boolean sendEmail(Absence absence, String emailDest, String subject, int numero) throws Exception {
 
 		Properties properties = new Properties();
 		try {
@@ -50,6 +50,9 @@ public class EmailService {
 
 		try {
 			prepareAndSendMessage(absence, emailDest, subject, senderMail, session, numero);
+			System.out.println("sender : "+senderMail );
+			System.out.println("dest : "+emailDest);
+			System.out.println("numéro de demande : "+absence.getNumDemande());
 			return true;
 		} catch (IOException e) {
 			throw new IOException (e);
@@ -57,7 +60,7 @@ public class EmailService {
 
 	}
 
-	private void prepareAndSendMessage(AbsenceDto absence, String destinataire, String subject, String senderMail,
+	private void prepareAndSendMessage(Absence absence, String destinataire, String subject, String senderMail,
 			Session session, int numero) throws Exception, IOException {
 
 		try {
@@ -70,7 +73,7 @@ public class EmailService {
 
 			// freemaraker debut de configuration
 			Configuration configuration = new Configuration(Configuration.VERSION_2_3_26);
-			configuration.setDirectoryForTemplateLoading(new File("src/main/resources/templates"));
+			configuration.setDirectoryForTemplateLoading(new File("src/main/resources/template"));
 			configuration.setDefaultEncoding("UTF-8");
 			configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 			configuration.setLogTemplateExceptions(false);
@@ -78,10 +81,10 @@ public class EmailService {
 			Template template = configuration.getTemplate("email"+numero+".ftlh");
 
 			Map<String, String> rootMap = new HashMap<String, String>();
-			rootMap.put("statut", absence.getStatut());
-			rootMap.put("nom", absence.getNom());
-			rootMap.put("prenom", absence.getPrenom());
-			rootMap.put("typeConge", absence.getType());
+//			rootMap.put("statut", absence.getStatut());
+			rootMap.put("nom", absence.getEmploye().getNom());
+			rootMap.put("prenom", absence.getEmploye().getPrenom());
+			rootMap.put("typeConge", absence.getType().getNom());
 			rootMap.put("debutConge", absence.getDebut().toString());
 			rootMap.put("finConge", absence.getFin().toString());
 			rootMap.put("numDemande", absence.getNumDemande());

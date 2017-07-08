@@ -1,6 +1,5 @@
 package fr.simplon.services.utils;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,7 +85,7 @@ public class TraitementAbsence {
 //			employeDao.save(employe);
 			
 			//envoi d'un email au N+1
-			emailService.sendEmail(creationAbs, employe.getEquipe().getResponsable().getUser().getEmail(), "demande de congé",1);
+			emailService.sendEmail(nouvelleAbs, employe.getEquipe().getResponsable().getUser().getEmail(), "demande de congé",1);
 
 		} catch (ServiceException e) {
 			
