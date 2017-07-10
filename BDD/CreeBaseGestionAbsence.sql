@@ -153,7 +153,7 @@ ENGINE = InnoDB;
 
 CREATE TABLE `gestabsences`.`num_demande` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `numero` INT NULL,
+  `numero` VARCHAR(10) NULL,
   PRIMARY KEY (`id`));
 
 
