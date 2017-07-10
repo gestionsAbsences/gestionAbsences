@@ -147,6 +147,16 @@ CREATE TABLE IF NOT EXISTS `GestAbsences`.`user` (
   INDEX `fk_users_role_idx` (`id_role` ASC))
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `GestAbsences`.`num_demande`
+-- -----------------------------------------------------
+
+CREATE TABLE `gestabsences`.`num_demande` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `numero` INT NULL,
+  PRIMARY KEY (`id`));
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
