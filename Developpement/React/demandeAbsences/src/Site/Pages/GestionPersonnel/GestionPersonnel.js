@@ -123,7 +123,7 @@ class GestionPersonnel extends Component {
                 </div>
                 <div className="VOffSetGest2">&nbsp;</div>
                 <div className="form-group">
-                  <div className="VOffSetGest1">
+                <div className="vdecalage4">
                     <a href="index.html" className="btn btn-primary btn-md btn-block">Réinitialisation<br/>du mot de passe</a>
                   </div>
                 </div>
