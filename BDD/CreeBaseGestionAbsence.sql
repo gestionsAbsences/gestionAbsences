@@ -110,6 +110,7 @@ CREATE TABLE IF NOT EXISTS `GestAbsences`.`absence` (
   `id_type` INT NULL,
   `id_statut` INT NULL,
   `id_service_rh` INT NULL,
+  'date_relance' DATE NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_absences_employe_idx` (`id_employe` ASC),
   INDEX `fk_absences_type_idx` (`id_type` ASC),
