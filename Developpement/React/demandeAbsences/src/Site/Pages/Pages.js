@@ -31,9 +31,9 @@ class Pages extends Component {
     this.props=props;
   }
 
-propUserEmailFille = (valeur) => {
-  this.props.propUserEmailMere(valeur);
-}
+// propUserEmailFille = (valeur) => {
+//   this.props.transUserEmail(valeur);
+// }
 
 // ---------------------------------------------------------------------
 // Liste des fonctions associées au route ci-dessous
@@ -80,7 +80,7 @@ Aide = () => { // Aide est élaboré en fonction du role de l'utilisateur
 }
 
 Authentification = () => {
-  return <Authentification employe={this.props.employe} />
+  return <Authentification employe={this.props.employe} transUserEmail={this.props.transUserEmail} />
 }
 
 ModifMotDePasse = () => {

@@ -11,7 +11,7 @@ import PiedPage from './PiedPage/PiedPage.js';
 import Pages from './Pages/Pages.js';
 
 // Ligne à occulter, sert à afficher l'environnement de Steven MERRIL
-// let userEmail="steven.merrill@entreprise.com";
+let userEmail="damian.humphrey@entreprise.com";
 
 class Site extends Component {
 
@@ -42,7 +42,7 @@ class Site extends Component {
       }
 
       propUserEmailMere = (valeur) => {
-        this.setState.userEmail=valeur;
+        this.setState({userEmail: valeur});
       }
 
       // Traitement asynchrone dont le résultat est obtenu après récolte des données du back
@@ -50,7 +50,7 @@ class Site extends Component {
 
           // Récupération des données du Back par requête HTTP
            axios
-            .get('http://localhost:8080/user/getUser?email='+this.state.userEmail) // Type GET paramétré avec l'email.
+            .get('http://localhost:8080/user/getUser?email='+userEmail) //this.state.userEmail Type GET paramétré avec l'email.
             .then(res => {
                 this.setState({ // Incorpore les données dans le State
                   nom: res.data[0].employeDto.nom,
@@ -71,9 +71,15 @@ class Site extends Component {
               });
             })
             .catch((error) => {
-                console.log("Axios : Problème d'accès à la ressource http://localhost:8080/user/getUser?email="+this.state.userEmail+".");
+                console.log("Axios : Problème d'accès à la ressource http://localhost:8080/user/getUser?email="+userEmail+".");
             });
       }
+
+componentDidUpdate() {
+  console.log("Site State : ");
+  console.log(this.state);
+  console.log("");
+}
 
     render() {
     return (
@@ -90,7 +96,7 @@ class Site extends Component {
 
         {/*  Appel d'une page sans les données du State */}
         <BarDeNav role={this.state.role} /> {/* Affiche la barre de navigation (latérale) */}
-        <Pages employe={this.state} />      {/* Affiche le body en fonction de la navigation */}
+        <Pages employe={this.state} transUserEmail={this.propUserEmailMere} />      {/* Affiche le body en fonction de la navigation */}
         <PiedPage />                        {/* Affiche le footer */}
       </div>
     )

@@ -12,11 +12,12 @@ class NouvelleDemande extends Component {
       super(props); // Récupère le Props du parent
       this.props=props;
       this.state={ // Définition des propriétés du State
-        types: [],
         statut: '',
         type: '',
         debut: '',
         fin: '',
+        commentaire: '',
+        types: [],
         selectedId: 0
       };
       this.handleTypeChange = this.handleTypeChange.bind(this);
@@ -27,15 +28,24 @@ class NouvelleDemande extends Component {
 
   componentDidMount() {
     axios
-    .get('http://localhost:8080/type/listeTypeAbsence')
-    .then(res => {
-      this.setState({
-        types: res.data
-      });
-    })
-    .catch((error) => {
-      console.log("Axios : Problème d'accès à la ressource http://localhost:8080/type/listeTypeAbsence.");
+      .get('http://localhost:8080/type/listeTypeAbsence')
+      .then(res => {
+        this.setState({
+          types: res.data
+        });
+      })
+      .catch((error) => {
+        console.log("Axios : Problème d'accès à la ressource http://localhost:8080/type/listeTypeAbsence.");
     });
+
+    axios
+      .get('http://localhost:8080/statut/getStatutByCode?code=0')
+      .then(res => {
+           this.setState({statut: res.data.nom});
+         })
+       .catch((error) => {
+           console.log("Axios : Problème d'accès à la ressource http://localhost:8080/statut/getStatutByCode?code=0.");
+      });
   }
 
   listeType = (indice, type) => {
@@ -65,43 +75,24 @@ class NouvelleDemande extends Component {
         debut: this.state.debut,
         fin: this.state.fin
       });
-console.log(this.state);
   this.creerAbsence();
   }
 
-  formatDate = (date) => { // Convertit la date au format dd/mm/aaaa
-    return (
-      date.substr(-2) + "/" + date.substr(5,2) + "/" + date.substr(0,4)
-    )
-  }
-
   creerAbsence() {
-    axios.get('http://localhost:8080/statut/getStatutByCode?code=0')
-      .then(res => {
-           console.log(res.data.nom);
-           this.setState({statut: res.data.nom});
-      });
-
-    // @param id,
-    //           date debut, datefin, idEmploye, Type de congé, Statut du
-    //           congé, ServiceRh, types, statuts, valideurRh, employes;
     axios
       .post('http://localhost:8080/absence/creerAbsence/',
           {
-            "nom": this.formatDate(this.state.nom),
-            "prenom": this.formatDate(this.state.prenom),
-            "type": this.state.type,
-            "debut": this.formatDate(this.state.debut),
-            "fin": this.formatDate(this.state.fin),
-            "commentaire": this.state.commentaire,
-            "statut": this.state.statut,
-            "numDemande": 0
+            debut: this.state.debut,
+            fin: this.state.fin,
+            type: this.state.type,
+            statut: this.state.statut,
+            matricule: this.props.employe.matricule
           })
       .then(res => {
-        console.log("Resultat du POST : " + res);
       })
       .catch((error) => {
           console.log("Axios : Problème d'accès à la ressource http://localhost:8080/absence/creerAbsence/.");
+          console.log(this.state.debut,this.state.fin,this.state.type,this.state.statut,this.props.employe.matricule);
       });
   }
 
