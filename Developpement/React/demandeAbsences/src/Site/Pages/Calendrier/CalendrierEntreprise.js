@@ -37,8 +37,20 @@ class CalendrierEntreprise extends Component {
                 <div className="VOffSetBasPages">&nbsp;</div>   {/*12   Cosmétique d'unee marge au dessus des boutons */}{/*12   fin */}
               </div>   {/*11   fin */}
             </div>
+            <div className="col-md-4">
+            </div>
+
+            <div id="legendText" className="calendrier col-md-11 col-md-offset-1">
+              <table id="legend" className="legend display border">
+                 <tbody id="legendbody">
+                 </tbody>
+              </table>
+            </div>
+
           </div>
+          <div className="VOffSetBasPages">&nbsp;</div>   {/*12   Cosmétique d'unee marge au dessus des boutons */}{/*12   fin */}
         </div>
+        <div className="VOffSetBasPages">&nbsp;</div>   {/*12   Cosmétique d'unee marge au dessus des boutons */}{/*12   fin */}
       </div>
     );
   }

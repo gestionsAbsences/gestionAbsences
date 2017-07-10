@@ -9,7 +9,7 @@
 }
 
 .VOffSetPages {
-  height: 6vh;
+  height: 80px;
 }
 
 .VOffSetHautPages {
@@ -18,4 +18,13 @@
 
 .VOffSetBasPages {
   height: 7vh;
+}
+
+@media screen and (max-width: 1000px){
+  .pagedesktop{
+    float: right;
+    margin-left: 2px;
+    margin-right: 2px;
+    width: 100%
+  }
 }
