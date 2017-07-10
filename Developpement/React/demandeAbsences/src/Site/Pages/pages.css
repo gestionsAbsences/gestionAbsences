@@ -4,10 +4,18 @@
   width: 80%
 }
 
-.voffset {
-  height: 12vh;
-}
-
 .panel-title {
   font-weight: bold;
+}
+
+.VOffSetPages {
+  height: 6vh;
+}
+
+.VOffSetHautPages {
+  height: 7vh;
+}
+
+.VOffSetBasPages {
+  height: 7vh;
 }

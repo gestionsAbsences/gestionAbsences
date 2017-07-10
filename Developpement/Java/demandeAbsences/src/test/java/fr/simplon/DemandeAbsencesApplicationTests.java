@@ -1,10 +1,7 @@
 package fr.simplon;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.sql.SQLException;
@@ -19,11 +16,13 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import fr.simplon.dao.ServiceRhDao;
+import fr.simplon.dao.AbsenceDao;
 import fr.simplon.domain.Absence;
 import fr.simplon.domain.Employe;
 import fr.simplon.domain.ServiceRh;
-import fr.simplon.services.ServiceRhService;
+import fr.simplon.domain.dto.AbsenceDto;
+import fr.simplon.services.AbsenceService;
+import fr.simplon.services.utils.MapperDto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Config.class)
@@ -31,10 +30,13 @@ public class DemandeAbsencesApplicationTests {
 	//L'annotation 'Mock' prends une classe en argument
 	//et retourne un objet de cette classe
 	@Mock
-	ServiceRhDao rhDao;
+	AbsenceDao absenceDao;
 	
 	@Mock
 	ServiceRh rh;
+
+	@Mock
+	MapperDto mapper;
 	
 	@Mock
 	Absence absence;
@@ -43,46 +45,35 @@ public class DemandeAbsencesApplicationTests {
 	Employe employe;
 	
 	@InjectMocks
-	ServiceRhService rhService;
+	AbsenceService absService;
 	
 	@Before
 	public void servcieRhInit(){
 		
 	}
 	
-	@Test
-	public void serviceRhBeanTest() {
-//		//Verifie si une instance d'une classe existe
-//		assertTrue (rh instanceof ServiceRh);
-//		List<Absence> abs = new ArrayList<Absence>();
-//		List<Employe> emp = new ArrayList<Employe>();
-//		ServiceRh sce = new ServiceRh(anyLong(),null,"jean",abs,emp);
-//		assertEquals("jean",sce.getNom());
-//		assertNull(sce.getEmail());
-	}
 
-//	@Test
-//	public void serviceRhTest() throws SQLException {
-//		when(rhDao.findByName(anyString())).thenReturn(rh);
-//		assertEquals(rh, rhService.getServiceRh(anyString()));
-//	
-//	}
-	
 	//test avec simulation d'exception
 	@Test(expected  = Exception.class)
-	public void serviceRhTestException() throws SQLException{
-		when(rhDao.findByName(anyString())).thenThrow(new Exception());
-		rhService.getServiceRh(anyString());
+	public void absenceTestException() throws SQLException{
+		when(absenceDao.findById(anyLong())).thenThrow(new Exception());
+		absService.getAbsenceById(anyLong());
 	}
 	
 	//Test avec une liste
-//	@Test
-//	public void listeRhTest() throws SQLException{
-//	//	List<ServiceRh> serviceRh = new ArrayList<ServiceRh>();
-//		Iterable<ServiceRh>  itRh= rhDao.findAll();
-//		when(rhDao.findAll()).thenReturn(itRh);
-//		
-//		assertEquals(itRh,rhService.listeServicesRh());
-//	}
+	@Test
+	public void listeAbsenceTest() throws SQLException{
+		List<Absence> abs = new ArrayList<Absence>();
+		List<AbsenceDto> absDto = new ArrayList<AbsenceDto>();
+		when(absenceDao.findAll()).thenReturn(abs);
+		absDto = mapper.convertListeAbsenceToDto(abs);
+		assertEquals(absDto,absService.listeServicesAbsence());
+	}
 
 }
+
+
+
+
+
+

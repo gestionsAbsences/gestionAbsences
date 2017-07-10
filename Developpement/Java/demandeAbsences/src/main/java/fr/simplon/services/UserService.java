@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.simplon.common.EmailException;
-import fr.simplon.common.ServiceException;
 import fr.simplon.dao.UserDao;
 import fr.simplon.domain.User;
 import fr.simplon.domain.dto.UserDto;
-import fr.simplon.services.utils.ConvertToDto;
+import fr.simplon.exception.EmailException;
+import fr.simplon.exception.ServiceException;
+import fr.simplon.services.utils.MapperDto;
 
 /**
  * Classe metier de la gestion des user
@@ -28,7 +28,7 @@ public class UserService {
 	UserDao userDao;
 	
 	@Autowired
-	ConvertToDto convert;
+	MapperDto convert;
 	
 	/**
 	 * Liste des employes

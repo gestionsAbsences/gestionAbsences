@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.simplon.common.ServiceException;
 import fr.simplon.dao.TypeDao;
 import fr.simplon.domain.TypeAbsence;
+import fr.simplon.exception.ServiceException;
 
 /**
  * service gérant le type
@@ -59,7 +59,7 @@ public class TypeService {
 	public TypeAbsence getTypeByName(String nom) throws SQLException {
 		TypeAbsence resultat;
 		try {
-			resultat = typeDao.findTypeByName(nom);
+			resultat = typeDao.findTypeByNom(nom);
 		} catch (ServiceException e) {
 			throw new ServiceException("Hibernate Error !: getTypeByName" + e);
 		}

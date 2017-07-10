@@ -5,36 +5,31 @@ import axios from 'axios';
 // import '../../Bootstrap/dist/css/sb-admin-2.css'
 import './gestionequipe.css';
 
-let nom="PEREZ";
-
 class GestionEquipe extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-          nbCa:0,
-          nbRtt:0,
-          nbRc:0,
-          types: []
-      }
+  constructor(props) {
+    super(props); // Récupère le Props du parent
+    this.props=props;
+    this.state = {
+      equipes: [],
+      resps: [],
+      rhs: []
     }
+  }
 
   componentDidMount() {
-       axios.get('http://localhost:8080/emp/getEmploye?nom='+nom)
+       axios.get('http://localhost:8080/equipe/listeEquipe')
           .then(res => {
               this.setState({
-                nom: res.data[0].nomResp,
-                prenom: res.data[0].prenomResp,
-                nbCa: res.data[0].nbCa,
-                nbRtt: res.data[0].nbRtt,
-                nbRc: res.data[0].nbRc
+                equipes: res.data[0].nom,
+                resps: res.data[0].responsable.nom + " " + res.data[0].responsable.prenom
             });
       });
 
-    axios.get('http://localhost:8080/type/listeTypeAbsence')
+    axios.get('http://localhost:8080/rh/listeService')
        .then(res => {
            this.setState({
-             types: res.data
+             rhs: res.data
          });
    });
 }
@@ -42,13 +37,12 @@ class GestionEquipe extends Component {
   render() {
     return (
       <div>
-        <div className="voffsetpos">&nbsp;</div>   {/*1   Cosmétique Ajout d'une marge au dessus du formulaire réglable via le css voffsetpos */}{/*1    fin */}
         <div className="panel panel-default">   {/*2   Formulaire */}
           <div className="panel-heading">   {/*3   Titre de Formulaire */}
             <h3 className="panel-title">Gestion d'équipe</h3>                 {/*'*/}{/* Factice Pour rectifier bug d'affichage sur Atom */}
           </div>   {/*3   fin */}
           <div className="panel-body">   {/*4   Contenu Formulaire */}
-            <div className="voffsethaut">&nbsp;</div>   {/*5   Cosmétique Ajout d'une marge au dessus du contenu du formulaire réglable via le css voffsethaut */}{/*5   fin */}
+            <div className="VOffSetHautPages">&nbsp;</div>   {/*5   Cosmétique Ajout d'une marge au dessus du contenu du formulaire réglable via le css VOffSetHautPages */}{/*5   fin */}
             <div className="row">
               <div className="col-md-4 col-md-offset-1">   {/*6   Formulaire Partie gauche */}
                 <div className="form-group">   {/*7   Un des champs select du Formulaire */}
@@ -189,7 +183,7 @@ class GestionEquipe extends Component {
               <div className="col-md-1"></div>
             </div>
             <div className="row">   {/*11   Block Boutons Soumettre et Annuler */}
-              <div className="voffsetbas">&nbsp;</div>   {/*12   Cosmétique d'unee marge au dessus des boutons */}{/*12   fin */}
+              <div className="VOffSetBasPages">&nbsp;</div>   {/*12   Cosmétique d'unee marge au dessus des boutons */}{/*12   fin */}
               <div className="col-md-10 col-md-offset-1">
                 <div className="col-md-3">
                   <a href="index.html" className="btn btn-primary btn-block">Nouveau</a>
@@ -207,7 +201,7 @@ class GestionEquipe extends Component {
 
             </div>   {/*11   fin */}
           </div>   {/*4   fin */}
-          <div className="voffsetbas">&nbsp;</div>   {/*13   Cosmétique Ajout d'une marge en dessous des boutons réglable via le css voffsetbas */}   {/*13   fin */}
+          <div className="VOffSetBasPages">&nbsp;</div>   {/*13   Cosmétique Ajout d'une marge en dessous des boutons réglable via le css VOffSetBasPages */}   {/*13   fin */}
         </div>   {/*2   fin */}
       </div>
     );

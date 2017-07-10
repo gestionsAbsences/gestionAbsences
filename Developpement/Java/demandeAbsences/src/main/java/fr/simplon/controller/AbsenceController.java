@@ -33,18 +33,18 @@ import fr.simplon.services.AbsenceService;
  */
 
 /*
- * Controlleur pour la gestion des services Absence J'ai utilisé le verbe
- * correspondant à l'action (get : lecture, post : création, put : mise à jour
- * et delete: supression url à saisir dans le navigateur :
- * localhost:8080/absence/nomMethode
+ * Controleur pour la gestion des services Absence 
+ * J'ai utilisé le verbe correspondant à l'action 
+ * (get : lecture, post : création, put : mise à jour et delete: supression)
+ *  url à saisir dans le navigateur : localhost:8080/absence/nomMethode
  */
 
-@RestController
-@RequestMapping("absence")
-@CrossOrigin(origins="*")
+@RestController // Indique qu'il s'agit d'un service REST
+@RequestMapping("absence") // indique que toutes les uri contenant "absence" seront traitées ce controleur
+@CrossOrigin(origins="*") 
 public class AbsenceController {
 
-	@Autowired
+	@Autowired //Injection de la couche service pour le traitement des absences
 	AbsenceService absenceService;
 
 	/**
@@ -58,9 +58,10 @@ public class AbsenceController {
 	 * ResponseEntity permet gérer la réponse envoyée au front
 	 * 
 	 */
-	@GetMapping("/listeAbsence")
+//	@PreAuthorize(AuthConstantes.SERVICERH + " or " + AuthConstantes.RESPONSABLE)
+	@GetMapping("/listeAbsence") //raccourci pour la méthode : @RequestMapping(value = "/listeAbsence", method = RequestMethod.GET
 	public ResponseEntity<?> findAll() {
-		List<Absence> absence;
+		List<AbsenceDto> absence;
 		try {
 			absence =absenceService.listeServicesAbsence();
 		} catch (SQLException sqle) {
@@ -73,8 +74,7 @@ public class AbsenceController {
 	 * 
 	 * Recherche des absences par le nom
 	 * 
-	 * @param String
-	 *            nom
+	 * @param String nom
 	 * 
 	 * @return 1 entité absence
 	 * 
@@ -85,9 +85,10 @@ public class AbsenceController {
 	 * 
 	 */
 
+//	@PreAuthorize(AuthConstantes.EMPLOYE + " or " + AuthConstantes.RESPONSABLE + " or " + AuthConstantes.SERVICERH)
 	@GetMapping("/getAbsenceById")
 	public ResponseEntity<?> findById(@RequestParam(value = "id", defaultValue = "") Long id) {
-		List<Absence> absence;
+		List<AbsenceDto> absence;
 		try {
 			absence =absenceService.getAbsenceById(id);
 		} catch (SQLException sqle) {
@@ -99,22 +100,22 @@ public class AbsenceController {
 	/**
 	 * Création d'une nouvelle absence
 	 * 
-	 * @param id,
-	 *            date debut, datefin, idEmploye, Type de congé, Statut du
-	 *            congé, ServiceRh, types, statuts, valideurRh, employes;
+	 * @param dateDebut, dateFin, typeCongé,
+	 *            
 	 * 
 	 * @return enregistrement ou erreur de saisie
 	 * 
 	 */
 	/*
-	 * La 2° ligne permet d'enregistrer les données dans le bean [Absence
-	 * absence] et de capter le résultat [BindingResult result]
+	 * La 2° ligne permet d'enregistrer les données dans le bean [AbsenceDto absenceDto] 
+	 * et de capter le résultat [BindingResult result]
 	 */
 	@PostMapping(value = "/creerAbsence")
 	public ResponseEntity<?> save(@RequestBody @Valid AbsenceDto absenceDto, BindingResult result) {
 		/*
 		 * On capture les éventuelles erreurs dans une map sous forme : key,
 		 * value et formatée pour l'affichage
+		 * 
 		 */
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -174,12 +175,12 @@ public class AbsenceController {
 	 * Service
 	 */
 	@DeleteMapping("/deleteAbsence")
-	public ResponseEntity<?> delete(@RequestBody Absence absence) {
+	public ResponseEntity<?> delete(@RequestBody AbsenceDto absenceDto) {
 		try {
-			absenceService.deleteAbsence(absence);
+			absenceService.deleteAbsence(absenceDto);
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(absence.getId() + " supprimé.");
+		return ResponseEntity.ok(absenceDto.getNumDemande() + " supprimé.");
 	}
 }

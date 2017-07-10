@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.simplon.common.EmailException;
-import fr.simplon.common.ServiceException;
 import fr.simplon.dao.ServiceRhDao;
 import fr.simplon.domain.ServiceRh;
+import fr.simplon.exception.EmailException;
+import fr.simplon.exception.ServiceException;
 
 /**
  * Classe métier du service Rh
@@ -59,7 +59,7 @@ public class ServiceRhService {
 	public List<ServiceRh> getServiceRh(String nom) throws SQLException {
 		List<ServiceRh> resultat = new ArrayList<>();
 		try {
-			resultat = rhDao.findByName(nom);
+			resultat = rhDao.findByNomContaining(nom);
 		} catch (Exception e) {
 			throw new ServiceException("Hibernate Error !: listeServiceRh" + e);
 		}
@@ -79,7 +79,7 @@ public class ServiceRhService {
 	public ServiceRh insertServiceRh(ServiceRh serviceRh) throws SQLException {
 		ServiceRh creationRh = new ServiceRh();
 		try {
-			if(!rhDao.findByEmail(serviceRh.getEmail()).isEmpty()){
+			if(!rhDao.findByEmailContaining(serviceRh.getEmail()).isEmpty()){
 				throw new EmailException();
 			} else {
 				creationRh = rhDao.save(serviceRh);

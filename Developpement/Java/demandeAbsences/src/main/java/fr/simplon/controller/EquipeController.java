@@ -75,7 +75,7 @@ public class EquipeController {
 
 	@GetMapping("/getEquipe")
 	public ResponseEntity<?> findById(@RequestParam(value = "nom", defaultValue = "") String nom){
-		List<Equipe> equipe = new ArrayList<Equipe>();
+		Equipe equipe;
 		try {
 			equipe = equipeService.getEquipe(nom);
 		} catch (SQLException sqle) {

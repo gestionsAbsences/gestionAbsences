@@ -7,10 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.simplon.common.EmailException;
-import fr.simplon.common.ServiceException;
 import fr.simplon.dao.EquipeDao;
 import fr.simplon.domain.Equipe;
+import fr.simplon.exception.EmailException;
+import fr.simplon.exception.ServiceException;
 
 /**
  * service gérant le equipe C'est la couche métier.
@@ -34,14 +34,14 @@ public class EquipeService {
 		return resultat;
 	}
 
-	public List<Equipe> getEquipe(String nom) throws SQLException {
-		List<Equipe> resultat = new ArrayList<Equipe>();
+	public Equipe getEquipe(String nom) throws SQLException {
+		Equipe equipe;
 		try {
-			resultat = equipeDao.findEquipe(nom);
+			equipe = equipeDao.findEquipeByNom(nom);
 		} catch (EmailException e) {
 			throw new ServiceException("Hibrnate Error !: getEquipe" + e);
 		}
-		return resultat;
+		return equipe;
 	}
 
 	public Equipe insertEquipe(Equipe equipe) throws SQLException {

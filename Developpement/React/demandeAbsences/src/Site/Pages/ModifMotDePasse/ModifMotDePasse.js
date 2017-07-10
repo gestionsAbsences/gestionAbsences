@@ -7,7 +7,7 @@ class ModifMotDePasse extends Component {
   render() {
     return (
       <div className="">
-        <div className="voffset">&nbsp;</div>   {/*5   Cosmétique Ajout d'une marge au dessus du contenu du formulaire réglable via le css voffsethaut */}{/*5   fin */}
+        <div className="voffsetauth">&nbsp;</div>   {/*5   Cosmétique Ajout d'une marge au dessus du contenu du formulaire réglable via le css VOffSetHautPages */}{/*5   fin */}
         <div className="">
           <div className="col-md-4 col-md-offset-4">
             <div className="login-panel panel panel-default">

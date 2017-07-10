@@ -3,10 +3,10 @@ package fr.simplon.dao;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import fr.simplon.domain.Employe;
+import fr.simplon.domain.Equipe;
 
 /**
  * Interface du CRUD
@@ -23,8 +23,7 @@ public interface EmployeDao extends JpaRepository<Employe, Long> {
 	 * @return liste des employés
 	 */
 	
-	@Query("from Employe where Nom like %?1%")
-	public List<Employe> findByName(String name);
+	List<Employe> findByNomContaining(String nom);
 	
 	/**
 	 * Recherche d'un employe par le matricule
@@ -32,7 +31,8 @@ public interface EmployeDao extends JpaRepository<Employe, Long> {
 	 * @return employe
 	 */
 	
-	@Query("from Employe where matricule = ?")
-	public Employe findByMat(String matricule);
+	Employe findByMatricule(String matricule);
 
+	
+	List<Employe> findByEquipe(Equipe id);
 }

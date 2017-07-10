@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fr.simplon.common.ServiceException;
 import fr.simplon.dao.StatutDao;
 import fr.simplon.domain.Statut;
+import fr.simplon.exception.ServiceException;
 
 @Service
 @Transactional

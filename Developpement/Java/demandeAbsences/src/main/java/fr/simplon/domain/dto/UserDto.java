@@ -5,7 +5,6 @@ import java.util.List;
 public class UserDto {
 	
 	private String email;
-	private String password;
 	private int role;
 	private EmployeDto employeDto;
 	private List<AbsenceDto> absenceDto;
@@ -20,14 +19,6 @@ public class UserDto {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public int getRole() {

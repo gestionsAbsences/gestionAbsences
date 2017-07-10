@@ -7,7 +7,7 @@ class Authentification extends Component {
   render() {
     return (
       <div className="col-md-4 col-md-offset-4">
-        <div className="voffset">&nbsp;</div>   {/*5   Cosmétique Ajout d'une marge au dessus du contenu du formulaire réglable via le css voffsethaut */}{/*5   fin */}
+        <div className="voffsetauth">&nbsp;</div>   {/*5   Cosmétique Ajout d'une marge au dessus du contenu du formulaire réglable via le css voffsethautauth */}{/*5   fin */}
         <div className="login-panel panel panel-default">
           <div className="panel-heading">
             <h3 className="panel-title">Authentification</h3>

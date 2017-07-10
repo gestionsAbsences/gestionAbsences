@@ -3,7 +3,6 @@ package fr.simplon.domain.dto;
 
 import java.util.Date;
 
-
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Future;
@@ -23,12 +22,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class AbsenceDto {
 	
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Future(message = "La date doit être postérieure à la date du jour")
 	private Date debut;
 	
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Future(message = "La date doit être postérieure à la date du jour")
 	private Date fin;
@@ -36,6 +35,16 @@ public class AbsenceDto {
 	private String type;
 	
 	private String statut;
+	
+	private String numDemande;
+	
+	private String commentaire;
+	
+	private String matricule;
+	
+	private String nom;
+	
+	private String prenom;
 	
 	public AbsenceDto() {
 	}
@@ -70,6 +79,46 @@ public class AbsenceDto {
 
 	public void setStatut(String statut) {
 		this.statut = statut;
+	}
+
+ 	public String getNumDemande() {
+		return numDemande;
+	}
+
+	public void setNumDemande(String numDemande) {
+		this.numDemande = numDemande;
+	}
+
+	public String getCommentaire() {
+		return commentaire;
+	}
+
+	public void setCommentaire(String commentaire) {
+		this.commentaire = commentaire;
+	}
+
+	public String getMatricule() {
+		return matricule;
+	}
+
+	public void setMatricule(String matricule) {
+		this.matricule = matricule;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
 	}
 
 	
