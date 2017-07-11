@@ -48,7 +48,7 @@ public class ValidationService {
 	@Autowired
 	MapperDto mapper;
 
-	public List<AbsenceDto> listeValidation(String nomEquipe, int statut) throws SQLException{
+	public List<AbsenceDto> listeValidation(String nomEquipe) throws SQLException{
 		Equipe equipe = equipeDao.findEquipeByNom(nomEquipe);
 		List<Employe> employeByEquipe;
 		
@@ -59,11 +59,8 @@ public class ValidationService {
 		
 		for (Employe employe : employeByEquipe) {
 			absence=employe.getAbsence();
-			for (Absence abs : absence) {
-				if(abs.getStatut().getCode()==statut){
-				absenceEquipe.add(abs);
-				}
-			}
+			absenceEquipe.addAll(absence);
+			
 		}
 		
 		absenceDto = mapper.convertListeAbsenceToDto(absenceEquipe);
@@ -77,26 +74,28 @@ public class ValidationService {
 		Absence absence = absenceDao.findByNumDemande(numDemande);
 		AbsenceDto absenceDto;
 		switch (validation){
-		case  3 : 
+		case  2 : 
 			absence.setStatut(statutDao.findByCode(validation));
-			emailService.sendEmail(absence, absence.getEmploye().getUser().getEmail(), "Validation de votre congé",2);
-			emailService.sendEmail(absence, absence.getEmploye().getServiceRh().getEmail(), "Validation de votre congé",3);
+			emailService.sendEmail(absence, absence.getEmploye().getUser().getEmail(), "Validation de votre congé",3);
+			emailService.sendEmail(absence, absence.getEmploye().getServiceRh().getEmail(), "Validation de votre congé",4);
+			break;
+			
+		case 3 : 
+			absence.setStatut(statutDao.findByCode(validation));
 			break;
 			
 		case 4 : 
 			absence.setStatut(statutDao.findByCode(validation));
+			emailService.sendEmail(absence, absence.getEmploye().getUser().getEmail(),"Refus de votre congé par le responsable",5);
 			break;
 			
 		case 5 : 
 			absence.setStatut(statutDao.findByCode(validation));
-			emailService.sendEmail(absence, absence.getEmploye().getUser().getEmail(),"Refus de votre congé par le responsable",4);
+			emailService.sendEmail(absence, absence.getEmploye().getUser().getEmail() ,"Refus de votre congé par le service RH",6);
+			emailService.sendEmail(absence, absence.getEmploye().getEquipe().getResponsable().getUser().getEmail(),"Refus de votre congé par le service RH",7);
 			break;
 			
-		case 6 : 
-			absence.setStatut(statutDao.findByCode(validation));
-			emailService.sendEmail(absence, absence.getEmploye().getUser().getEmail() ,"Refus de votre congé par le service RH",5);
-			emailService.sendEmail(absence, absence.getEmploye().getEquipe().getResponsable().getUser().getEmail(),"Refus de votre congé par le service RH",6);
-			break;
+		case 6 :
 			
 		default :
 			throw new ServiceException("Le statut n'existe pas");

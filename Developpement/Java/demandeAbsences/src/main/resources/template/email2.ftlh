@@ -16,10 +16,13 @@
             </p>
             <p>
                 En qualité de responsable, merci de bien vouloir étudier la demande référencée sous le N°
-                <span>${numDemande}</span> et d'y apporter votre validation ou votre refus en cliquant sur le <a href="#">lien</a><br>
+                <span>${numDemande}</span> et d'y apporter votre validation ou votre refus en cliquant sur le <a href="localhost:8080/absence/getAbsenceByNum"+${numDemande}>lien</a><br>
             </p>
             <p>
-                Nous attirons votre vigilance sur l'importance et votre engagement concernant votre validation ou votre refus.<br>                Il s'agit d'une relance, veuillez répondre rapidement, merci.
+                Nous attirons votre vigilance sur l'importance et votre engagement concernant votre validation ou votre refus.
+            </p>
+             <p style="color:red;">
+                Il s'agit d'une relance, veuillez répondre rapidement, merci.
             </p>
             <p>
                 Cordialement,
@@ -27,7 +30,7 @@
             <p>
                 &emsp; <em>L'équipe de gestion des absences</em>
             </p>
-            <p style="color:red; font-size: 0.6em">
+            <p style="color:red; font-size: 0.6em;">
                 Ce message vous a été envoyé automatiquement, merci de ne pas répondre.
             </p>
         </div>

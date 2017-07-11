@@ -28,7 +28,7 @@ public class UserService {
 	UserDao userDao;
 	
 	@Autowired
-	MapperDto convert;
+	MapperDto mapper;
 	
 	/**
 	 * Liste des employes
@@ -45,7 +45,7 @@ public class UserService {
 		List<UserDto> listeUsersDto;
 		try {
 			listeUsers = userDao.findAll();
-			listeUsersDto = convert.convertListUserToDto(listeUsers);
+			listeUsersDto = mapper.convertListUserToDto(listeUsers);
 		} catch (ServiceException e) {
 			throw new ServiceException("Hibernate Error !: listeEmployes" + e);
 		}
@@ -67,12 +67,12 @@ public class UserService {
 		List<UserDto> getUserDto;
 		try {
 			getUser = userDao.findByEmail(email);
-			getUserDto = convert.convertListUserToDto(getUser);
+			getUserDto = mapper.convertListUserToDto(getUser);
 		} catch (ServiceException e) {
 			throw new ServiceException("Hibernate Error !: getUser" + e);
 		}
 		return getUserDto;
-	}
+}
 
 	/**
 	 * Creation nouveau user
@@ -86,7 +86,7 @@ public class UserService {
 	 */
 	public User insertUser(User user) throws SQLException {
 		try {
-			if(!userDao.findByEmail(user.getEmail()).isEmpty()) {
+			if(!userDao.findByEmail(user.getEmail()).equals(null)) {
 				throw new EmailException();
 			} else {
 			user = userDao.save(user);

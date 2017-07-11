@@ -46,6 +46,10 @@ public class AbsenceDto {
 	
 	private String prenom;
 	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
+	private Date relance;
+	
 	public AbsenceDto() {
 	}
 
@@ -119,6 +123,14 @@ public class AbsenceDto {
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
+	}
+
+	public Date getRelance() {
+		return relance;
+	}
+
+	public void setRelance(Date relance) {
+		this.relance = relance;
 	}
 
 	

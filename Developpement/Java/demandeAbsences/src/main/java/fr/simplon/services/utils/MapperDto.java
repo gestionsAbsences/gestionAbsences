@@ -146,6 +146,7 @@ public class MapperDto {
 		absenceDto.setMatricule(absence.getEmploye().getMatricule());
 		absenceDto.setNom(absence.getEmploye().getNom());
 		absenceDto.setPrenom(absence.getEmploye().getPrenom());
+		absenceDto.setRelance(absence.getRelance());
 
 		return absenceDto;
 	}
@@ -172,6 +173,7 @@ public class MapperDto {
 		absence.setType(typeDao.findTypeByNom(absenceDto.getType()));
 		absence.setStatut(statutDao.findByNom(absenceDto.getStatut()));
 		absence.setEmploye(employeDao.findByMatricule(absenceDto.getMatricule()));
+		absence.setRelance(absenceDto.getRelance());
 		
 		return absence;
 	}

@@ -35,11 +35,10 @@ public class ValidationController {
 	ValidationService validationService;
 	
 	@GetMapping("/listeAbsences") 
-	public ResponseEntity<?> findAll(@RequestParam(value = "equipe", defaultValue = "") String equipe, 
-			@RequestParam(value = "statut", defaultValue="")int statut) {
+	public ResponseEntity<?> findAll(@RequestParam(value = "equipe", defaultValue = "") String equipe) {
 		List<AbsenceDto> absenceDto;
 		try {
-			absenceDto =validationService.listeValidation(equipe, statut);
+			absenceDto =validationService.listeValidation(equipe);
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}

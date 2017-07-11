@@ -21,7 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.simplon.domain.Absence;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import fr.simplon.domain.dto.AbsenceDto;
 import fr.simplon.services.AbsenceService;
 
@@ -96,6 +97,33 @@ public class AbsenceController {
 		}
 		return ResponseEntity.ok(absence);
 	}
+	
+	/**
+	 * 
+	 * Recherche des absences par le numero
+	 * 
+	 * @param String numero
+	 * 
+	 * @return 1 entité absence
+	 * 
+	 */
+
+	/*
+	 * Cette methode recherche une absence par l'id
+	 * 
+	 */
+
+//	@PreAuthorize(AuthConstantes.EMPLOYE + " or " + AuthConstantes.RESPONSABLE + " or " + AuthConstantes.SERVICERH)
+	@GetMapping("/getAbsenceByNum")
+	public ResponseEntity<?> findById(@RequestParam(value = "numDemande", defaultValue = "") String numDemande) {
+		AbsenceDto absenceDto;
+		try {
+			absenceDto =absenceService.getAbsenceByNumero(numDemande);
+		} catch (SQLException sqle) {
+			return ResponseEntity.badRequest().body(sqle);
+		}
+		return ResponseEntity.ok(absenceDto);
+	}
 
 	/**
 	 * Création d'une nouvelle absence
@@ -147,7 +175,7 @@ public class AbsenceController {
 	 * La mise à jour suis le même principe que la création
 	 */
 	@PutMapping(value = "/updateAbsence")
-	public ResponseEntity<?> update(@RequestBody @Valid Absence absence, BindingResult result) {
+	public ResponseEntity<?> update(@RequestBody @Valid AbsenceDto absenceDto, BindingResult result) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
 			if (result.hasErrors()) {
@@ -156,12 +184,39 @@ public class AbsenceController {
 					return ResponseEntity.badRequest().body(map);
 				}
 			} else {
-				absence = absenceService.updateAbsence(absence);
+				absenceDto = absenceService.updateAbsence(absenceDto);
 			}
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
-		return ResponseEntity.ok(absence.getId() + " modifié.");
+		return ResponseEntity.ok(absenceDto.getNumDemande() + " modifié.");
+	}
+	
+	
+	/**
+	 * Relance d'une Absence
+	 * 
+	 * @param d°
+	 *            que update
+	 * 
+	 * @return enregistrement ou erreur de saisie
+	 * 
+	 */
+
+	/*
+	 * La mise à jour suis le même principe que la création
+	 */
+	@PutMapping(value = "/reflateAbsence")
+	public ResponseEntity<?> reflate(@RequestBody ObjectNode json) {
+		String numDemande = json.get("numDemande").asText();
+		AbsenceDto absenceDto;
+		try {
+			absenceDto = absenceService.reflateAbsence(numDemande);
+			
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e);
+		}
+		return ResponseEntity.ok(absenceDto);
 	}
 
 	/**

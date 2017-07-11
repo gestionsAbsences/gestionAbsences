@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import fr.simplon.domain.User;
 import fr.simplon.domain.dto.UserDto;
@@ -38,7 +38,7 @@ import fr.simplon.services.UserService;
  * (get : lecture, post : création, put : mise à jour et delete: suppression
  * url àsaisir dans le navigateur : localhost:8080/emp/nomMethode
  */
-@RestController
+@Controller
 @RequestMapping("user")
 @CrossOrigin(origins="*")
 public class UserController {
@@ -81,7 +81,6 @@ public class UserController {
 	 * Cette methode recherche un user par l'email
 	 * 
 	 */
-	
 	@GetMapping("getUser")
 	public ResponseEntity<?> findByName(@RequestParam(value="email", defaultValue="") String email) {	
 		List<UserDto> user;
@@ -91,7 +90,7 @@ public class UserController {
 			return ResponseEntity.badRequest().body(sqle);
 		}
 		return ResponseEntity.ok(user);
-	}
+}
 	
 	/**
 	 * Création de nouveaux users
