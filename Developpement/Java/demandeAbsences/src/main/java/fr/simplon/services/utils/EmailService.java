@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -50,9 +51,6 @@ public class EmailService {
 
 		try {
 			prepareAndSendMessage(absence, emailDest, subject, senderMail, session, numero);
-			System.out.println("sender : "+senderMail );
-			System.out.println("dest : "+emailDest);
-			System.out.println("numéro de demande : "+absence.getNumDemande());
 			return true;
 		} catch (IOException e) {
 			throw new IOException (e);
@@ -64,6 +62,7 @@ public class EmailService {
 			Session session, int numero) throws Exception, IOException {
 
 		try {
+			SimpleDateFormat  dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(senderMail));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinataire));
@@ -85,8 +84,8 @@ public class EmailService {
 			rootMap.put("nom", absence.getEmploye().getNom());
 			rootMap.put("prenom", absence.getEmploye().getPrenom());
 			rootMap.put("typeConge", absence.getType().getNom());
-			rootMap.put("debutConge", absence.getDebut().toString());
-			rootMap.put("finConge", absence.getFin().toString());
+			rootMap.put("debutConge", dateFormat.format(absence.getDebut()).toString());
+			rootMap.put("finConge", dateFormat.format(absence.getFin()).toString());
 			rootMap.put("numDemande", absence.getNumDemande());
 			rootMap.put("motif", absence.getCommentaire());
 			Writer out = new StringWriter();

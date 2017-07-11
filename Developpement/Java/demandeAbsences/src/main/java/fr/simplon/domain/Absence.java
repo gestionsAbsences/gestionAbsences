@@ -34,14 +34,14 @@ public class Absence {
 	
 
 	@Column(name = "debut") // Indique le nom de la colonne de la table
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy") //Converti le format de la date dans la base de données au format désiré
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-jj") //Converti le format de la date dans la base de données au format désiré
 	@Temporal(TemporalType.DATE) //Indique qu'il s'agit d'un élément à traiter avec java.util.Date
 	@Future(message = "La date doit être postérieure à la date du jour") //Vérifie que la date soit supérieur à la date du jour
 	private Date debut;
 
 
 	@Column(name = "fin")
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-jj")
 	@Temporal(TemporalType.DATE)
 	private Date fin;
 	
@@ -64,6 +64,11 @@ public class Absence {
 	@ManyToOne
 	@JoinColumn(name = "id_employe")
 	private Employe employe;
+	
+	@Column(name = "date_relance")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-jj")
+	@Temporal(TemporalType.DATE)
+	private Date relance;
 
 
 	// Constructeur vide conforme aux spécifications java
@@ -136,6 +141,16 @@ public class Absence {
 	public void setCommentaire(String commentaire) {
 		this.commentaire = commentaire;
 	}
+
+	public Date getRelance() {
+		return relance;
+	}
+
+	public void setRelance(Date relance) {
+		this.relance = relance;
+	}
+	
+	
 
 	
 }

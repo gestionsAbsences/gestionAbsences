@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,8 +14,10 @@ import fr.simplon.dao.AbsenceDao;
 import fr.simplon.domain.Absence;
 import fr.simplon.domain.dto.AbsenceDto;
 import fr.simplon.exception.ServiceException;
+import fr.simplon.services.utils.EmailService;
 import fr.simplon.services.utils.MapperDto;
 import fr.simplon.services.utils.TraitementAbsence;
+import fr.simplon.services.utils.UtilitairesService;
 
 /**
  * Classe metier des absences
@@ -32,10 +35,16 @@ public class AbsenceService {
 	private AbsenceDao absenceDao;
 	
 	@Autowired
-	MapperDto convert;
+	MapperDto mapper;
 	
 	@Autowired
 	private TraitementAbsence traitementAbsence;
+	
+	@Autowired
+	private UtilitairesService utilitaire;
+	
+	@Autowired
+	private EmailService emailService;
 
 	/**
 	 * Liste des absences
@@ -54,13 +63,35 @@ public class AbsenceService {
 			//recherche la liste complète des absences
 			absence = absenceDao.findAll();
 			//converti le resultat en dto
-			resultat = convert.convertListeAbsenceToDto(absence);
+			resultat = mapper.convertListeAbsenceToDto(absence);
 		} catch (Exception e) {
 			throw new SQLException("Hibernate Error !: listeAbsence" + e);
 		}
 		return resultat;
 	}
 
+	/**
+	 * Recherche d'une Absence
+	 * 
+	 * @param numero
+	 * @return une absence en fonction du numero
+	 * @throws SQLException
+	 */
+	/*
+	 * Meme principe que ci-dessus une iteration qu'on transforme en liste
+	 */
+	public AbsenceDto getAbsenceByNumero(String numDemande) throws SQLException {
+		AbsenceDto resultat;
+		Absence absence;
+		try {
+			absence = absenceDao.findByNumDemande(numDemande);
+			resultat=mapper.convertAbsToDto(absence);
+		} catch (Exception e) {
+			throw new SQLException("Hibernate Error !: getAbsenceById" + e);
+		}
+		return resultat;
+	}
+	
 	/**
 	 * Recherche d'une Absence
 	 * 
@@ -76,7 +107,7 @@ public class AbsenceService {
 		List<Absence> absence;
 		try {
 			absence = absenceDao.findById(id);
-			resultat=convert.convertListeAbsenceToDto(absence);
+			resultat=mapper.convertListeAbsenceToDto(absence);
 		} catch (Exception e) {
 			throw new SQLException("Hibernate Error !: getAbsenceById" + e);
 		}
@@ -104,8 +135,9 @@ public class AbsenceService {
 			} else {
 				//envoie la demande vers le traitement
 				//implemente le numéro de demande par un timeStamp
-				String calendar = Calendar.getInstance().getTimeInMillis()+"";
-				absenceDto.setNumDemande(calendar.substring(6,12));
+				Date now = new DateTime().toDate();
+				absenceDto.setRelance(now);
+				absenceDto.setNumDemande(utilitaire.findNumDemande());
 				resultatAbs = traitementAbsence.demanderAbsence(absenceDto);
 				
 			}
@@ -118,25 +150,48 @@ public class AbsenceService {
 	/**
 	 * Modification service Absence
 	 * 
-	 * @param absence
+	 * @param absenceDto
 	 * @return Objet
 	 * @throws SQLException
 	 */
 	/*
 	 * Même principe que creation
 	 */
-	public Absence updateAbsence(Absence absence) throws SQLException {
-		Absence modifAbs;
+	public AbsenceDto updateAbsence(AbsenceDto absenceDto) throws SQLException {
+		Absence modifAbs = mapper.convertDtoToAbs(absenceDto);
 		try {
-			if(absence.getDebut().compareTo(absence.getFin())>0){
+			if(absenceDto.getDebut().compareTo(absenceDto.getFin())>0){
 				throw new Exception("La date de fin de congé doit être supèrieur à la date de début");
 			} else {
-				modifAbs = absenceDao.save(absence);
+				modifAbs = absenceDao.save(modifAbs);
+				absenceDto = mapper.convertAbsToDto(modifAbs);
 			}
 		} catch (Exception e) {
 			throw new SQLException("Hibernate Error !: insertAbsence" + e);
 		}
-		return modifAbs;
+		return absenceDto;
+	}
+	
+	public AbsenceDto reflateAbsence(String numDemande) throws SQLException {
+		Absence absence = absenceDao.findByNumDemande(numDemande);
+		AbsenceDto absenceDto;
+		DateTime now = new DateTime();
+		DateTime demande= new DateTime(absence.getRelance());
+		try {
+			if(demande.toLocalDate().compareTo(now.toLocalDate())==0){
+				throw new ServiceException("Vous avez deja fait une relance aujourd'hui");
+			} else {
+				Date maintenant = now.toDate();
+				absence.setRelance(maintenant);
+				absenceDao.save(absence);
+				absenceDto = mapper.convertAbsToDto(absence);
+				emailService.sendEmail(absence, absence.getEmploye().getEquipe().getResponsable().getUser().getEmail(), "Relance de congé",2);
+			}
+		} catch (Exception e) {
+			throw new ServiceException("Erreur de relance" + e);
+		}
+		
+		return absenceDto;
 	}
 
 	/**
@@ -157,7 +212,7 @@ public class AbsenceService {
 			if(now.compareTo(absenceDto.getDebut())>0){
 				throw new ServiceException("Annulation impossible!");
 			} else {
-			Absence absence = convert.convertDtoToAbs(absenceDto);
+			Absence absence = mapper.convertDtoToAbs(absenceDto);
 			absenceDao.delete(absence);
 			}
 		} catch (Exception e) {

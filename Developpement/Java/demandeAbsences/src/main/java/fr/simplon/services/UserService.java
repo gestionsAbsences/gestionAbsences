@@ -28,7 +28,7 @@ public class UserService {
 	UserDao userDao;
 	
 	@Autowired
-	MapperDto convert;
+	MapperDto mapper;
 	
 	/**
 	 * Liste des employes
@@ -45,7 +45,7 @@ public class UserService {
 		List<UserDto> listeUsersDto;
 		try {
 			listeUsers = userDao.findAll();
-			listeUsersDto = convert.convertListUserToDto(listeUsers);
+			listeUsersDto = mapper.convertListUserToDto(listeUsers);
 		} catch (ServiceException e) {
 			throw new ServiceException("Hibernate Error !: listeEmployes" + e);
 		}
@@ -62,16 +62,16 @@ public class UserService {
 	 * Meme principe que ci-dessus
 	 * une iteration qu'on transforme en liste
 	 */
-	public List<UserDto> getUser(String email) throws SQLException {
-		List<User> getUser;
-		List<UserDto> getUserDto;
+	public UserDto getUser(String email) throws SQLException {
+		User user;
+		UserDto userDto;
 		try {
-			getUser = userDao.findByEmail(email);
-			getUserDto = convert.convertListUserToDto(getUser);
+			user = userDao.findByEmail(email);
+			userDto = mapper.convertUserToDto(user);
 		} catch (ServiceException e) {
-			throw new ServiceException("Hibernate Error !: getUser" + e);
+			throw new ServiceException("Utilisateur inconnu");
 		}
-		return getUserDto;
+		return userDto;
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class UserService {
 	 */
 	public User insertUser(User user) throws SQLException {
 		try {
-			if(!userDao.findByEmail(user.getEmail()).isEmpty()) {
+			if(!userDao.findByEmail(user.getEmail()).equals(null)) {
 				throw new EmailException();
 			} else {
 			user = userDao.save(user);

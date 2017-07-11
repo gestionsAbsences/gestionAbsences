@@ -80,9 +80,9 @@ public class TraitementAbsence {
 			//recupère le résultat de la demande pour mis à jour du front, au format absenceDto
 			creationAbs = mapper.convertAbsToDto(nouvelleAbs);
 			//mise à jour de la BDD absence
-//			absenceDao.save(nouvelleAbs);
+			absenceDao.save(nouvelleAbs);
 			//mise à jour de la BDD employé
-//			employeDao.save(employe);
+			employeDao.save(employe);
 			
 			//envoi d'un email au N+1
 			emailService.sendEmail(nouvelleAbs, employe.getEquipe().getResponsable().getUser().getEmail(), "demande de congé",1);
