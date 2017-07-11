@@ -37,7 +37,6 @@ class Authentification extends Component {
   handleSubmit(event) {
       event.preventDefault();
       // Récupération des données du Back par requête HTTP
-      let res;
 
        axios
         .get('http://localhost:8080/user/getUser?email='+this.state.userEmail) // Type GET paramétré avec l'email.
@@ -50,25 +49,26 @@ class Authentification extends Component {
               password: res.data[0].employeDto.password,
               role: res.data[0].employeDto.role
           });
-          if (this.state.userEmail===this.state.email && this.state.pass===this.state.password) {
-            this.transferUserEmail();
+          // if (this.state.userEmail===this.state.email && this.state.pass===this.state.password) {
+          if (this.state.userEmail===this.state.email) {
+            this.props.transferUserEmail(this.state.email);
+            console.log("UserMail : "+this.state.email);
           }
         })
         .catch((error) => {
             console.log("Axios : Problème d'accès à la ressource http://localhost:8080/user/getUser?email=" + this.state.userEmail + ".");
-            console.log(res);
+            console.log(this.state);
         });
 
       this.setState({
         email: this.state.userEmail,
         pass: this.state.pass
       });
-console.log(this.state);
     }
 
-  transferUserEmail = () => {
-		this.props.propUserEmailFille(this.props.userEmail);
-	}
+componentDidMount () {
+  console.log(this.state.userEmail);
+}
 
   render() {
     return (

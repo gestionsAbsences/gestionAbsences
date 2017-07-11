@@ -21,18 +21,6 @@ class ListeDemandes extends Component {
     }
   }
 
-  formatDate = (date) => { // Convertit la date au format dd/mm/aaaa
-    return (
-      date.substr(-2) + "/" + date.substr(5,2) + "/" + date.substr(0,4)
-    )
-  }
-
-  formatDemande = (demande) => { // Convertit le N° Demande au format DEMXXXXXX
-    return (
-      "DEM" + ("000000" + demande).substr(-6)
-    )
-  }
-
   componentDidMount () {
     axios
       .get('http://localhost:8080/validation/listeAbsences?equipe='+this.props.employe.nomEquipe)
@@ -54,14 +42,14 @@ class ListeDemandes extends Component {
     let res;
     if (this.props.employe.matricule!==absence.matricule) {
       res=<tr key={indice}>
-        <td>{this.formatDemande(absence.numDemande)}</td>
+        <td>{absence.numDemande}</td>
         <td>{absence.nom}</td>
         <td>{absence.prenom}</td>
         <td>{this.props.employe.nomResponsable}</td>
         <td>{this.props.employe.prenomResponsable}</td>
         <td>{absence.type}</td>
-        <td>{this.formatDate(absence.debut)}</td>
-        <td>{this.formatDate(absence.fin)}</td>
+        <td>{absence.debut}</td>
+        <td>{absence.fin}</td>
         <td>{absence.statut}</td>
         <td>{this.action(this.props.employe.role, absence.statut, absence.debut)}</td>
       </tr>;
@@ -70,34 +58,36 @@ class ListeDemandes extends Component {
     return res;
   }
 
-  action = (role, statut, dateDebut) => {
+  action = (role, absence) => {
     let laDate = new Date();
     let laDateDuJour = laDate.getFullYear() +""+ ("0"+laDate.getMonth()).substr(-2) +""+ ("0"+laDate.getDate()).substr(-2);
-    let debut =  dateDebut.substr(0,4) + "" +  dateDebut.substr(5,2) + "" + dateDebut.substr(-2);
+    let debut =  absence.debut.substr(0,4) + "" +  absence.debut.substr(5,2) + "" + absence.debut.substr(-2);
+    let relance="/absence/reflateAbsence?numDemande="+absence.numDemande;
+    let annule="/absence/deleteAbsence?numDemande="+absence.numDemande;
     let lien;
 
-    if (statut==="Nouvelle demande" && role===0) {
-      lien=<div><a href="#">Relancer</a> ou <a href="#">Annuler</a></div>;
+    if (absence.statut==="Nouvelle demande" && role===0) {
+      lien=<div><a href={relance}>Relancer</a> ou <a href={annule}>Annuler</a></div>;
     }
-    if (statut==="En attente de validation du Responsable" && role===0) {
-      lien=<div><p><a href="#">Relancer</a> ou <a href="#">Annuler</a></p></div>;
+    if (absence.statut==="En attente de validation du Responsable" && role===0) {
+      lien=<div><p><a href={relance}>Relancer</a> ou <a href={annule}>Annuler</a></p></div>;
     }
-    if (statut==="En attente de décision RH" && role===0) {
-      lien=<div><a href="#">Relancer</a> ou <a href="#">Annuler</a></div>;
+    if (absence.statut==="En attente de décision RH" && role===0) {
+      lien=<div><a href={relance}>Relancer</a> ou <a href={annule}>Annuler</a></div>;
     }
-    if (statut==="Validé" && role===0 && debut>=laDateDuJour) {
-      lien=<div><a href="#">Annuler</a></div>;
+    if (absence.statut==="Validé" && role===0 && debut>=laDateDuJour) {
+      lien=<div><a href={annule}>Annuler</a></div>;
     }
-    if (statut==="En attente de validation du Responsable" && role===1 && debut>=laDateDuJour) {
+    if (absence.statut==="En attente de validation du Responsable" && role===1 && debut>=laDateDuJour) {
       lien=<div><a href="/avishierarchique">Décider</a></div>;
     }
-    if (statut==="En attente de décision RH" && role===1) {
-      lien=<div><a href="#">Relancer</a> ou <a href="#">Annuler</a></div>;
+    if (absence.statut==="En attente de décision RH" && role===1) {
+      lien=<div><a href={relance}>Relancer</a> ou <a href={annule}>Annuler</a></div>;
     }
-    if (statut==="Validé" && role===1 && debut>=laDateDuJour) {
-      lien=<div><a href="#">Annuler</a></div>;
+    if (absence.statut==="Validé" && role===1 && debut>=laDateDuJour) {
+      lien=<div><a href={annule}>Annuler</a></div>;
     }
-    if (statut==="En attente de décision RH" && role===2) {
+    if (absence.statut==="En attente de décision RH" && role===2) {
       lien=<div><a href="/avisrh">Décider</a></div>;
     }
 
@@ -132,16 +122,16 @@ class ListeDemandes extends Component {
                   this.props.employe.absences.map(
                     (absence, i) =>
                     <tr key={i}>
-                      <td>{this.formatDemande(absence.numDemande)}</td>
+                      <td>{absence.numDemande}</td>
                       <td>{this.props.employe.nom}</td>
                       <td>{this.props.employe.prenom}</td>
                       <td>{this.props.employe.nomResponsable}</td>
                       <td>{this.props.employe.prenomResponsable}</td>
                       <td>{absence.type}</td>
-                      <td>{this.formatDate(absence.debut)}</td>
-                      <td>{this.formatDate(absence.fin)}</td>
+                      <td>{absence.debut}</td>
+                      <td>{absence.fin}</td>
                       <td>{absence.statut}</td>
-                      <td>{this.action(this.props.employe.role, absence.statut, absence.debut)}</td>
+                      <td>{this.action(this.props.employe.role, absence)}</td>
                     </tr>
                   )
                 }

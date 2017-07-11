@@ -10,12 +10,6 @@ class ListeDemandes extends Component {
     this.props=props;
   }
 
-  formatDate(date) { // Convertit la date au format dd/mm/aaaa
-    return (
-      date.substr(-2) + "/" + date.substr(5,2) + "/" + date.substr(0,4)
-    )
-  }
-
   action = (role, statut, dateDebut) => {
     let laDate = new Date();
     let laDateDuJour = laDate.getFullYear() +""+ ("0"+laDate.getMonth()).substr(-2) +""+ ("0"+laDate.getDate()).substr(-2);
@@ -50,11 +44,11 @@ class ListeDemandes extends Component {
     return lien;
   }
 
-  formatDemande(demande) { // Convertit le N° Demande au format DEMXXXXXX
-    return (
-      "DEM" + ("000000" + demande).substr(-6)
-    )
-  }
+  // formatDemande(demande) { // Convertit le N° Demande au format DEMXXXXXX
+  //   return (
+  //     "DEM" + ("000000" + demande).substr(-6)
+  //   )
+  // }
 
   render() {
     return (
@@ -108,7 +102,7 @@ class ListeDemandes extends Component {
                         this.props.employe.absences.map(
                           (absence, i) =>
                           <tr role="row" className="gradeA odd" key={i}>
-                            <td className="sorting_1">{this.formatDemande(absence.numDemande)}</td>
+                            <td className="sorting_1">{absence.numDemande}</td>
                             <td>{this.props.employe.nom}</td>
                             <td>{this.props.employe.prenom}</td>
                             <td>{this.props.employe.nomResponsable}</td>

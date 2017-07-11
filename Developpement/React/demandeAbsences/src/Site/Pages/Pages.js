@@ -76,7 +76,7 @@ GestionEquipe = () => {
 }
 
 Aide = () => { // Aide est élaboré en fonction du role de l'utilisateur
-  return <Aide employe={this.props.employe} />
+  return <Aide employe={this.props.employe.role} />
 }
 
 Authentification = () => {

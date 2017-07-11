@@ -11,7 +11,8 @@ import PiedPage from './PiedPage/PiedPage.js';
 import Pages from './Pages/Pages.js';
 
 // Ligne à occulter, sert à afficher l'environnement de Steven MERRIL
-let userEmail="damian.humphrey@entreprise.com";
+// let userEmail="steven.merrill@entreprise.com";
+let userEmail;
 
 class Site extends Component {
 
@@ -22,7 +23,6 @@ class Site extends Component {
           // Les propriétés sont relatives aux renseignements concernant l'utilisateur authentifié
           // ainsi que la liste de ses absences.
           this.state = {
-              userEmail: "",
               nom:"",
               prenom:"",
               matricule:"",
@@ -42,7 +42,7 @@ class Site extends Component {
       }
 
       propUserEmailMere = (valeur) => {
-        this.setState({userEmail: valeur});
+        userEmail=valeur;
       }
 
       // Traitement asynchrone dont le résultat est obtenu après récolte des données du back
@@ -84,7 +84,6 @@ componentDidUpdate() {
     render() {
     return (
       <div>
-
         {/*  Appel d'une page fille accompagnée des données issues du State */}
         <Entete
                 nom={this.state.nom}
@@ -92,12 +91,12 @@ componentDidUpdate() {
                 matricule={this.state.matricule}
                 nbCa={this.state.nbCa}
                 nbRtt={this.state.nbRtt}
-                nbRc={this.state.nbRc} /> {/* Affiche le header de la page */}
+                nbRc={this.state.nbRc} />{/* Affiche le header de la page */}
 
         {/*  Appel d'une page sans les données du State */}
-        <BarDeNav role={this.state.role} /> {/* Affiche la barre de navigation (latérale) */}
-        <Pages employe={this.state} transUserEmail={this.propUserEmailMere} />      {/* Affiche le body en fonction de la navigation */}
-        <PiedPage />                        {/* Affiche le footer */}
+        <BarDeNav role={this.state.role} />{/* Affiche la barre de navigation (latérale) */}
+        <Pages employe={this.state} transUserEmail={this.propUserEmailMere} />{/* Affiche le body en fonction de la navigation */}
+        <PiedPage />{/* Affiche le footer */}
       </div>
     )
   }
