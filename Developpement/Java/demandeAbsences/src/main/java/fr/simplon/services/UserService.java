@@ -62,17 +62,17 @@ public class UserService {
 	 * Meme principe que ci-dessus
 	 * une iteration qu'on transforme en liste
 	 */
-	public UserDto getUser(String email) throws SQLException {
-		User user;
-		UserDto userDto;
+	public List<UserDto> getUser(String email) throws SQLException {
+		List<User> getUser;
+		List<UserDto> getUserDto;
 		try {
-			user = userDao.findByEmail(email);
-			userDto = mapper.convertUserToDto(user);
+			getUser = userDao.findByEmail(email);
+			getUserDto = mapper.convertListUserToDto(getUser);
 		} catch (ServiceException e) {
-			throw new ServiceException("Utilisateur inconnu");
+			throw new ServiceException("Hibernate Error !: getUser" + e);
 		}
-		return userDto;
-	}
+		return getUserDto;
+}
 
 	/**
 	 * Creation nouveau user
