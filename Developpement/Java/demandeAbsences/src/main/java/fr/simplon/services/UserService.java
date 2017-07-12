@@ -136,5 +136,23 @@ public class UserService {
 			throw new ServiceException("Hibernate Error !: deleteUser" + e);
 		}
 	}
+
+
+	public UserDto authUser(String email, String pass) throws SQLException{
+		User user;
+		UserDto userDto;
+		try {
+			user = (User) userDao.findByEmail(email);
+			if(!user.getEmail().equals(pass)) {
+				throw new ServiceException("Erreur d'identification");
+			} else {
+				userDto = mapper.convertUserToDto(user);
+			}
+			
+		} catch (ServiceException e) {
+			throw new ServiceException("Hibernate Error !: getUser" + e);
+		}
+		return userDto;
+	}
 	
 }

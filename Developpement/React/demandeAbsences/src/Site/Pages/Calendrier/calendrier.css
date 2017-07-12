@@ -40,7 +40,7 @@
 }
 
 .calendrier .policeNormale{
-  font-color: #000;
+  font-color: black;
   font-weight: 800;
   font-size: 12px;
 }
@@ -57,11 +57,11 @@
 }
 
 #legendText {
-  font-size: 14px;
+  font-size: 10px;
 }
 
 #legend td, #legend th {
-  font-size: 12px;
+  font-size: 8px;
 }
 
 .calendrier .border, #legend .border {

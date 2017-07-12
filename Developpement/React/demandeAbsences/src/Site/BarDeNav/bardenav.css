@@ -1,23 +1,23 @@
 .bardenav {
-  top: 80px;
+  top: 5vh;
   position: fixed;
   width: 12%;
 }
 
 .voffsetnav {
-  height: 0vh;
+  height: 7vh;
 }
 
 .tdbar {
-  padding-top: 8px;
   border-top: 0px !important;
-  text-align: left !important;
+  padding-top: 8px;
+  text-align: left;
 }
 
 .tdbar:hover {
   background-color: #EEE;
 }
 
-.bardenav a, .bardenav a:link, .bardenav a:visited, .bardenav a:hover, .bardenav a:active {
+.bardenav a,  .bardenav a:link, .bardenav a:visited, .bardenav a:hover, .bardenav a:active {
   text-decoration: none;
 }

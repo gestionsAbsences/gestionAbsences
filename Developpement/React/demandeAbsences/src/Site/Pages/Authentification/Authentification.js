@@ -1,97 +1,31 @@
 import React, { Component } from 'react';
 
-import axios from 'axios';
-
+// import '../../Bootstrap/dist/css/sb-admin-2.css'
 import './authentification.css';
 
-// let userEmail="steven.merrill@entreprise.com";
-
 class Authentification extends Component {
-
-  constructor(props){
-      super(props); // Récupère le Props du parent
-      this.props=props;
-      this.state={ // Définition des propriétés du State
-        userEmail: '',
-        pass: '',
-        email: '',
-        password: '',
-        nom: '',
-        prenom: '',
-        matricule: '',
-        role: ''
-      };
-      this.handleEmailChange = this.handleEmailChange.bind(this);
-      this.handlePassChange = this.handlePassChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleEmailChange = (event) => {
-    this.setState({userEmail: event.target.value,});
-  }
-
-  handlePassChange = (event) => {
-    this.setState({pass: event.target.value,});
-  }
-
-  handleSubmit(event) {
-      event.preventDefault();
-      // Récupération des données du Back par requête HTTP
-      let res;
-
-       axios
-        .get('http://localhost:8080/user/getUser?email='+this.state.userEmail) // Type GET paramétré avec l'email.
-        .then(res => {
-            this.setState({ // Incorpore les données dans le State
-              nom: res.data[0].employeDto.nom,
-              prenom: res.data[0].employeDto.prenom,
-              matricule: res.data[0].employeDto.matricule,
-              email: res.data[0].employeDto.email,
-              password: res.data[0].employeDto.password,
-              role: res.data[0].employeDto.role
-          });
-          if (this.state.userEmail===this.state.email && this.state.pass===this.state.password) {
-            this.transferUserEmail();
-          }
-        })
-        .catch((error) => {
-            console.log("Axios : Problème d'accès à la ressource http://localhost:8080/user/getUser?email=" + this.state.userEmail + ".");
-            console.log(res);
-        });
-
-      this.setState({
-        email: this.state.userEmail,
-        pass: this.state.pass
-      });
-console.log(this.state);
-    }
-
-  transferUserEmail = () => {
-		this.props.propUserEmailFille(this.props.userEmail);
-	}
-
   render() {
     return (
       <div className="col-md-4 col-md-offset-4">
+        <div className="voffsetauth">&nbsp;</div>   {/*5   Cosmétique Ajout d'une marge au dessus du contenu du formulaire réglable via le css voffsethautauth */}{/*5   fin */}
         <div className="login-panel panel panel-default">
           <div className="panel-heading">
             <h3 className="panel-title">Authentification</h3>
           </div>
           <div className="panel-body">
-            <form role="form" action="" onSubmit={this.handleSubmit}>
+            <form role="form">
               <fieldset>
                 <div className="form-group">
-                  <input className="form-control" placeholder="Adresse mail" name="email" type="email" value={this.state.userEmail} autoFocus onChange={this.handleEmailChange}></input>
+                  <input className="form-control" placeholder="Adresse mail" name="email" type="email" autoFocus></input>
                 </div>
                 <div className="form-group">
-                  <input className="form-control" placeholder="Mot de passe" name="password" type="password" value={this.state.pass} onChange={this.handlePassChange}></input>
+                  <input className="form-control" placeholder="Mot de passe" name="password" type="password" value=""></input>
                 </div>
-                <input className="btn btn-primary btn-block" type="submit" value="Se connecter" />
+                <a href="index.html" className="btn btn-primary btn-block">Se connecter</a>
               </fieldset>
             </form>
           </div>
         </div>
-        <div className="VOffSetBasPages">&nbsp;</div>   {/*13   Cosmétique Ajout d'une marge en dessous des boutons réglable via le css VOffSetBasPages */}   {/*13   fin */}
       </div>
     );
   }

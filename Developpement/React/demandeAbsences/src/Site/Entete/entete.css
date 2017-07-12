@@ -1,20 +1,15 @@
 .header {
   position: fixed;
   top: 0px;
-  height: 50px;
+  height: 8vh;
   width: 100%;
   font-size: 16px;
 }
 
 .logohead {
   width: 40px;
-  height: 35px;
-  margin-right: 2vw;
-}
-
-.logomenu {
-  width: 10px;
-  height: 35px;
+  height: 40px;
+  margin-right: 50px;
 }
 
 .nom, .prenom, .matricule, .compteur {
@@ -22,28 +17,17 @@
 }
 
 .prenom, .matricule, .conge {
-  margin-left: 2vw;
+  margin-left: 20px;
 }
 
 .rtt, .repos {
-  margin-left: 5vw;
+  margin-left: 80px;
 }
 
 .repos {
-  padding-right: 2vw;
+  padding-right: 20px;
 }
 
-.conge, .rtt, .repos {
-  padding-top: 8px !important;
-}
-
-.entete {
+.premierplan {
   z-index: 5000;
-  border-color: #ddd;
-  border:  #ddd;
-}
-
-.iconemenumobile {
-  list-style: none;
-  text-decoration: none;
 }

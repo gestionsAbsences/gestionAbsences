@@ -9,8 +9,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,6 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import fr.simplon.domain.Statut;
 import fr.simplon.services.StatutService;
@@ -39,7 +38,7 @@ import fr.simplon.services.StatutService;
  * localhost:8080/absence/nomMethode
  */
 
-@Controller
+@RestController
 @RequestMapping("/statut")
 @CrossOrigin(origins="*")
 public class StatutController {
@@ -68,7 +67,6 @@ public class StatutController {
 		}
 		return ResponseEntity.ok(statut);
 	}
-
 
 	/**
 	 * 

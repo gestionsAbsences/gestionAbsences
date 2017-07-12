@@ -1,73 +1,19 @@
 import React, { Component } from 'react';
 
-import axios from 'axios';
-
 import './listedemandes.css';
+
 
 class ListeDemandes extends Component {
 
   constructor(props) {
     super(props); // Récupère le Props du parent
     this.props=props;
-    this.state={
-      debut: '',
-      fin: '',
-      type: '',
-      statut: '',
-      numDemande: '',
-      nom: '',
-      prenom: '',
-      validationAbs: []
-    }
   }
 
-  formatDate = (date) => { // Convertit la date au format dd/mm/aaaa
+  formatDate(date) { // Convertit la date au format dd/mm/aaaa
     return (
       date.substr(-2) + "/" + date.substr(5,2) + "/" + date.substr(0,4)
     )
-  }
-
-  formatDemande = (demande) => { // Convertit le N° Demande au format DEMXXXXXX
-    return (
-      "DEM" + ("000000" + demande).substr(-6)
-    )
-  }
-
-  componentDidMount () {
-    axios
-      .get('http://localhost:8080/validation/listeAbsences?equipe='+this.props.employe.nomEquipe)
-      .then(res => {
-        this.setState({
-          validationAbs: res.data
-        });
-      })
-      .catch((error) => {
-        console.log("Axios : Problème d'accès à la ressource http://localhost:8080/validation/listeAbsences?equipe="+this.props.employe.nomEquipe);
-    });
-    console.log("WillMount : ");
-    console.log(this.state.validationAbs);
-    console.log("Equipe : "+this.props.employe.nomEquipe);
-    console.log(this.props.employe);
-  }
-
-  trtValidation = (indice, absence) => {
-    let res;
-    if (this.props.employe.matricule!==absence.matricule) {
-      res=<tr key={indice}>
-        <td>{this.formatDemande(absence.numDemande)}</td>
-        <td>{absence.nom}</td>
-        <td>{absence.prenom}</td>
-        <td>{this.props.employe.nomResponsable}</td>
-        <td>{this.props.employe.prenomResponsable}</td>
-        <td>{absence.type}</td>
-        <td>{this.formatDate(absence.debut)}</td>
-        <td>{this.formatDate(absence.fin)}</td>
-        <td>{absence.statut}</td>
-        <td>{this.action(this.props.employe.role, absence.statut, absence.debut)}</td>
-      </tr>;
-      console.log('trtValidation : '+this.props.employe.matricule, absence.matricule);
-    }
-    return res;
   }
 
   action = (role, statut, dateDebut) => {
@@ -80,7 +26,7 @@ class ListeDemandes extends Component {
       lien=<div><a href="#">Relancer</a> ou <a href="#">Annuler</a></div>;
     }
     if (statut==="En attente de validation du Responsable" && role===0) {
-      lien=<div><p><a href="#">Relancer</a> ou <a href="#">Annuler</a></p></div>;
+      lien=<div><a href="#">Relancer</a> ou <a href="#">Annuler</a></div>;
     }
     if (statut==="En attente de décision RH" && role===0) {
       lien=<div><a href="#">Relancer</a> ou <a href="#">Annuler</a></div>;
@@ -89,7 +35,7 @@ class ListeDemandes extends Component {
       lien=<div><a href="#">Annuler</a></div>;
     }
     if (statut==="En attente de validation du Responsable" && role===1 && debut>=laDateDuJour) {
-      lien=<div><a href="/avishierarchique">Décider</a></div>;
+      lien=<div><a href="#">Décider</a></div>;
     }
     if (statut==="En attente de décision RH" && role===1) {
       lien=<div><a href="#">Relancer</a> ou <a href="#">Annuler</a></div>;
@@ -98,20 +44,26 @@ class ListeDemandes extends Component {
       lien=<div><a href="#">Annuler</a></div>;
     }
     if (statut==="En attente de décision RH" && role===2) {
-      lien=<div><a href="/avisrh">Décider</a></div>;
+      lien=<div><a href="#">Décider</a></div>;
     }
 
     return lien;
   }
 
+  /*formatDemande(demande) { // Convertit le N° Demande au format DEMXXXXXX
+    return (
+      "DEM" + ("000000" + demande).substr(-6)
+    )
+  }*/
+
   render() {
     return (
       <div>
-        <div className="panel panel-default">{/*2   Formulaire */}
-          <div className="panel-heading">{/*3   Titre de la page */}
+        <div className="panel panel-default">   {/*2   Formulaire */}
+          <div className="panel-heading">   {/*3   Titre de la page */}
             <h3 className="panel-title">Liste de vos dernières demandes</h3>
-          </div>{/*3   fin */}
-          <div className="">{/*14   Tableau */}
+          </div>   {/*3   fin */}
+          <div className="">   {/*14   Tableau */}
             <table className="table table-bordered table-hover table-striped tablesupmargebas">{/*   Cosmétique Tablesupmargebas, supprime la marge en bas du tableau */}{/* fin */}
               <thead>{/*15   Entête du tableau */}
                 <tr>
@@ -126,13 +78,13 @@ class ListeDemandes extends Component {
                   <th>Statut</th>
                   <th>Action</th>
                 </tr>
-              </thead>{/*15 Fin */}
-              <tbody>{/*16 Contenu du tableau */}
+              </thead>  {/*15 Fin */}
+              <tbody>   {/*16 Contenu du tableau */}
                 {
                   this.props.employe.absences.map(
                     (absence, i) =>
                     <tr key={i}>
-                      <td>{this.formatDemande(absence.numDemande)}</td>
+                      <td>{absence.numDemande}</td>
                       <td>{this.props.employe.nom}</td>
                       <td>{this.props.employe.prenom}</td>
                       <td>{this.props.employe.nomResponsable}</td>
@@ -145,18 +97,12 @@ class ListeDemandes extends Component {
                     </tr>
                   )
                 }
-                {
-                  this.state.validationAbs.map(
-                    (absence, i) =>
-                    this.trtValidation(i, absence)
-                  )
-                }
               </tbody>{/*16 Fin */}
             </table>
 
-          </div>{/*14 Fin */}
-        </div>{/*2 Fin */}
-        <div className="VOffSetBasPages">&nbsp;</div>{/*1   Cosmétique Ajout d'une marge en dessous du formulaire réglable via le css voffsetpos */}{/*1    fin */}
+          </div>   {/*14 Fin */}
+        </div>   {/*2 Fin */}
+        <div className="VOffSetBasPages">&nbsp;</div>   {/*1   Cosmétique Ajout d'une marge en dessous du formulaire réglable via le css voffsetpos */}{/*1    fin */}
       </div>
     );
   }

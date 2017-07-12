@@ -55,22 +55,6 @@ class TestAxios extends Component {
       }
   }
 
-
-
-  var config = {
-          auth: {
-              username: 'bruker',
-              password: 'passord'
-          }
-      };
-      axios.get('http://localhost:8080/emp/getEmploye/', param).then(function (response) {
-          console.log(response)
-      }.bind(this)).catch(function (response) {
-          console.log(response)
-      }.bind(this))
-
-
-
   componentDidMount() {
        axios.get('http://localhost:8080/type/listeTypeAbsence/')
           .then(res => {
