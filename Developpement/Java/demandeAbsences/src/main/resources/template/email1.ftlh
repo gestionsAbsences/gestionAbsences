@@ -16,7 +16,7 @@
             </p>
             <p>
                 En qualité de responsable, merci de bien vouloir étudier la demande référencée sous le N°
-                <span>${numDemande}</span> et d'y apporter votre validation ou votre refus en cliquant sur le <a href="localhost:8080/absence/getAbsenceByNum?numDemande = ${numDemande}">lien</a><br>
+                <span>${numDemande}</span> et d'y apporter votre validation ou votre refus en cliquant sur le <a href="http://localhost:3000/absence/getAbsenceByNum?numDemande=${numDemande}">lien</a><br>
             </p>
             <p>
                 Nous attirons votre vigilance sur l'importance et votre engagement concernant votre validation ou votre refus.
