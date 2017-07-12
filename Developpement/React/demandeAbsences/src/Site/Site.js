@@ -10,9 +10,10 @@ import BarDeNav from './BarDeNav/BarDeNav.js';
 import PiedPage from './PiedPage/PiedPage.js';
 import Pages from './Pages/Pages.js';
 
-// Ligne à occulter, sert à afficher l'environnement de Steven MERRIL
-// let userEmail="steven.merrill@entreprise.com";
 let userEmail;
+// Ligne à occulter, sert à afficher l'environnement de Steven MERRIL
+userEmail="steven.merrill@entreprise.com";
+// userEmail="irene.blevins@entreprise.com";
 
 class Site extends Component {
 
@@ -57,7 +58,8 @@ class Site extends Component {
                   prenom: res.data[0].employeDto.prenom,
                   matricule: res.data[0].employeDto.matricule,
                   email: res.data[0].employeDto.email,
-                  role: res.data[0].employeDto.role,
+                  role: 7,
+                  // role: res.data[0].employeDto.role,
                   nbCa: res.data[0].employeDto.nbCa,
                   nbRtt: res.data[0].employeDto.nbRtt,
                   nbRc: res.data[0].employeDto.nbRc,
