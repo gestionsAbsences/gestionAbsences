@@ -79,16 +79,17 @@ class AvisHierarchique extends Component {
             </div>
             <div className="row">   {/*11   Block Boutons Soumettre et Annuler */}
               <div className="VOffSetBasPages">&nbsp;</div>   {/*12   Cosmétique d'unee marge au dessus des boutons */}{/*12   fin */}
-              <div className="col-md-2 col-md-offset-4">
+              <div className="col-md-2 col-md-offset-4 btn-bottom-marge">
                 <a href="index.html" className="btn btn-primary btn-block">Soumettre</a>
               </div>
-              <div className="col-md-2">
+              <div className="col-md-2 btn-bottom-marge">
                 <a href="index.html" className="btn btn-primary btn-block">Annuler</a>
               </div>
             </div>   {/*11   fin */}
           </div>   {/*4   fin */}
           <div className="VOffSetBasPages">&nbsp;</div>   {/*13   Cosmétique Ajout d'une marge en dessous des boutons réglable via le css VOffSetBasPages */}   {/*13   fin */}
         </div>   {/*2   fin */}
+        <div className="VOffSetBasPages">&nbsp;</div>   {/*13   Cosmétique Ajout d'une marge en dessous des boutons réglable via le css VOffSetBasPages */}   {/*13   fin */}
       </div>
     );
   }

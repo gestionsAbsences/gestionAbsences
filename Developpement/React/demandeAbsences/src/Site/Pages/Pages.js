@@ -31,6 +31,9 @@ class Pages extends Component {
     this.props=props;
   }
 
+// propUserEmailFille = (valeur) => {
+//   this.props.transUserEmail(valeur);
+// }
 
 // ---------------------------------------------------------------------
 // Liste des fonctions associées au route ci-dessous
@@ -41,55 +44,55 @@ ListeDemandes = () => {
 }
 
 NouvelleDemande = () => {
-  return <NouvelleDemande employe={this.props} />
+  return <NouvelleDemande employe={this.props.employe} />
 }
 
 DeclareAbsence = () => {
-  return <DeclareAbsence employe={this.props} />
+  return <DeclareAbsence employe={this.props.employe} />
 }
 
 ReliquatConges = () => {
-  return <ReliquatConges employe={this.props} />
+  return <ReliquatConges employe={this.props.employe} />
 }
 
 MonCalendrier = () => {
-  return <MonCalendrier employe={this.props} />
+  return <MonCalendrier employe={this.props.employe} />
 }
 
 CalendrierEquipe = () => {
-  return <CalendrierEquipe employe={this.props} />
+  return <CalendrierEquipe employe={this.props.employe} />
 }
 
 CalendrierEntreprise = () => {
-  return <CalendrierEntreprise employe={this.props} />
+  return <CalendrierEntreprise employe={this.props.employe} />
 }
 
 GestionPersonnel = () => {
-  return <GestionPersonnel employe={this.props} />
+  return <GestionPersonnel employe={this.props.employe} />
 }
 
 GestionEquipe = () => {
-  return <GestionEquipe employe={this.props} />
+  return <GestionEquipe employe={this.props.employe} />
 }
 
 Aide = () => { // Aide est élaboré en fonction du role de l'utilisateur
-  return <Aide employe={this.props} />
+  return <Aide employe={this.props.employe.role} />
 }
 
 Authentification = () => {
-  return <Authentification employe={this.props} />
+  return <Authentification employe={this.props.employe} transUserEmail={this.props.transUserEmail} />
 }
 
 ModifMotDePasse = () => {
-  return <ModifMotDePasse employe={this.props} />
+  return <ModifMotDePasse employe={this.props.employe} />
 }
 
 AvisHierarchique = () => {
-  return <AvisHierarchique employe={this.props} />
+  return <AvisHierarchique employe={this.props.employe} />
 }
 
 AvisRh = () => {
-  return <AvisRh employe={this.props} />
+  return <AvisRh employe={this.props.employe} />
 }
 // ---------------------------------------------------------------------
 // Fin de liste de fonction
@@ -100,16 +103,16 @@ AvisRh = () => {
     return (
       <div>
         <Router history={history}>
-          <div>
+          <div className="pages">
             <div className="VOffSetPages">&nbsp;</div> {/* Sert à créer un décalage vers le bas voir le CSS */}
-            <div className="page">
+            <div className="page pagedesktop">
 
 
               {/* Liste des Path associés aux pages à afficher en fonction de la navigation
                   Le render dirige vers une fonction qui sert à charger la page accompagnée du props
                   APropos doit s'afficher inconditionnellement donc sans traitement sur les props */}
 
-              <Switch> {/* Switch permet de limiter le render uniquement sur le premier path satisfait */}
+              <Switch> {/* Switch permet de limiter le render uniquement au premier path satisfait */}
 
                 {/* Les path exprimés sont en réalité à précéder de //localhost:3000 */}
                 <Route exact path="/accueil"               render={this.ListeDemandes} />
@@ -122,9 +125,8 @@ AvisRh = () => {
                 <Route exact path="/calendrierentreprise"  render={this.CalendrierEntreprise} />
                 <Route exact path="/gestionpersonnel"      render={this.GestionPersonnel} />
                 <Route exact path="/gestionequipe"         render={this.GestionEquipe} />
-
-{/*   2 lignes suivantes à effacer, présentes pour tester les pages de décision
-                <Route exact path="/aide"                  render={this.AvisHierarchique} />
+{/*
+                <Route exact path="/aide"                  component={AvisHierarchique} />
                 <Route exact path="/apropos"               component={AvisRh} />
 */}
                 <Route exact path="/aide"                  render={this.Aide} />
@@ -134,8 +136,8 @@ AvisRh = () => {
                 <Route exact path="/avishierarchique"      render={this.AvisHierarchique} />
                 <Route exact path="/avisrh"                render={this.AvisRh} />
 
-                {/* Ce Route sert à diriger tout URL ne correspondant à aucune page de l'application */}
-                {/* Forcément positionné en dernier en raison du switch, pour garantir l'exécution
+                {/* Ce Route sert à diriger tout URL ne correspondant à aucune page de l'application
+                    Forcément positionné en dernier en raison du switch, pour garantir l'exécution
                     des pages de l'appli. ' Sous-entend n'importe quel URL */}
                 <Route path="*"                            render={this.Authentification} />
 

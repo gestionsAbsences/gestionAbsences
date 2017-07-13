@@ -2,3 +2,24 @@
   height: 9vh;
   width: 100%;
 }
+
+.btn-bottom-marge {
+  margin-bottom: 25px;
+}
+
+.menumobile{
+  display: none;
+}
+
+@media screen and (max-width: 1000px){
+  .menudesktop{
+    display: none; /* ici j'indique que en dessous 800px, je fais disparaitre mon menu bureau*/
+  }
+  .menumobile{
+    display: flex !important; /* et je fais apparaitre mon menu mobile */
+  }
+  .menumobile img{
+    width: 30px;
+  }
+
+}

@@ -20,7 +20,7 @@ class GestionPersonnel extends Component {
     }
 
   componentDidMount() {
-       axios.get('http://localhost:8080/emp/getEmploye?nom='+nom)
+       axios.get('/emp/getEmploye?nom='+nom)
           .then(res => {
               this.setState({
                 nom: res.data[0].nomResp,
@@ -31,7 +31,7 @@ class GestionPersonnel extends Component {
             });
       });
 
-    axios.get('http://localhost:8080/type/listeTypeAbsence')
+    axios.get('/type/listeTypeAbsence')
        .then(res => {
            this.setState({
              types: res.data
@@ -122,20 +122,18 @@ class GestionPersonnel extends Component {
                   </div>
                 </div>
                 <div className="VOffSetGest2">&nbsp;</div>
-                <div className="form-group">
-                <div className="vdecalage4">
-                    <a href="index.html" className="btn btn-primary btn-md btn-block">Réinitialisation<br/>du mot de passe</a>
-                  </div>
+                <div className="form-group btn-bottom-marge">
+                  <a href="index.html" className="btn btn-primary btn-md btn-block">Réinitialisation<br/>du mot de passe</a>
                 </div>
               </div>
             </div>
             <div className="row">   {/*11   Block Boutons Soumettre et Annuler */}
               <div className="VOffSetBasPages">&nbsp;</div>   {/*12   Cosmétique d'unee marge au dessus des boutons */}{/*12   fin */}
               <div className="col-md-10 col-md-offset-1">
-                <div className="col-md-2 col-md-offset-4">
+                <div className="col-md-2 col-md-offset-4 btn-bottom-marge">
                   <a href="index.html" className="btn btn-primary btn-block">Précédent</a>
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-2 btn-bottom-marge">
                   <a href="index.html" className="btn btn-primary btn-block">Suivant</a>
                 </div>
               </div>
@@ -143,16 +141,16 @@ class GestionPersonnel extends Component {
             <div className="row">   {/*11   Block Boutons Soumettre et Annuler */}
               <div className="VOffSetBasPages">&nbsp;</div>   {/*12   Cosmétique d'unee marge au dessus des boutons */}{/*12   fin */}
               <div className="col-md-10 col-md-offset-1">
-                <div className="col-md-3">
+                <div className="col-md-3 btn-bottom-marge">
                   <a href="index.html" className="btn btn-primary btn-block">Nouveau</a>
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-3 btn-bottom-marge">
                   <a href="index.html" className="btn btn-primary btn-block">Supprimer</a>
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-3 btn-bottom-marge">
                   <a href="index.html" className="btn btn-primary btn-block">Enregistrer</a>
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-3 btn-bottom-marge">
                   <a href="index.html" className="btn btn-primary btn-block">Annuler</a>
                 </div>
               </div>
@@ -160,6 +158,7 @@ class GestionPersonnel extends Component {
           </div>   {/*4   fin */}
           <div className="VOffSetBasPages">&nbsp;</div>   {/*13   Cosmétique Ajout d'une marge en dessous des boutons réglable via le css VOffSetBasPages */}   {/*13   fin */}
         </div>   {/*2   fin */}
+        <div className="VOffSetBasPages">&nbsp;</div>   {/*13   Cosmétique Ajout d'une marge en dessous des boutons réglable via le css VOffSetBasPages */}   {/*13   fin */}
       </div>
     );
   }

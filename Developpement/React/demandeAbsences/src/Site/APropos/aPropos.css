@@ -5,3 +5,12 @@
 .apropos {
   text-align: center;
 }
+
+.titreAPropo {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.aproposLignes {
+  line-height: 32px;
+}

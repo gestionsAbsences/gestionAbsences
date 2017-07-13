@@ -17,14 +17,16 @@ class PiedPage extends Component {
       <div>
         <footer>
           <div className="footer breadcrumb premierplan">
-            GestionAbsences©2017   -   Par Fred, Jean et Mokhtar de La Poste.promo1@Simplon avec la participation de
-            <img className="logo1" src={logo1} alt="" />,
-            <img className="logo2" src={logo2} alt="" />,
-            <img className="logo3" src={logo3} alt="" />,
-            <img className="logo4" src={logo4} alt="" />,
-            <img className="logo5" src={logo5} alt="" />,
-            <img className="logo6" src={logo6} alt="" />et
-            <img className="logo7" src={logo7} alt="" />.
+            GestionAbsences©2017
+            <span className="menudesktop">   -   Par Fred, Jean et Mokhtar de La Poste.promo1@Simplon avec la participation de
+              <img className="logo1" src={logo1} alt="" />,
+              <img className="logo2" src={logo2} alt="" />,
+              <img className="logo3" src={logo3} alt="" />,
+              <img className="logo4" src={logo4} alt="" />,
+              <img className="logo5" src={logo5} alt="" />,
+              <img className="logo6" src={logo6} alt="" />et
+              <img className="logo7" src={logo7} alt="" />.
+            </span>
           </div>
         </footer>
       </div>

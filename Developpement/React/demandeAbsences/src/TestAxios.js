@@ -55,8 +55,24 @@ class TestAxios extends Component {
       }
   }
 
+
+
+  var config = {
+          auth: {
+              username: 'bruker',
+              password: 'passord'
+          }
+      };
+      axios.get('/emp/getEmploye/', param).then(function (response) {
+          console.log(response)
+      }.bind(this)).catch(function (response) {
+          console.log(response)
+      }.bind(this))
+
+
+
   componentDidMount() {
-       axios.get('http://localhost:8080/type/listeTypeAbsence/')
+       axios.get('/type/listeTypeAbsence/')
           .then(res => {
               console.log(res.data);
               this.setState({types: res.data});
@@ -64,7 +80,7 @@ class TestAxios extends Component {
   }
 
   creerService() {
-    axios.post('http://localhost:8080/type/creerTypeAbsence/', {"nom": "TestReact"})
+    axios.post('/type/creerTypeAbsence/', {"nom": "TestReact"})
       .then(res => {
         console.log("Resultat du POST : " + res);
       });

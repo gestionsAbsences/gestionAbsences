@@ -10,18 +10,14 @@ import BarDeNav from './BarDeNav/BarDeNav.js';
 import PiedPage from './PiedPage/PiedPage.js';
 import Pages from './Pages/Pages.js';
 
-
-
-
+let userEmail;
 // Ligne à occulter, sert à afficher l'environnement de Steven MERRIL
-let email="steven.merrill@entreprise.com";
-
-
-
+userEmail="steven.merrill@entreprise.com";
+// userEmail="irene.blevins@entreprise.com";
 
 class Site extends Component {
 
-      constructor(props) {
+      constructor() {
           super();
 
           // Définition des propriétés du State
@@ -46,54 +42,63 @@ class Site extends Component {
         }
       }
 
-      // traitement asynchrone dont le résutat est obtenu après récolte des données du back
+      propUserEmailMere = (valeur) => {
+        userEmail=valeur;
+      }
+
+      // Traitement asynchrone dont le résultat est obtenu après récolte des données du back
       componentDidMount() {
 
           // Récupération des données du Back par requête HTTP
-           axios.get('http://localhost:8080/user/getUser?email='+email) // Type GET paramétré avec l'email.
-              .then(res => {
-                  this.setState({ // Incorpore les données dans le State
-                    nom: res.data[0].employeDto.nom,
-                    prenom: res.data[0].employeDto.prenom,
-                    matricule: res.data[0].employeDto.matricule,
-                    email: res.data[0].employeDto.email,
-                    role: res.data[0].employeDto.role,
-                    nbCa: res.data[0].employeDto.nbCa,
-                    nbRtt: res.data[0].employeDto.nbRtt,
-                    nbRc: res.data[0].employeDto.nbRc,
-                    nomRh: res.data[0].employeDto.nomRh,
-                    emailRh: res.data[0].employeDto.emailRh,
-                    nomEquipe: res.data[0].employeDto.nomEquipe,
-                    nomResponsable: res.data[0].employeDto.nomResponsable,
-                    prenomResponsable: res.data[0].employeDto.prenomResponsable,
-                    emailResponsable: res.data[0].employeDto.emailResponsable,
-                    absences: res.data[0].absenceDto // Rappel : Absence est un tableau de données.
-                });
-          });
+           axios
+            .get('/user/getUser?email='+userEmail) //this.state.userEmail Type GET paramétré avec l'email.
+            .then(res => {
+                this.setState({ // Incorpore les données dans le State
+                  nom: res.data[0].employeDto.nom,
+                  prenom: res.data[0].employeDto.prenom,
+                  matricule: res.data[0].employeDto.matricule,
+                  email: res.data[0].employeDto.email,
+                  role: 7,
+                  // role: res.data[0].employeDto.role,
+                  nbCa: res.data[0].employeDto.nbCa,
+                  nbRtt: res.data[0].employeDto.nbRtt,
+                  nbRc: res.data[0].employeDto.nbRc,
+                  nomRh: res.data[0].employeDto.nomRh,
+                  emailRh: res.data[0].employeDto.emailRh,
+                  nomEquipe: res.data[0].employeDto.nomEquipe,
+                  nomResponsable: res.data[0].employeDto.nomResponsable,
+                  prenomResponsable: res.data[0].employeDto.prenomResponsable,
+                  emailResponsable: res.data[0].employeDto.emailResponsable,
+                  absences: res.data[0].absenceDto // Rappel : Absence est un tableau de données.
+              });
+            })
+            .catch((error) => {
+                console.log("Axios : Problème d'accès à la ressource /user/getUser?email="+userEmail+".");
+            });
       }
 
-
-      // Post-traitement permettant d'afficher le résultat du componentDidMount
-      // componentDidUpdate() {
-      //   console.log(this.state);
-      // }
+componentDidUpdate() {
+  console.log("Site State : ");
+  console.log(this.state);
+  console.log("");
+}
 
     render() {
     return (
       <div>
-
-        // Appel d'une page fille accompagnée des données issues du State
+        {/*  Appel d'une page fille accompagnée des données issues du State */}
         <Entete
                 nom={this.state.nom}
                 prenom={this.state.prenom}
+                matricule={this.state.matricule}
                 nbCa={this.state.nbCa}
                 nbRtt={this.state.nbRtt}
-                nbRc={this.state.nbRc} /> {/* Affiche le header de la page */}
+                nbRc={this.state.nbRc} />{/* Affiche le header de la page */}
 
-        // Appel d'une page sans données du State
-        <BarDeNav />                      {/* Affiche la barre de navigation (latérale) */}
-        <Pages employe={this.state} />    {/* Affiche le body en fonction de la navigation */}
-        <PiedPage />                      {/* Affiche le footer */}
+        {/*  Appel d'une page sans les données du State */}
+        <BarDeNav role={this.state.role} />{/* Affiche la barre de navigation (latérale) */}
+        <Pages employe={this.state} transUserEmail={this.propUserEmailMere} />{/* Affiche le body en fonction de la navigation */}
+        <PiedPage />{/* Affiche le footer */}
       </div>
     )
   }
