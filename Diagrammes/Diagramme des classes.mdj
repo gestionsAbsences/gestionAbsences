@@ -727,7 +727,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+noDemande: int",
+											"text": "+numDemande: int",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -7175,9 +7175,9 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 455,
+									"left": 438,
 									"top": 472,
-									"width": 64.669921875,
+									"width": 99,
 									"height": 13,
 									"autoResize": false,
 									"alpha": 0.785398091968882,
@@ -7187,7 +7187,7 @@
 									},
 									"edgePosition": 0,
 									"underline": false,
-									"text": "+Hériter de",
+									"text": "+Dépendre de",
 									"horizontalAlignment": 2,
 									"verticalAlignment": 5,
 									"wordWrap": false
@@ -7565,9 +7565,9 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 294,
+									"left": 293,
 									"top": 557,
-									"width": 7.22998046875,
+									"width": 8,
 									"height": 13,
 									"autoResize": false,
 									"alpha": 0.11256518874622357,
@@ -7600,9 +7600,9 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 157,
+									"left": 155,
 									"top": 367,
-									"width": 14.82177734375,
+									"width": 18,
 									"height": 13,
 									"autoResize": false,
 									"alpha": 0.1998017232207019,
@@ -8584,7 +8584,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFbfB2fmoQTOTA="
 							},
-							"name": "noDemande",
+							"name": "numDemande",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
@@ -9064,7 +9064,7 @@
 								"_parent": {
 									"$ref": "AAAAAAFbqkr4+B0UFkE="
 								},
-								"name": "Hériter de",
+								"name": "Dépendre de",
 								"reference": {
 									"$ref": "AAAAAAFbfCi07IVXLVw="
 								},
