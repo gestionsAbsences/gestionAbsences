@@ -38,44 +38,6 @@ class Authentification extends Component {
       event.preventDefault();
       // Récupération des données du Back par requête HTTP
 
-<<<<<<< HEAD
-      // axios
-      //    .get('/user/authUser?email='+this.state.userEmail+'&password='+this.state.password) // Type GET paramétré avec l'email.
-      //    .then(res => {
-      //      this.setState({ // Incorpore les données dans le State
-      //      })
-      //   .catch(error) => {
-      //      console.log("Axios : Problème d'accès à la ressource /user/authUser?email="+this.state.userEmail+"&password="+this.state.password + ".");
-      //      console.log(this.state);
-      // });
-
-       axios
-        .get('/user/getUser?email='+this.state.userEmail) // Type GET paramétré avec l'email.
-        .then(res => {
-            this.setState({ // Incorpore les données dans le State
-              nom: res.data[0].employeDto.nom,
-              prenom: res.data[0].employeDto.prenom,
-              matricule: res.data[0].employeDto.matricule,
-              email: res.data[0].employeDto.email,
-              password: res.data[0].employeDto.password,
-              role: res.data[0].employeDto.role
-          });
-          // if (this.state.userEmail===this.state.email && this.state.pass===this.state.password) {
-          if (this.state.userEmail===this.state.email) {
-            this.props.transferUserEmail(this.state.email);
-            console.log("UserMail : "+this.state.email);
-          }
-        })
-        .catch((error) => {
-            console.log("Axios : Problème d'accès à la ressource /user/getUser?email=" + this.state.userEmail + ".");
-            console.log(this.state);
-      });
-
-      this.setState({
-        email: this.state.userEmail,
-        pass: this.state.pass
-      });
-=======
       axios
          .get('/user/authUser?email='+this.state.userEmail+'&password='+this.state.password) // Type GET paramétré avec l'email.
          .then(res => {
@@ -113,7 +75,6 @@ class Authentification extends Component {
       //   email: this.state.userEmail,
       //   pass: this.state.pass
       // });
->>>>>>> Fred
     }
 
 componentDidMount () {
