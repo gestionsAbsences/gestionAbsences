@@ -20,7 +20,7 @@ class GestionPersonnel extends Component {
     }
 
   componentDidMount() {
-       axios.get('http://localhost:8080/emp/getEmploye?nom='+nom)
+       axios.get('/emp/getEmploye?nom='+nom)
           .then(res => {
               this.setState({
                 nom: res.data[0].nomResp,
@@ -31,7 +31,7 @@ class GestionPersonnel extends Component {
             });
       });
 
-    axios.get('http://localhost:8080/type/listeTypeAbsence')
+    axios.get('/type/listeTypeAbsence')
        .then(res => {
            this.setState({
              types: res.data

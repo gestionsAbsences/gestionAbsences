@@ -18,7 +18,7 @@ class GestionEquipe extends Component {
   }
 
   componentDidMount() {
-       axios.get('http://localhost:8080/equipe/listeEquipe')
+       axios.get('/equipe/listeEquipe')
           .then(res => {
               this.setState({
                 equipes: res.data[0].nom,
@@ -26,7 +26,7 @@ class GestionEquipe extends Component {
             });
       });
 
-    axios.get('http://localhost:8080/rh/listeService')
+    axios.get('/rh/listeService')
        .then(res => {
            this.setState({
              rhs: res.data

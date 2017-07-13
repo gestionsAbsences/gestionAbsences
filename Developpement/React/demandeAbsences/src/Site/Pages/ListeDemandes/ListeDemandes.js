@@ -23,14 +23,14 @@ class ListeDemandes extends Component {
 
   componentDidMount () {
     axios
-      .get('http://localhost:8080/validation/listeAbsences?equipe='+this.props.employe.nomEquipe)
+      .get('/validation/listeAbsences?equipe='+this.props.employe.nomEquipe)
       .then(res => {
         this.setState({
           validationAbs: res.data
         });
       })
       .catch((error) => {
-        console.log("Axios : Problème d'accès à la ressource http://localhost:8080/validation/listeAbsences?equipe="+this.props.employe.nomEquipe);
+        console.log("Axios : Problème d'accès à la ressource /validation/listeAbsences?equipe="+this.props.employe.nomEquipe);
     });
     console.log("WillMount : ");
     console.log(this.state.validationAbs);

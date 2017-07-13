@@ -13,7 +13,7 @@ class ReliquatConges extends Component {
   }
 
   componentDidMount() {
-       axios.get('http://localhost:8080/emp/listeEmployes')
+       axios.get('/emp/listeEmployes')
           .then(res => {
               // console.log(res.data);
               this.setState({

@@ -51,7 +51,7 @@ class Site extends Component {
 
           // Récupération des données du Back par requête HTTP
            axios
-            .get('http://localhost:8080/user/getUser?email='+userEmail) //this.state.userEmail Type GET paramétré avec l'email.
+            .get('/user/getUser?email='+userEmail) //this.state.userEmail Type GET paramétré avec l'email.
             .then(res => {
                 this.setState({ // Incorpore les données dans le State
                   nom: res.data[0].employeDto.nom,
@@ -73,7 +73,7 @@ class Site extends Component {
               });
             })
             .catch((error) => {
-                console.log("Axios : Problème d'accès à la ressource http://localhost:8080/user/getUser?email="+userEmail+".");
+                console.log("Axios : Problème d'accès à la ressource /user/getUser?email="+userEmail+".");
             });
       }
 

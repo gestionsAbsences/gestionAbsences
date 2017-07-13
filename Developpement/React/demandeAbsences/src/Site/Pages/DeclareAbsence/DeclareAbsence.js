@@ -36,23 +36,23 @@ class DeclareAbsence extends Component {
 
 componentDidMount() {
   axios
-    .get('http://localhost:8080/type/listeTypeAbsence')
+    .get('/type/listeTypeAbsence')
     .then(res => {
       this.setState({
         types: res.data
       });
     })
     .catch((error) => {
-      console.log("Axios : Problème d'accès à la ressource http://localhost:8080/type/listeTypeAbsence.");
+      console.log("Axios : Problème d'accès à la ressource /type/listeTypeAbsence.");
   });
 
   axios
-    .get('http://localhost:8080/statut/getStatutByCode?code=0')
+    .get('/statut/getStatutByCode?code=0')
     .then(res => {
          this.setState({statut: res.data.nom});
        })
      .catch((error) => {
-         console.log("Axios : Problème d'accès à la ressource http://localhost:8080/statut/getStatutByCode?code=0.");
+         console.log("Axios : Problème d'accès à la ressource /statut/getStatutByCode?code=0.");
     });
 }
 
@@ -70,14 +70,14 @@ componentDidMount() {
       res=<input className="form-control" placeholder="Nom de l'employé" onChange={this.handleNomChange} />;
     } else {
       axios
-      .get('http://localhost:8080/emp/getEmploye?nom='+filtre)
+      .get('/emp/getEmploye?nom='+filtre)
       .then(res => {
         this.setState({
           noms: res.data
         });
       })
       .catch((error) => {
-        console.log("Axios : Problème d'accès à la ressource http://localhost:8080/type/listeTypeAbsence.");
+        console.log("Axios : Problème d'accès à la ressource /type/listeTypeAbsence.");
       });
       res=<select className="form-control" value={this.state.nom} onChange={this.handleNomChange}>
         {this.state.noms.map(
@@ -134,7 +134,7 @@ componentDidMount() {
 
   creerAbsence() {
     axios
-      .post('http://localhost:8080/absence/creerAbsence/',
+      .post('/absence/creerAbsence/',
           {
             debut: this.state.debut,
             fin: this.state.fin,
@@ -145,7 +145,7 @@ componentDidMount() {
       .then(res => {
       })
       .catch((error) => {
-          console.log("Axios : Problème d'accès à la ressource http://localhost:8080/absence/creerAbsence/.");
+          console.log("Axios : Problème d'accès à la ressource /absence/creerAbsence/.");
           console.log(this.state.debut,this.state.fin,this.state.type,this.state.statut,this.props.employe.matricule);
       });
   }

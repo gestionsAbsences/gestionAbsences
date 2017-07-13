@@ -28,23 +28,23 @@ class NouvelleDemande extends Component {
 
   componentDidMount() {
     axios
-      .get('http://localhost:8080/type/listeTypeAbsence')
+      .get('/type/listeTypeAbsence')
       .then(res => {
         this.setState({
           types: res.data
         });
       })
       .catch((error) => {
-        console.log("Axios : Problème d'accès à la ressource http://localhost:8080/type/listeTypeAbsence.");
+        console.log("Axios : Problème d'accès à la ressource /type/listeTypeAbsence.");
     });
 
     axios
-      .get('http://localhost:8080/statut/getStatutByCode?code=0')
+      .get('/statut/getStatutByCode?code=0')
       .then(res => {
            this.setState({statut: res.data.nom});
          })
        .catch((error) => {
-           console.log("Axios : Problème d'accès à la ressource http://localhost:8080/statut/getStatutByCode?code=0.");
+           console.log("Axios : Problème d'accès à la ressource /statut/getStatutByCode?code=0.");
       });
   }
 
@@ -80,7 +80,7 @@ class NouvelleDemande extends Component {
 
   creerAbsence() {
     axios
-      .post('http://localhost:8080/absence/creerAbsence/',
+      .post('/absence/creerAbsence/',
           {
             debut: this.state.debut,
             fin: this.state.fin,
@@ -91,7 +91,7 @@ class NouvelleDemande extends Component {
       .then(res => {
       })
       .catch((error) => {
-          console.log("Axios : Problème d'accès à la ressource http://localhost:8080/absence/creerAbsence/.");
+          console.log("Axios : Problème d'accès à la ressource /absence/creerAbsence/.");
           console.log(this.state.debut,this.state.fin,this.state.type,this.state.statut,this.props.employe.matricule);
       });
   }

@@ -63,7 +63,7 @@ class TestAxios extends Component {
               password: 'passord'
           }
       };
-      axios.get('http://localhost:8080/emp/getEmploye/', param).then(function (response) {
+      axios.get('/emp/getEmploye/', param).then(function (response) {
           console.log(response)
       }.bind(this)).catch(function (response) {
           console.log(response)
@@ -72,7 +72,7 @@ class TestAxios extends Component {
 
 
   componentDidMount() {
-       axios.get('http://localhost:8080/type/listeTypeAbsence/')
+       axios.get('/type/listeTypeAbsence/')
           .then(res => {
               console.log(res.data);
               this.setState({types: res.data});
@@ -80,7 +80,7 @@ class TestAxios extends Component {
   }
 
   creerService() {
-    axios.post('http://localhost:8080/type/creerTypeAbsence/', {"nom": "TestReact"})
+    axios.post('/type/creerTypeAbsence/', {"nom": "TestReact"})
       .then(res => {
         console.log("Resultat du POST : " + res);
       });
