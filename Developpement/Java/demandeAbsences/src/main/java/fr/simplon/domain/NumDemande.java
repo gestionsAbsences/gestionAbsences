@@ -8,11 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Entity Employé
+ * Entity Numéro de demande
  * 
  * @author JGL
  *
  */
+
 
 @Entity
 @Table(name = "num_demande")
@@ -47,3 +48,4 @@ public class NumDemande {
 	
 
 }
+

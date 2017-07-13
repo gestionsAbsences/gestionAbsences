@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import fr.simplon.domain.User;
 import fr.simplon.domain.dto.UserDto;
 import fr.simplon.services.UserService;
@@ -176,5 +178,18 @@ public class UserController {
 		}
 		return ResponseEntity.ok("Suppression effectuée");
 	}
+	
+	@GetMapping("authUser")
+	public ResponseEntity<?> authenticate(@RequestBody ObjectNode auth) {	
+		String email = auth.get("email").asText();
+		String pass = auth.get("pass").asText();
+		UserDto userDto;
+		try {
+			userDto = userService.authUser(email,pass);
+		} catch (SQLException sqle) {
+			return ResponseEntity.badRequest().body(sqle);
+		}
+		return ResponseEntity.ok(userDto);
+}
 
 }
