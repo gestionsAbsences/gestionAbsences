@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import './nouvelledemande.css';
 
-let absenceDefaut="Choisir type d'absence";
+let absencePlaceholder="Choisir type d'absence";
 
 class NouvelleDemande extends Component {
 
@@ -89,6 +89,8 @@ class NouvelleDemande extends Component {
             matricule: this.props.employe.matricule
           })
       .then(res => {
+        console.log("Resultat création absence : ");
+        console.log(res.data);
       })
       .catch((error) => {
           console.log("Axios : Problème d'accès à la ressource /absence/creerAbsence/.");
@@ -97,12 +99,12 @@ class NouvelleDemande extends Component {
   }
 
   annuler = () => {
-    if (this.state.type===absenceDefaut && this.state.debut==="" && this.state.fin==="") {
+    if (this.state.type===absencePlaceholder && this.state.debut==="" && this.state.fin==="") {
       return;
     };
 
     this.setState({
-      type: absenceDefaut,
+      type: absencePlaceholder,
       debut: "",
       fin: ""
     });
@@ -123,7 +125,7 @@ class NouvelleDemande extends Component {
                   <label>Type d'absence</label>{/*'*/}{/* Factice Pour rectifier bug d'affichage sur Atom */}
 
                   <select className="form-control" value={this.state.type} selected={this.selectedId} onChange={this.handleTypeChange}>
-                    <option disabled>{absenceDefaut}</option>
+                    <option disabled>{absencePlaceholder}</option>
                     {this.state.types.map(
                       (type, i) =>
                       this.listeType(i, type.nom)
