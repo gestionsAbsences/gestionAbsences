@@ -27,24 +27,102 @@ class NouvelleDemande extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get('/type/listeTypeAbsence')
+    //Requête HTTP destinée au Back
+    axios({
+      method: 'get',
+      url: '/type/listeTypeAbsence',
+      data: {},
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      }
+    })
       .then(res => {
+
+        // Incorpore les données dans le State
         this.setState({
           types: res.data
         });
+        if (this.props.employe.modeDev) {
+          console.log("Requête satisfaite : ");
+          console.log(res);
+          console.log("");
+        }
       })
+      // Traitement des erreurs en mode de Dev.
       .catch((error) => {
-        console.log("Axios : Problème d'accès à la ressource /type/listeTypeAbsence.");
-    });
+        if (this.props.employe.modeDev) {
+          if (axios.isCancel(error)) {
+            console.log("La requête a été annulée :");
+            console.log('Request canceled', error.message);
+            console.log("");
+          } else if (error.response) {
+            console.log("La requête est transmise mais retourne une erreur <200 ou >=300 :");
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            console.log("");
+          } else if (error.request) {
+            console.log("La requête est transmise mais ne retourne pas de réponse : ");
+            console.log(error.request);
+            console.log("");
+          } else {
+            console.log("La requête n'a pu être transmise et déclenche une erreur : ");
+            console.log('Error', error.message);
+            console.log("");
+          }
+          console.log("Error.config : ");
+          console.log(error.config);
+          console.log("");
+        }
+      });
 
-    axios
-      .get('/statut/getStatutByCode?code=0')
+      //Requête HTTP destinée au Back
+    axios({
+      method: 'get',
+      url: '/statut/getStatutByCode?code=0',
+      data: {},
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      }
+    })
       .then(res => {
-           this.setState({statut: res.data.nom});
-         })
-       .catch((error) => {
-           console.log("Axios : Problème d'accès à la ressource /statut/getStatutByCode?code=0.");
+
+        // Incorpore les données dans le State
+        this.setState({statut: res.data.nom});
+        if (this.props.employe.modeDev) {
+          console.log("Requête satisfaite : ");
+          console.log(res);
+          console.log("");
+        }
+      })
+      // Traitement des erreurs en mode de Dev.
+      .catch((error) => {
+        if (this.props.employe.modeDev) {
+          if (axios.isCancel(error)) {
+            console.log("La requête a été annulée :");
+            console.log('Request canceled', error.message);
+            console.log("");
+          } else if (error.response) {
+            console.log("La requête est transmise mais retourne une erreur <200 ou >=300 :");
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            console.log("");
+          } else if (error.request) {
+            console.log("La requête est transmise mais ne retourne pas de réponse : ");
+            console.log(error.request);
+            console.log("");
+          } else {
+            console.log("La requête n'a pu être transmise et déclenche une erreur : ");
+            console.log('Error', error.message);
+            console.log("");
+          }
+          console.log("Error.config : ");
+          console.log(error.config);
+          console.log("");
+        }
       });
   }
 
@@ -79,23 +157,80 @@ class NouvelleDemande extends Component {
   }
 
   creerAbsence() {
-    axios
-      .post('/absence/creerAbsence/',
-          {
-            debut: this.state.debut,
-            fin: this.state.fin,
-            type: this.state.type,
-            statut: this.state.statut,
-            matricule: this.props.employe.matricule
-          })
+    // axios
+    //   .post('/absence/creerAbsence/',
+    //       {
+    //         debut: this.state.debut,
+    //         fin: this.state.fin,
+    //         type: this.state.type,
+    //         statut: this.state.statut,
+    //         matricule: this.props.employe.matricule
+    //       })
+    //   .then(res => {
+    //     console.log("Resultat création absence : ");
+    //     console.log(res.data);
+    //   })
+    //   .catch((error) => {
+    //       console.log("Axios : Problème d'accès à la ressource /absence/creerAbsence/.");
+    //       console.log(this.state.debut,this.state.fin,this.state.type,this.state.statut,this.props.employe.matricule);
+    //   });
+
+    //Requête HTTP destinée au Back
+    axios({
+      method: 'post',
+      url: '/absence/creerAbsence/',
+      data: {
+              debut: this.state.debut,
+              fin: this.state.fin,
+              type: this.state.type,
+              statut: this.state.statut,
+              matricule: this.props.employe.matricule
+            },
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      }
+    })
       .then(res => {
-        console.log("Resultat création absence : ");
-        console.log(res.data);
+
+        // Incorpore les données dans le State
+        this.setState({
+          types: res.data
+        });
+        if (this.props.employe.modeDev) {
+          console.log("Requête satisfaite : ");
+          console.log(res);
+          console.log("");
+        }
       })
+      // Traitement des erreurs en mode de Dev.
       .catch((error) => {
-          console.log("Axios : Problème d'accès à la ressource /absence/creerAbsence/.");
-          console.log(this.state.debut,this.state.fin,this.state.type,this.state.statut,this.props.employe.matricule);
+        if (this.props.employe.modeDev) {
+          if (axios.isCancel(error)) {
+            console.log("La requête a été annulée :");
+            console.log('Request canceled', error.message);
+            console.log("");
+          } else if (error.response) {
+            console.log("La requête est transmise mais retourne une erreur <200 ou >=300 :");
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            console.log("");
+          } else if (error.request) {
+            console.log("La requête est transmise mais ne retourne pas de réponse : ");
+            console.log(error.request);
+            console.log("");
+          } else {
+            console.log("La requête n'a pu être transmise et déclenche une erreur : ");
+            console.log('Error', error.message);
+            console.log("");
+          }
+          console.log("Error.config : ");
+          console.log(error.config);
+          console.log("");
+        }
       });
+
   }
 
   annuler = () => {

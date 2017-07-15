@@ -1,4 +1,50 @@
 {
+  "name": "gestionAbsences",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.16.1",
+    "bootstrap": "^3.3.7",
+    "cloudinary-react": "^1.0.3",
+    "datatables.net": "^1.10.9",
+    "datatables.net-autofill": "^2.2.0",
+    "datatables.net-autofill-dt": "^2.2.0",
+    "datatables.net-bs": "^1.10.10",
+    "datatables.net-buttons": "^1.3.1",
+    "datatables.net-buttons-dt": "^1.3.1",
+    "datatables.net-dt": "^1.10.9",
+    "datatables.net-fixedheader": "^3.0.0",
+    "datatables.net-fixedheader-bs": "^3.0.0",
+    "history": "^4.6.1",
+    "jquery": "^1.7",
+    "react": "^15.5.4",
+    "react-addons-css-transition-group": "^15.5.2",
+    "react-addons-transition-group": "^15.5.2",
+    "react-bootstrap": "^0.31.0",
+    "react-dom": "^15.5.4",
+    "react-marked": "^0.3.1",
+    "react-router": "^4.1.1",
+    "react-router-bootstrap": "^0.23.3",
+    "react-router-dom": "^4.1.1",
+    "react-transition-group": "^1.1.2",
+    "reactstrap": "^4.6.2",
+    "semantic-ui-css": "^2.2.10",
+    "semantic-ui-react": "^0.68.3"
+  },
+  "devDependencies": {
+    "react-scripts": "0.9.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "proxy": "http://127.0.0.1:8080"
+}
+
+
+{
   "name": "monapplireact",
   "version": "0.1.0",
   "private": true,

@@ -21,21 +21,63 @@ class ListeDemandes extends Component {
     }
   }
 
+  // Convertit la date du format aaaa-mm-dd vers le format dd/mm/aaaa
+  formatDate = (date) => {
+    let res;
+    res=date.substr(-2) + "/" + date.substr(5,2) + "/" + date.substr(0,4);
+    return res;
+  }
+
   componentDidMount () {
-    axios
-      .get('/validation/listeAbsences?equipe='+this.props.employe.nomEquipe)
+    //Requête HTTP destinée au Back
+    axios({
+      method: 'get',
+      url: '/validation/listeAbsences?equipe='+this.props.employe.nomEquipe,
+      data: {},
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      }
+    })
       .then(res => {
+
+        // Incorpore les données dans le State
         this.setState({
           validationAbs: res.data
         });
+        if (this.props.employe.modeDev) {
+          console.log("Requête satisfaite : ");
+          console.log(res);
+          console.log("");
+        }
       })
+      // Traitement des erreurs en mode de Dev.
       .catch((error) => {
-        console.log("Axios : Problème d'accès à la ressource /validation/listeAbsences?equipe="+this.props.employe.nomEquipe);
-    });
-    console.log("WillMount : ");
-    console.log(this.state.validationAbs);
-    console.log("Equipe : "+this.props.employe.nomEquipe);
-    console.log(this.props.employe);
+        if (this.props.employe.modeDev) {
+          if (axios.isCancel(error)) {
+            console.log("La requête a été annulée :");
+            console.log('Request canceled', error.message);
+            console.log("");
+          } else if (error.response) {
+            console.log("La requête est transmise mais retourne une erreur <200 ou >=300 :");
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            console.log("");
+          } else if (error.request) {
+            console.log("La requête est transmise mais ne retourne pas de réponse : ");
+            console.log(error.request);
+            console.log("");
+          } else {
+            console.log("La requête n'a pu être transmise et déclenche une erreur : ");
+            console.log('Error', error.message);
+            console.log("");
+          }
+          console.log("Error.config : ");
+          console.log(error.config);
+          console.log("");
+        }
+      });
   }
 
   trtValidation = (indice, absence) => {
@@ -48,47 +90,41 @@ class ListeDemandes extends Component {
         <td>{this.props.employe.nomResponsable}</td>
         <td>{this.props.employe.prenomResponsable}</td>
         <td>{absence.type}</td>
-        <td>{absence.debut}</td>
-        <td>{absence.fin}</td>
+        <td>{this.formatDate(absence.debut)}</td>
+        <td>{this.formatDate(absence.fin)}</td>
         <td>{absence.statut}</td>
         <td>{this.action(this.props.employe.role, absence.statut, absence.debut)}</td>
       </tr>;
-      console.log('trtValidation : '+this.props.employe.matricule, absence.matricule);
+      // console.log('trtValidation : '+this.props.employe.matricule, absence.matricule);
     }
     return res;
   }
 
-  action = (role, absence) => {
+  action = (role, absence, cas) => {
+    let lien;
     let laDate = new Date();
-    let laDateDuJour = laDate.getFullYear() +""+ ("0"+laDate.getMonth()).substr(-2) +""+ ("0"+laDate.getDate()).substr(-2);
-    let debut =  absence.debut.substr(0,4) + "" +  absence.debut.substr(5,2) + "" + absence.debut.substr(-2);
+    let laDateDuJour=laDate.getFullYear() +""+ ("0"+laDate.getMonth()).substr(-2) +""+ ("0"+laDate.getDate()).substr(-2);
+    let debut=absence.debut.substr(0,4) + "" +  absence.debut.substr(5,2) + "" + absence.debut.substr(-2);
     let relance="/absence/reflateAbsence?numDemande="+absence.numDemande;
     let annule="/absence/deleteAbsence?numDemande="+absence.numDemande;
-    let lien;
 
-    if (absence.statut==="Nouvelle demande" && role===0) {
+    if (absence.statut==="Nouvelle demande") {
       lien=<div><a href={relance}>Relancer</a> ou <a href={annule}>Annuler</a></div>;
     }
-    if (absence.statut==="En attente de validation du Responsable" && role===0) {
+    if (absence.statut==="En attente de validation du Responsable" && cas===1) {
       lien=<div><p><a href={relance}>Relancer</a> ou <a href={annule}>Annuler</a></p></div>;
     }
-    if (absence.statut==="En attente de décision RH" && role===0) {
-      lien=<div><a href={relance}>Relancer</a> ou <a href={annule}>Annuler</a></div>;
-    }
-    if (absence.statut==="Validé" && role===0 && debut>=laDateDuJour) {
-      lien=<div><a href={annule}>Annuler</a></div>;
-    }
-    if (absence.statut==="En attente de validation du Responsable" && role===1 && debut>=laDateDuJour) {
+    if (absence.statut==="En attente de validation du Responsable" && cas===2) {
       lien=<div><a href="/avishierarchique">Décider</a></div>;
     }
-    if (absence.statut==="En attente de décision RH" && role===1) {
+    if (absence.statut==="En attente de validation RH" && cas===1) {
       lien=<div><a href={relance}>Relancer</a> ou <a href={annule}>Annuler</a></div>;
     }
-    if (absence.statut==="Validé" && role===1 && debut>=laDateDuJour) {
-      lien=<div><a href={annule}>Annuler</a></div>;
-    }
-    if (absence.statut==="En attente de décision RH" && role===2) {
+    if (absence.statut==="En attente de validation RH" && cas===2) {
       lien=<div><a href="/avisrh">Décider</a></div>;
+    }
+    if (absence.statut==="Validé" && debut>=laDateDuJour && cas===1) {
+      lien=<div><a href={annule}>Annuler</a></div>;
     }
 
     return lien;
@@ -128,17 +164,17 @@ class ListeDemandes extends Component {
                       <td>{this.props.employe.nomResponsable}</td>
                       <td>{this.props.employe.prenomResponsable}</td>
                       <td>{absence.type}</td>
-                      <td>{absence.debut}</td>
-                      <td>{absence.fin}</td>
+                      <td>{this.formatDate(absence.debut)}</td>
+                      <td>{this.formatDate(absence.fin)}</td>
                       <td>{absence.statut}</td>
-                      <td>{this.action(this.props.employe.role, absence)}</td>
+                      <td>{this.action(this.props.employe.role, absence, 1)}</td>
                     </tr>
                   )
                 }
                 {
                   this.state.validationAbs.map(
                     (absence, i) =>
-                    this.trtValidation(i, absence)
+                    this.trtValidation(i, absence, 2)
                   )
                 }
               </tbody>{/*16 Fin */}

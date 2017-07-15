@@ -10,11 +10,12 @@ import BarDeNav from './BarDeNav/BarDeNav.js';
 import PiedPage from './PiedPage/PiedPage.js';
 import Pages from './Pages/Pages.js';
 
+let modeDev=true;
 let userEmail;
-// Ligne à occulter, sert à afficher l'environnement de Steven MERRIL
-userEmail="steven.merrill@entreprise.com";
-// userEmail="irene.blevins@entreprise.com";
 
+userEmail="irene.blevins@entreprise.com";
+userEmail="jacob.stevens@entreprise.com";
+ 
 class Site extends Component {
 
       constructor() {
@@ -38,7 +39,8 @@ class Site extends Component {
               nomResponsable:"",
               prenomResponsable:"",
               emailResponsable:"",
-              absences:[]
+              absences:[],
+              modeDev: modeDev
         }
       }
 
@@ -46,42 +48,136 @@ class Site extends Component {
         userEmail=valeur;
       }
 
+      // trtAxios = (method, url, data) => {
+      //   let resultat={};
+      //   axios({
+      //     method: method,
+      //     url: url,
+      //     data: data,
+      //     headers: {
+      //       'Access-Control-Allow-Origin': '*',
+      //       'Content-Type': 'application/json',
+      //     }
+      //   })
+      //     .then(res => {
+      //       resultat=res;
+      //       if (modeDev) {
+      //         console.log("Requête satisfaite : ");
+      //         console.log(res);
+      //         console.log("");
+      //       }
+      //     })
+      //     // Traitement des erreurs en mode de Dev.
+      //     .catch((error) => {
+      //       if (modeDev) {
+      //         if (axios.isCancel(error)) {
+      //           console.log("La requête a été annulée :");
+      //           console.log('Request canceled', error.message);
+      //           console.log("");
+      //         } else if (error.response) {
+      //           console.log("La requête est transmise mais retourne une erreur <200 ou >=300 :");
+      //           console.log(error.response.data);
+      //           console.log(error.response.status);
+      //           console.log(error.response.headers);
+      //           console.log("");
+      //         } else if (error.request) {
+      //           console.log("La requête est transmise mais ne retourne pas de réponse : ");
+      //           console.log(error.request);
+      //           console.log("");
+      //         } else {
+      //           console.log("La requête n'a pu être transmise et déclenche une erreur : ");
+      //           console.log('Error', error.message);
+      //           console.log("");
+      //         }
+      //         console.log("Error.config : ");
+      //         console.log(error.config);
+      //         console.log("");
+      //       }
+      //     });
+      //   return resultat;
+      // }
+
       // Traitement asynchrone dont le résultat est obtenu après récolte des données du back
       componentDidMount() {
+        let getMail;
+        if (modeDev) {
+          getMail=userEmail;
+        } else {
+          getMail=this.state.userEmail;
+        }
 
-          // Récupération des données du Back par requête HTTP
-           axios
-            .get('/user/getUser?email='+userEmail) //this.state.userEmail Type GET paramétré avec l'email.
-            .then(res => {
-                this.setState({ // Incorpore les données dans le State
-                  nom: res.data[0].employeDto.nom,
-                  prenom: res.data[0].employeDto.prenom,
-                  matricule: res.data[0].employeDto.matricule,
-                  email: res.data[0].employeDto.email,
-                  role: 7,
-                  // role: res.data[0].employeDto.role,
-                  nbCa: res.data[0].employeDto.nbCa,
-                  nbRtt: res.data[0].employeDto.nbRtt,
-                  nbRc: res.data[0].employeDto.nbRc,
-                  nomRh: res.data[0].employeDto.nomRh,
-                  emailRh: res.data[0].employeDto.emailRh,
-                  nomEquipe: res.data[0].employeDto.nomEquipe,
-                  nomResponsable: res.data[0].employeDto.nomResponsable,
-                  prenomResponsable: res.data[0].employeDto.prenomResponsable,
-                  emailResponsable: res.data[0].employeDto.emailResponsable,
-                  absences: res.data[0].absenceDto // Rappel : Absence est un tableau de données.
-              });
-            })
-            .catch((error) => {
-                console.log("Axios : Problème d'accès à la ressource /user/getUser?email="+userEmail+".");
+        //Récupération des données du Back par requête HTTP
+        axios({
+          method: 'get',
+          url: '/user/getUser?email='+getMail,
+          data: {},
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+          }
+        })
+          .then(res => {
+
+            // Incorpore les données dans le State
+            this.setState({
+              nom: res.data[0].employeDto.nom,
+              prenom: res.data[0].employeDto.prenom,
+              matricule: res.data[0].employeDto.matricule,
+              email: res.data[0].employeDto.email,
+              role: res.data[0].employeDto.role,
+              nbCa: res.data[0].employeDto.nbCa,
+              nbRtt: res.data[0].employeDto.nbRtt,
+              nbRc: res.data[0].employeDto.nbRc,
+              nomRh: res.data[0].employeDto.nomRh,
+              emailRh: res.data[0].employeDto.emailRh,
+              nomEquipe: res.data[0].employeDto.nomEquipe,
+              nomResponsable: res.data[0].employeDto.nomResponsable,
+              prenomResponsable: res.data[0].employeDto.prenomResponsable,
+              emailResponsable: res.data[0].employeDto.emailResponsable,
+              absences: res.data[0].absenceDto // Rappel : Absence est un tableau de données.
             });
-      }
-
-componentDidUpdate() {
-  console.log("Site State : ");
-  console.log(this.state);
-  console.log("");
-}
+            if (modeDev) {
+              this.setState({
+                role: 7
+              });
+              console.log("Role : ");
+              console.log(this.state.role);
+              console.log("");
+            }
+            if (modeDev) {
+              console.log("Requête satisfaite : ");
+              console.log(res);
+              console.log("");
+            }
+          })
+          // Traitement des erreurs en mode de Dev.
+          .catch((error) => {
+            if (modeDev) {
+              if (axios.isCancel(error)) {
+                console.log("La requête a été annulée :");
+                console.log('Request canceled', error.message);
+                console.log("");
+              } else if (error.response) {
+                console.log("La requête est transmise mais retourne une erreur <200 ou >=300 :");
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+                console.log("");
+              } else if (error.request) {
+                console.log("La requête est transmise mais ne retourne pas de réponse : ");
+                console.log(error.request);
+                console.log("");
+              } else {
+                console.log("La requête n'a pu être transmise et déclenche une erreur : ");
+                console.log('Error', error.message);
+                console.log("");
+              }
+              console.log("Error.config : ");
+              console.log(error.config);
+              console.log("");
+            }
+          });
+        }
 
     render() {
     return (
