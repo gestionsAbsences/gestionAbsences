@@ -95,7 +95,6 @@ class ListeDemandes extends Component {
         <td>{absence.statut}</td>
         <td>{this.action(this.props.employe.role, absence.statut, absence.debut)}</td>
       </tr>;
-      // console.log('trtValidation : '+this.props.employe.matricule, absence.matricule);
     }
     return res;
   }
@@ -103,7 +102,7 @@ class ListeDemandes extends Component {
   action = (role, absence, cas) => {
     let lien;
     let laDate = new Date();
-    let laDateDuJour=laDate.getFullYear() +""+ ("0"+laDate.getMonth()).substr(-2) +""+ ("0"+laDate.getDate()).substr(-2);
+    let laDateDuJour=laDate.getFullYear() +""+ ("0"+(laDate.getMonth()+1)).substr(-2) +""+ ("0"+laDate.getDate()).substr(-2);
     let debut=absence.debut.substr(0,4) + "" +  absence.debut.substr(5,2) + "" + absence.debut.substr(-2);
     let relance="/absence/reflateAbsence?numDemande="+absence.numDemande;
     let annule="/absence/deleteAbsence?numDemande="+absence.numDemande;
@@ -117,10 +116,10 @@ class ListeDemandes extends Component {
     if (absence.statut==="En attente de validation du Responsable" && cas===2) {
       lien=<div><a href="/avishierarchique">Décider</a></div>;
     }
-    if (absence.statut==="En attente de validation RH" && cas===1) {
+    if (absence.statut==="En attente de décision RH" && cas===1) {
       lien=<div><a href={relance}>Relancer</a> ou <a href={annule}>Annuler</a></div>;
     }
-    if (absence.statut==="En attente de validation RH" && cas===2) {
+    if (absence.statut==="En attente de décision RH" && cas===2) {
       lien=<div><a href="/avisrh">Décider</a></div>;
     }
     if (absence.statut==="Validé" && debut>=laDateDuJour && cas===1) {

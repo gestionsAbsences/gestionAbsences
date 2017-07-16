@@ -13,9 +13,14 @@ import Pages from './Pages/Pages.js';
 let modeDev=true;
 let userEmail;
 
-userEmail="irene.blevins@entreprise.com";
-userEmail="jacob.stevens@entreprise.com";
- 
+// userEmail="fred.couriol@laposte.fr";
+userEmail="le19111967@gmail.com";
+// userEmail="jeanlefrancois.simplon@gmail.com";
+// userEmail="jean.lefrancois@laposte.net";
+// userEmail="mokhtar.khider@gmail.com";
+
+// userEmail="lucas.guyon@entreprise.com"
+
 class Site extends Component {
 
       constructor() {
@@ -136,14 +141,14 @@ class Site extends Component {
               emailResponsable: res.data[0].employeDto.emailResponsable,
               absences: res.data[0].absenceDto // Rappel : Absence est un tableau de données.
             });
-            if (modeDev) {
-              this.setState({
-                role: 7
-              });
-              console.log("Role : ");
-              console.log(this.state.role);
-              console.log("");
-            }
+            // if (modeDev) {
+            //   this.setState({
+            //     role: 7
+            //   });
+            //   console.log("Role : ");
+            //   console.log(this.state.role);
+            //   console.log("");
+            // }
             if (modeDev) {
               console.log("Requête satisfaite : ");
               console.log(res);

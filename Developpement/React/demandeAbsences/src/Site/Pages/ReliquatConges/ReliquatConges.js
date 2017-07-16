@@ -8,13 +8,17 @@ class ReliquatConges extends Component {
   constructor(props) {
       super(props);
       this.state = {
-          employes: []
+          employes: [],
+          nbCollegues: -1,
+          nbMembres: 0
       }
   }
 
-  trtEmploye = (i,employe) => {
+  trtEquipe = (i,employe) => {
     let res;
-    if (this.props.employe.nomEquipe===employe.nomEquipe) {
+    // if (this.props.employe.email===employe.emailResponsable) {
+    if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable) {
+    // if (this.props.employe.nomEquipe===employe.nomEquipe || (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable)) {
       res=<tr key={i}>
         <td>{employe.nom}</td>
         <td>{employe.prenom}</td>
@@ -25,8 +29,6 @@ class ReliquatConges extends Component {
         <td className="text-center">{employe.nbRtt}</td>
         <td className="text-center">{employe.nbRc}</td>
       </tr>;
-      console.log("Nom équipe :");
-      console.log(this.props.employe.nomEquipe);
     }
     return res;
   }
@@ -89,7 +91,10 @@ class ReliquatConges extends Component {
       <div>
         <div className="panel panel-default">   {/*2   Formulaire */}
           <div className="panel-heading">   {/*3   Titre de la page */}
-            <h3 className="panel-title">Reliquat des congés de votre équipe</h3>
+            <h3 className="panel-title">
+              <span>Reliquat des congés de votre équipe</span>
+{/*              <span className="pull-right">Composition : 1 responsable, {this.state.nbCollegues} collatéraux, {this.state.nbMembres} collaborateurs</span> */}
+            </h3>
           </div>   {/*3   fin */}
           <div className="">   {/*14   Tableau */}
             <table className="table table-bordered table-hover table-striped tablesupmargebas">{/*   Cosmétique Tablesupmargebas, supprime la marge en bas du tableau */}{/* fin */}

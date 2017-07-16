@@ -5,6 +5,8 @@ import axios from 'axios';
 import './declareabsence.css';
 
 let absenceDefaut="Choisir type d'absence";
+let nomDefaut="Choisir nom de l'employé";
+let prenomDefaut="Choisir prenom de l'employé";
 
 class DeclareAbsence extends Component {
 
@@ -13,12 +15,14 @@ class DeclareAbsence extends Component {
     this.props = props;
     this.state={ // Définition des propriétés du State
       types: [],
-      noms: [],
-      prenoms: [],
+      employes: [],
       statut: '',
       nom: '',
       prenom: '',
       type: '',
+      nbCa: 0,
+      nbRtt: 0,
+      nbRc: 0,
       debut: '',
       fin: '',
       commentaire: '',
@@ -32,29 +36,155 @@ class DeclareAbsence extends Component {
     this.handleFinChange = this.handleFinChange.bind(this);
     this.handleCommentaireChange = this.handleCommentaireChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-}
+  }
 
-componentDidMount() {
-  axios
-    .get('/type/listeTypeAbsence')
-    .then(res => {
-      this.setState({
-        types: res.data
+  componentDidMount() {
+    //Requête HTTP destinée au Back
+    axios({
+      method: 'get',
+      url: '/type/listeTypeAbsence',
+      data: {},
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        }
+      })
+      .then(res => {
+
+        // Incorpore les données dans le State
+        this.setState({types: res.data});
+        if (this.props.employe.modeDev) {
+          console.log("Requête satisfaite : ");
+          console.log(res);
+          console.log("");
+        }
+      })
+      // Traitement des erreurs en mode de Dev.
+      .catch((error) => {
+        if (this.props.employe.modeDev) {
+          if (axios.isCancel(error)) {
+            console.log("La requête a été annulée :");
+            console.log('Request canceled', error.message);
+            console.log("");
+          } else if (error.response) {
+            console.log("La requête est transmise mais retourne une erreur <200 ou >=300 :");
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            console.log("");
+          } else if (error.request) {
+            console.log("La requête est transmise mais ne retourne pas de réponse : ");
+            console.log(error.request);
+            console.log("");
+          } else {
+            console.log("La requête n'a pu être transmise et déclenche une erreur : ");
+            console.log('Error', error.message);
+            console.log("");
+          }
+          console.log("Error.config : ");
+          console.log(error.config);
+          console.log("");
+        }
       });
-    })
-    .catch((error) => {
-      console.log("Axios : Problème d'accès à la ressource /type/listeTypeAbsence.");
-  });
 
-  axios
-    .get('/statut/getStatutByCode?code=0')
-    .then(res => {
-         this.setState({statut: res.data.nom});
-       })
-     .catch((error) => {
-         console.log("Axios : Problème d'accès à la ressource /statut/getStatutByCode?code=0.");
-    });
-}
+    //Requête HTTP destinée au Back
+    axios({
+      method: 'get',
+      url: '/statut/getStatutByCode?code=0',
+      data: {},
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        }
+      })
+      .then(res => {
+
+        // Incorpore les données dans le State
+        this.setState({statut: res.data.nom});
+        if (this.props.employe.modeDev) {
+          console.log("Requête satisfaite : ");
+          console.log(res);
+          console.log("");
+        }
+      })
+      // Traitement des erreurs en mode de Dev.
+      .catch((error) => {
+        if (this.props.employe.modeDev) {
+          if (axios.isCancel(error)) {
+            console.log("La requête a été annulée :");
+            console.log('Request canceled', error.message);
+            console.log("");
+          } else if (error.response) {
+            console.log("La requête est transmise mais retourne une erreur <200 ou >=300 :");
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            console.log("");
+          } else if (error.request) {
+            console.log("La requête est transmise mais ne retourne pas de réponse : ");
+            console.log(error.request);
+            console.log("");
+          } else {
+            console.log("La requête n'a pu être transmise et déclenche une erreur : ");
+            console.log('Error', error.message);
+            console.log("");
+          }
+          console.log("Error.config : ");
+          console.log(error.config);
+          console.log("");
+        }
+      });
+
+    //Requête HTTP destinée au Back
+    axios({
+      method: 'get',
+      url: '/emp/listeEmployes',
+      data: {},
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        }
+      })
+      .then(res => {
+
+        // Incorpore les données dans le State
+        this.setState({employess: res.data});
+
+        if (this.props.employe.modeDev) {
+          console.log("Requête satisfaite : ");
+          console.log(res);
+          console.log("");
+        }
+      })
+      // Traitement des erreurs en mode de Dev.
+      .catch((error) => {
+        if (this.props.employe.modeDev) {
+          if (axios.isCancel(error)) {
+            console.log("La requête a été annulée :");
+            console.log('Request canceled', error.message);
+            console.log("");
+          } else if (error.response) {
+            console.log("La requête est transmise mais retourne une erreur <200 ou >=300 :");
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            console.log("");
+          } else if (error.request) {
+            console.log("La requête est transmise mais ne retourne pas de réponse : ");
+            console.log(error.request);
+            console.log("");
+          } else {
+            console.log("La requête n'a pu être transmise et déclenche une erreur : ");
+            console.log('Error', error.message);
+            console.log("");
+          }
+          console.log("Error.config : ");
+          console.log(error.config);
+          console.log("");
+        }
+      });
+
+  }
 
   listeType = (indice, type) => {
     let res;
@@ -64,33 +194,27 @@ componentDidMount() {
     return res;
   }
 
-  trtNom = (filtre) => {
+  selectNom = (i, employe, filtre) => {
     let res;
-    if (filtre==="") {
-      res=<input className="form-control" placeholder="Nom de l'employé" onChange={this.handleNomChange} />;
-    } else {
-      axios
-      .get('/emp/getEmploye?nom='+filtre)
-      .then(res => {
-        this.setState({
-          noms: res.data
-        });
-      })
-      .catch((error) => {
-        console.log("Axios : Problème d'accès à la ressource /type/listeTypeAbsence.");
-      });
-      res=<select className="form-control" value={this.state.nom} onChange={this.handleNomChange}>
-        {this.state.noms.map(
-          (nom, i) =>
-          <option key={i} id={i}>{nom}</option>
-        )}
-        </select>;
+    console.log("Etape1");
+    if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable) {
+      res=<option key={i}>{employe.nom}</option>
+      console.log("Etape2");
+    }
+    return res;
+  }
+
+  selectPrenom = (i, employe, filtre) => {
+    let res;
+    console.log("Etape1");
+    if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable) {
+      console.log("Etape2");
+      res=<option key={i} id={i}>{employe.prenom}</option>
     }
     return res;
   }
 
   handleNomChange = (event) => {
-    // let nom=event.target.value;
     this.setState({nom: event.target.value});
   }
 
@@ -129,7 +253,7 @@ componentDidMount() {
       });
       console.log("CréerAbsence :");
       console.log(this.state);
-  this.creerAbsence();
+      this.creerAbsence();
   }
 
   creerAbsence() {
@@ -174,13 +298,24 @@ componentDidMount() {
             <div className="row">
               <div className="col-md-4 col-md-offset-1">   {/*6   Formulaire Partie gauche */}
                 <div className="form-group">   {/*7   Un des champs select du Formulaire */}
-                  <label>Nom de l'employé</label>                                       {/*'*/}
-                  {this.trtNom("")}
-{/*                  <input className="form-control" placeholder="Nom de l'employé" onChange={this.handleNomChange} /> */}
+                  <label>Nom de l'employé</label>{/*'*/}
+                  <select className="form-control" value={this.state.nom} selected={this.selectedId} onChange={this.handleNomChange}>
+                    <option id="0" disabled>{nomDefaut}</option>
+                    {this.state.employes.map(
+                      (employe, i) =>
+                      this.selectNom(i, employe, this.state.nom)
+                    )}
+                  </select>
                 </div>   {/*7   fin */}
                 <div className="form-group">
-                  <label>Prénom de l'employé</label>                                     {/*'*/}
-                  <input className="form-control" placeholder="Prénom de l'employé" onChange={this.handlePrenomChange} />
+                  <label>Prénom de l'employé</label>{/*'*/}
+                  <select className="form-control" value={this.state.prenom} selected={this.selectedId} onChange={this.handlePrenomChange}>
+                    <option id="0" disabled>{prenomDefaut}</option>
+                    {this.state.employes.map(
+                      (employe, i) =>
+                      this.selectPrenom(i, employe, this.state.prenom)
+                    )}
+                  </select>
                 </div>
                 <div className="form-group">
                   <label>Type d'absence</label>                                           {/*'*/}

@@ -2,22 +2,25 @@ package fr.simplon.controller;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+//import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -58,16 +61,16 @@ public class AbsenceController {
 	 * 
 	 */
 //	@PreAuthorize(AuthConstantes.SERVICERH + " or " + AuthConstantes.RESPONSABLE)
-//	@GetMapping("/listeAbsence") //raccourci pour la méthode : @RequestMapping(value = "/listeAbsence", method = RequestMethod.GET
-//	public ResponseEntity<?> findAll() {
-//		List<AbsenceDto> absence;
-//		try {
-//			absence =absenceService.listeServicesAbsence();
-//		} catch (SQLException sqle) {
-//			return ResponseEntity.badRequest().body(sqle);
-//		}
-//		return ResponseEntity.ok(absence);
-//	}
+	@GetMapping("/listeAbsence") //raccourci pour la méthode : @RequestMapping(value = "/listeAbsence", method = RequestMethod.GET
+	public ResponseEntity<?> findAll() {
+		List<AbsenceDto> absence;
+		try {
+			absence =absenceService.listeServicesAbsence();
+		} catch (SQLException sqle) {
+			return ResponseEntity.badRequest().body(sqle);
+		}
+		return ResponseEntity.ok(absence);
+	}
 
 	/**
 	 * 
@@ -85,16 +88,16 @@ public class AbsenceController {
 	 */
 
 //	@PreAuthorize(AuthConstantes.EMPLOYE + " or " + AuthConstantes.RESPONSABLE + " or " + AuthConstantes.SERVICERH)
-//	@GetMapping("/getAbsenceById")
-//	public ResponseEntity<?> findById(@RequestParam(value = "id", defaultValue = "") Long id) {
-//		List<AbsenceDto> absence;
-//		try {
-//			absence =absenceService.getAbsenceById(id);
-//		} catch (SQLException sqle) {
-//			return ResponseEntity.badRequest().body(sqle);
-//		}
-//		return ResponseEntity.ok(absence);
-//	}
+	@GetMapping("/getAbsenceById")
+	public ResponseEntity<?> findById(@RequestParam(value = "id", defaultValue = "") Long id) {
+		List<AbsenceDto> absence;
+		try {
+			absence =absenceService.getAbsenceById(id);
+		} catch (SQLException sqle) {
+			return ResponseEntity.badRequest().body(sqle);
+		}
+		return ResponseEntity.ok(absence);
+	}
 	
 	/**
 	 * 
@@ -112,16 +115,16 @@ public class AbsenceController {
 	 */
 
 //	@PreAuthorize(AuthConstantes.EMPLOYE + " or " + AuthConstantes.RESPONSABLE + " or " + AuthConstantes.SERVICERH)
-//	@GetMapping("/getAbsenceByNum")
-//	public ResponseEntity<?> findById(@RequestParam(value = "numDemande", defaultValue = "") String numDemande) {
-//		AbsenceDto absenceDto;
-//		try {
-//			absenceDto =absenceService.getAbsenceByNumero(numDemande);
-//		} catch (SQLException sqle) {
-//			return ResponseEntity.badRequest().body(sqle);
-//		}
-//		return ResponseEntity.ok(absenceDto);
-//	}
+	@GetMapping("/getAbsenceByNum")
+	public ResponseEntity<?> findById(@RequestParam(value = "numDemande", defaultValue = "") String numDemande) {
+		AbsenceDto absenceDto;
+		try {
+			absenceDto =absenceService.getAbsenceByNumero(numDemande);
+		} catch (SQLException sqle) {
+			return ResponseEntity.badRequest().body(sqle);
+		}
+		return ResponseEntity.ok(absenceDto);
+	}
 
 	/**
 	 * Création d'une nouvelle absence

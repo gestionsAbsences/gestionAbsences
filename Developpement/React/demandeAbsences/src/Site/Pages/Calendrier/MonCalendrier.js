@@ -53,6 +53,7 @@ class MonCalendrier extends Component {
           <div className="VOffSetBasPages">&nbsp;</div>   {/*12   Cosmétique d'unee marge au dessus des boutons */}{/*12   fin */}
         </div>
         <div className="VOffSetBasPages">&nbsp;</div>   {/*12   Cosmétique d'unee marge au dessus des boutons */}{/*12   fin */}
+        <div><p id="matricule" className="invisible">{this.props.employe.matricule}</p><p id="email" className="invisible">{this.props.employe.email}</p></div>
       </div>
     );
   }
