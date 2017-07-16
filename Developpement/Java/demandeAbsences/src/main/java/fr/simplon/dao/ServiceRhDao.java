@@ -17,6 +17,6 @@ public interface ServiceRhDao extends JpaRepository<ServiceRh, Long>{
 	 */
 	 List<ServiceRh> findByNomContaining(String name);
 	
-	List<ServiceRh> findByEmailContaining(String email);
+	ServiceRh findByEmail(String email);
 	
 }

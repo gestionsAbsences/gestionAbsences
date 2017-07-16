@@ -6,19 +6,19 @@ package fr.simplon.webSecurity.utils;
 
 public enum AuthEnum {
 	
-	NOAUTH(0),
-	EMPLOYE(1),
-	RESPONSABLE(2),
-	SERVICERH(3),
-	ADMIN(4);
+	NOAUTH("0"),
+	EMPLOYE("1"),
+	RESPONSABLE("2"),
+	SERVICERH("3"),
+	ADMIN("4");
 	
-	private int auth;
+	private String auth;
 	
-	private AuthEnum(int auth) {
+	private AuthEnum(String auth) {
 		this.auth= auth;
 	}
 
-	public int getAuth() {
+	public String getAuth() {
 		return auth;
 	}
 	

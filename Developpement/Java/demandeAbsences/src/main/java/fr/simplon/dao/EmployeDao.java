@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import fr.simplon.domain.Employe;
 import fr.simplon.domain.Equipe;
+import fr.simplon.domain.ServiceRh;
 
 /**
  * Interface du CRUD
@@ -35,4 +36,6 @@ public interface EmployeDao extends JpaRepository<Employe, Long> {
 
 	
 	List<Employe> findByEquipe(Equipe id);
+
+	List<Employe> findByServiceRh(ServiceRh id);
 }

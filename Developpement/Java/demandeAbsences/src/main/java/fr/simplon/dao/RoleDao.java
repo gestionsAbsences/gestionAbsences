@@ -17,6 +17,6 @@ public interface RoleDao extends JpaRepository<Role, Long> {
 	 * @return liste de roles
 	 */
 
-	List<Role> findByValeur(int valeur);
+	List<Role> findByValeur(String valeur);
 
 }

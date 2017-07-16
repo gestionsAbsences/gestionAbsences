@@ -1,7 +1,9 @@
 package fr.simplon.webSecurity;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import fr.simplon.webSecurity.configuration.AuthEntryPoint;
@@ -12,6 +14,8 @@ import fr.simplon.webSecurity.configuration.AuthSuccessHandler;
 /**
  * Securité de l'application
  */
+@Configuration
+@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired	
@@ -41,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   				.failureHandler(authFailureHandler)
   		.and()
   			.authorizeRequests()
-  			.antMatchers("/api/**").authenticated()
+  			.antMatchers("/absence/**").authenticated()
   		.and()
 	  		.logout()
 	  			.logoutSuccessHandler(authOutSuccessHandler)

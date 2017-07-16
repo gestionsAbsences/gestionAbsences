@@ -4,6 +4,9 @@
     <#include "/include/entete.ftl">
 
         <!--START OF BODY-->
+        <div style="color:red; font-size: 1.2em;">
+        	<em>RELANCE</em>
+        </div>        	
 
         <div style="padding: 15px 15px 30px 15px; font-family: Verdana, Arial, Helvetica, sans-serif; font-size:1em; background-color: #fff; color:#333;">
             <p>Bonjour</p>
