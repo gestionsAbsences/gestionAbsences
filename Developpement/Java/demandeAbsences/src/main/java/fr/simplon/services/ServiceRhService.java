@@ -79,7 +79,7 @@ public class ServiceRhService {
 	public ServiceRh insertServiceRh(ServiceRh serviceRh) throws SQLException {
 		ServiceRh creationRh = new ServiceRh();
 		try {
-			if(!rhDao.findByEmailContaining(serviceRh.getEmail()).isEmpty()){
+			if(rhDao.findByEmail(serviceRh.getEmail()).equals(serviceRh)){
 				throw new EmailException();
 			} else {
 				creationRh = rhDao.save(serviceRh);

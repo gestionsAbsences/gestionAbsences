@@ -27,7 +27,7 @@ public class Role {
 
 	@Column(name = "valeur")
 	@NotNull(message = "Valeur obligatoire")
-	private int valeur;
+	private String valeur;
 
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "role")
 	@JsonBackReference
@@ -44,11 +44,11 @@ public class Role {
 		this.id = id;
 	}
 
-	public int getValeur() {
+	public String getValeur() {
 		return valeur;
 	}
 
-	public void setValeur(int valeur) {
+	public void setValeur(String valeur) {
 		this.valeur = valeur;
 	}
 

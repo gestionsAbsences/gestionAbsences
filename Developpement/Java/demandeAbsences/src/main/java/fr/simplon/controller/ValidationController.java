@@ -34,6 +34,11 @@ public class ValidationController {
 	@Autowired
 	ValidationService validationService;
 	
+	/**
+	 * Liste des absences pour le responsable
+	 * @param equipe
+	 * @return
+	 */
 	@GetMapping("/listeAbsences") 
 	public ResponseEntity<?> findAll(@RequestParam(value = "equipe", defaultValue = "") String equipe) {
 		List<AbsenceDto> absenceDto;
@@ -46,6 +51,23 @@ public class ValidationController {
 	}
 	
 	/**
+	 * Liste des absences pour le service RH
+	 * @param equipe
+	 * @return
+	 */
+	@GetMapping("/listeAbsencesRh") 
+	public ResponseEntity<?> findAllRh(@RequestParam(value = "email", defaultValue = "") String email) {
+		List<AbsenceDto> absenceDto;
+		try {
+			absenceDto =validationService.listeValidationRh(email);
+		} catch (SQLException sqle) {
+			return ResponseEntity.badRequest().body(sqle);
+		}
+		return ResponseEntity.ok(absenceDto);
+	}
+
+	
+	/**
 	 * Trairement des absences
 	 * @param json
 	 * @return
@@ -56,10 +78,11 @@ public class ValidationController {
 	@PutMapping(value = "/validationAbsence")
 	public ResponseEntity<?> update(@RequestBody ObjectNode json) throws Exception {
 		String numDemande = json.get("numDemande").asText();
+		String commentaire = json.get("commentaire").asText();
 		String validation = json.get("validation").asText();
 		AbsenceDto absenceDto;
 		try {
-			absenceDto = validationService.updateValidation(numDemande, validation);
+			absenceDto = validationService.updateValidation(numDemande, commentaire, validation);
 			
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);

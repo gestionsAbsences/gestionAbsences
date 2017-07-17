@@ -5,7 +5,7 @@ import java.util.List;
 public class UserDto {
 	
 	private String email;
-	private int role;
+	private String role;
 	private EmployeDto employeDto;
 	private List<AbsenceDto> absenceDto;
 	
@@ -21,11 +21,11 @@ public class UserDto {
 		this.email = email;
 	}
 
-	public int getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(int role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 
