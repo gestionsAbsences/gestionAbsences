@@ -247,7 +247,7 @@ class NouvelleDemande extends Component {
 
   render() {
     return (
-      <form action="" onSubmit={this.handleSubmit}>
+      <form action="POST" onSubmit={this.handleSubmit}>
         <div className="panel panel-default">   {/*2   Formulaire */}
           <div className="panel-heading">   {/*3   Titre de Formulaire */}
             <h3 className="panel-title">Nouvelle demande</h3>

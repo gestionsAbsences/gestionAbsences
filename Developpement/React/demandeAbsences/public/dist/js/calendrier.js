@@ -15,9 +15,7 @@ var listeAbsences = [];
 var ConfJoursReposHebdo;
 var ConfFeriesTravailles;
 
-var matricule=$('#matricule').val();
-console.log($("#matricule").text());
-console.log(matricule);
+var matricule;
 
 // var idUser;
 
@@ -88,14 +86,15 @@ $(document).ready(function() {
 	// // Le traitement Ajax étant asynchrone par rapport à JS, la routine ci-dessous permet d'exécuter le block
 	// // une fois la récupération des données est complète.
 	$(document).ajaxStop(function () {
-
-		console.log("Liste absences : ");
-		console.log(listeAbsences);
-		console.log("");
-
 		afficherCalendrier();
 		afficheLegend();
 	});
+
+
+			// console.log("Liste absences : ");
+			// console.log(absences);
+			// console.log("");
+
 
 	// Gestion du bouton gauche décalant d'un mois en arrière le calendrier.
 	$('#leftcalendrier').click(function(){ // Gestion du bouton Aller à Gauche
@@ -269,6 +268,7 @@ function calendrierPerso() {          // Permet d'afficher le calendrier personn
 		html += "</tr>";
 		$(idCalendrierHtml).append(html);
 		for (var i = 0; i < users.length; i++) {
+			if (users[i].nomResponsable=="COURIOL" && users[i].prenomResponsable=="Jean-Marc") {
 			bord=" borderL borderR";
 			if ((i+1) == users.length) {bord += " borderB";}
 			html = '<tr><td class="bleuUser' + bord + '">' + users[i].nom + " " + users[i].prenom + "</td>";
@@ -287,13 +287,14 @@ function calendrierPerso() {          // Permet d'afficher le calendrier personn
 			html += "</tr>";
 			$(idCalendrierHtml).append(html);
 		}
+		}
 	}
 
 	function couleurCase(date, id) {
 		var coulR = couleur;
 		var listeCoulR = ["rouge", "bleu", "vert", "mauve"];
 		var intensite = ["Estompe", ""];
-		console.log(id);
+		// console.log(id);
 		jour = date.getDay() - 1;
 		if (jour < 0) {jour = 6;}
 		if ((ConfJoursReposHebdo & Math.pow(2, jour)) == Math.pow(2, jour)) {return "gris";}

@@ -13,8 +13,8 @@ import Pages from './Pages/Pages.js';
 let modeDev=true;
 let userEmail;
 
-// userEmail="fred.couriol@laposte.fr";
-userEmail="le19111967@gmail.com";
+userEmail="fred.couriol@laposte.fr";
+// userEmail="le19111967@gmail.com";
 // userEmail="jeanlefrancois.simplon@gmail.com";
 // userEmail="jean.lefrancois@laposte.net";
 // userEmail="mokhtar.khider@gmail.com";
