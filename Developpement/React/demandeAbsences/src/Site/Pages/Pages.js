@@ -115,6 +115,8 @@ AvisRh = () => {
               <Switch> {/* Switch permet de limiter le render uniquement au premier path satisfait */}
 
                 {/* Les path exprimés sont en réalité à précéder de //localhost:3000 */}
+                <Route exact path="/login"                 render={this.Authentification} />
+                <Route exact path="/logout"                render={this.Authentification} />
                 <Route exact path="/accueil"               render={this.ListeDemandes} />
                 <Route exact path="/listedemandes"         render={this.ListeDemandes} />
                 <Route exact path="/nouvelledemande"       render={this.NouvelleDemande} />

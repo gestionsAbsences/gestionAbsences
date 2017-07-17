@@ -10,11 +10,13 @@ import BarDeNav from './BarDeNav/BarDeNav.js';
 import PiedPage from './PiedPage/PiedPage.js';
 import Pages from './Pages/Pages.js';
 
-let modeDev=true;
 let userEmail;
 
-userEmail="fred.couriol@laposte.fr";
-// userEmail="le19111967@gmail.com";
+let modeDev=true;
+let modeDemo=true;
+
+// userEmail="fred.couriol@laposte.fr";
+userEmail="le19111967@gmail.com";
 // userEmail="jeanlefrancois.simplon@gmail.com";
 // userEmail="jean.lefrancois@laposte.net";
 // userEmail="mokhtar.khider@gmail.com";
@@ -45,7 +47,8 @@ class Site extends Component {
               prenomResponsable:"",
               emailResponsable:"",
               absences:[],
-              modeDev: modeDev
+              modeDev: modeDev,
+              modeDemo: modeDemo
         }
       }
 
@@ -53,58 +56,10 @@ class Site extends Component {
         userEmail=valeur;
       }
 
-      // trtAxios = (method, url, data) => {
-      //   let resultat={};
-      //   axios({
-      //     method: method,
-      //     url: url,
-      //     data: data,
-      //     headers: {
-      //       'Access-Control-Allow-Origin': '*',
-      //       'Content-Type': 'application/json',
-      //     }
-      //   })
-      //     .then(res => {
-      //       resultat=res;
-      //       if (modeDev) {
-      //         console.log("Requête satisfaite : ");
-      //         console.log(res);
-      //         console.log("");
-      //       }
-      //     })
-      //     // Traitement des erreurs en mode de Dev.
-      //     .catch((error) => {
-      //       if (modeDev) {
-      //         if (axios.isCancel(error)) {
-      //           console.log("La requête a été annulée :");
-      //           console.log('Request canceled', error.message);
-      //           console.log("");
-      //         } else if (error.response) {
-      //           console.log("La requête est transmise mais retourne une erreur <200 ou >=300 :");
-      //           console.log(error.response.data);
-      //           console.log(error.response.status);
-      //           console.log(error.response.headers);
-      //           console.log("");
-      //         } else if (error.request) {
-      //           console.log("La requête est transmise mais ne retourne pas de réponse : ");
-      //           console.log(error.request);
-      //           console.log("");
-      //         } else {
-      //           console.log("La requête n'a pu être transmise et déclenche une erreur : ");
-      //           console.log('Error', error.message);
-      //           console.log("");
-      //         }
-      //         console.log("Error.config : ");
-      //         console.log(error.config);
-      //         console.log("");
-      //       }
-      //     });
-      //   return resultat;
-      // }
-
       // Traitement asynchrone dont le résultat est obtenu après récolte des données du back
       componentDidMount() {
         let getMail;
+
         if (modeDev) {
           getMail=userEmail;
         } else {
@@ -141,14 +96,13 @@ class Site extends Component {
               emailResponsable: res.data[0].employeDto.emailResponsable,
               absences: res.data[0].absenceDto // Rappel : Absence est un tableau de données.
             });
-            // if (modeDev) {
-            //   this.setState({
-            //     role: 7
-            //   });
-            //   console.log("Role : ");
-            //   console.log(this.state.role);
-            //   console.log("");
-            // }
+
+            if (modeDev) {
+              this.setState({
+                role: 7
+              });
+            }
+
             if (modeDev) {
               console.log("Requête satisfaite : ");
               console.log(res);

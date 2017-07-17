@@ -9,6 +9,7 @@ class ModifMotDePasse extends Component {
       <div className="">
         <div className="">
           <div className="col-md-4 col-md-offset-4">
+          <div className="voffsetauth">&nbsp;</div> {/* Sert à créer un décalage vers le bas voir le CSS */}
             <div className="login-panel panel panel-default">
               <div className="panel-heading">
                 <h3 className="panel-title">Modification de votre mot de passe</h3>

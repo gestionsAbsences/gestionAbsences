@@ -85,6 +85,7 @@ componentDidMount () {
   render() {
     return (
       <div className="col-md-4 col-md-offset-4">
+      <div className="voffsetauth">&nbsp;</div> {/* Sert à créer un décalage vers le bas voir le CSS */}
         <div className="login-panel panel panel-default">
           <div className="panel-heading">
             <h3 className="panel-title">Authentification</h3>
