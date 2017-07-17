@@ -4,9 +4,9 @@ import axios from 'axios';
 
 import './declareabsence.css';
 
-let absenceDefaut="Choisir type d'absence";
+let typeDefaut="Choisir type d'absence";
 let nomDefaut="Choisir nom de l'employé";
-let prenomDefaut="Choisir prenom de l'employé";
+let prenomDefaut="Choisir prénom de l'employé";
 
 class DeclareAbsence extends Component {
 
@@ -275,12 +275,12 @@ class DeclareAbsence extends Component {
   }
 
   annuler = () => {
-    if (this.state.type===absenceDefaut && this.state.debut==="" && this.state.fin==="") {
+    if (this.state.type===typeDefaut && this.state.debut==="" && this.state.fin==="") {
       return;
     };
 
     this.setState({
-      type: absenceDefaut,
+      type: typeDefaut,
       debut: "",
       fin: ""
     });
@@ -320,7 +320,7 @@ class DeclareAbsence extends Component {
                 <div className="form-group">
                   <label>Type d'absence</label>                                           {/*'*/}
                   <select className="form-control" value={this.state.type} selected={this.selectedId} onChange={this.handleTypeChange}>
-                    <option id="0" disabled>{absenceDefaut}</option>
+                    <option id="0" disabled>{typeDefaut}</option>
                     {this.state.types.map(
                       (type, i) =>
                       this.listeType(i, type.nom)
