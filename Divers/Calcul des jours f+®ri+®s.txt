@@ -1,0 +1,49 @@
+Function Paques(Annee As Integer) As Date
+	A = Annee Mod 19
+	B = Annee Mod 4
+	C = Annee Mod 7
+	D = ((A * 19) + 24) Mod 30
+	If D = 29 Then D = 28
+	If D = 28 And A > 10 Then D = 27
+	E = ((2 * B) + (4 * C) + (6 * D) + 5) Mod 7
+	If D + E >= 10 Then 
+		Paques = CDate(Trim(Str(D + E - 9)) + "/04/" + Trim(Str(Annee))) 
+	  Else 
+		Paques = CDate(Trim(Str(22 + D + E)) + "/03/" + Trim(Str(Annee)))
+	End If
+End Function
+
+
+Function JourNonTravaillé(Dat As Date) As Boolean
+	Dim Pak As Date
+	Dim Année As String
+	Dim i As Integer
+	Dim Jours(13) As Date
+	Année = Trim(Str(Year(Dat)))
+	Pak = Paques(Year(Dat))
+
+	Rem ***** Liste des jours fériés *****
+	Jours(1) = CDate("01/01/" + Année)   Rem Jour de l'an
+	Jours(2) = Pak                       Rem Paques
+	Jours(3) = Pak + 1                   Rem Lundi de paques
+	Jours(4) = CDate("01/05/" + Année)   Rem 1er mai
+	Jours(5) = CDate("08/05/" + Année)   Rem Armistice du 8 mai
+ 	Jours(6) = Pak + 39                  Rem Ascension
+	Jours(7) = Pak + 49                  Rem Pentecote
+	Jours(8) = Pak + 50                  Rem Lundi de pentecote
+	Jours(9) = CDate("14/07/" + Année)   Rem Fete nationale
+	Jours(10) = CDate("15/08/" + Année)  Rem Asomption
+	Jours(11) = CDate("01/11/" + Année)  Rem Toussaint
+	Jours(12) = CDate("11/11/" + Année)  Rem Armistice du 11 novembre
+	Jours(13) = CDate("25/12/" + Année)  Rem Noel
+	JourNonTravaillé = False
+	For i = 1 To 13
+	  If Dat = Jours(i) Then JourNonTravaillé = True
+	Next
+
+	Rem ***** Samedi et dimanche *****
+	If Not JourNonTravaillé Then
+	  i = Weekday(Dat, vbMonday)
+	  If i > 5 Then JourNonTravaillé = True   Rem Samedi ou dimanche
+	End If
+End Function

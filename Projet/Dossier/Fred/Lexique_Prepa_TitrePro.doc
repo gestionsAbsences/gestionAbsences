@@ -1,0 +1,399 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>Lexique_Prepa_TitrePro</title>
+	<meta name="generator" content="LibreOffice 4.3.3.2 (Linux)"/>
+	<meta name="author" content="Etherpad"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changedby" content="Etherpad"/>
+	<meta name="changed" content="00:00:00"/>
+	<meta name="" content=""/>
+	<meta name="changedby" content="Etherpad">
+	<style type="text/css">
+		h3 { line-height: 120% }
+		h4 { line-height: 120% }
+	</style>
+</head>
+<body lang="en-US" dir="ltr" style="background: transparent">
+<p><br/>
+<br/>
+
+</p>
+<ul>
+	<ul>
+		<ul>
+			<li/>
+<p>Lexique :</p>
+		</ul>
+	</ul>
+</ul>
+<p><br/>
+<br/>
+
+</p>
+<ul>
+	<li/>
+<p style="margin-bottom: 0in">Design Pattern : c'est un modèle
+	de développement pour solutionner un problème (organiser le code)&nbsp;
+	- Autre terme : Patron de conception</p>
+	<li/>
+<p style="margin-bottom: 0in">REST : norme d'architecture basé
+	sur Ajax/Json, architecture de communication entre client et serveur
+	(qui sont indépendants ou découplés).</p>
+	<li/>
+<p style="margin-bottom: 0in">SOAP : Par opposition au REST,
+	le Front formule une requête, e Back lui restitue une page HTML
+	(avec données). SOAP est employé en JSP et PHP</p>
+	<li/>
+<p style="margin-bottom: 0in">IoC : Inversion Of Control ...</p>
+	<li/>
+<p>3-Tiers: un client, un seLe responsable SI me dit qu'il est
+	possible d'activer Windows 10 à l'aide d'une clé Windows 7 ou
+	8.querveur et un serveur de base de données (Tiers étant un acteur
+	non physique durant l'exécution) - Client/Serveur correspondrait à
+	2 tiers.</p>
+</ul>
+<p><br><br/>
+<br/>
+
+</p>
+<ul>
+	<li/>
+<p style="margin-bottom: 0in">Thread :(processus légers ou
+	tâche) ensemble d'instructions du langage machine d'un
+	microprocesseur&nbsp;
+	<a href="http://dico.developpez.com/html/1469-Generalites-processus-leger.php">http://dico.developpez.com/html/1469-Generalites-processus-leger.php</a></p>
+	<li/>
+<p>Multi-thread : Exécution de thread en parallèle</p>
+</ul>
+<p><br/>
+<br/>
+
+</p>
+<ul>
+	<li/>
+<p>Serialization: La sérialisation est un procédé introduit
+	dans le JDK version 1.1 qui permet de rendre un objet ou un graphe
+	d'objets de la JVM persistant pour stockage ou échange et vice
+	versa. Cet objet est mis sous une forme sous laquelle il pourra être
+	reconstitué à l'identique. Ainsi il pourra être stocké sur un
+	disque dur ou transmis au travers d'un réseau pour le créer dans
+	une autre JVM. C'est le procédé qui est utilisé, par exemple, par
+	RMI. La sérialisation est aussi utilisée par les beans pour
+	sauvegarder leurs états.</p>
+</ul>
+<p><br/>
+<br/>
+
+</p>
+<ul>
+	<li/>
+<p>API : Interface réutilisable dans un autre code de
+	développement</p>
+</ul>
+<p><br/>
+<br/>
+
+</p>
+<ul>
+	<li/>
+<p>WEB SERVICE:Il s'agit d'une technologie permettant à des
+	applications de dialoguer à distance via Internet, et ceci
+	indépendamment des plates-formes et des langages sur lesquelles
+	elles reposent. Pour ce faire, les services Web s'appuient sur un
+	ensemble de protocoles Internet très répandus (XML, HTTP), afin de
+	communiquer. Cette communication est basée sur le principe de
+	demandes et réponses, effectuées avec des messages XML.</p>
+</ul>
+<p><br/>
+<br/>
+
+</p>
+<ul>
+	<li/>
+<p>MAVEN : Builder pouvant réaliser plusieurs tâches pour un
+	code donné telles que le lancement, les tests, le nettoyage
+	(clean), la compilation et le build..</p>
+</ul>
+<p><br/>
+<br/>
+
+</p>
+<ul>
+	<li/>
+<p>JSON/XML/YAML/CSV : format de fichiers</p>
+</ul>
+<p><br/>
+<br/>
+
+</p>
+<ul>
+	<li/>
+<p style="margin-bottom: 0in">Hibernate/JPA : Hibernate est un
+	outil de mapping objet/relationnel pour Java. C'est à dire qu'il
+	permet de faire le lien entre la représentation objet des données
+	et sa représentation relationnelle basée sur le schéma de la base
+	de données. Hibernate est open-source et ne respecte pas les
+	standards JDO et SDO. C'est un framework.
+	<a href="http://dico.developpez.com/html/3039-Langages-Hibernate.php">http://dico.developpez.com/html/3039-Langages-Hibernate.php</a></p>
+	<li/>
+<p>&nbsp;L'API JPA a tenu compte du succès d'Hibernate et en
+	a repris la plupart des concepts. JPA est une spécification, une
+	implémentation <a href="http://tahe.developpez.com/tutoriels-cours/jpa/">http://tahe.developpez.com/tutoriels-cours/jpa/</a></p>
+</ul>
+<p><br/>
+<br/>
+
+</p>
+<ul>
+	<li/>
+<p>IoC :&nbsp;</p>
+</ul>
+<p><br/>
+<br/>
+
+</p>
+<ul>
+	<li/>
+<p>CRUD : Create Read Update Delete</p>
+</ul>
+<p><br/>
+<br/>
+
+</p>
+<ul>
+	<li/>
+<p style="margin-bottom: 0in">Middleware</p>
+	<li/>
+<p style="margin-bottom: 0in">Paradigme : Style ou orientation
+	de programmation informatique (différents paradigme : POO,
+	Programmation procédurale, programmation récursive, etc...)</p>
+	<li/>
+<p style="margin-bottom: 0in">Design Pattern MVC</p>
+	<ul>
+		<ul>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0in">Le modèle est la partie qui
+				contient les données et les méthodes de traitement des données
+				(la lecture, l’écriture, la suppression, etc…)</p>
+				<li/>
+<p style="margin-bottom: 0in">La vue est la partie qui
+				correspond à l’interface graphique en lien direct avec
+				l’utilisateur. Elle n’effectue pas de traitements de données.</p>
+				<li/>
+<p style="margin-bottom: 0in">Le contrôleur est la partie
+				qui fait le lien entre le modèle et la vue et leur
+				synchronisation.</p>
+			</ul>
+		</ul>
+	</ul>
+	<li/>
+<p style="margin-bottom: 0in">Interface</p>
+	<li/>
+<p style="margin-bottom: 0in">Aggregation : Permet d'assembler
+	des objets de base, afin de construire des objets plus complexes</p>
+	<li/>
+<p style="margin-bottom: 0in">Framework&nbsp;</p>
+	<li/>
+<p style="margin-bottom: 0in">Agile : Voir précédemment
+	(agilité)</p>
+	<li/>
+<p>ORM&nbsp;</p>
+</ul>
+<p><br/>
+<br/>
+
+</p>
+<h3>Programmation Orientée Objet :</h3>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<ul>
+	<li/>
+<p style="margin-bottom: 0in">objet : caractérisé par son
+	comportement et ses attributs</p>
+	<li/>
+<p style="margin-bottom: 0in">prototypage :&nbsp;</p>
+	<li/>
+<p style="margin-bottom: 0in">classe : un modèle permettant
+	de représenter un objet réel</p>
+	<li/>
+<p style="margin-bottom: 0in">instance</p>
+	<li/>
+<p style="margin-bottom: 0in">méthode :&nbsp;</p>
+	<li/>
+<p style="margin-bottom: 0in">héritage : une classe fille
+	peut récupérer toutes les propriétés de la classe mère si elle
+	en hérite.</p>
+	<li/>
+<p style="margin-bottom: 0in">polymorphisme</p>
+	<li/>
+<p style="margin-bottom: 0in">attribut : propriétés de la
+	classe</p>
+	<li/>
+<p style="margin-bottom: 0in">interface</p>
+	<li/>
+<p style="margin-bottom: 0in">visiblité: private : dans la
+	classe, public : partout, protected : dans le package ou héritage</p>
+	<li/>
+<p style="margin-bottom: 0in">encapsulation : grâce à la
+	visibilité, on peut masquer aux yeux d'un développeur extérieur
+	tous les rouages d'un objet et donc l'ensemble des méthodes
+	destinées à la gestion interne de l'objet, auxquelles le
+	développeur final n'aura pas à avoir accès. Si on encapsule avec
+	private, on utilise alors les getters/setters pour déterminer les
+	droits de modification des autres développeurs.&nbsp;</p>
+	<li/>
+<p style="margin-bottom: 0in"></p>
+	<li/>
+<p>substitution</p>
+</ul>
+<p><br/>
+<br/>
+
+</p>
+<ul>
+	<li/>
+<p style="margin-bottom: 0in">abstraction&nbsp;</p>
+	<li/>
+<p style="margin-bottom: 0in">Classe abstraite : classe qui ne
+	peut être instanciée. Ex une classe chien peut être instanciée,
+	une classe animal non. On peut associer des méthodes à l'animal
+	(respirer, marcher, etc.)</p>
+	<li/>
+<p style="margin-bottom: 0in">Méthode abstraite : avec une
+	signature (un état un nom un paramètre) mais pas de contenu. La
+	méthode qui héritera devra donc implémenter son contenu&nbsp;</p>
+	<li/>
+<p style="margin-bottom: 0in">interface : une classe avec des
+	méthodes 100% abstraite. Une interface peut hériter de deux
+	classes : exemple chauve-souris qui hérite de la classe oiseau
+	(parce quelle a des ailes) et de la classe mammifère.</p>
+	<li/>
+<p style="margin-bottom: 0in">Final : pour une variable, une
+	méthode ou une classe : constante; méthode non modifiable; classe
+	non-modifiable : une classe final ne pourra pas contenir de
+	polymorphisme</p>
+	<li/>
+<p style="margin-bottom: 0in">static : élément qui
+	appartient à la classe, une classe avec que des éléments static
+	ne peut être instanciée</p>
+	<li/>
+<p style="margin-bottom: 0in">Garbace Collector :
+	ramasse-miettes, supprime les zones mémoire qui ne sont plus
+	référençées, géré automatiquement en Java</p>
+	<li/>
+<p style="margin-bottom: 0in">signature</p>
+	<li/>
+<p style="margin-bottom: 0in">polymorphisme&nbsp;</p>
+	<li/>
+<p style="margin-bottom: 0in">capacité d'un objet à modifier
+	son comportement propre et celui de ses descendants au cours de
+	l'exécution</p>
+	<ul>
+		<li/>
+<p style="margin-bottom: 0in">par redéfinition (override) :
+		par redéfinition de la méthode avec même signature</p>
+		<li/>
+<p style="margin-bottom: 0in">par surcharge (overload) : par
+		ajout de paramètres</p>
+		<li/>
+<p style="margin-bottom: 0in">par interface</p>
+	</ul>
+	<li/>
+<p style="margin-bottom: 0in">constructeur</p>
+	<li/>
+<p style="margin-bottom: 0in">super : on fait appel à la
+	classe mère</p>
+	<li/>
+<p style="margin-bottom: 0in">this : on fait appel à l'objet</p>
+	<li/>
+<p>persistance : Mécanisme qui s'assure que les échanges de
+	données avec la base soient garanties sans risque de perte.</p>
+</ul>
+<p><br/>
+<br/>
+
+</p>
+<ul>
+	<li/>
+<p style="margin-bottom: 0in">itération</p>
+	<li/>
+<p style="margin-bottom: 0in">collection</p>
+	<li/>
+<p style="margin-bottom: 0in">révolution</p>
+	<li/>
+<p style="margin-bottom: 0in">DOM (virtuel) : Ensemble
+	d'objets et de comportements composant une page HTML (manipulable
+	par jQuery par exemple). Le DOM virtuel est une interprétation d'un
+	DOM fictif servant composer une page résultat permettant ainsi à
+	certains langages de ne modifier qu'uniquement ce qui diffère avec
+	le DOM normal (économie d'actions et voie royale vers le Single
+	Page).</p>
+	<li/>
+<p>JDBC</p>
+</ul>
+<p><br/>
+<br/>
+
+</p>
+<h3>SQL</h3>
+<p><br/>
+<br/>
+
+</p>
+<h3>JDBC</h3>
+<p><br><br/>
+<br/>
+
+</p>
+<h3>Hors-programme :</h3>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<h4>Gestion de projet</h4>
+<ul>
+	<li/>
+<p style="margin-bottom: 0in">Cycle en V / recette : est un
+	modèle conceptuel de gestion de projet imaginé à la suite du
+	problème de réactivité du modèle en cascade.&nbsp;</p>
+	<li/>
+<p style="margin-bottom: 0in">Il permet, en cas d'anomalie, de
+	limiter un retour aux étapes précédentes.</p>
+	<li/>
+<p style="margin-bottom: 0in"></p>
+	<li/>
+<p>Agilité : Projet découpé en plusieurs sous-cycles en V
+	(entre autres)</p>
+</ul>
+<p><br><br>* procédure stockée : on met la procédure au niveau de
+la BDD, ensemble d'instructions SQL précompilées, stockées dans
+une base de données et exécutées sur demande par le SGBD qui
+manipule la base de données.
+<a href="https://fr.wikipedia.org/wiki/Procédure_stockée">https://fr.wikipedia.org/wiki/Proc%C3%A9dure_stock%C3%A9e</a><br><br>*
+Trigger : déclencheur sur un ensemble d'actions (ex update ou
+insert)<br><br>Liens :</p>
+<ul>
+	<li/>
+<p><a href="http://dico.developpez.com/html/3278-Business-Intelligence-DOLAP-Desktop-OLAP.php">http://dico.developpez.com/html/3278-Business-Intelligence-DOLAP-Desktop-OLAP.php</a></p>
+</ul>
+<p><br/>
+<br/>
+
+</p>
+<ul>
+	<li/>
+<p><a href="https://www.google.fr/imgres?imgurl=https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Cycle_de_developpement_en_v.svg/300px-Cycle_de_developpement_en_v.svg.png&amp;imgrefurl=https://fr.wikipedia.org/wiki/Cycle_en_V&amp;h=153&amp;w=300&amp;tbnid=AZCvZ3ZkQxuaiM:&amp;tbnh=107&amp;tbnw=211&amp;usg=__DgixHhhbaoGEeSzCEAG7f1DMHyI=&amp;vet=10ahUKEwiauMjI8IDVAhWCXhoKHU6PAFYQ9QEIKzAA..i&amp;docid=P4a0p_ny4-eQNM&amp;sa=X&amp;ved=0ahUKEwiauMjI8IDVAhWCXhoKHU6PAFYQ9QEIKzAA">https://www.google.fr/imgres?imgurl=https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Cycle_de_developpement_en_v.svg/300px-Cycle_de_developpement_en_v.svg.png&amp;imgrefurl=https://fr.wikipedia.org/wiki/Cycle_en_V&amp;h=153&amp;w=300&amp;tbnid=AZCvZ3ZkQxuaiM:&amp;tbnh=107&amp;tbnw=211&amp;usg=__DgixHhhbaoGEeSzCEAG7f1DMHyI=&amp;vet=10ahUKEwiauMjI8IDVAhWCXhoKHU6PAFYQ9QEIKzAA..i&amp;docid=P4a0p_ny4-eQNM&amp;sa=X&amp;ved=0ahUKEwiauMjI8IDVAhWCXhoKHU6PAFYQ9QEIKzAA</a></p>
+</ul>
+<p><br/>
+<br/>
+
+</p>
+<ul>
+	<li/>
+<p><a href="http://www.commentcamarche.net/contents/811-poo-le-polymorphisme">http://www.commentcamarche.net/contents/811-poo-le-polymorphisme</a></p>
+</ul>
+<p><br/>
+<br/>
+
+</p>
+</body>
+</html>

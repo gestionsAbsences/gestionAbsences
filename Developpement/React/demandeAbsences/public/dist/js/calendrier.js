@@ -1,6 +1,7 @@
 var dateEnCours = new Date();
 var listeJoursFeries = [];
-
+var users = [];
+var listeAbsences = [];
 
 // Données en dur pour l'affichage de la page du dossier
 var Jour = ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"]; // Liste des jours de la semaine (raccourci)
@@ -9,46 +10,54 @@ var idCalendrierHtml = "table.calendrier";
 var mois;
 var annee;
 var couleur = "normal";
+var users = [];
+var listeAbsences = [];
+var ConfJoursReposHebdo;
+var ConfFeriesTravailles;
+
+var matricule;
+
+// var idUser;
 
 // Données en dur pour tester
-var idUser = 12; // Identifie l'utilisateur
-var ConfJoursReposHebdo = 96; // Renseigne la configuration des jours de repos hebdomadaire
-var ConfFeriesTravailles = 0; // Renseigne les jours fériés travaillés
-var users = [ // Liste de utilisateurs de l'équipe
-	{id: 10, nom: "DICKSON", prenom: "Jacob"},
-	{id: 11, nom: "WINTER", prenom: "Bryan"},
-	{id: 12, nom: "MERRIL", prenom: "Steven"},
-	{id: 13, nom: "MARQUEZ", prenom: "Skyler"},
-	{id: 14, nom: "BURT", prenom: "Eagan"}];
-var listeAbsences = [
-	{id: 10, debut: "10/02/2017", fin: "10/02/2017", type: 2, statut: 1},
-	{id: 10, debut: "24/02/2017", fin: "24/02/2017", type: 2, statut: 1},
-	{id: 10, debut: "28/03/2017", fin: "30/03/2017", type: 3, statut: 1},
-	{id: 10, debut: "20/04/2017", fin: "30/04/2017", type: 3, statut: 1},
-	{id: 10, debut: "09/05/2017", fin: "01/06/2017", type: 1, statut: 0},
-	{id: 10, debut: "02/06/2017", fin: "04/06/2017", type: 3, statut: 0},
-	{id: 10, debut: "06/06/2017", fin: "09/06/2017", type: 1, statut: 0},
-	{id: 11, debut: "02/01/2017", fin: "18/01/2017", type: 1, statut: 1},
-	{id: 11, debut: "25/01/2017", fin: "26/01/2017", type: 4, statut: 1},
-	{id: 11, debut: "05/02/2017", fin: "05/02/2017", type: 2, statut: 1},
-	{id: 11, debut: "15/03/2017", fin: "30/03/2017", type: 1, statut: 1},
-	{id: 11, debut: "09/04/2017", fin: "14/04/2017", type: 4, statut: 0},
-	{id: 11, debut: "06/06/2017", fin: "09/06/2017", type: 1, statut: 1},
-	{id: 11, debut: "12/06/2017", fin: "16/06/2017", type: 2, statut: 0},
-	{id: 12, debut: "11/01/2017", fin: "12/01/2017", type: 3, statut: 1},
-	{id: 12, debut: "22/01/2017", fin: "26/01/2017", type: 2, statut: 1},
-	{id: 12, debut: "01/03/2017", fin: "22/03/2017", type: 1, statut: 1},
-	{id: 12, debut: "24/04/2017", fin: "28/04/2017", type: 3, statut: 0},
-	{id: 12, debut: "01/05/2017", fin: "22/05/2017", type: 1, statut: 1},
-	{id: 12, debut: "02/06/2017", fin: "02/06/2017", type: 4, statut: 1},
-	{id: 12, debut: "12/06/2017", fin: "16/06/2017", type: 2, statut: 1},
-	{id: 12, debut: "17/06/2017", fin: "23/06/2017", type: 3, statut: 0},
-	{id: 12, debut: "13/07/2017", fin: "13/07/2017", type: 4, statut: 0},
-	{id: 13, debut: "25/04/2017", fin: "07/05/2017", type: 1, statut: 1},
-	{id: 13, debut: "17/06/2017", fin: "23/06/2017", type: 3, statut: 1},
-	{id: 13, debut: "24/06/2017", fin: "30/06/2017", type: 4, statut: 0},
-	{id: 14, debut: "24/06/2017", fin: "30/06/2017", type: 4, statut: 1}
-]; // Liste des absences concernant les membre de l'équipe
+// idUser = 12; // Identifie l'utilisateur
+ConfJoursReposHebdo = 96; // Renseigne la configuration des jours de repos hebdomadaire
+ConfFeriesTravailles = 0; // Renseigne les jours fériés travaillés
+// users = [ // Liste de utilisateurs de l'équipe
+	// {id: 10, nom: "DICKSON", prenom: "Jacob"},
+	// {id: 11, nom: "WINTER", prenom: "Bryan"},
+	// {id: 12, nom: "MERRIL", prenom: "Steven"},
+	// {id: 13, nom: "MARQUEZ", prenom: "Skyler"},
+	// {id: 14, nom: "BURT", prenom: "Eagan"}];
+// listeAbsences = [
+// 	{id: 10, debut: "10/02/2017", fin: "10/02/2017", type: 2, statut: 1},
+// 	{id: 10, debut: "24/02/2017", fin: "24/02/2017", type: 2, statut: 1},
+// 	{id: 10, debut: "28/03/2017", fin: "30/03/2017", type: 3, statut: 1},
+// 	{id: 10, debut: "20/04/2017", fin: "30/04/2017", type: 3, statut: 1},
+// 	{id: 10, debut: "09/05/2017", fin: "01/06/2017", type: 1, statut: 0},
+// 	{id: 10, debut: "02/06/2017", fin: "04/06/2017", type: 3, statut: 0},
+// 	{id: 10, debut: "06/06/2017", fin: "09/06/2017", type: 1, statut: 0},
+// 	{id: 11, debut: "02/01/2017", fin: "18/01/2017", type: 1, statut: 1},
+// 	{id: 11, debut: "25/01/2017", fin: "26/01/2017", type: 4, statut: 1},
+// 	{id: 11, debut: "05/02/2017", fin: "05/02/2017", type: 2, statut: 1},
+// 	{id: 11, debut: "15/03/2017", fin: "30/03/2017", type: 1, statut: 1},
+// 	{id: 11, debut: "09/04/2017", fin: "14/04/2017", type: 4, statut: 0},
+// 	{id: 11, debut: "06/06/2017", fin: "09/06/2017", type: 1, statut: 1},
+// 	{id: 11, debut: "12/06/2017", fin: "16/06/2017", type: 2, statut: 0},
+// 	{id: 12, debut: "11/01/2017", fin: "12/01/2017", type: 3, statut: 1},
+// 	{id: 12, debut: "22/01/2017", fin: "26/01/2017", type: 2, statut: 1},
+// 	{id: 12, debut: "01/03/2017", fin: "22/03/2017", type: 1, statut: 1},
+// 	{id: 12, debut: "24/04/2017", fin: "28/04/2017", type: 3, statut: 0},
+// 	{id: 12, debut: "01/05/2017", fin: "22/05/2017", type: 1, statut: 1},
+// 	{id: 12, debut: "02/06/2017", fin: "02/06/2017", type: 4, statut: 1},
+// 	{id: 12, debut: "12/06/2017", fin: "16/06/2017", type: 2, statut: 1},
+// 	{id: 12, debut: "17/06/2017", fin: "23/06/2017", type: 3, statut: 0},
+// 	{id: 12, debut: "13/07/2017", fin: "13/07/2017", type: 4, statut: 0},
+// 	{id: 13, debut: "25/04/2017", fin: "07/05/2017", type: 1, statut: 1},
+// 	{id: 13, debut: "17/06/2017", fin: "23/06/2017", type: 3, statut: 1},
+// 	{id: 13, debut: "24/06/2017", fin: "30/06/2017", type: 4, statut: 0},
+// 	{id: 14, debut: "24/06/2017", fin: "30/06/2017", type: 4, statut: 1}
+// ]; // Liste des absences concernant les membre de l'équipe
 // Fin de la section Données en dur
 
 
@@ -56,21 +65,36 @@ var listeAbsences = [
 $(document).ready(function() {
 
 	// // Routine Ajax permettant d'exécuter une requête HTTP afin de récupérer des infos du Back en Json
-	// $.ajax({
-	// 	type: "GET",											// Type de requête
-	// 	url: "absence/listeAbsence",			// URL de la requête
-	// 	success: function(response) {			// Exécute le block si la réponse est satisfaite (code 200)
-	// 		listeAbsences = response; 			// Les données fournies sont stockées dans la variable listeAbsences
-	// 	}
-	// });
+	$.ajax({
+		type: "GET",											// Type de requête
+		url: "http://localhost:8080/emp/listeEmployes",					// URL de la requête
+		success: function(response) {			// Exécute le block si la réponse est satisfaite (code 200)
+			users = response; 			// Les données fournies sont stockées dans la variable listeAbsences
+		}
+	});
+
+	// // Routine Ajax permettant d'exécuter une requête HTTP afin de récupérer des infos du Back en Json
+	$.ajax({
+		type: "GET",											// Type de requête
+		url: "http://localhost:8080/absence/listeAbsence",					// URL de la requête
+		success: function(response) {			// Exécute le block si la réponse est satisfaite (code 200)
+			listeAbsences = response; 			// Les données fournies sont stockées dans la variable listeAbsences
+		}
+	});
 	// // JS poursuit ses traitements même si le traitement Ajax n'est pas terminé.
 	//
 	// // Le traitement Ajax étant asynchrone par rapport à JS, la routine ci-dessous permet d'exécuter le block
 	// // une fois la récupération des données est complète.
-	// $(document).ajaxStop(function () {
+	$(document).ajaxStop(function () {
 		afficherCalendrier();
 		afficheLegend();
-	// });
+	});
+
+
+			// console.log("Liste absences : ");
+			// console.log(absences);
+			// console.log("");
+
 
 	// Gestion du bouton gauche décalant d'un mois en arrière le calendrier.
 	$('#leftcalendrier').click(function(){ // Gestion du bouton Aller à Gauche
@@ -170,7 +194,7 @@ function calendrierPerso() {          // Permet d'afficher le calendrier personn
 				couleur = "normal";
 				dateAfficheeEnCours = new Date(annee, mois + moisAffiche - 1, (1 + jourAffiche + (ligne * 7) - jourSemaine));
 				dateAffichee = '' + dateAfficheeEnCours.getDate();
-				couleur = couleurCase(dateAfficheeEnCours, idUser);
+				couleur = couleurCase(dateAfficheeEnCours, matricule);
 				if (dateAfficheeEnCours.getMonth() == ((mois + moisAffiche + 11) % 12)) {
 					police = " policeNormale"
 				}
@@ -243,8 +267,8 @@ function calendrierPerso() {          // Permet d'afficher le calendrier personn
 		}
 		html += "</tr>";
 		$(idCalendrierHtml).append(html);
-
 		for (var i = 0; i < users.length; i++) {
+			if (users[i].nomResponsable=="COURIOL" && users[i].prenomResponsable=="Jean-Marc") {
 			bord=" borderL borderR";
 			if ((i+1) == users.length) {bord += " borderB";}
 			html = '<tr><td class="bleuUser' + bord + '">' + users[i].nom + " " + users[i].prenom + "</td>";
@@ -263,12 +287,14 @@ function calendrierPerso() {          // Permet d'afficher le calendrier personn
 			html += "</tr>";
 			$(idCalendrierHtml).append(html);
 		}
+		}
 	}
 
 	function couleurCase(date, id) {
 		var coulR = couleur;
 		var listeCoulR = ["rouge", "bleu", "vert", "mauve"];
 		var intensite = ["Estompe", ""];
+		// console.log(id);
 		jour = date.getDay() - 1;
 		if (jour < 0) {jour = 6;}
 		if ((ConfJoursReposHebdo & Math.pow(2, jour)) == Math.pow(2, jour)) {return "gris";}

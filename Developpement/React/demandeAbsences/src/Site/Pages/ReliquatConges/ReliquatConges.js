@@ -8,18 +8,82 @@ class ReliquatConges extends Component {
   constructor(props) {
       super(props);
       this.state = {
-          employes: []
+          employes: [],
+          nbCollegues: -1,
+          nbMembres: 0
       }
   }
 
+  trtEquipe = (i,employe) => {
+    let res;
+    // if (this.props.employe.email===employe.emailResponsable) {
+    if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable) {
+    // if (this.props.employe.nomEquipe===employe.nomEquipe || (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable)) {
+      res=<tr key={i}>
+        <td>{employe.nom}</td>
+        <td>{employe.prenom}</td>
+        <td>{employe.matricule}</td>
+        <td>{employe.nomResponsable}</td>
+        <td>{employe.prenomResponsable}</td>
+        <td className="text-center">{employe.nbCa}</td>
+        <td className="text-center">{employe.nbRtt}</td>
+        <td className="text-center">{employe.nbRc}</td>
+      </tr>;
+    }
+    return res;
+  }
+
   componentDidMount() {
-       axios.get('http://localhost:8080/emp/listeEmployes')
-          .then(res => {
-              // console.log(res.data);
-              this.setState({
-                employes: res.data
-            });
+    //Requête HTTP destinée au Back
+    axios({
+      method: 'get',
+      url: '/emp/listeEmployes',
+      data: {},
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(res => {
+
+        // Incorpore les données dans le State
+        this.setState({
+          employes: res.data
+        });
+        if (this.props.employe.modeDev) {
+          console.log("Requête satisfaite : ");
+          console.log(res);
+          console.log("");
+        }
+      })
+      // Traitement des erreurs en mode de Dev.
+      .catch((error) => {
+        if (this.props.employe.modeDev) {
+          if (axios.isCancel(error)) {
+            console.log("La requête a été annulée :");
+            console.log('Request canceled', error.message);
+            console.log("");
+          } else if (error.response) {
+            console.log("La requête est transmise mais retourne une erreur <200 ou >=300 :");
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            console.log("");
+          } else if (error.request) {
+            console.log("La requête est transmise mais ne retourne pas de réponse : ");
+            console.log(error.request);
+            console.log("");
+          } else {
+            console.log("La requête n'a pu être transmise et déclenche une erreur : ");
+            console.log('Error', error.message);
+            console.log("");
+          }
+          console.log("Error.config : ");
+          console.log(error.config);
+          console.log("");
+        }
       });
+
   }
 
   render() {
@@ -27,7 +91,10 @@ class ReliquatConges extends Component {
       <div>
         <div className="panel panel-default">   {/*2   Formulaire */}
           <div className="panel-heading">   {/*3   Titre de la page */}
-            <h3 className="panel-title">Reliquat des congés de votre équipe</h3>
+            <h3 className="panel-title">
+              <span>Reliquat des congés de votre équipe</span>
+{/*              <span className="pull-right">Composition : 1 responsable, {this.state.nbCollegues} collatéraux, {this.state.nbMembres} collaborateurs</span> */}
+            </h3>
           </div>   {/*3   fin */}
           <div className="">   {/*14   Tableau */}
             <table className="table table-bordered table-hover table-striped tablesupmargebas">{/*   Cosmétique Tablesupmargebas, supprime la marge en bas du tableau */}{/* fin */}
@@ -44,21 +111,10 @@ class ReliquatConges extends Component {
                 </tr>
               </thead>{/*15 Fin */}
               <tbody>{/*16 Contenu du tableau */}
-                {
-                  this.state.employes.map(
-                    (employe, i) =>
-                    <tr key={i}>
-                      <td>{employe.nom}</td>
-                      <td>{employe.prenom}</td>
-                      <td>{employe.matricule}</td>
-                      <td>{employe.nomResponsable}</td>
-                      <td>{employe.prenomResponsable}</td>
-                      <td className="text-center">{employe.nbCa}</td>
-                      <td className="text-center">{employe.nbRtt}</td>
-                      <td className="text-center">{employe.nbRc}</td>
-                    </tr>
-                  )
-                }
+                {this.state.employes.map(
+                  (employe, i) =>
+                  this.trtEquipe(i,employe)
+                )}
               </tbody>{/*16 Fin */}
             </table>
           </div>   {/*14 Fin */}

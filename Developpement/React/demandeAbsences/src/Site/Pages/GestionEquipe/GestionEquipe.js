@@ -18,7 +18,7 @@ class GestionEquipe extends Component {
   }
 
   componentDidMount() {
-       axios.get('http://localhost:8080/equipe/listeEquipe')
+       axios.get('/equipe/listeEquipe')
           .then(res => {
               this.setState({
                 equipes: res.data[0].nom,
@@ -26,7 +26,7 @@ class GestionEquipe extends Component {
             });
       });
 
-    axios.get('http://localhost:8080/rh/listeService')
+    axios.get('/rh/listeService')
        .then(res => {
            this.setState({
              rhs: res.data
@@ -185,16 +185,16 @@ class GestionEquipe extends Component {
             <div className="row">   {/*11   Block Boutons Soumettre et Annuler */}
               <div className="VOffSetBasPages">&nbsp;</div>   {/*12   Cosmétique d'unee marge au dessus des boutons */}{/*12   fin */}
               <div className="col-md-10 col-md-offset-1">
-                <div className="col-md-3">
+                <div className="col-md-3 btn-bottom-marge">
                   <a href="index.html" className="btn btn-primary btn-block">Nouveau</a>
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-3 btn-bottom-marge">
                   <a href="index.html" className="btn btn-primary btn-block">Supprimer</a>
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-3 btn-bottom-marge">
                   <a href="index.html" className="btn btn-primary btn-block">Enregistrer</a>
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-3 btn-bottom-marge">
                   <a href="index.html" className="btn btn-primary btn-block">Annuler</a>
                 </div>
               </div>
@@ -203,6 +203,7 @@ class GestionEquipe extends Component {
           </div>   {/*4   fin */}
           <div className="VOffSetBasPages">&nbsp;</div>   {/*13   Cosmétique Ajout d'une marge en dessous des boutons réglable via le css VOffSetBasPages */}   {/*13   fin */}
         </div>   {/*2   fin */}
+        <div className="VOffSetBasPages">&nbsp;</div>   {/*13   Cosmétique Ajout d'une marge en dessous des boutons réglable via le css VOffSetBasPages */}   {/*13   fin */}
       </div>
     );
   }

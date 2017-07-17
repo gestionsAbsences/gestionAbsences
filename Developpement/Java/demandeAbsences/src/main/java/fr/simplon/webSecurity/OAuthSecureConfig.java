@@ -65,3 +65,5 @@ public class OAuthSecureConfig extends GlobalAuthenticationConfigurerAdapter {
 			return authorities;
 		}
 }
+
+
