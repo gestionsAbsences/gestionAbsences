@@ -4,107 +4,75 @@ import axios from 'axios';
 
 import './authentification.css';
 
-// let userEmail="steven.merrill@entreprise.com";
-
 class Authentification extends Component {
 
   constructor(props){
       super(props); // Récupère le Props du parent
       this.props=props;
       this.state={ // Définition des propriétés du State
-        userEmail: '',
-        pass: '',
-        email: '',
-        password: '',
-        nom: '',
-        prenom: '',
-        matricule: '',
-        role: ''
+        isHidden: true,
+        emailSaisi: '',
+        passwordSaisi: '',
+        emailAuthentifie: '',
+        passwordAuthentifie: ''
       };
-      // this.handleEmailChange = this.handleEmailChange.bind(this);
-      // this.handlePassChange = this.handlePassChange.bind(this);
-      // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleEmailChange = (event) => {
-    this.setState({userEmail: event.target.value,});
+    this.setState({
+      emailSaisi: event.target.value,
+      isHidden: true
+    });
   }
 
   handlePassChange = (event) => {
-    this.setState({pass: event.target.value,});
+    this.setState({
+      passwordSaisi: event.target.value,
+      isHidden: true
+    });
   }
 
   handleSubmit(event) {
       event.preventDefault();
-
-      //  axios
-      //   .get('/user/getUser?email='+this.state.userEmail) // Type GET paramétré avec l'email.
-      //   .then(res => {
-      //       this.setState({ // Incorpore les données dans le State
-      //         nom: res.data[0].employeDto.nom,
-      //         prenom: res.data[0].employeDto.prenom,
-      //         matricule: res.data[0].employeDto.matricule,
-      //         email: res.data[0].employeDto.email,
-      //         password: res.data[0].employeDto.password,
-      //         role: res.data[0].employeDto.role
-      //     });
-      //     // if (this.state.userEmail===this.state.email && this.state.pass===this.state.password) {
-      //     if (this.state.userEmail===this.state.email) {
-      //       this.props.transferUserEmail(this.state.email);
-      //       console.log("UserMail : "+this.state.email);
-      //     }
-      //   })
-      //   .catch((error) => {
-      //       console.log("Axios : Problème d'accès à la ressource /user/getUser?email=" + this.state.userEmail + ".");
-      //       console.log(this.state);
-      // });
-
       this.setState({
-        email: this.state.userEmail,
-        pass: this.state.pass
+        emailAuthentifie: this.state.emailSaisi,
+        passwordAuthentifie: this.state.passwordSaisi
       });
     }
 
   componentDidMount () {
     console.log("DidMount : ");
-    console.log(this.state.userEmail);
+    console.log(this.state.emailSaisi);
   }
 
   login = (event) => {
-         event.preventDefault();
-         const self = this;
-         let email = this.state.userEmail;
-         let password = this.state.pass;
-         axios.post(`/login?email=${email}&password=${password}`)
-             .then(function (response) {
-                 axios.get("user/authUser")
-                     .then(function (response) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-                         if (response.data != null) {
-=======
-                         if (response.data !== null) {
->>>>>>> master
-=======
-                         if (response.data !== null) {
->>>>>>> master
-                             self.props.getUser(true, response.data);
-                         }
-                     })
-                     .catch(function (error) {
-                         self.setState({
-                             isHidden: false
-                         })
-                         console.log("erreur recup data")
-                     })
-             })
-             .catch(function (error) {
-                 self.setState({
-                     isHidden: false
-                 })
-                 console.log("erreur login")
-             })
-     }
+      event.preventDefault();
+      const self = this;
+      let email = this.state.emailSaisi;
+      let password = this.state.passwordSaisi;
+
+      //Requête HTTP destinée au Back
+      axios.post(`/login?email=${email}&password=${password}`)
+          .then(function (response) {
+              axios.get("user/authUser")
+                  .then(function (response) {
+                      if (response.data != null) {
+                          self.props.getUser(response.data);
+                      }
+                      self.props.retourAccueil();
+                  })
+                  .catch(function (erreur) {
+                      self.setState({
+                          isHidden: false // Visibilité du Pop
+                      })
+                  })
+          })
+          .catch(function (erreur) {
+              self.setState({
+                  isHidden: false // Visibilité du Pop
+              })
+          })
+  }
 
   render() {
     return (
@@ -118,17 +86,21 @@ class Authentification extends Component {
             <form role="form" action="" onSubmit={this.handleSubmit}>
               <fieldset>
                 <div className="form-group">
-                  <input className="form-control" placeholder="Adresse mail" name="email" type="email" value={this.state.userEmail} autoFocus onChange={this.handleEmailChange}></input>
+                  <input className="form-control" placeholder="Adresse mail" name="email" type="email" value={this.state.emailSaisi} autoFocus onChange={this.handleEmailChange}></input>
                 </div>
                 <div className="form-group">
-                  <input className="form-control" placeholder="Mot de passe" name="password" type="password" value={this.state.pass} onChange={this.handlePassChange}></input>
+                  <input className="form-control" placeholder="Mot de passe" name="password" type="password" value={this.state.passwordSaisi} onChange={this.handlePassChange}></input>
                 </div>
                 <input className="btn btn-primary btn-block" type="submit" value="Se connecter" onClick={this.login} />
               </fieldset>
             </form>
           </div>
         </div>
-        <div className="VOffSetBasPages">&nbsp;</div>   {/*13   Cosmétique Ajout d'une marge en dessous des boutons réglable via le css VOffSetBasPages */}   {/*13   fin */}
+        <div className="VOffSetBasPages">&nbsp;</div>{/*13   Cosmétique Ajout d'une marge en dessous des boutons réglable via le css VOffSetBasPages */}   {/*13   fin */}
+        <div className="authPopup panel panel-default" hidden={this.state.isHidden}>
+                <p><b>Problème de connexion : </b>Informations de connexion erronées.
+                <br />Veuillez vérifier l'exactitude de vos informations de session.</p>{/*'*/}
+        </div>
       </div>
     );
   }

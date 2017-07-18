@@ -2,3 +2,8 @@
 .voffsetauth {
   height: 12vh;
 }
+
+.authPopup {
+  background-color: #F0F0F0;
+  padding: 10px 0 0 20px;
+}

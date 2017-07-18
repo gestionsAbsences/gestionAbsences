@@ -40,60 +40,125 @@ class Pages extends Component {
 // Il s'agit de "render" la page adéquate accompagnée des props mère
 // ---------------------------------------------------------------------
 ListeDemandes = () => {
-  return <ListeDemandes employe={this.props.employe} />
+  if (this.props.employe.nom==='') {
+    return <Authentification employe={this.props.employe} userActuel={this.props.getUser} retourAccueil={this.retourAccueil} />
+  } else {
+    return <ListeDemandes employe={this.props.employe} />
+  }
 }
 
 NouvelleDemande = () => {
-  return <NouvelleDemande employe={this.props.employe} />
+  if (this.props.employe.nom==='') {
+    return <Authentification employe={this.props.employe} userActuel={this.props.getUser} retourAccueil={this.retourAccueil} />
+  } else {
+    return <NouvelleDemande employe={this.props.employe} />
+  }
 }
 
 DeclareAbsence = () => {
-  return <DeclareAbsence employe={this.props.employe} />
+  if (this.props.employe.nom==='') {
+    return <Authentification employe={this.props.employe} userActuel={this.props.getUser} retourAccueil={this.retourAccueil} />
+  } else {
+    return <DeclareAbsence employe={this.props.employe} />
+  }
 }
 
 ReliquatConges = () => {
-  return <ReliquatConges employe={this.props.employe} />
+  if (this.props.employe.nom==='') {
+    return <Authentification employe={this.props.employe} userActuel={this.props.getUser} retourAccueil={this.retourAccueil} />
+  } else {
+    return <ReliquatConges employe={this.props.employe} />
+  }
 }
 
 MonCalendrier = () => {
-  return <MonCalendrier employe={this.props.employe} />
+  if (this.props.employe.nom==='') {
+    return <Authentification employe={this.props.employe} userActuel={this.props.getUser} retourAccueil={this.retourAccueil} />
+  } else {
+    return <MonCalendrier employe={this.props.employe} />
+  }
 }
 
 CalendrierEquipe = () => {
-  return <CalendrierEquipe employe={this.props.employe} />
+  if (this.props.employe.nom==='') {
+    return <Authentification employe={this.props.employe} userActuel={this.props.getUser} retourAccueil={this.retourAccueil} />
+  } else {
+    return <CalendrierEquipe employe={this.props.employe} />
+  }
 }
 
 CalendrierEntreprise = () => {
-  return <CalendrierEntreprise employe={this.props.employe} />
+  if (this.props.employe.nom==='') {
+    return <Authentification employe={this.props.employe} userActuel={this.props.getUser} retourAccueil={this.retourAccueil} />
+  } else {
+    return <CalendrierEntreprise employe={this.props.employe} />
+  }
 }
 
 GestionPersonnel = () => {
-  return <GestionPersonnel employe={this.props.employe} />
+  if (this.props.employe.nom==='') {
+    return <Authentification employe={this.props.employe} userActuel={this.props.getUser} retourAccueil={this.retourAccueil} />
+  } else {
+    return <GestionPersonnel employe={this.props.employe} />
+  }
 }
 
 GestionEquipe = () => {
-  return <GestionEquipe employe={this.props.employe} />
+  if (this.props.employe.nom==='') {
+    return <Authentification employe={this.props.employe} userActuel={this.props.getUser} retourAccueil={this.retourAccueil} />
+  } else {
+    return <GestionEquipe employe={this.props.employe} />
+  }
+}
+
+APropos = () => { // Aide est élaboré en fonction du role de l'utilisateur
+if (this.props.employe.nom==='') {
+  return <Authentification employe={this.props.employe} userActuel={this.props.getUser} retourAccueil={this.retourAccueil} />
+} else {
+    return <APropos />
+  }
 }
 
 Aide = () => { // Aide est élaboré en fonction du role de l'utilisateur
-  return <Aide employe={this.props.employe.role} />
+if (this.props.employe.nom==='') {
+  return <Authentification employe={this.props.employe} userActuel={this.props.getUser} retourAccueil={this.retourAccueil} />
+} else {
+    return <Aide employe={this.props.employe.role} />
+  }
+}
+
+retourAccueil = () => {
+  history.push("/accueil");
 }
 
 Authentification = () => {
-  return <Authentification employe={this.props.employe} transUserEmail={this.props.transUserEmail} />
+  return <Authentification employe={this.props.employe} userActuel={this.props.getUser} retourAccueil={this.retourAccueil} />
 }
 
 ModifMotDePasse = () => {
-  return <ModifMotDePasse employe={this.props.employe} />
+  if (this.props.employe.nom==='') {
+    return <Authentification employe={this.props.employe} userActuel={this.props.getUser} retourAccueil={this.retourAccueil} />
+  } else {
+    return <ModifMotDePasse employe={this.props.employe} />
+  }
 }
 
 AvisHierarchique = () => {
-  return <AvisHierarchique employe={this.props.employe} />
+  if (this.props.employe.nom==='') {
+    return <Authentification employe={this.props.employe} userActuel={this.props.getUser} retourAccueil={this.retourAccueil} />
+  } else {
+    return <AvisHierarchique employe={this.props.employe} />
+  }
 }
 
 AvisRh = () => {
-  return <AvisRh employe={this.props.employe} />
+  if (this.props.employe.nom==='') {
+    return <Authentification employe={this.props.employe} userActuel={this.props.getUser} retourAccueil={this.retourAccueil} />
+  } else {
+    return <AvisRh employe={this.props.employe} />
+  }
 }
+
 // ---------------------------------------------------------------------
 // Fin de liste de fonction
 // ---------------------------------------------------------------------
@@ -115,8 +180,6 @@ AvisRh = () => {
               <Switch> {/* Switch permet de limiter le render uniquement au premier path satisfait */}
 
                 {/* Les path exprimés sont en réalité à précéder de //localhost:3000 */}
-                <Route exact path="/login"                 render={this.Authentification} />
-                <Route exact path="/logout"                render={this.Authentification} />
                 <Route exact path="/accueil"               render={this.ListeDemandes} />
                 <Route exact path="/listedemandes"         render={this.ListeDemandes} />
                 <Route exact path="/nouvelledemande"       render={this.NouvelleDemande} />
@@ -132,7 +195,7 @@ AvisRh = () => {
                 <Route exact path="/apropos"               component={AvisRh} />
 */}
                 <Route exact path="/aide"                  render={this.Aide} />
-                <Route exact path="/apropos"               component={APropos} />
+                <Route exact path="/apropos"               component={this.APropos} />
                 <Route exact path="/deconnexion"           render={this.Authentification} />
                 <Route exact path="/modifmotdepasse"       render={this.ModifMotDePasse} />
                 <Route exact path="/avishierarchique"      render={this.AvisHierarchique} />

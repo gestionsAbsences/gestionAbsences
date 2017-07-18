@@ -9,7 +9,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,7 +26,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import fr.simplon.domain.dto.AbsenceDto;
 import fr.simplon.services.AbsenceService;
-import fr.simplon.webSecurity.utils.AuthConstantes;
 
 /**
  * CRUD des absences
@@ -62,14 +60,7 @@ public class AbsenceController {
 	 * ResponseEntity permet gérer la réponse envoyée au front
 	 * 
 	 */
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
->>>>>>> master
-=======
-
->>>>>>> master
 	@GetMapping("/listeAbsence") //raccourci pour la méthode : @RequestMapping(value = "/listeAbsence", method = RequestMethod.GET
 	public ResponseEntity<?> findAll() {
 		List<AbsenceDto> absence;
@@ -122,14 +113,7 @@ public class AbsenceController {
 	 * 
 	 */
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
->>>>>>> master
-=======
-
->>>>>>> master
 	@GetMapping("/getAbsenceByNum")
 	public ResponseEntity<?> findById(@RequestParam(value = "numDemande", defaultValue = "") String numDemande) {
 		AbsenceDto absenceDto;
