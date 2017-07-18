@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import org.springframework.stereotype.Component;
+>>>>>>> master
 =======
 import org.springframework.stereotype.Component;
 >>>>>>> master
@@ -17,6 +21,10 @@ import org.springframework.stereotype.Component;
  * Securité de l'application
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+@Component
+>>>>>>> master
 =======
 @Component
 >>>>>>> master

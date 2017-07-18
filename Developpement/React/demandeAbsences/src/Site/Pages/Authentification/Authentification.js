@@ -80,7 +80,11 @@ class Authentification extends Component {
                  axios.get("user/authUser")
                      .then(function (response) {
 <<<<<<< HEAD
+<<<<<<< HEAD
                          if (response.data != null) {
+=======
+                         if (response.data !== null) {
+>>>>>>> master
 =======
                          if (response.data !== null) {
 >>>>>>> master

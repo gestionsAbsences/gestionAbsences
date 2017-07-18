@@ -63,6 +63,10 @@ public class AbsenceController {
 	 * 
 	 */
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 =======
 
 >>>>>>> master
@@ -119,6 +123,10 @@ public class AbsenceController {
 	 */
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 =======
 
 >>>>>>> master
