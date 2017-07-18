@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-// import axios from 'axios';
+import axios from 'axios';
 
 import './authentification.css';
 
@@ -21,9 +21,9 @@ class Authentification extends Component {
         matricule: '',
         role: ''
       };
-      this.handleEmailChange = this.handleEmailChange.bind(this);
-      this.handlePassChange = this.handlePassChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
+      // this.handleEmailChange = this.handleEmailChange.bind(this);
+      // this.handlePassChange = this.handlePassChange.bind(this);
+      // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleEmailChange = (event) => {
@@ -70,6 +70,34 @@ class Authentification extends Component {
     console.log(this.state.userEmail);
   }
 
+  login = (event) => {
+         event.preventDefault();
+         const self = this;
+         let email = this.state.userEmail;
+         let password = this.state.pass;
+         axios.post(`/login?email=${email}&password=${password}`)
+             .then(function (response) {
+                 axios.get("user/authUser")
+                     .then(function (response) {
+                         if (response.data !== null) {
+                             self.props.getUser(true, response.data);
+                         }
+                     })
+                     .catch(function (error) {
+                         self.setState({
+                             isHidden: false
+                         })
+                         console.log("erreur recup data")
+                     })
+             })
+             .catch(function (error) {
+                 self.setState({
+                     isHidden: false
+                 })
+                 console.log("erreur login")
+             })
+     }
+
   render() {
     return (
       <div className="col-md-4 col-md-offset-4">
@@ -87,7 +115,7 @@ class Authentification extends Component {
                 <div className="form-group">
                   <input className="form-control" placeholder="Mot de passe" name="password" type="password" value={this.state.pass} onChange={this.handlePassChange}></input>
                 </div>
-                <input className="btn btn-primary btn-block" type="submit" value="Se connecter" />
+                <input className="btn btn-primary btn-block" type="submit" value="Se connecter" onClick={this.login} />
               </fieldset>
             </form>
           </div>

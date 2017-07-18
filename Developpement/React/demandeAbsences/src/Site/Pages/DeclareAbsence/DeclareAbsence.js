@@ -16,6 +16,7 @@ class DeclareAbsence extends Component {
     this.state={ // Définition des propriétés du State
       types: [],
       employes: [],
+      listEmp: [],
       statut: '',
       nom: '',
       prenom: '',
