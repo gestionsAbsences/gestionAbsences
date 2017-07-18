@@ -10,11 +10,15 @@ class Authentification extends Component {
       super(props); // Récupère le Props du parent
       this.props=props;
       this.state={ // Définition des propriétés du State
-        isHidden: true,
         emailSaisi: '',
         passwordSaisi: '',
         emailAuthentifie: '',
-        passwordAuthentifie: ''
+        passwordAuthentifie: '',
+
+        // titre: "Informations de connexion erronées",
+        // message: "Veuillez vérifier l'exactitude de vos informations de session.",
+        isHidden: true,
+        // retour: false
       };
   }
 
@@ -40,11 +44,6 @@ class Authentification extends Component {
       });
     }
 
-  componentDidMount () {
-    console.log("DidMount : ");
-    console.log(this.state.emailSaisi);
-  }
-
   login = (event) => {
       event.preventDefault();
       const self = this;
@@ -53,21 +52,21 @@ class Authentification extends Component {
 
       //Requête HTTP destinée au Back
       axios.post(`/login?email=${email}&password=${password}`)
-          .then(function (response) {
+          .then(function (res) {
               axios.get("user/authUser")
-                  .then(function (response) {
-                      if (response.data != null) {
-                          self.props.getUser(response.data);
+                  .then(function (res) {
+                      if (res.data != null) {
+                          self.props.getUser(res.data);
                       }
                       self.props.retourAccueil();
                   })
-                  .catch(function (erreur) {
+                  .catch(function (err) {
                       self.setState({
                           isHidden: false // Visibilité du Pop
                       })
                   })
           })
-          .catch(function (erreur) {
+          .catch(function (err) {
               self.setState({
                   isHidden: false // Visibilité du Pop
               })
@@ -97,9 +96,16 @@ class Authentification extends Component {
           </div>
         </div>
         <div className="VOffSetBasPages">&nbsp;</div>{/*13   Cosmétique Ajout d'une marge en dessous des boutons réglable via le css VOffSetBasPages */}   {/*13   fin */}
+{/*
+  <div>{this.props.popup(this.state.titre,this.state.message,this.state.isHidden,this.state.retour)}</div>
+*/}
         <div className="authPopup panel panel-default" hidden={this.state.isHidden}>
-                <p><b>Problème de connexion : </b>Informations de connexion erronées.
-                <br />Veuillez vérifier l'exactitude de vos informations de session.</p>{/*'*/}
+          <div className="panel-heading">
+            <h3 className="panel-title">Problème d'authentification</h3>{/*'*/}
+          </div>
+          <div className="panel-body">
+                Accès refusé : Veuillez vérifier l'exactitude de vos informations de session.{/*'*/}
+          </div>
         </div>
       </div>
     );

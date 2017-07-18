@@ -8,8 +8,6 @@ import BarDeNav from './BarDeNav/BarDeNav.js';
 import PiedPage from './PiedPage/PiedPage.js';
 import Pages from './Pages/Pages.js';
 
-// let userEmail;
-
 let modeDev=true;
 let modeDemo=true;
 
@@ -29,6 +27,7 @@ class Site extends Component {
           // Les propriétés sont relatives aux renseignements concernant l'utilisateur authentifié
           // ainsi que la liste de ses absences.
           this.state = {
+              utilisateurConnecte: false,
               nom:"",
               prenom:"",
               matricule:"",
@@ -49,12 +48,37 @@ class Site extends Component {
           }
       }
 
+      componentDidMount() {
+        this.checkSessionStorage();
+      }
+
+      componentDidUpdate(prevProps, prevState) {
+        sessionStorage.setItem('state', JSON.stringify(this.state));
+      }
+
+      checkSessionStorage = () => {
+        try {
+          if (sessionStorage.getItem('state') !== null) {
+            this.setState((prevState) => {
+              return prevState = JSON.parse(sessionStorage.getItem('state'))
+            });
+          }
+        } catch (err) {
+          if (this.state.modeDev) {
+            console.log("Erreur sur storage :");
+            console.log(err);
+            console.log("");
+          }
+        }
+      }
+
       getUser = (mecConnecte) => {
             this.setState({
+              utilisateurConnecte: true,
               nom: mecConnecte.employeDto.nom,
               prenom: mecConnecte.employeDto.prenom,
               matricule: mecConnecte.employeDto.matricule,
-              email: mecConnecte.employeDto.email,
+              email: mecConnecte.email,
               role: mecConnecte.role,
               nbCa: mecConnecte.employeDto.nbCa,
               nbRtt: mecConnecte.employeDto.nbRtt,
@@ -67,14 +91,7 @@ class Site extends Component {
               emailResponsable: mecConnecte.employeDto.emailResponsable,
               absences:  mecConnecte.absenceDto,
             })
-            console.log("Utilisateur connecté : ");
-            console.log(this.state);
-            console.log("");
       }
-
-      // propUserEmailMere = (valeur) => {
-      //   userEmail=valeur;
-      // }
 
     render() {
     return (
@@ -89,7 +106,7 @@ class Site extends Component {
 
         {/*  Appel d'une page sans les données du State */}
         <BarDeNav role={this.state.role} />{/* Affiche la barre de navigation (latérale) */}
-        <Pages employe={this.state} userActuel={this.getUser} />{/* Affiche le body en fonction de la navigation */}
+        <Pages employe={this.state} getUser={this.getUser} uc={this.state.utilisateurConnecte} />{/* Affiche le body en fonction de la navigation */}
         <PiedPage />{/* Affiche le footer */}
       </div>
     )

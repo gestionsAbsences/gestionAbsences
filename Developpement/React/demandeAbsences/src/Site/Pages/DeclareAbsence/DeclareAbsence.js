@@ -7,6 +7,8 @@ import './declareabsence.css';
 let typeDefaut="Choisir type d'absence";
 let nomDefaut="Choisir nom de l'employé";
 let prenomDefaut="Choisir prénom de l'employé";
+let listNom=[];
+let listPrenom=[];
 
 class DeclareAbsence extends Component {
 
@@ -39,7 +41,7 @@ class DeclareAbsence extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
 
       //Requête HTTP destinée au Back
       axios({
@@ -193,8 +195,36 @@ class DeclareAbsence extends Component {
       //     }
       //   }
       // )}
+}
 
-  }
+// componentWillUpdate() {
+//     console.log("Constitution de la liste des membres de l'équipe");
+//     let liste={ rang: 0,
+//                 nom: '',
+//                 prenom: '',
+//                 nbCa: 0,
+//                 nbRtt: 0,
+//                 nbRc: 0
+//     };
+//     this.state.employes.map(
+//       (employe, i) => {
+//          if (employe.nomResponsable===this.props.employe.nom && employe.prenomResponsable===this.props.employe.prenom) {
+//            liste.push({  rang: i,
+//                     nom: employe.nom,
+//                     prenom: employe.prenom,
+//                     nbCa: employe.nbCa,
+//                     nbRtt: employe.nbRtt,
+//                     nbRc: employe.nbRc
+//                   })
+//       }}
+//     )
+//     this.setState({
+//       listEmp: liste
+//     });
+//     console.log("ListeEmploye : ");
+//     console.log(this.state.listEmp);
+//     console.log("");
+//   }
 
   listeType = (indice, type) => {
     let res;
@@ -206,8 +236,15 @@ class DeclareAbsence extends Component {
 
   selectNom = (i, employe) => {
     let res;
-      if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable) {
-      // if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable && (employe.prenom===this.state.prenom || this.state.prenom===prenomDefaut)) {
+    if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable) {
+    // if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable && (employe.prenom===this.state.prenom || this.state.prenom===prenomDefaut)) {
+    listNom.push([i]: {
+              nom: employe.nom,
+              prenom: employe.prenom,
+              nbCa: employe.nbCa,
+              nbRtt: employe.nbRtt,
+              nbRc: employe.nbRc
+            });
         res=<option key={i}>{employe.nom}</option>
 
     // } else {
@@ -223,12 +260,20 @@ class DeclareAbsence extends Component {
     let res;
       if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable) {
       // if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable && (employe.nom===this.state.nom || this.state.nom===nomDefaut)) {
+      listPrenom.push([i]: {
+                nom: employe.nom,
+                prenom: employe.prenom,
+                nbCa: employe.nbCa,
+                nbRtt: employe.nbRtt,
+                nbRc: employe.nbRc
+              });
         res=<option key={i} id={i}>{employe.prenom}</option>
     //   if (i===1) {this.setState({nom: employe.nom});}
     // } else {
     //   if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable && employe.nom===filtre) {
     //     res=<option key={i} id={i}>{employe.prenom}</option>
     //   }
+    console.log(listPrenom);
     }
     return res;
   }
