@@ -15,7 +15,11 @@ var listeAbsences = [];
 var ConfJoursReposHebdo;
 var ConfFeriesTravailles;
 
+var nom;
+var prenom;
 var matricule;
+var dev;
+var demo;
 
 // var idUser;
 

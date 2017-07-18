@@ -39,6 +39,56 @@ class DeclareAbsence extends Component {
   }
 
   componentDidMount() {
+
+      //Requête HTTP destinée au Back
+      axios({
+        method: 'get',
+        url: '/emp/listeEmployes',
+        data: {},
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+          }
+        })
+        .then(res => {
+
+          // Incorpore les données dans le State
+          this.setState({employes: res.data});
+
+          if (this.props.employe.modeDev) {
+            console.log("Requête satisfaite : ");
+            console.log(res);
+            console.log("");
+          }
+        })
+        // Traitement des erreurs en mode de Dev.
+        .catch((error) => {
+          if (this.props.employe.modeDev) {
+            if (axios.isCancel(error)) {
+              console.log("La requête a été annulée :");
+              console.log('Request canceled', error.message);
+              console.log("");
+            } else if (error.response) {
+              console.log("La requête est transmise mais retourne une erreur <200 ou >=300 :");
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+              console.log("");
+            } else if (error.request) {
+              console.log("La requête est transmise mais ne retourne pas de réponse : ");
+              console.log(error.request);
+              console.log("");
+            } else {}
+            //   console.log("La requête n'a pu être transmise et déclenche une erreur : ");
+            //   console.log('Error', error.message);
+            //   console.log("");
+            // }
+            // console.log("Error.config : ");
+            // console.log(error.config);
+            // console.log("");
+          }
+        });
+
     //Requête HTTP destinée au Back
     axios({
       method: 'get',
@@ -76,14 +126,14 @@ class DeclareAbsence extends Component {
             console.log("La requête est transmise mais ne retourne pas de réponse : ");
             console.log(error.request);
             console.log("");
-          } else {
-            console.log("La requête n'a pu être transmise et déclenche une erreur : ");
-            console.log('Error', error.message);
-            console.log("");
-          }
-          console.log("Error.config : ");
-          console.log(error.config);
-          console.log("");
+          } else {}
+          //   console.log("La requête n'a pu être transmise et déclenche une erreur : ");
+          //   console.log('Error', error.message);
+          //   console.log("");
+          // }
+          // console.log("Error.config : ");
+          // console.log(error.config);
+          // console.log("");
         }
       });
 
@@ -124,65 +174,24 @@ class DeclareAbsence extends Component {
             console.log("La requête est transmise mais ne retourne pas de réponse : ");
             console.log(error.request);
             console.log("");
-          } else {
-            console.log("La requête n'a pu être transmise et déclenche une erreur : ");
-            console.log('Error', error.message);
-            console.log("");
-          }
-          console.log("Error.config : ");
-          console.log(error.config);
-          console.log("");
+          } else {}
+          //   console.log("La requête n'a pu être transmise et déclenche une erreur : ");
+          //   console.log('Error', error.message);
+          //   console.log("");
+          // }
+          // console.log("Error.config : ");
+          // console.log(error.config);
+          // console.log("");
         }
       });
 
-    //Requête HTTP destinée au Back
-    axios({
-      method: 'get',
-      url: '/emp/listeEmployes',
-      data: {},
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-        }
-      })
-      .then(res => {
-
-        // Incorpore les données dans le State
-        this.setState({employess: res.data});
-
-        if (this.props.employe.modeDev) {
-          console.log("Requête satisfaite : ");
-          console.log(res);
-          console.log("");
-        }
-      })
-      // Traitement des erreurs en mode de Dev.
-      .catch((error) => {
-        if (this.props.employe.modeDev) {
-          if (axios.isCancel(error)) {
-            console.log("La requête a été annulée :");
-            console.log('Request canceled', error.message);
-            console.log("");
-          } else if (error.response) {
-            console.log("La requête est transmise mais retourne une erreur <200 ou >=300 :");
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-            console.log("");
-          } else if (error.request) {
-            console.log("La requête est transmise mais ne retourne pas de réponse : ");
-            console.log(error.request);
-            console.log("");
-          } else {
-            console.log("La requête n'a pu être transmise et déclenche une erreur : ");
-            console.log('Error', error.message);
-            console.log("");
-          }
-          console.log("Error.config : ");
-          console.log(error.config);
-          console.log("");
-        }
-      });
+      // {this.state.employes.map(
+      //   (employe, i) => {
+      //     if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable) {
+      //       noms.push({nom: nom})
+      //     }
+      //   }
+      // )}
 
   }
 
@@ -194,22 +203,31 @@ class DeclareAbsence extends Component {
     return res;
   }
 
-  selectNom = (i, employe, filtre) => {
+  selectNom = (i, employe) => {
     let res;
-    console.log("Etape1");
-    if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable) {
-      res=<option key={i}>{employe.nom}</option>
-      console.log("Etape2");
+      if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable) {
+      // if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable && (employe.prenom===this.state.prenom || this.state.prenom===prenomDefaut)) {
+        res=<option key={i}>{employe.nom}</option>
+
+    // } else {
+    //   if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable && employe.nom===filtre) {
+    //     res=<option key={i}>{employe.nom}</option>
+    //   }
     }
+    // if (i===1) {this.setState({prenom: employe.prenom});}
     return res;
   }
 
-  selectPrenom = (i, employe, filtre) => {
+  selectPrenom = (i, employe) => {
     let res;
-    console.log("Etape1");
-    if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable) {
-      console.log("Etape2");
-      res=<option key={i} id={i}>{employe.prenom}</option>
+      if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable) {
+      // if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable && (employe.nom===this.state.nom || this.state.nom===nomDefaut)) {
+        res=<option key={i} id={i}>{employe.prenom}</option>
+    //   if (i===1) {this.setState({nom: employe.nom});}
+    // } else {
+    //   if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable && employe.nom===filtre) {
+    //     res=<option key={i} id={i}>{employe.prenom}</option>
+    //   }
     }
     return res;
   }
@@ -303,7 +321,7 @@ class DeclareAbsence extends Component {
                     <option id="0" disabled>{nomDefaut}</option>
                     {this.state.employes.map(
                       (employe, i) =>
-                      this.selectNom(i, employe, this.state.nom)
+                      this.selectNom(i, employe)
                     )}
                   </select>
                 </div>   {/*7   fin */}
@@ -313,7 +331,7 @@ class DeclareAbsence extends Component {
                     <option id="0" disabled>{prenomDefaut}</option>
                     {this.state.employes.map(
                       (employe, i) =>
-                      this.selectPrenom(i, employe, this.state.prenom)
+                      this.selectPrenom(i, employe)
                     )}
                   </select>
                 </div>
