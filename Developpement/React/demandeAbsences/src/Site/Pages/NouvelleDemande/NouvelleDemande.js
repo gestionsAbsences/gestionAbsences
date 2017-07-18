@@ -18,6 +18,8 @@ class NouvelleDemande extends Component {
         fin: '',
         commentaire: '',
         types: [],
+        reqOk: false,
+        issue: '',
         selectedId: 0
       };
       this.handleTypeChange = this.handleTypeChange.bind(this);
@@ -41,7 +43,7 @@ class NouvelleDemande extends Component {
 
         // Incorpore les données dans le State
         this.setState({
-          types: res.data
+          types: res.data,
         });
         if (this.props.employe.modeDev) {
           console.log("Requête satisfaite : ");
@@ -135,45 +137,29 @@ class NouvelleDemande extends Component {
   }
 
   handleDebutChange = (event) => {
-    this.setState({debut: event.target.value,});
+    this.setState({debut: event.target.value, issue: ""});
   }
 
   handleFinChange = (event) => {
-    this.setState({fin: event.target.value,});
+    this.setState({fin: event.target.value, issue: ""});
   }
 
   handleTypeChange = (event) => {
-    this.setState({type: event.target.value,});
+    this.setState({type: event.target.value, issue: ""});
   }
 
   handleSubmit(event) {
-      event.preventDefault();
-      this.setState({
-        type: this.state.type,
-        debut: this.state.debut,
-        fin: this.state.fin
-      });
-  this.creerAbsence();
+    this.setState({
+      type: this.state.type,
+      debut: this.state.debut,
+      fin: this.state.fin
+    });
+
+    this.creerAbsence();
+    event.preventDefault();
   }
 
   creerAbsence() {
-    // axios
-    //   .post('/absence/creerAbsence/',
-    //       {
-    //         debut: this.state.debut,
-    //         fin: this.state.fin,
-    //         type: this.state.type,
-    //         statut: this.state.statut,
-    //         matricule: this.props.employe.matricule
-    //       })
-    //   .then(res => {
-    //     console.log("Resultat création absence : ");
-    //     console.log(res.data);
-    //   })
-    //   .catch((error) => {
-    //       console.log("Axios : Problème d'accès à la ressource /absence/creerAbsence/.");
-    //       console.log(this.state.debut,this.state.fin,this.state.type,this.state.statut,this.props.employe.matricule);
-    //   });
 
     //Requête HTTP destinée au Back
     axios({
@@ -189,68 +175,95 @@ class NouvelleDemande extends Component {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
-      }
-    })
+        }
+      })
       .then(res => {
 
         // Incorpore les données dans le State
         this.setState({
-          types: res.data
+          issue: "Votre demande a bien été prise en compte !",
+          type: absencePlaceholder,
+          debut: "",
+          fin: ""
         });
+        alert(this.state.issue);
         if (this.props.employe.modeDev) {
           console.log("Requête satisfaite : ");
           console.log(res);
           console.log("");
         }
       })
+
       // Traitement des erreurs en mode de Dev.
       .catch((error) => {
-        if (this.props.employe.modeDev) {
           if (axios.isCancel(error)) {
-            console.log("La requête a été annulée :");
-            console.log('Request canceled', error.message);
-            console.log("");
+            if (this.props.employe.modeDev) {
+              console.log("La requête a été annulée :");
+              console.log('Request canceled', error.message);
+              console.log("");
+            }
+            this.setState({issue: "Une erreur empêche la prise en compte de votre demande !"});alert(this.state.issue);
           } else if (error.response) {
-            console.log("La requête est transmise mais retourne une erreur <200 ou >=300 :");
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-            console.log("");
+            if (this.props.employe.modeDev) {
+              console.log("La requête est transmise mais retourne une erreur <200 ou >=300 :");
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+              console.log("");
+            }
+            this.setState({issue: "Une erreur empêche la prise en compte de votre demande !"});alert(this.state.issue);
           } else if (error.request) {
-            console.log("La requête est transmise mais ne retourne pas de réponse : ");
-            console.log(error.request);
-            console.log("");
+            if (this.props.employe.modeDev) {
+              console.log("La requête est transmise mais ne retourne pas de réponse : ");
+              console.log(error.request);
+              console.log("");
+            }
+            this.setState({issue: "Une erreur empêche la prise en compte de votre demande !"});alert(this.state.issue);
           } else {
-            console.log("La requête n'a pu être transmise et déclenche une erreur : ");
-            console.log('Error', error.message);
-            console.log("");
+            this.setState({
+              issue: "Votre demande a bien été prise en compte !",
+              type: absencePlaceholder,
+              debut: "",
+              fin: ""
+            });
+            alert(this.state.issue);
           }
-          console.log("Error.config : ");
-          console.log(error.config);
-          console.log("");
-        }
+          //   console.log("La requête n'a pu être transmise et déclenche une erreur : ");
+          //   console.log('Error', error.message);
+          //   console.log("");
+          //   this.setState({issue: "Une erreur empêche la prise en compte de votre demande !"});alert(this.state.issue);
+          // }
+          // console.log("Error.config : ");
+          // console.log(error.config);
+          // console.log("");
+          // this.setState({issue: "Une erreur empêche la prise en compte de votre demande !"});alert(this.state.issue);
       });
+    }
 
-  }
+    annuler = () => {
+      if (this.state.type===absencePlaceholder && this.state.debut==="" && this.state.fin==="") {
+        return;
+      };
 
-  annuler = () => {
-    if (this.state.type===absencePlaceholder && this.state.debut==="" && this.state.fin==="") {
-      return;
-    };
+      this.setState({
+        type: absencePlaceholder,
+        debut: "",
+        fin: ""
+      });
+    }
 
-    this.setState({
-      type: absencePlaceholder,
-      debut: "",
-      fin: ""
-    });
-  }
+    soumettre = () => {
+    }
 
   render() {
     return (
-      <form action="POST" onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
         <div className="panel panel-default">   {/*2   Formulaire */}
           <div className="panel-heading">   {/*3   Titre de Formulaire */}
-            <h3 className="panel-title">Nouvelle demande</h3>
+            <div className="row">
+              <div className="col-xs-6"><h3 className="panel-title">Nouvelle demande</h3></div>
+              <div className="col-xs-6"><h3 className="panel-title pull-right red">{this.state.issue}</h3></div>
+            </div>
           </div>   {/*3   fin */}
           <div className="panel-body">   {/*4   Contenu Formulaire */}
             <div className="VOffSetHautPages">&nbsp;</div>   {/*5   Cosmétique Ajout d'une marge au dessus du contenu du formulaire réglable via le css VOffSetHautPages */}{/*5   fin */}
@@ -300,6 +313,7 @@ class NouvelleDemande extends Component {
               <div className="col-md-2 col-md-offset-4 btn-bottom-marge">
                 {/* <input className="btn btn-primary btn-block" type="submit" value="Soumettre" onClick={this.soumettre} /> */}
                 <input className="btn btn-primary btn-block" type="submit" value="Soumettre" />
+                {/* <button type="submit" className="btn btn-primary btn-block">Soumettre</button> */}
               </div>
               <div className="col-md-2">
               <input className="btn btn-primary btn-block btn-bottom-marge" type="reset" value="Annuler" onClick={this.annuler} />
@@ -309,6 +323,12 @@ class NouvelleDemande extends Component {
           <div className="VOffSetBasPages">&nbsp;</div>   {/*13   Cosmétique Ajout d'une marge en dessous des boutons réglable via le css VOffSetBasPages */}   {/*13   fin */}
         </div>   {/*2   fin */}
         <div className="VOffSetBasPages">&nbsp;</div>   {/*13   Cosmétique Ajout d'une marge en dessous des boutons réglable via le css VOffSetBasPages */}   {/*13   fin */}
+        {/*
+        <div className="container">
+            <Text className="btn btn-primary btn-block" onPress={this.onPressHandle.bind(this)}>click me !</Text>
+            <Popup ref={popup => this.popup = popup }/>
+        </div>
+        */}
       </form>
     );
   }

@@ -52,7 +52,13 @@ class CalendrierEquipe extends Component {
           <div className="VOffSetBasPages">&nbsp;</div>   {/*12   Cosmétique d'unee marge au dessus des boutons */}{/*12   fin */}
         </div>
         <div className="VOffSetBasPages">&nbsp;</div>   {/*12   Cosmétique d'unee marge au dessus des boutons */}{/*12   fin */}
-        <div><p id="nom" className="nom invisible">{this.props.employe.nom}</p><p id="prenom" className="prenom invisible">{this.props.employe.orenom}</p><p id="email" className="email invisible">{this.props.employe.email}</p></div>
+        <div>
+          <p id="nom" className="nom invisible">{this.props.employe.nom}</p>
+          <p id="prenom" className="prenom invisible">{this.props.employe.orenom}</p>
+          <p id="email" className="email invisible">{this.props.employe.email}</p>
+          <p id="dev" className="dev invisible">{this.props.employe.modeDev}</p>
+          <p id="demo" className="demo invisible">{this.props.employe.modeDemo}</p>
+        </div>
       </div>
     );
   }
