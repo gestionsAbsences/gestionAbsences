@@ -8,11 +8,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+<<<<<<< HEAD
+=======
+import org.springframework.stereotype.Component;
+>>>>>>> master
 
 /**
  * Securité de l'application
  */
+<<<<<<< HEAD
 
+=======
+@Component
+>>>>>>> master
 public class AuthFailureHandler implements AuthenticationFailureHandler {
 
 	@Override

@@ -119,7 +119,6 @@ public class MapperDto {
 		employeDto.setPrenom(employe.getPrenom());
 		employeDto.setMatricule(employe.getMatricule());
 		employeDto.setEmail(employe.getUser().getEmail());
-		employeDto.setRole(employe.getUser().getRole().getValeur());
 		employeDto.setNbCa(employe.getNbCa());
 		employeDto.setNbRtt(employe.getNbRtt());
 		employeDto.setNbRc(employe.getNbRc());

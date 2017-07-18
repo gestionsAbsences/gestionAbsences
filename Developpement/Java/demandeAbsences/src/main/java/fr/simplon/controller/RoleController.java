@@ -79,7 +79,7 @@ public class RoleController {
 	 */
 
 	@GetMapping("/getRoleByValue")
-	public ResponseEntity<?> findByValue(@RequestParam(value = "valeur", defaultValue = "") int valeur) {
+	public ResponseEntity<?> findByValue(@RequestParam(value = "valeur", defaultValue = "") String valeur) {
 		List<Role> role;
 		try {
 			role = roleService.getRoleByValue(valeur);

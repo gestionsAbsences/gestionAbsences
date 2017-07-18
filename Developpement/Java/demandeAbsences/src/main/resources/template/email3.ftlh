@@ -13,10 +13,11 @@
                 <span>${typeConge}</span> du
                 <span>${debutConge}</span> au
                 <span>${finConge}</span>.<br>
+                Sous le numero : 
+                <span>${numDemande}</span>.
             </p>
             <p>
-                Cette demande a été enregistrée sous le numéro
-                <span>${numDemande}</span>.
+                Votre demande va être soumise au service RH pour étude et prise de décision.
             </p>
             <p>
                 Cordialement,

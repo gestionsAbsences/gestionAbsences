@@ -35,4 +35,3 @@
 <!--FOOTER-->
         
         <#include "/include/footer.ftl">
-</div>

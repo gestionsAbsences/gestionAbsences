@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,12 +64,12 @@ public class UserService {
 	 * Meme principe que ci-dessus
 	 * une iteration qu'on transforme en liste
 	 */
-	public List<UserDto> getUser(String email) throws SQLException {
-		List<User> getUser;
-		List<UserDto> getUserDto;
+	public UserDto getUser(String email) throws SQLException {
+		User getUser;
+		UserDto getUserDto;
 		try {
 			getUser = userDao.findByEmail(email);
-			getUserDto = mapper.convertListUserToDto(getUser);
+			getUserDto = mapper.convertUserToDto(getUser);
 		} catch (ServiceException e) {
 			throw new ServiceException("Hibernate Error !: getUser" + e);
 		}
@@ -138,21 +140,20 @@ public class UserService {
 	}
 
 
-	public UserDto authUser(String email, String pass) throws SQLException{
+	public UserDto authUser() throws SQLException{
 		User user;
 		UserDto userDto;
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(authentication);
+		String email = authentication.getName();
 		try {
-			user = (User) userDao.findByEmail(email);
-			if(!user.getEmail().equals(pass)) {
-				throw new ServiceException("Erreur d'identification");
-			} else {
-				userDto = mapper.convertUserToDto(user);
-			}
+			user = userDao.findByEmail(email);
+			userDto = mapper.convertUserToDto(user);
+			
 			
 		} catch (ServiceException e) {
-			throw new ServiceException("Hibernate Error !: getUser" + e);
+			throw new ServiceException("Erreur d'authentification");
 		}
 		return userDto;
 	}
-	
 }

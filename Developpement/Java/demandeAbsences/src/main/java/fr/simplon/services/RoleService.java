@@ -33,7 +33,7 @@ public class RoleService {
 		return resultat;
 	}
 
-	public List<Role> getRoleByValue(int valeur) throws SQLException {
+	public List<Role> getRoleByValue(String valeur) throws SQLException {
 		List<Role> resultat;
 		try {
 			resultat = roleDao.findByValeur(valeur);

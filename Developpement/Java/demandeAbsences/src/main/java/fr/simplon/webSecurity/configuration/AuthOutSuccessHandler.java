@@ -8,11 +8,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+<<<<<<< HEAD
+=======
+import org.springframework.stereotype.Component;
+>>>>>>> master
 
 /**
  * Securité de l'application
  */
+<<<<<<< HEAD
 
+=======
+@Component
+>>>>>>> master
 public class AuthOutSuccessHandler implements LogoutSuccessHandler {
 
 	@Override

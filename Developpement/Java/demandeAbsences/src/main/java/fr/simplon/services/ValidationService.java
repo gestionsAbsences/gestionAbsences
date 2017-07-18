@@ -11,10 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.simplon.dao.AbsenceDao;
 import fr.simplon.dao.EmployeDao;
 import fr.simplon.dao.EquipeDao;
+import fr.simplon.dao.ServiceRhDao;
 import fr.simplon.dao.StatutDao;
 import fr.simplon.domain.Absence;
 import fr.simplon.domain.Employe;
 import fr.simplon.domain.Equipe;
+import fr.simplon.domain.ServiceRh;
 import fr.simplon.domain.dto.AbsenceDto;
 import fr.simplon.exception.ServiceException;
 import fr.simplon.services.utils.EmailService;
@@ -46,6 +48,9 @@ public class ValidationService {
 	private StatutDao statutDao;
 	
 	@Autowired
+	private ServiceRhDao rhDao;
+	
+	@Autowired
 	MapperDto mapper;
 
 	public List<AbsenceDto> listeValidation(String nomEquipe) throws SQLException{
@@ -59,7 +64,12 @@ public class ValidationService {
 		
 		for (Employe employe : employeByEquipe) {
 			absence=employe.getAbsence();
-			absenceEquipe.addAll(absence);
+			for (Absence abs : absence) {
+				if(abs.getStatut().getCode()==1) {
+					absenceEquipe.add(abs);
+				}
+			}
+			
 			
 		}
 		
@@ -69,7 +79,29 @@ public class ValidationService {
 		return absenceDto;
 	}
 	
-	public AbsenceDto updateValidation(String numDemande, String valide) throws Exception{
+	public List<AbsenceDto> listeValidationRh(String email) throws SQLException{
+		ServiceRh serviceRh = rhDao.findByEmail(email);
+		List<Employe> employeByRh;
+		
+		List<Absence> absence;
+		List<Absence> absenceRh = new ArrayList<>();
+		List<AbsenceDto> absenceDto;
+		employeByRh = employeDao.findByServiceRh(serviceRh);
+		
+		for (Employe employe : employeByRh) {
+			absence=employe.getAbsence();
+			for (Absence abs : absence) {
+				if (abs.getStatut().getCode()==2) {
+					absenceRh.add(abs);
+				}
+			}
+		}		
+		absenceDto = mapper.convertListeAbsenceToDto(absenceRh);
+		return absenceDto;
+	}
+	
+	
+	public AbsenceDto updateValidation(String numDemande, String commentaire, String valide) throws Exception{
 		int validation = Integer.parseInt(valide);
 		Absence absence = absenceDao.findByNumDemande(numDemande);
 		AbsenceDto absenceDto;
@@ -95,12 +127,11 @@ public class ValidationService {
 			emailService.sendEmail(absence, absence.getEmploye().getEquipe().getResponsable().getUser().getEmail(),"Refus de votre congé par le service RH",7);
 			break;
 			
-		case 6 :
-			
 		default :
 			throw new ServiceException("Le statut n'existe pas");
 		}
 		
+		absence.setCommentaire(commentaire);
 		absenceDao.save(absence);
 		absenceDto = mapper.convertAbsToDto(absence);
 		

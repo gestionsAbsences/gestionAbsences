@@ -6,7 +6,7 @@ public class EmployeDto {
 	private String prenom;
 	private String matricule;
 	private String email;
-	private int role;
+	private String role;
 	private int nbCa;
 	private int nbRtt;
 	private int nbRc;
@@ -52,11 +52,11 @@ public class EmployeDto {
 		this.email = email;
 	}
 
-	public int getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(int role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 

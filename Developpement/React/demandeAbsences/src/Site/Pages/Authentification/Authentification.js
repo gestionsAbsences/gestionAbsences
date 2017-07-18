@@ -79,7 +79,11 @@ class Authentification extends Component {
              .then(function (response) {
                  axios.get("user/authUser")
                      .then(function (response) {
+<<<<<<< HEAD
                          if (response.data != null) {
+=======
+                         if (response.data !== null) {
+>>>>>>> master
                              self.props.getUser(true, response.data);
                          }
                      })

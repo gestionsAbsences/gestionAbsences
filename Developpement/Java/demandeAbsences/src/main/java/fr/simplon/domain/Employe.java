@@ -1,5 +1,6 @@
 package fr.simplon.domain;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -144,6 +145,7 @@ public class Employe {
 	}
 	
 	public List<Absence> getAbsence() {
+		Collections.reverse(absence);
 		return absence;
 	}
 

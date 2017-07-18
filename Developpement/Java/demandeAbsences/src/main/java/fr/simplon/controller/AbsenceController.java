@@ -62,6 +62,10 @@ public class AbsenceController {
 	 * ResponseEntity permet gérer la réponse envoyée au front
 	 * 
 	 */
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 	@GetMapping("/listeAbsence") //raccourci pour la méthode : @RequestMapping(value = "/listeAbsence", method = RequestMethod.GET
 	public ResponseEntity<?> findAll() {
 		List<AbsenceDto> absence;
@@ -114,6 +118,10 @@ public class AbsenceController {
 	 * 
 	 */
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 	@GetMapping("/getAbsenceByNum")
 	public ResponseEntity<?> findById(@RequestParam(value = "numDemande", defaultValue = "") String numDemande) {
 		AbsenceDto absenceDto;
@@ -138,6 +146,7 @@ public class AbsenceController {
 	 * La 2° ligne permet d'enregistrer les données dans le bean [AbsenceDto absenceDto] 
 	 * et de capter le résultat [BindingResult result]
 	 */
+
 	@PostMapping(value = "/creerAbsence")
 	public ResponseEntity<?> save(@RequestBody @Valid AbsenceDto absenceDto, BindingResult result) {
 		/*

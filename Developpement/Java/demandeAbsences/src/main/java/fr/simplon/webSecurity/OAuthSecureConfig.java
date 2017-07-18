@@ -16,11 +16,18 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+<<<<<<< HEAD
+=======
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+>>>>>>> master
 
 import fr.simplon.dao.UserDao;
 import fr.simplon.domain.Role;
 import fr.simplon.domain.User;
+<<<<<<< HEAD
 import fr.simplon.exception.ServiceException;
+=======
+>>>>>>> master
 import fr.simplon.webSecurity.utils.AuthConstantes;
 
 /**
@@ -46,13 +53,21 @@ public class OAuthSecureConfig extends GlobalAuthenticationConfigurerAdapter {
 			@Transactional
 			@Override
 			public UserDetails loadUserByUsername(String email){
+<<<<<<< HEAD
 				User user = (User) userDao.findByEmail(email);
+=======
+				User user = userDao.findByEmail(email);
+>>>>>>> master
 				
 				if (user != null) {
 					return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPasswd(),getAuthorities(user.getRole()));
 				} else {
 
+<<<<<<< HEAD
 					throw new ServiceException("Impossible de trouver le compte :" + email + ".");
+=======
+					throw new UsernameNotFoundException("Impossible de trouver le compte :" + email + ".");
+>>>>>>> master
 				}
 			}
 		};
@@ -65,3 +80,8 @@ public class OAuthSecureConfig extends GlobalAuthenticationConfigurerAdapter {
 			return authorities;
 		}
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> master

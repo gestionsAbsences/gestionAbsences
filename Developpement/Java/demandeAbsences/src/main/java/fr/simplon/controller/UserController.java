@@ -9,7 +9,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,8 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.web.bind.annotation.RestController;
 
 import fr.simplon.domain.User;
 import fr.simplon.domain.dto.UserDto;
@@ -40,10 +38,9 @@ import fr.simplon.services.UserService;
  * (get : lecture, post : création, put : mise à jour et delete: suppression
  * url àsaisir dans le navigateur : localhost:8080/emp/nomMethode
  */
-@Controller
-@RequestMapping("user")
-@CrossOrigin(origins="*")
-public class UserController {
+@RestController
+@RequestMapping("/user")
+ public class UserController {
 	
 	@Autowired
 	UserService userService;
@@ -85,7 +82,7 @@ public class UserController {
 	 */
 	@GetMapping("getUser")
 	public ResponseEntity<?> findByName(@RequestParam(value="email", defaultValue="") String email) {	
-		List<UserDto> user;
+		UserDto user;
 		try {
 			user = userService.getUser(email);
 		} catch (SQLException sqle) {
@@ -169,7 +166,7 @@ public class UserController {
 	 * La suppression se fait par le matricule
 	 * Le reste de l'action est dans la classe Service
 	 */
-	@DeleteMapping("deleteUser")
+	@DeleteMapping("/deleteUser")
 	public ResponseEntity<?> delete(@RequestBody User user) {	
 		try {
 			userService.deleteUser(user);
@@ -179,13 +176,11 @@ public class UserController {
 		return ResponseEntity.ok("Suppression effectuée");
 	}
 	
-	@GetMapping("authUser")
-	public ResponseEntity<?> authenticate(@RequestBody ObjectNode auth) {	
-		String email = auth.get("email").asText();
-		String pass = auth.get("pass").asText();
+	@GetMapping("/authUser")
+	public ResponseEntity<?> authenticate() {	
 		UserDto userDto;
 		try {
-			userDto = userService.authUser(email,pass);
+			userDto = userService.authUser();
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
