@@ -11,6 +11,14 @@
   display: none;
 }
 
+.popup {
+  position: fixed;
+  top: 40vh;
+  left: 42vw;
+  padding: 20px;
+  background-color: #F0F0F0 !important;
+}
+
 @media screen and (max-width: 1000px){
   .menudesktop{
     display: none; /* ici j'indique que en dessous 800px, je fais disparaitre mon menu bureau*/

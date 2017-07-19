@@ -11,13 +11,6 @@ import Pages from './Pages/Pages.js';
 let modeDev=true;
 let modeDemo=true;
 
-// userEmail="fred.couriol@laposte.fr";
-// userEmail="le19111967@gmail.com";
-// userEmail="jeanlefrancois.simplon@gmail.com";
-// userEmail="jean.lefrancois@laposte.net";
-// userEmail="mokhtar.khider@gmail.com";
-
-
 class Site extends Component {
 
       constructor() {
@@ -72,25 +65,46 @@ class Site extends Component {
         }
       }
 
-      getUser = (mecConnecte) => {
+      getUser = (userConnecte) => {
+        if (userConnecte===1 && this.state.utilisateurConnecte) {
+          this.setState({
+            utilisateurConnecte: true,
+            nom: '',
+            prenom: '',
+            matricule: '',
+            email: '',
+            role: 0,
+            nbCa: 0,
+            nbRtt: 0,
+            nbRc: 0,
+            nomRh: 0,
+            emailRh: 0,
+            nomEquipe: '',
+            nomResponsable: '',
+            prenomResponsable: '',
+            emailResponsable: '',
+            absences: []
+          })
+        } else {
             this.setState({
               utilisateurConnecte: true,
-              nom: mecConnecte.employeDto.nom,
-              prenom: mecConnecte.employeDto.prenom,
-              matricule: mecConnecte.employeDto.matricule,
-              email: mecConnecte.email,
-              role: mecConnecte.role,
-              nbCa: mecConnecte.employeDto.nbCa,
-              nbRtt: mecConnecte.employeDto.nbRtt,
-              nbRc: mecConnecte.employeDto.nbRc,
-              nomRh: mecConnecte.employeDto.nomRh,
-              emailRh: mecConnecte.employeDto.emailRh,
-              nomEquipe: mecConnecte.employeDto.nomEquipe,
-              nomResponsable: mecConnecte.employeDto.nomResponsable,
-              prenomResponsable: mecConnecte.employeDto.prenomResponsable,
-              emailResponsable: mecConnecte.employeDto.emailResponsable,
-              absences:  mecConnecte.absenceDto,
+              nom: userConnecte.employeDto.nom,
+              prenom: userConnecte.employeDto.prenom,
+              matricule: userConnecte.employeDto.matricule,
+              email: userConnecte.email,
+              role: userConnecte.role,
+              nbCa: userConnecte.employeDto.nbCa,
+              nbRtt: userConnecte.employeDto.nbRtt,
+              nbRc: userConnecte.employeDto.nbRc,
+              nomRh: userConnecte.employeDto.nomRh,
+              emailRh: userConnecte.employeDto.emailRh,
+              nomEquipe: userConnecte.employeDto.nomEquipe,
+              nomResponsable: userConnecte.employeDto.nomResponsable,
+              prenomResponsable: userConnecte.employeDto.prenomResponsable,
+              emailResponsable: userConnecte.employeDto.emailResponsable,
+              absences:  userConnecte.absenceDto
             })
+          }
       }
 
     render() {

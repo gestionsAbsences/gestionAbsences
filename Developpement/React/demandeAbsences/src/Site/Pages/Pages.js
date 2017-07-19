@@ -34,10 +34,6 @@ class Pages extends Component {
     this.props=props;
   }
 
-// propUserEmailFille = (valeur) => {
-//   this.props.transUserEmail(valeur);
-// }
-
 // ---------------------------------------------------------------------
 // Liste des fonctions associées au route ci-dessous
 // Il s'agit de "render" la page adéquate accompagnée des props mère
@@ -105,28 +101,13 @@ DeclareAbsence = () => {
 
 Deconnexion = () => {
   const self = this;
-  let noUser = {
-      utilisateurConnecte: false,
-      nom:"",
-      prenom:"",
-      matricule:"",
-      email:"",
-      role:0,
-      nbCa:0,
-      nbRtt:0,
-      nbRc:0,
-      nomRh:"",
-      emailRh:"",
-      nomEquipe:"",
-      nomResponsable:"",
-      prenomResponsable:"",
-      emailResponsable:"",
-      absences:[],
-  }
-  axios.get("/logout")
+  if (this.props.employe.utilisateurConnecte) {
+    axios.get("/logout")
       .then(function (res) {
-          self.props.getUser(noUser);
+          history.push("/authentification");
+          self.props.getUser(1);
       })
+  }
   return <Authentification employe={this.props.employe} getUser={this.props.getUser} popup={this.popup} retourAccueil={this.retourAccueil} />
 }
 
@@ -229,7 +210,7 @@ retourAccueil = () => {
                 <Route exact path="/apropos"               component={AvisRh} />
 */}
                 <Route exact path="/aide"                  render={this.Aide} />
-                <Route exact path="/apropos"               component={this.APropos} />
+                <Route exact path="/apropos"               render={this.APropos} />
                 <Route exact path="/deconnexion"           render={this.Deconnexion} />
                 <Route exact path="/modifmotdepasse"       render={this.ModifMotDePasse} />
                 <Route exact path="/avishierarchique"      render={this.AvisHierarchique} />

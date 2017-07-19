@@ -14,13 +14,17 @@ class Authentification extends Component {
         passwordSaisi: '',
         emailAuthentifie: '',
         passwordAuthentifie: '',
-
-        // titre: "Informations de connexion erronées",
-        // message: "Veuillez vérifier l'exactitude de vos informations de session.",
+        titre: "Problème d'authentification",
+        message: "Veuillez vérifier l'exactitude de vos informations de session.",
         isHidden: true,
-        // retour: false
       };
   }
+
+    trtOk = () => {
+      this.setState({
+        isHidden: true
+      });
+    }
 
   handleEmailChange = (event) => {
     this.setState({
@@ -57,8 +61,8 @@ class Authentification extends Component {
                   .then(function (res) {
                       if (res.data != null) {
                           self.props.getUser(res.data);
+                          self.props.retourAccueil();
                       }
-                      self.props.retourAccueil();
                   })
                   .catch(function (err) {
                       self.setState({
@@ -85,10 +89,10 @@ class Authentification extends Component {
             <form role="form" action="" onSubmit={this.handleSubmit}>
               <fieldset>
                 <div className="form-group">
-                  <input className="form-control" placeholder="Adresse mail" name="email" type="email" value={this.state.emailSaisi} autoFocus onChange={this.handleEmailChange}></input>
+                  <input className="form-control" placeholder="Adresse mail" name="email" type="email" disabled={!this.state.isHidden} value={this.state.emailSaisi} autoFocus onChange={this.handleEmailChange}></input>
                 </div>
                 <div className="form-group">
-                  <input className="form-control" placeholder="Mot de passe" name="password" type="password" value={this.state.passwordSaisi} onChange={this.handlePassChange}></input>
+                  <input className="form-control" placeholder="Mot de passe" name="password" type="password" disabled={!this.state.isHidden} value={this.state.passwordSaisi} onChange={this.handlePassChange}></input>
                 </div>
                 <input className="btn btn-primary btn-block" type="submit" value="Se connecter" onClick={this.login} />
               </fieldset>
@@ -96,17 +100,17 @@ class Authentification extends Component {
           </div>
         </div>
         <div className="VOffSetBasPages">&nbsp;</div>{/*13   Cosmétique Ajout d'une marge en dessous des boutons réglable via le css VOffSetBasPages */}   {/*13   fin */}
-{/*
-  <div>{this.props.popup(this.state.titre,this.state.message,this.state.isHidden,this.state.retour)}</div>
-*/}
-        <div className="authPopup panel panel-default" hidden={this.state.isHidden}>
+
+        <div className="popup panel panel-default" hidden={this.state.isHidden}>
           <div className="panel-heading">
-            <h3 className="panel-title">Problème d'authentification</h3>{/*'*/}
+            <h3 className="panel-title">{this.state.titre}</h3>
           </div>
           <div className="panel-body">
-                Accès refusé : Veuillez vérifier l'exactitude de vos informations de session.{/*'*/}
+                <p>{this.state.message}</p>
           </div>
+          <input className="btn btn-primary btn-block" type="button" value="Ok" onClick={this.trtOk} />
         </div>
+
       </div>
     );
   }

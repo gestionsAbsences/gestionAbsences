@@ -18,7 +18,7 @@ class DeclareAbsence extends Component {
     this.state={ // Définition des propriétés du State
       types: [],
       employes: [],
-      listEmp: [],
+      equipe: [],
       statut: '',
       nom: '',
       prenom: '',
@@ -220,28 +220,15 @@ class DeclareAbsence extends Component {
   selectNom = (i, employe) => {
     let res;
       if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable) {
-      // if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable && (employe.prenom===this.state.prenom || this.state.prenom===prenomDefaut)) {
         res=<option key={i}>{employe.nom}</option>
-
-    // } else {
-    //   if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable && employe.nom===filtre) {
-    //     res=<option key={i}>{employe.nom}</option>
-    //   }
     }
-    // if (i===1) {this.setState({prenom: employe.prenom});}
     return res;
   }
 
   selectPrenom = (i, employe) => {
     let res;
       if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable) {
-      // if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable && (employe.nom===this.state.nom || this.state.nom===nomDefaut)) {
         res=<option key={i} id={i}>{employe.prenom}</option>
-    //   if (i===1) {this.setState({nom: employe.nom});}
-    // } else {
-    //   if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable && employe.nom===filtre) {
-    //     res=<option key={i} id={i}>{employe.prenom}</option>
-    //   }
     }
     return res;
   }
@@ -332,7 +319,7 @@ class DeclareAbsence extends Component {
               type: this.state.type,
               statut: this.state.statut,
               matricule: this.props.employe.matricule,
-              commentaire: this.props.employe.commentaire
+              // commentaire: this.props.employe.commentaire
             },
       headers: {
         'Access-Control-Allow-Origin': '*',
@@ -350,12 +337,6 @@ class DeclareAbsence extends Component {
           message: "Votre demande a bien été prise en compte !",
           isHidden: false
         });
-        // alert(this.state.message);
-        // if (this.props.employe.modeDev) {
-        //   console.log("Requête satisfaite : ");
-        //   console.log(res);
-        //   console.log("");
-        // }
       })
 
       // Traitement des erreurs en mode de Dev.
@@ -407,17 +388,7 @@ class DeclareAbsence extends Component {
               message: "Votre demande a bien été prise en compte !",
               isHidden: false
             });
-            // alert(this.state.message);
           }
-          //   console.log("La requête n'a pu être transmise et déclenche une erreur : ");
-          //   console.log('Error', error.message);
-          //   console.log("");
-          //   this.setState({message: "Une erreur empêche la prise en compte de votre demande !"});alert(this.state.message);
-          // }
-          // console.log("Error.config : ");
-          // console.log(error.config);
-          // console.log("");
-          // this.setState({message: "Une erreur empêche la prise en compte de votre demande !"});alert(this.state.message);
       });
     }
 
@@ -519,7 +490,7 @@ class DeclareAbsence extends Component {
         </div>   {/*2   fin */}
         <div className="VOffSetBasPages">&nbsp;</div>   {/*13   Cosmétique Ajout d'une marge en dessous des boutons réglable via le css VOffSetBasPages */}   {/*13   fin */}
 
-        <div className="ndpopup panel panel-default" hidden={this.state.isHidden}>
+        <div className="popup panel panel-default" hidden={this.state.isHidden}>
           <div className="panel-heading">
             <h3 className="panel-title">{this.state.titre}</h3>
           </div>

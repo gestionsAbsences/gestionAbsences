@@ -168,12 +168,6 @@ class NouvelleDemande extends Component {
           message: "Votre demande a bien été prise en compte !",
           isHidden: false
         });
-        // alert(this.state.message);
-        // if (this.props.employe.modeDev) {
-        //   console.log("Requête satisfaite : ");
-        //   console.log(res);
-        //   console.log("");
-        // }
       })
 
       // Traitement des erreurs en mode de Dev.
@@ -186,21 +180,21 @@ class NouvelleDemande extends Component {
             }
             this.setState({
               titre: "Création d'une demande",
-              message: "Une erreur empêche la prise en compte de votre demande !",
+              message: "Vous avez arrêté la requête en cours !",
               isHidden: false
             });
             // alert(this.state.message);
           } else if (error.response) {
             if (this.props.employe.modeDev) {
               console.log("La requête est transmise mais retourne une erreur <200 ou >=300 :");
-              console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);
+              console.log(error.response.data.message);
+              console.log(error.response.status.message);
+              console.log(error.response.headers.message);
               console.log("");
             }
             this.setState({
               titre: "Création d'une demande",
-              message: "Une erreur empêche la prise en compte de votre demande !",
+              message: "La requête transmise est incorrecte, vérifiez votre saisie !",
               isHidden: false
             });
             // alert(this.state.message);
@@ -212,7 +206,7 @@ class NouvelleDemande extends Component {
             }
             this.setState({
               titre: "Création d'une demande",
-              message: "Une erreur empêche la prise en compte de votre demande !",
+              message: "Une erreur du système empêche la prise en compte de votre demande !",
               isHidden: false
             });
             // alert(this.state.message);
@@ -240,15 +234,14 @@ class NouvelleDemande extends Component {
     }
 
     annuler = () => {
-      if (this.state.type===absencePlaceholder && this.state.debut==="" && this.state.fin==="") {
-        this.props.retourAccueil();
-      }
-
       this.setState({
         type: absencePlaceholder,
         debut: "",
         fin: ""
       });
+      if (this.state.type===absencePlaceholder && this.state.debut==="" && this.state.fin==="") {
+        this.props.retourAccueil();
+      }
     }
 
     trtOk = () => {
@@ -324,7 +317,7 @@ class NouvelleDemande extends Component {
                 <div className="form-group">{/*7   Un des champs select du Formulaire */}
                   <label>Type d'absence</label>{/*'*/}{/* Factice Pour rectifier bug d'affichage sur Atom */}
 
-                  <select className="form-control" value={this.state.type} selected={this.selectedId} onChange={this.handleTypeChange}>
+                  <select className="form-control" value={this.state.type} selected={this.selectedId} disabled={!this.state.isHidden} onChange={this.handleTypeChange}>
                     <option disabled>{absencePlaceholder}</option>
                     {this.state.types.map(
                       (type, i) =>
@@ -334,11 +327,11 @@ class NouvelleDemande extends Component {
                 </div>   {/*7   fin */}
                 <div className="form-group">   {/*9   Un des champ de saisie de type texte */}
                   <label>Date de début</label>
-                    <input type="date" className="form-control" placeholder="Début" value={this.state.debut} onChange={this.handleDebutChange} />
+                    <input type="date" className="form-control" placeholder="Début" value={this.state.debut} disabled={!this.state.isHidden} onChange={this.handleDebutChange} />
                   </div>   {/*9   fin */}
                 <div className="form-group">
                   <label>Date de fin</label>
-                    <input type="date" className="form-control" placeholder="Fin" value={this.state.fin} onChange={this.handleFinChange} />
+                    <input type="date" className="form-control" placeholder="Fin" value={this.state.fin} disabled={!this.state.isHidden} onChange={this.handleFinChange} />
                 </div>
               </div>   {/*6   fin */}
               <div className="col-md-4 col-md-offset-2">   {/*8   Block formulaire Partie droite */}
@@ -364,11 +357,11 @@ class NouvelleDemande extends Component {
               <div className="VOffSetBasPages">&nbsp;</div>   {/*12   Cosmétique d'unee marge au dessus des boutons */}{/*12   fin */}
               <div className="col-md-2 col-md-offset-4 btn-bottom-marge">
                 {/* <input className="btn btn-primary btn-block" type="submit" value="Soumettre" onClick={this.soumettre} /> */}
-                <input className="btn btn-primary btn-block" type="submit" value="Soumettre" />
+                <input className="btn btn-primary btn-block" type="submit" value="Soumettre" disabled={!this.state.isHidden} />
                 {/* <button type="submit" className="btn btn-primary btn-block">Soumettre</button> */}
               </div>
               <div className="col-md-2">
-              <input className="btn btn-primary btn-block btn-bottom-marge" type="reset" value="Annuler" onClick={this.annuler} />
+              <input className="btn btn-primary btn-block btn-bottom-marge" type="reset" value="Annuler" disabled={!this.state.isHidden} onClick={this.annuler} />
               </div>
             </div>   {/*11   fin */}
           </div>   {/*4   fin */}
@@ -376,7 +369,7 @@ class NouvelleDemande extends Component {
         </div>   {/*2   fin */}
         <div className="VOffSetBasPages">&nbsp;</div>   {/*13   Cosmétique Ajout d'une marge en dessous des boutons réglable via le css VOffSetBasPages */}   {/*13   fin */}
 
-        <div className="ndpopup panel panel-default" hidden={this.state.isHidden}>
+        <div className="popup panel panel-default" hidden={this.state.isHidden}>
           <div className="panel-heading">
             <h3 className="panel-title">{this.state.titre}</h3>
           </div>
