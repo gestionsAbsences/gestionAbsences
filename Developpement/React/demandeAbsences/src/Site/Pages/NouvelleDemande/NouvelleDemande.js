@@ -161,11 +161,11 @@ class NouvelleDemande extends Component {
 
         // Incorpore les données dans le State
         this.setState({
-          titre: "Création d'une demande",
-          message: "Votre demande a bien été prise en compte !",
           type: absencePlaceholder,
           debut: "",
           fin: "",
+          titre: "Création d'une demande",
+          message: "Votre demande a bien été prise en compte !",
           isHidden: false
         });
         // alert(this.state.message);
@@ -218,11 +218,11 @@ class NouvelleDemande extends Component {
             // alert(this.state.message);
           } else {
             this.setState({
-              titre: "Création d'une demande",
-              message: "Votre demande a bien été prise en compte !",
               type: absencePlaceholder,
               debut: "",
               fin: "",
+              titre: "Création d'une demande",
+              message: "Votre demande a bien été prise en compte !",
               isHidden: false
             });
             // alert(this.state.message);
