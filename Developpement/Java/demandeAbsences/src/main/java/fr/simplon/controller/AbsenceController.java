@@ -43,11 +43,11 @@ import fr.simplon.services.AbsenceService;
 
 @RestController // Indique qu'il s'agit d'un service REST
 @RequestMapping("absence") // indique que toutes les uri contenant "absence" seront traitées ce controleur
-@CrossOrigin(origins="*") 
+@CrossOrigin(origins="*") // dire à java qu'il peut envoyer sur le port 3000
 public class AbsenceController {
 
 	@Autowired //Injection de la couche service pour le traitement des absences
-	AbsenceService absenceService;
+	AbsenceService absenceService; // injecte la classe absence service dans la classe controlleurS
 
 	/**
 	 * Liste des absences
@@ -62,10 +62,10 @@ public class AbsenceController {
 	 */
 
 	@GetMapping("/listeAbsence") //raccourci pour la méthode : @RequestMapping(value = "/listeAbsence", method = RequestMethod.GET
-	public ResponseEntity<?> findAll() {
-		List<AbsenceDto> absence;
+	public ResponseEntity<?> findAll() { // retourne une réponse au front
+		List<AbsenceDto> absence; // permet de transférer au front les éléments souhaités de la classe absences
 		try {
-			absence =absenceService.listeServicesAbsence();
+			absence =absenceService.listeServicesAbsence();// essaye de retourner la liste des services  si erreur , il renvoi l'erreur
 		} catch (SQLException sqle) {
 			return ResponseEntity.badRequest().body(sqle);
 		}
@@ -87,7 +87,7 @@ public class AbsenceController {
 	 * 
 	 */
 
-	@GetMapping("/getAbsenceById")
+	@GetMapping("/getAbsenceById") // requête  get avec le paramètre obligatoire id
 	public ResponseEntity<?> findById(@RequestParam(value = "id", defaultValue = "") Long id) {
 		List<AbsenceDto> absence;
 		try {
@@ -140,18 +140,19 @@ public class AbsenceController {
 	 */
 
 	@PostMapping(value = "/creerAbsence")
-	public ResponseEntity<?> save(@RequestBody @Valid AbsenceDto absenceDto, BindingResult result) {
-		/*
+	public ResponseEntity<?> save(@RequestBody @Valid AbsenceDto absenceDto, BindingResult result) {//masquer les paramètres pour les avoir dans corps requête
+		/*@valid permet de retourner une erreur si les données ne sont conformes à la classe(absence DTO)
+		 *Binding result envoie les résultats dans un objet result
 		 * On capture les éventuelles erreurs dans une map sous forme : key,
 		 * value et formatée pour l'affichage
 		 * 
 		 */
 		try {
-			Map<String, Object> map = new HashMap<String, Object>();
+			Map<String, Object> map = new HashMap<String, Object>();// construire une HashMap sous forme clé valeur
 			if (result.hasErrors()) {
-				for (FieldError error : result.getFieldErrors()) {
+				for (FieldError error : result.getFieldErrors()) { //pour chaque erreur qui fait partie de la propriété result getFieldErrors
 					map.put(error.getField(), String.format("%s", error.getDefaultMessage()));
-					return ResponseEntity.badRequest().body(map);
+					return ResponseEntity.badRequest().body(map); //responseEntity renvoi au front les erreurs.
 				}
 			} else {
 				absenceDto = absenceService.insertAbsence(absenceDto);

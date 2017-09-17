@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import './declareabsence.css';
 
+let absencePlaceholder="Choisir type d'absence";
+
 let typeDefaut="Choisir type d'absence";
 let nomDefaut="Choisir nom de l'employé";
 let prenomDefaut="Choisir prénom de l'employé";
@@ -16,7 +18,7 @@ class DeclareAbsence extends Component {
     this.state={ // Définition des propriétés du State
       types: [],
       employes: [],
-      listEmp: [],
+      equipe: [],
       statut: '',
       nom: '',
       prenom: '',
@@ -27,6 +29,9 @@ class DeclareAbsence extends Component {
       debut: '',
       fin: '',
       commentaire: '',
+      titre: '',
+      message: '',
+      isHidden: true,
       selectedId: 0
     };
 
@@ -196,6 +201,14 @@ class DeclareAbsence extends Component {
 
   }
 
+  trtOk = () => {
+    this.setState({
+      titre: "",
+      message: "",
+      isHidden: true
+    });
+  }
+
   listeType = (indice, type) => {
     let res;
     if (indice===3 || indice===4 || indice===5) {
@@ -207,54 +220,72 @@ class DeclareAbsence extends Component {
   selectNom = (i, employe) => {
     let res;
       if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable) {
-      // if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable && (employe.prenom===this.state.prenom || this.state.prenom===prenomDefaut)) {
         res=<option key={i}>{employe.nom}</option>
-
-    // } else {
-    //   if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable && employe.nom===filtre) {
-    //     res=<option key={i}>{employe.nom}</option>
-    //   }
     }
-    // if (i===1) {this.setState({prenom: employe.prenom});}
     return res;
   }
 
   selectPrenom = (i, employe) => {
     let res;
       if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable) {
-      // if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable && (employe.nom===this.state.nom || this.state.nom===nomDefaut)) {
         res=<option key={i} id={i}>{employe.prenom}</option>
-    //   if (i===1) {this.setState({nom: employe.nom});}
-    // } else {
-    //   if (this.props.employe.nom===employe.nomResponsable && this.props.employe.prenom===employe.prenomResponsable && employe.nom===filtre) {
-    //     res=<option key={i} id={i}>{employe.prenom}</option>
-    //   }
     }
     return res;
   }
 
   handleNomChange = (event) => {
-    this.setState({nom: event.target.value});
+    this.setState({
+      nom: event.target.value,
+      titre: "",
+      message: "",
+      isHidden: true
+    });
   }
 
   handlePrenomChange = (event) => {
-    this.setState({prenom: event.target.value});
+    this.setState({
+      prenom: event.target.value,
+      titre: "",
+      message: "",
+      isHidden: true
+    });
   }
 
   handleTypeChange = (event) => {
-    this.setState({type: event.target.value});
+    this.setState({
+      type: event.target.value,
+      titre: "",
+      message: "",
+      isHidden: true
+    });
   }
 
   handleDebutChange = (event) => {
-    this.setState({debut: event.target.value});
+    this.setState({
+      debut: event.target.value,
+      titre: "",
+      message: "",
+      isHidden: true
+    });
   }
 
   handleFinChange = (event) => {
-    this.setState({fin: event.target.value});
+    this.setState({
+      fin: event.target.value,
+      titre: "",
+      message: "",
+      isHidden: true
+    });
   }
 
   handleCommentaireChange = (event) => {
-    this.setState({commentaire: event.target.value});
+    this.setState({
+      commentaire: event.target.value,
+      debut: event.target.value,
+      titre: "",
+      message: "",
+      isHidden: true
+    });
   }
 
   handleSubmit(event) {
@@ -276,34 +307,111 @@ class DeclareAbsence extends Component {
   }
 
   creerAbsence() {
-    axios
-      .post('/absence/creerAbsence/',
-          {
-            debut: this.state.debut,
-            fin: this.state.fin,
-            type: this.state.type,
-            statut: this.state.statut,
-            matricule: this.props.employe.matricule
-          })
-      .then(res => {
+    // let mess="type : "+this.state.type+"<br />Début : "+this.state.debut+"<br />"+"Fin : "+this.state.fin;
+
+    //Requête HTTP destinée au Back
+    axios({
+      method: 'post',
+      url: '/absence/creerAbsence/',
+      data: {
+              debut: this.state.debut,
+              fin: this.state.fin,
+              type: this.state.type,
+              statut: this.state.statut,
+              matricule: this.props.employe.matricule,
+              commentaire: this.props.employe.commentaire
+            },
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        }
       })
+      .then(res => {
+
+        // Incorpore les données dans le State
+        this.setState({
+          type: absencePlaceholder,
+          debut: "",
+          fin: "",
+          titre: "Création d'une demande",
+          message: "Votre demande a bien été prise en compte !",
+          isHidden: false
+        });
+      })
+
+      // Traitement des erreurs en mode de Dev.
       .catch((error) => {
-          console.log("Axios : Problème d'accès à la ressource /absence/creerAbsence/.");
-          console.log(this.state.debut,this.state.fin,this.state.type,this.state.statut,this.props.employe.matricule);
+          if (axios.isCancel(error)) {
+            if (this.props.employe.modeDev) {
+              console.log("La requête a été annulée :");
+              console.log('Request canceled', error.message);
+              console.log("");
+            }
+            this.setState({
+              titre: "Création d'une demande",
+              message: "Une erreur empêche la prise en compte de votre demande !",
+              isHidden: false
+            });
+            // alert(this.state.message);
+          } else if (error.response) {
+            if (this.props.employe.modeDev) {
+              console.log("La requête est transmise mais retourne une erreur <200 ou >=300 :");
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+              console.log("");
+            }
+            this.setState({
+              titre: "Création d'une demande",
+              message: "Une erreur empêche la prise en compte de votre demande !",
+              isHidden: false
+            });
+            // alert(this.state.message);
+          } else if (error.request) {
+            if (this.props.employe.modeDev) {
+              console.log("La requête est transmise mais ne retourne pas de réponse : ");
+              console.log(error.request);
+              console.log("");
+            }
+            this.setState({
+              titre: "Création d'une demande",
+              message: "Une erreur empêche la prise en compte de votre demande !",
+              isHidden: false
+            });
+            // alert(this.state.message);
+          } else {
+            this.setState({
+              type: absencePlaceholder,
+              debut: "",
+              fin: "",
+              titre: "Création d'une demande",
+              message: "Votre demande a bien été prise en compte !",
+              isHidden: false
+            });
+          }
       });
-  }
+    }
 
-  annuler = () => {
-    if (this.state.type===typeDefaut && this.state.debut==="" && this.state.fin==="") {
-      return;
-    };
+    annuler = () => {
+      this.setState({
+        nom: "",
+        prenom: "",
+        type: absencePlaceholder,
+        debut: "",
+        fin: ""
+      });
+      if (this.state.type===absencePlaceholder && this.state.debut==="" && this.state.fin==="") {
+        this.props.retourAccueil();
+      }
+    }
 
-    this.setState({
-      type: typeDefaut,
-      debut: "",
-      fin: ""
-    });
-  }
+    trtOk = () => {
+      this.setState({
+        titre: "",
+        message: "",
+        isHidden: true
+      });
+    }
 
   render() {
     return (
@@ -390,6 +498,17 @@ class DeclareAbsence extends Component {
           <div className="VOffSetBasPages">&nbsp;</div>   {/*13   Cosmétique Ajout d'une marge en dessous des boutons réglable via le css VOffSetBasPages */}   {/*13   fin */}
         </div>   {/*2   fin */}
         <div className="VOffSetBasPages">&nbsp;</div>   {/*13   Cosmétique Ajout d'une marge en dessous des boutons réglable via le css VOffSetBasPages */}   {/*13   fin */}
+
+        <div className="popup panel panel-default" hidden={this.state.isHidden}>
+          <div className="panel-heading">
+            <h3 className="panel-title">{this.state.titre}</h3>
+          </div>
+          <div className="panel-body">
+                <p>{this.state.message}</p>
+          </div>
+          <input className="btn btn-primary btn-block" type="button" value="Ok" onClick={this.trtOk} />
+        </div>
+
       </form>
     );
   }

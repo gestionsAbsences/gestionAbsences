@@ -14,11 +14,11 @@
                 <span>${debutConge}</span> au
                 <span>${finConge}</span>.
             </p>
-            <p>
-                En qualité de responsable, merci de bien vouloir étudier la demande référencée sous le N°
-                <span>${numDemande}</span> et d'y apporter votre validation ou votre refus en vous connectant à l'application<br>
-            </p>
-            <p>
+			<p>
+               En qualité de responsable, merci de bien vouloir étudier la demande référencée sous le N°
+               <span>${numDemande}</span> et d'y apporter votre validation ou votre refus en cliquant sur le <a href="localhost:3000/AvisHierarchique?numDemande=${numDemande}>lien</a><br>
+			</p>
+			<p>
                 Nous attirons votre vigilance sur l'importance et votre engagement concernant votre validation ou votre refus.
             </p>
             <p>
